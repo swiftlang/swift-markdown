@@ -1,0 +1,41 @@
+
+                            The Swift Markdown Project
+                            ==========================
+
+Please visit the Swift Markdown web site for more information:
+
+  * https://github.com/apple/swift-markdown
+
+Copyright (c) 2021 Apple Inc. and the Swift project authors
+
+The Swift Project licenses this file to you under the Apache License,
+version 2.0 (the "License"); you may not use this file except in compliance
+with the License. You may obtain a copy of the License at:
+
+  https://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+License for the specific language governing permissions and limitations
+under the License.
+
+-------------------------------------------------------------------------------
+
+This product contains Swift Argument Parser.
+
+  * LICENSE (Apache License 2.0):
+    * https://www.apache.org/licenses/LICENSE-2.0
+  * HOMEPAGE:
+    * https://github.com/apple/swift-argument-parser
+
+---
+
+This product contains a derivation of the cmark-gfm project, available at
+https://github.com/apple/swift-cmark.
+
+  * LICENSE (BSD-2):
+    * https://opensource.org/licenses/BSD-2-Clause
+  * HOMEPAGE:
+    * https://github.com/github/cmark-gfm
+
