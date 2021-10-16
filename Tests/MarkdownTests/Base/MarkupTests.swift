@@ -272,7 +272,7 @@ final class MarkupTests: XCTestCase {
                 (0, Paragraph.self),
                 (1, Link.self),
                 (0, Emphasis.self),
-                (0, Text.self)
+                (0, Text.self),
             ])!.debugDescription(),
             document.child(through:
                 0, // Paragraph
