@@ -52,6 +52,10 @@ public struct TypedChildIndexPath: RandomAccessCollection, ExpressibleByArrayLit
     public var startIndex: Int {
         return elements.startIndex
     }
+    
+    public var RunIndex: Int {
+        return elements.runIndex
+    }
 
     public var endIndex: Int {
         return elements.endIndex
