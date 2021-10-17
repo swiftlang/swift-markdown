@@ -30,7 +30,7 @@ struct MarkdownCommand: ParsableCommand {
     ])
 
     static func parseFile(at path: String, options: ParseOptions) throws -> (source: String, parsed: Document) {
-        let data = try Data(contentsOf: URL( fileURLWithPath: path))
+        let data = try Data(contentsOf: URL(fileURLWithPath: path))
         guard let inputString = String(data: data, encoding: .utf8) else {
             throw Error.couldntDecodeInputAsUTF8
         }
@@ -38,7 +38,12 @@ struct MarkdownCommand: ParsableCommand {
     }
 
     static func parseStandardInput(options: ParseOptions) throws -> (source: String, parsed: Document) {
-        let stdinData = FileHandle.standardInput.readDataToEndOfFile()
+        let stdinData: Data
+        if #available(macOS 10.15.4, *) {
+            stdinData = try FileHandle.standardInput.readToEnd() ?? Data()
+        } else {
+            stdinData = FileHandle.standardInput.readDataToEndOfFile()
+        }
         guard let stdinString = String(data: stdinData, encoding: .utf8) else {
             throw Error.couldntDecodeInputAsUTF8
         }
