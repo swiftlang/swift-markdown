@@ -36,7 +36,7 @@ class ImageTests: XCTestCase {
             let document = Document(parsing: source)
             let image = document.child(through:[
                 (0, Paragraph.self),
-                (0, Image.self)
+                (0, Image.self),
             ]) as! Image
             XCTAssertEqual(title, image.title)
         }
