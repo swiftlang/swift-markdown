@@ -1,5 +1,6 @@
 # Swift Markdown
 
+
 Swift `Markdown` is a Swift package for parsing, building, editing, and analyzing Markdown documents.
 
 The parser is powered by GitHub-flavored Markdown's [cmark-gfm](https://github.com/github/cmark-gfm) implementation, so it follows the spec closely. As the needs of the community change, the effective dialect implemented by this library may change.
