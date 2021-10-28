@@ -72,10 +72,11 @@ final class MarkupTests: XCTestCase {
         }
 
         let text = document.child(through: [
-            0, // Paragraph
-            0, // Strong
-            0, // Emphasis
-            0]) as! Text
+          0, // Paragraph
+          0, // Strong
+          0, // Emphasis
+          0,
+        ]) as! Text
         var newText = text
         newText.string = "New"
 
@@ -272,7 +273,7 @@ final class MarkupTests: XCTestCase {
                 (0, Paragraph.self),
                 (1, Link.self),
                 (0, Emphasis.self),
-                (0, Text.self)
+                (0, Text.self),
             ])!.debugDescription(),
             document.child(through:
                 0, // Paragraph
