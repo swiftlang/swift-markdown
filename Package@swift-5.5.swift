@@ -41,7 +41,7 @@ let package = Package(
         .testTarget(
             name: "MarkdownTests",
             dependencies: ["Markdown"],
-            exclude: ["Visitors/Everything.md"]),
+            resources: [.process("Visitors/Everything.md")]),
         .target(name: "CAtomic"),
     ]
 )
