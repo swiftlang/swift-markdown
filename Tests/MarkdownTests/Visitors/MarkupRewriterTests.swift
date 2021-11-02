@@ -12,45 +12,7 @@ import XCTest
 @testable import Markdown
 
 /// A `Document` that has every kind of element in it at least once.
-let everythingDocument = Document(parsing: """
-        # Header
-
-        *Emphasized* **strong** `inline code` [link](foo) ![image](foo).
-
-        - this
-        - is
-        - a
-        - list
-
-        1. eggs
-        1. milk
-
-        > BlockQuote 
-
-        ```swift
-        func foo() {
-            let x = 1
-        }
-        ```
-
-            // Is this real code? Or just fantasy?
-
-        This is an <topic://autolink>.
-
-        ---
-
-        <a href="foo.png">
-        An HTML Block.
-        </a>
-
-        This is some <p>inline html</p>.
-
-        line  
-        break
-
-        soft
-        break
-        """)
+let everythingDocument = Document(parsing: try! String(contentsOf: Bundle.module.url(forResource: "Everything", withExtension: "md")!))
 
 
 class MarkupRewriterTests: XCTestCase {
