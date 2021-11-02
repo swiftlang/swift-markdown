@@ -126,16 +126,11 @@ extension MarkdownCommand {
         /// Search for the an executable with a given base name.
         func findExecutable(named name: String) throws -> String? {
             let which = Process()
+            which.launchPath = "/usr/bin/which"
             which.arguments = [name]
             let standardOutput = Pipe()
             which.standardOutput = standardOutput
-            if #available(macOS 10.13, *) {
-                which.executableURL = URL(fileURLWithPath: "/usr/bin/which")
-                try which.run()
-            } else {
-                which.launchPath = "/usr/bin/which"
-                which.launch()
-            }
+            which.launch()
             which.waitUntilExit()
 
             guard which.terminationStatus == 0,
