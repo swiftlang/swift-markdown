@@ -1,4 +1,4 @@
-// swift-tools-version:5.3
+// swift-tools-version:4.2
 /*
  This source file is part of the Swift.org open source project
 
@@ -25,21 +25,13 @@ let package = Package(
     targets: [
         .target(
             name: "Markdown",
-            dependencies: [
-                "CAtomic",
-                .product(name: "cmark-gfm", package: "swift-cmark"),
-                .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
-            ]),
+            dependencies: ["cmark-gfm", "cmark-gfm-extensions", "CAtomic"]),
         .target(
             name: "markdown-tool",
-            dependencies: [
-                "Markdown",
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
-            ]),
+            dependencies: ["Markdown", .product(name: "ArgumentParser", package: "swift-argument-parser")]),
         .testTarget(
             name: "MarkdownTests",
-            dependencies: ["Markdown"],
-            resources: [.process("Visitors/Everything.md")]),
+            dependencies: ["Markdown"]),
         .target(name: "CAtomic"),
     ]
 )
