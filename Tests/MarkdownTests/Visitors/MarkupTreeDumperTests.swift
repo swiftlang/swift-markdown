@@ -14,7 +14,7 @@ import XCTest
 final class MarkupTreeDumperTests: XCTestCase {
     func testDumpEverything() {
         let expectedDump = """
-        Document @1:1-39:90 Root #\(everythingDocument.raw.metadata.id.rootId) #0
+        Document @1:1-37:6 Root #\(everythingDocument.raw.metadata.id.rootId) #0
         ├─ Heading @1:1-1:9 #1 level: 1
         │  └─ Text @1:3-1:9 #2 "Header"
         ├─ Paragraph @3:1-3:65 #3
@@ -52,8 +52,8 @@ final class MarkupTreeDumperTests: XCTestCase {
         │  └─ ListItem @11:1-12:1 #35
         │     └─ Paragraph @11:4-11:8 #36
         │        └─ Text @11:4-11:8 #37 "milk"
-        ├─ BlockQuote @13:1-13:13 #38
-        │  └─ Paragraph @13:3-13:13 #39
+        ├─ BlockQuote @13:1-13:14 #38
+        │  └─ Paragraph @13:3-13:14 #39
         │     └─ Text @13:3-13:13 #40 "BlockQuote"
         ├─ CodeBlock @15:1-19:4 #41 language: swift
         │  func foo() {
@@ -81,12 +81,10 @@ final class MarkupTreeDumperTests: XCTestCase {
         │  ├─ Text @33:1-33:7 #57 "line"
         │  ├─ LineBreak #58
         │  └─ Text @34:1-34:6 #59 "break"
-        ├─ Paragraph @36:1-37:6 #60
-        │  ├─ Text @36:1-36:5 #61 "soft"
-        │  ├─ SoftBreak #62
-        │  └─ Text @37:1-37:6 #63 "break"
-        └─ HTMLBlock @39:1-39:90 #64
-           <!-- Copyright (c) 2021 Apple Inc and the Swift Project authors. All Rights Reserved. -->
+        └─ Paragraph @36:1-37:6 #60
+           ├─ Text @36:1-36:5 #61 "soft"
+           ├─ SoftBreak #62
+           └─ Text @37:1-37:6 #63 "break"
         """
         print(everythingDocument.debugDescription(options: [.printEverything]))
         XCTAssertEqual(expectedDump, everythingDocument.debugDescription(options: [.printEverything]))
