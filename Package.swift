@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.3
 /*
  This source file is part of the Swift.org open source project
 
@@ -38,7 +38,8 @@ let package = Package(
             ]),
         .testTarget(
             name: "MarkdownTests",
-            dependencies: ["Markdown"]),
+            dependencies: ["Markdown"],
+            resources: [.process("Visitors/Everything.md")]),
         .target(name: "CAtomic"),
     ]
 )
