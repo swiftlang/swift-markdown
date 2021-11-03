@@ -13,15 +13,19 @@
 > BlockQuote
 
 ```swift
-func foo() { let x = 1 }
+func foo() {
+    let x = 1
+}
 ```
+
+    // Is this real code? Or just fantasy?
 
 This is an <topic://autolink>.
 
 ---
 
 <a href="foo.png">
-  An HTML Block.
+An HTML Block.
 </a>
 
 This is some <p>inline html</p>.
