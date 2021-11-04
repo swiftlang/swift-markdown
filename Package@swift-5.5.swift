@@ -14,6 +14,8 @@
 import PackageDescription
 import class Foundation.ProcessInfo
 
+let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil ? "swift-cmark" : "swift-cmark-gfm"
+
 let package = Package(
     name: "swift-markdown",
     products: [
@@ -29,8 +31,8 @@ let package = Package(
             name: "Markdown",
             dependencies: [
                 "CAtomic",
-                .product(name: "cmark-gfm", package: "swift-cmark"),
-                .product(name: "cmark-gfm-extensions", package: "swift-cmark"),
+                .product(name: "cmark-gfm", package: cmarkPackageName),
+                .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
             ]),
         .executableTarget(
             name: "markdown-tool",
