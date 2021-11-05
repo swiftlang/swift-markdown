@@ -170,7 +170,7 @@ Swift Markdown includes a syntax extension for attributed block elements. See [B
 ### Submitting a Bug Report
 
 Swift Markdown tracks all bug reports with [Swift JIRA](https://bugs.swift.org/).
-You can use the "SwiftMarkdown" component for issues and feature requests specific to Swift Markdown.
+You can use the "Swift-Markdown" component for issues and feature requests specific to Swift Markdown.
 When you submit a bug report we ask that you follow the
 Swift [Bug Reporting](https://swift.org/contributing/#reporting-bugs) guidelines
 and provide as many details as possible.
