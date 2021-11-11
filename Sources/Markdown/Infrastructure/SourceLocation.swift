@@ -91,13 +91,12 @@ extension SourceRange {
 
     /// A textual description for use in diagnostics.
     public func diagnosticDescription(includePath: Bool = true) -> String {
-        let path = lowerBound.source.map {
-            $0.path.isEmpty
-                ? ""
-                : "\($0.path):"
-        } ?? ""
-
-        var result =  "\(path)\(lowerBound)"
+        let path = includePath ? lowerBound.source?.path ?? "" : ""
+        var result = ""
+        if !path.isEmpty {
+            result += "\(path):"
+        }
+        result += "\(lowerBound)"
         if lowerBound != upperBound {
             result += "-\(upperBound)"
         }
