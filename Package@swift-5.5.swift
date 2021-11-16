@@ -22,9 +22,6 @@ let package = Package(
         .library(
             name: "Markdown",
             targets: ["Markdown"]),
-        .executable(
-            name: "markdown-tool",
-            targets: ["markdown-tool"]),
     ],
     targets: [
         .target(
