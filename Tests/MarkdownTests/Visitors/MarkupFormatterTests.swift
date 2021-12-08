@@ -144,6 +144,32 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         }
     }
 
+    func testPrintOrderedListCustomStart() {
+        do { // no checkbox
+            let expected = "2. A list item."
+            var renderedList = OrderedList(ListItem(Paragraph(Text("A list item."))))
+            renderedList.start = 2
+            let printed = renderedList.format()
+            XCTAssertEqual(expected, printed)
+        }
+        do { // unchecked
+            let expected = "2. [ ] A list item."
+            var renderedList = OrderedList(ListItem(checkbox: .unchecked,
+                                                    Paragraph(Text("A list item."))))
+            renderedList.start = 2
+            let printed = renderedList.format()
+            XCTAssertEqual(expected, printed)
+        }
+        do { // checked
+            let expected = "2. [x] A list item."
+            var renderedList = OrderedList(ListItem(checkbox: .checked,
+                                                    Paragraph(Text("A list item."))))
+            renderedList.start = 2
+            let printed = renderedList.format()
+            XCTAssertEqual(expected, printed)
+        }
+    }
+
     func testPrintParagraph() {
         let expected = "A paragraph."
         let printed = Paragraph(Text("A paragraph.")).format()
@@ -426,13 +452,13 @@ class MarkupFormatterOptionsTests: XCTestCase {
         3. C
         """
         let allSame = """
-        0. A
-        0. B
-        0. C
+        1. A
+        1. B
+        1. C
         """
         do {
             let document = Document(parsing: incrementing)
-            let printed = document.format(options: .init(orderedListNumerals: .allSame(0)))
+            let printed = document.format(options: .init(orderedListNumerals: .allSame(1)))
             XCTAssertEqual(allSame, printed)
         }
 
@@ -917,7 +943,7 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
 
         let expectedTreeDump = """
         Document
-        └─ OrderedList
+        └─ OrderedList start: 1000
            └─ ListItem
               └─ Paragraph
                  ├─ Text "Really really"

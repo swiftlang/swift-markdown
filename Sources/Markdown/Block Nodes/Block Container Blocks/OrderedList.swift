@@ -29,7 +29,26 @@ public extension OrderedList {
     // MARK: ListItemContainer
 
     init<Items: Sequence>(_ items: Items) where Items.Element == ListItem {
-        try! self.init(.orderedList(parsedRange: nil, items.map { $0.raw.markup }))
+        try! self.init(.orderedList(parsedRange: nil, items.map { $0.raw.markup }, start: nil))
+    }
+
+    /// The starting index for the list.
+    ///
+    /// If this is `nil`, the list will start at the default value of 1.
+    var start: Int? {
+        get {
+            guard case let .orderedList(start) = _data.raw.markup.data else {
+                fatalError("\(self) markup wrapped unexpected \(_data.raw)")
+            }
+            return start
+        }
+        set {
+            precondition(newValue ?? 1 > 0, "List start must be 1 or greater")
+            guard start != newValue else {
+                return
+            }
+            _data = _data.replacingSelf(.orderedList(parsedRange: nil, _data.raw.markup.copyChildren(), start: newValue))
+        }
     }
 
     // MARK: Visitation

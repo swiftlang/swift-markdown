@@ -24,7 +24,7 @@ enum RawMarkupData: Equatable {
     case thematicBreak
     case htmlBlock(String)
     case listItem(checkbox: Checkbox?)
-    case orderedList
+    case orderedList(start: Int?)
     case unorderedList
     case paragraph
     case blockDirective(name: String, nameLocation: SourceLocation?, arguments: DirectiveArgumentText)
@@ -228,8 +228,8 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
         return .create(data: .listItem(checkbox: checkbox), parsedRange: parsedRange, children: children)
     }
 
-    static func orderedList(parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
-        return .create(data: .orderedList, parsedRange: parsedRange, children: children)
+    static func orderedList(parsedRange: SourceRange?, _ children: [RawMarkup], start: Int?) -> RawMarkup {
+        return .create(data: .orderedList(start: start), parsedRange: parsedRange, children: children)
     }
 
     static func unorderedList(parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
