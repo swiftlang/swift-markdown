@@ -299,9 +299,8 @@ struct MarkupParser {
         case CMARK_BULLET_LIST:
             return MarkupConversion(state: childConversion.state.next(), result: .unorderedList(parsedRange: parsedRange, childConversion.result))
         case CMARK_ORDERED_LIST:
-            let cmarkStart = cmark_node_get_list_start(state.node)
-            let start: Int? = cmarkStart == 1 ? nil : Int(cmarkStart)
-            return MarkupConversion(state: childConversion.state.next(), result: .orderedList(parsedRange: parsedRange, childConversion.result, start: start))
+            let cmarkStart = Int(cmark_node_get_list_start(state.node))
+            return MarkupConversion(state: childConversion.state.next(), result: .orderedList(parsedRange: parsedRange, childConversion.result, start: cmarkStart))
         default:
             fatalError("cmark reported a list node but said its list type is CMARK_NO_LIST?")
         }

@@ -498,14 +498,14 @@ public struct MarkupFormatter: MarkupWalker {
         let numeral: UInt
         switch formattingOptions.orderedListNumerals {
         case let .allSame(n):
-            if let origStart = list.start {
-                numeral = UInt(origStart)
-            } else {
+            if list.start == 1 {
                 numeral = n
+            } else {
+                numeral = UInt(list.start)
             }
         case let .incrementing(start):
-            if let origStart = list.start {
-                numeral = UInt(origStart) + UInt(listItem.indexInParent)
+            if list.start != 1 {
+                numeral = UInt(list.start) + UInt(listItem.indexInParent)
             } else {
                 numeral = start + UInt(listItem.indexInParent)
             }

@@ -29,13 +29,13 @@ public extension OrderedList {
     // MARK: ListItemContainer
 
     init<Items: Sequence>(_ items: Items) where Items.Element == ListItem {
-        try! self.init(.orderedList(parsedRange: nil, items.map { $0.raw.markup }, start: nil))
+        try! self.init(.orderedList(parsedRange: nil, items.map { $0.raw.markup }))
     }
 
     /// The starting index for the list.
     ///
-    /// If this is `nil`, the list will start at the default value of 1.
-    var start: Int? {
+    /// The default starting index in CommonMark is 1. In this case, clients may use any desired index for this list.
+    var start: Int {
         get {
             guard case let .orderedList(start) = _data.raw.markup.data else {
                 fatalError("\(self) markup wrapped unexpected \(_data.raw)")
@@ -43,7 +43,7 @@ public extension OrderedList {
             return start
         }
         set {
-            precondition(newValue ?? 1 > 0, "List start must be 1 or greater")
+            precondition(newValue > 0, "List start must be 1 or greater")
             guard start != newValue else {
                 return
             }

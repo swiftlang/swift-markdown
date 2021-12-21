@@ -190,8 +190,8 @@ struct MarkupTreeDumper: MarkupWalker {
     }
 
     mutating func visitOrderedList(_ orderedList: OrderedList) {
-        if let start = orderedList.start {
-            dump(orderedList, customDescription: "start: \(start)")
+        if orderedList.start != 1 {
+            dump(orderedList, customDescription: "start: \(orderedList.start)")
         } else {
             defaultVisit(orderedList)
         }
