@@ -29,15 +29,15 @@ struct MarkdownCommand: ParsableCommand {
         Format.self,
     ])
 
-    static func parseFile(at path: String, options: ParseOptions) throws -> (source: String, parsed: Document) {
+    static func parseFile(at path: String, options: ConvertOptions) throws -> (source: String, parsed: Document) {
         let data = try Data(contentsOf: URL(fileURLWithPath: path))
         guard let inputString = String(data: data, encoding: .utf8) else {
             throw Error.couldntDecodeInputAsUTF8
         }
-        return (inputString, Document(parsing: inputString, options: options))
+        return (inputString, Document(parsing: inputString, convertOptions: options))
     }
 
-    static func parseStandardInput(options: ParseOptions) throws -> (source: String, parsed: Document) {
+    static func parseStandardInput(options: ConvertOptions) throws -> (source: String, parsed: Document) {
         let stdinData: Data
         if #available(macOS 10.15.4, *) {
             stdinData = try FileHandle.standardInput.readToEnd() ?? Data()
@@ -47,7 +47,7 @@ struct MarkdownCommand: ParsableCommand {
         guard let stdinString = String(data: stdinData, encoding: .utf8) else {
             throw Error.couldntDecodeInputAsUTF8
         }
-        return (stdinString, Document(parsing: stdinString, options: options))
+        return (stdinString, Document(parsing: stdinString, convertOptions: options))
     }
 }
 

@@ -123,6 +123,12 @@ extension MarkdownCommand {
         @Argument(help: "Input file (default: standard input)")
         var inputFilePath: String?
 
+        @Option(help: "Additional Commonmark extensions to enable")
+        var `extension`: [String] = []
+
+        @Flag<Bool>(help: "Don't enable the default Commonmark extensions (\(ConvertOptions.defaultCommonmarkExtensions.joined(separator: ", ")))")
+        var noDefaultExtensions: Bool = false
+
         /// Search for the an executable with a given base name.
         func findExecutable(named name: String) throws -> String? {
             let which = Process()
@@ -196,12 +202,19 @@ extension MarkdownCommand {
             if parseSymbolLinks {
                 parseOptions.insert(.parseSymbolLinks)
             }
+            var commonmarkExts = noDefaultExtensions ? [] : ConvertOptions.defaultCommonmarkExtensions
+            commonmarkExts.append(contentsOf: `extension`)
+            let convertOptions = ConvertOptions.init(
+                parseOptions: parseOptions,
+                commonmarkOptions: ConvertOptions.defaultCommonmarkOptions,
+                extensions: commonmarkExts
+            )
             let source: String
             let document: Document
             if let inputFilePath = inputFilePath {
-                (source, document) = try MarkdownCommand.parseFile(at: inputFilePath, options: parseOptions)
+                (source, document) = try MarkdownCommand.parseFile(at: inputFilePath, options: convertOptions)
             } else {
-                (source, document) = try MarkdownCommand.parseStandardInput(options: parseOptions)
+                (source, document) = try MarkdownCommand.parseStandardInput(options: convertOptions)
             }
 
             guard let emphasisMarker = MarkupFormatter.Options.EmphasisMarker(argument: emphasisMarker) else {

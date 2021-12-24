@@ -28,13 +28,27 @@ extension MarkdownCommand {
         @Flag<Bool>(inversion: .prefixedNo, exclusivity: .chooseLast, help: "Parse block directives")
         var parseBlockDirectives: Bool = false
 
+        @Option(help: "Additional Commonmark extensions to enable")
+        var `extension`: [String] = []
+
+        @Flag<Bool>(help: "Don't enable the default Commonmark extensions (\(ConvertOptions.defaultCommonmarkExtensions.joined(separator: ", ")))")
+        var noDefaultExtensions: Bool = false
+
         func run() throws {
             let parseOptions: ParseOptions = parseBlockDirectives ? [.parseBlockDirectives] : []
+            var commonmarkExts = noDefaultExtensions ? [] : ConvertOptions.defaultCommonmarkExtensions
+            commonmarkExts.append(contentsOf: `extension`)
+            let convertOptions = ConvertOptions.init(
+                parseOptions: parseOptions,
+                commonmarkOptions: ConvertOptions.defaultCommonmarkOptions,
+                extensions: commonmarkExts
+            )
+
             let document: Document
             if let inputFilePath = inputFilePath {
-                (_, document) = try MarkdownCommand.parseFile(at: inputFilePath, options: parseOptions)
+                (_, document) = try MarkdownCommand.parseFile(at: inputFilePath, options: convertOptions)
             } else {
-                (_, document) = try MarkdownCommand.parseStandardInput(options: parseOptions)
+                (_, document) = try MarkdownCommand.parseStandardInput(options: convertOptions)
             }
             var dumpOptions = MarkupDumpOptions()
             if sourceLocations {
