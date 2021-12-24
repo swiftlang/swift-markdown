@@ -578,22 +578,18 @@ struct MarkupParser {
         return MarkupConversion(state: childConversion.state.next(), result: .tableCell(parsedRange: parsedRange, colspan: colspan, rowspan: rowspan, childConversion.result))
     }
 
-    static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
+    static func parseString(_ string: String, source: URL?, options: ConvertOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
 
-        var cmarkOptions = CMARK_OPT_TABLE_SPANS
-        if !options.contains(.disableSmartOpts) {
-            cmarkOptions |= CMARK_OPT_SMART
+        let parser = cmark_parser_new(options.commonmarkOptions.rawValue)
+
+        for ext in options.commonmarkExtensions {
+            cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension(ext))
         }
-        
-        let parser = cmark_parser_new(cmarkOptions)
-        
-        cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("table"))
-        cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("strikethrough"))
-        cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("tasklist"))
+
         cmark_parser_feed(parser, string, string.utf8.count)
         let rawDocument = cmark_parser_finish(parser)
-        let initialState = MarkupConverterState(source: source, iterator: cmark_iter_new(rawDocument), event: CMARK_EVENT_NONE, node: nil, options: options, headerSeen: false, pendingTableBody: nil).next()
+        let initialState = MarkupConverterState(source: source, iterator: cmark_iter_new(rawDocument), event: CMARK_EVENT_NONE, node: nil, options: options.parseOptions, headerSeen: false, pendingTableBody: nil).next()
         precondition(initialState.event == CMARK_EVENT_ENTER)
         precondition(initialState.nodeType == .document)
         let conversion = convertAnyElement(initialState)

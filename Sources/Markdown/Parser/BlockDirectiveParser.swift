@@ -615,7 +615,7 @@ private enum ParseContainer: CustomStringConvertible {
     /// Convert this container to the corresponding ``RawMarkup`` node.
     func convertToRawMarkup(ranges: inout RangeTracker,
                             parent: ParseContainer?,
-                            options: ParseOptions) -> [RawMarkup] {
+                            options: ConvertOptions) -> [RawMarkup] {
         switch self {
         case let .root(children):
             let rawChildren = children.flatMap {
@@ -945,7 +945,7 @@ extension Document {
     ///
     /// - Precondition: The `rootContainer` must be the `.root` case.
     fileprivate init(converting rootContainer: ParseContainer, from source: URL?,
-                     options: ParseOptions) {
+                     options: ConvertOptions) {
         guard case .root = rootContainer else {
             fatalError("Tried to convert a non-root container to a `Document`")
         }
@@ -968,14 +968,14 @@ extension Document {
 }
 
 struct BlockDirectiveParser {
-    static func parse(_ input: URL, options: ParseOptions = []) throws -> Document {
+    static func parse(_ input: URL, options: ConvertOptions = .init()) throws -> Document {
         let string = try String(contentsOf: input, encoding: .utf8)
         return parse(string, source: input, options: options)
     }
 
     /// Parse the input.
     static func parse(_ input: String, source: URL?,
-                      options: ParseOptions = []) -> Document {
+                      options: ConvertOptions = .init()) -> Document {
         // Phase 0: Split the input into lines lazily, keeping track of
         // line numbers, consecutive blank lines, and start positions on each line where indentation ends.
         // These trim points may be used to adjust the indentation seen by the CommonMark parser when

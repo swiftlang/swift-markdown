@@ -33,4 +33,31 @@ class CommonMarkConverterTests: XCTestCase {
         let document = Document(parsing: text, source: nil, options: [.parseBlockDirectives, .parseSymbolLinks])
         XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
     }
+
+    /// Test using a custom set of Commonmark options to convert Markdown.
+    func testCustomOpts() {
+        let text = "~This is not strikethrough~ -- but ~~this is strikethrough~~."
+
+        // Because the "smart" option is not set, the `--` should not be converted
+        // to an en-dash.
+        let expectedDump = """
+        Document @1:1-1:62
+        └─ Paragraph @1:1-1:62
+           ├─ Text @1:1-1:36 "~This is not strikethrough~ -- but "
+           ├─ Strikethrough @1:36-1:61
+           │  └─ Text @1:38-1:59 "this is strikethrough"
+           └─ Text @1:61-1:62 "."
+        """
+
+        let document = Document(
+            parsing: text,
+            source: nil,
+            convertOptions: .init(
+                parseOptions: ConvertOptions.defaultParseOptions,
+                commonmarkOptions: .strikethroughDoubleTilde,
+                extensions: ConvertOptions.defaultCommonmarkExtensions
+            )
+        )
+        XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
+    }
 }
