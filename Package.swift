@@ -14,7 +14,7 @@
 import PackageDescription
 import class Foundation.ProcessInfo
 
-let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil ? "swift-cmark" : "swift-cmark-gfm"
+let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil ? "cmark-gfm" : "swift-cmark-gfm"
 
 let package = Package(
     name: "swift-markdown",
@@ -51,7 +51,7 @@ let package = Package(
 if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building standalone, so fetch all dependencies remotely.
     package.dependencies += [
-        .package(url: "https://github.com/apple/swift-cmark.git", .branch("gfm")),
+        .package(name: cmarkPackageName, url: "https://github.com/apple/swift-cmark.git", .branch("gfm")),
         .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMinor(from: "1.0.1")),
     ]
 } else {
