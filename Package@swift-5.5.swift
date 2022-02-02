@@ -30,8 +30,7 @@ let package = Package(
                 "CAtomic",
                 .product(name: "cmark-gfm", package: cmarkPackageName),
                 .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
-            ],
-            exclude: ["Markdown.docc"]),
+            ]),
         .executableTarget(
             name: "markdown-tool",
             dependencies: [
