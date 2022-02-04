@@ -12,7 +12,7 @@
 ///
 /// - note: This interface only provides requirements for visiting each kind of element. It does not require each visit method to descend into child elements.
 ///
-/// Generally, ``MarkupWalker`` is best for walking a ``Markup`` tree if the ``Result`` type is `Void` or is built up some other way, or ``MarkupRewriter`` for recursively changing a tree's structure. This type serves as a common interface to both. However, for building up other structured result types you can implement ``MarkupWalker`` directly.
+/// Generally, ``MarkupWalker`` is best for walking a ``Markup`` tree if the ``Result`` type is `Void` or is built up some other way, or ``MarkupRewriter`` for recursively changing a tree's structure. This type serves as a common interface to both. However, for building up other structured result types you can implement ``MarkupVisitor`` directly.
 public protocol MarkupVisitor {
 
     /**
