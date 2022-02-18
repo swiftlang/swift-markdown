@@ -36,3 +36,5 @@ The markup tree provided by this package is comprised of immutable/persistent, t
 
 - <doc:VisitMarkup> 
 - <doc:FormatterAndOptions>
+
+<!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->
