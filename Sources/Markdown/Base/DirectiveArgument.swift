@@ -178,8 +178,11 @@ public struct DirectiveArgumentText: Equatable {
         /// Parse the line segment as name-value argument pairs separated by commas.
         ///
         /// ```
-        /// name-value-arguments -> name-value-argument name-value-arguments-rest
+        /// arguments -> first-argument name-value-arguments-rest
+        /// first-argument -> value-only-argument | name-value-argument
+        /// value-only-argument -> literal
         /// name-value-argument -> literal : literal
+        /// name-value-arguments -> name-value-argument name-value-arguments-rest
         /// name-value-arguments-rest -> , name-value-arguments | ε
         /// ```
         ///
@@ -188,6 +191,8 @@ public struct DirectiveArgumentText: Equatable {
         /// - An argument-name pair is only recognized within a single line or line segment;
         ///   that is, an argument cannot span multiple lines.
         /// - A comma is expected between name-value pairs.
+        /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
+        ///
         /// - Parameter diagnosticEngine: the diagnostic engine to use for emitting diagnostics.
         /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
         public func parseNameValueArguments(parseErrors: inout [ParseError]) -> [DirectiveArgument] {
@@ -298,8 +303,11 @@ public struct DirectiveArgumentText: Equatable {
     /// Parse the line segments as name-value argument pairs separated by commas.
     ///
     /// ```
-    /// name-value-arguments -> name-value-argument name-value-arguments-rest
+    /// arguments -> first-argument name-value-arguments-rest
+    /// first-argument -> value-only-argument | name-value-argument
+    /// value-only-argument -> literal
     /// name-value-argument -> literal : literal
+    /// name-value-arguments -> name-value-argument name-value-arguments-rest
     /// name-value-arguments-rest -> , name-value-arguments | ε
     /// ```
     ///
@@ -308,6 +316,8 @@ public struct DirectiveArgumentText: Equatable {
     /// - An argument-name pair is only recognized within a single line or line segment;
     ///   that is, an argument cannot span multiple lines.
     /// - A comma is expected between name-value pairs.
+    /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
+    ///
     /// - Parameter parseErrors: an array to collect errors while parsing arguments.
     /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
     public func parseNameValueArguments(parseErrors: inout [ParseError]) -> [DirectiveArgument] {
@@ -340,8 +350,11 @@ public struct DirectiveArgumentText: Equatable {
     /// Parse the line segments as name-value argument pairs separated by commas.
     ///
     /// ```
-    /// name-value-arguments -> name-value-argument name-value-arguments-rest
+    /// arguments -> first-argument name-value-arguments-rest
+    /// first-argument -> value-only-argument | name-value-argument
+    /// value-only-argument -> literal
     /// name-value-argument -> literal : literal
+    /// name-value-arguments -> name-value-argument name-value-arguments-rest
     /// name-value-arguments-rest -> , name-value-arguments | ε
     /// ```
     ///
@@ -350,6 +363,8 @@ public struct DirectiveArgumentText: Equatable {
     /// - An argument-name pair is only recognized within a single line or line segment;
     ///   that is, an argument cannot span multiple lines.
     /// - A comma is expected between name-value pairs.
+    /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
+    ///
     /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
     ///
     /// This overload discards parse errors.
