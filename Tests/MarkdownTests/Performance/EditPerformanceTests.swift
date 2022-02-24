@@ -12,7 +12,15 @@ import XCTest
 import Markdown
 
 final class EditPerformanceTests: XCTestCase {
+#if os(Windows)
+#if DEBUG
+    static let maxDepth = 625
+#else
+    static let maxDepth = 1250
+#endif
+#else
     static let maxDepth = 5000
+#endif
     /// Test the performance of changing a leaf in an unrealistically deep markup tree.
     func testChangeTextInDeepTree() {
         func buildDeepListItem(depth: Int) -> ListItem {
