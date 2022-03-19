@@ -156,7 +156,7 @@ public struct DirectiveArgumentText: Equatable {
         ///   - required: whether the character is required
         ///   - allowEscape: whether to allow the character to be escaped
         ///   - diagnoseIfNotFound: if `true` and the character was both required and not found, emit a diagnostic
-        ///   - diagnosticEngine: the diagnostic engine to use if diagnosing
+        ///   - parseErrors: an array to update with any errors encountered while parsing
         /// - Returns: `true` if the character was found.
         func parseCharacter(_ character: Character,
                             from line: inout TrimmedLine,
@@ -193,7 +193,7 @@ public struct DirectiveArgumentText: Equatable {
         /// - A comma is expected between name-value pairs.
         /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
         ///
-        /// - Parameter diagnosticEngine: the diagnostic engine to use for emitting diagnostics.
+        /// - Parameter parseErrors: an array to update with any errors encountered while parsing
         /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
         public func parseNameValueArguments(parseErrors: inout [ParseError]) -> [DirectiveArgument] {
             var arguments = [DirectiveArgument]()
