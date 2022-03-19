@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -178,8 +178,11 @@ public struct DirectiveArgumentText: Equatable {
         /// Parse the line segment as name-value argument pairs separated by commas.
         ///
         /// ```
-        /// name-value-arguments -> name-value-argument name-value-arguments-rest
+        /// arguments -> first-argument name-value-arguments-rest
+        /// first-argument -> value-only-argument | name-value-argument
+        /// value-only-argument -> literal
         /// name-value-argument -> literal : literal
+        /// name-value-arguments -> name-value-argument name-value-arguments-rest
         /// name-value-arguments-rest -> , name-value-arguments | ε
         /// ```
         ///
@@ -188,6 +191,8 @@ public struct DirectiveArgumentText: Equatable {
         /// - An argument-name pair is only recognized within a single line or line segment;
         ///   that is, an argument cannot span multiple lines.
         /// - A comma is expected between name-value pairs.
+        /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
+        ///
         /// - Parameter diagnosticEngine: the diagnostic engine to use for emitting diagnostics.
         /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
         public func parseNameValueArguments(parseErrors: inout [ParseError]) -> [DirectiveArgument] {
@@ -199,7 +204,10 @@ public struct DirectiveArgumentText: Equatable {
                                    parseIndex: parseIndex)
             line.lexWhitespace()
             while !line.isEmptyOrAllWhitespace {
-                guard let name = parseLiteral(from: &line, parseErrors: &parseErrors) else {
+                let name: TrimmedLine.Lex?
+                let value: TrimmedLine.Lex
+                
+                guard let firstLiteral = parseLiteral(from: &line, parseErrors: &parseErrors) else {
                     while parseCharacter(",", from: &line, required: true, allowEscape: false, diagnoseIfNotFound: false, parseErrors: &parseErrors) {
                         if let location = line.location {
                             parseErrors.append(.unexpectedCharacter(",", location: location))
@@ -208,22 +216,33 @@ public struct DirectiveArgumentText: Equatable {
                     _ = line.lex(untilCharacter: ",")
                     continue
                 }
-                _ = parseCharacter(":", from: &line, required: true, allowEscape: false, diagnoseIfNotFound: true,
-                                   parseErrors: &parseErrors)
-                guard let value = parseLiteral(from: &line, parseErrors: &parseErrors) else {
-                    while parseCharacter(",", from: &line, required: true, allowEscape: false, diagnoseIfNotFound: false, parseErrors: &parseErrors) {
-                        if let location = line.location {
-                            parseErrors.append(.unexpectedCharacter(",", location: location))
+                
+                // The first argument can be without a name.
+                // An argument without a name must be followed by a "," or be the only argument. Otherwise the argument will be parsed as a named argument.
+                if arguments.isEmpty && (line.isEmptyOrAllWhitespace || line.text.first == ",") {
+                    name = nil
+                    value = firstLiteral
+                } else {
+                    _ = parseCharacter(":", from: &line, required: true, allowEscape: false, diagnoseIfNotFound: true, parseErrors: &parseErrors)
+                    
+                    guard let secondLiteral = parseLiteral(from: &line, parseErrors: &parseErrors) else {
+                        while parseCharacter(",", from: &line, required: true, allowEscape: false, diagnoseIfNotFound: false, parseErrors: &parseErrors) {
+                            if let location = line.location {
+                                parseErrors.append(.unexpectedCharacter(",", location: location))
+                            }
                         }
+                        _ = line.lex(untilCharacter: ",")
+                        continue
                     }
-                    _ = line.lex(untilCharacter: ",")
-                    continue
+                    name = firstLiteral
+                    value = secondLiteral
                 }
+                
                 let nameRange: SourceRange?
                 let valueRange: SourceRange?
 
                 if let lineLocation = line.location,
-                   let range = name.range {
+                   let range = name?.range {
                     nameRange = SourceLocation(line: lineLocation.line, column: range.lowerBound.column, source: range.lowerBound.source)..<SourceLocation(line: lineLocation.line, column: range.upperBound.column, source: range.upperBound.source)
                 } else {
                     nameRange = nil
@@ -243,7 +262,7 @@ public struct DirectiveArgumentText: Equatable {
                                                       diagnoseIfNotFound: false,
                                                       parseErrors: &parseErrors)
 
-                let argument = DirectiveArgument(name: String(name.text),
+                let argument = DirectiveArgument(name: String(name?.text ?? ""),
                                                  nameRange: nameRange,
                                                  value: String(value.text),
                                                  valueRange: valueRange,
@@ -284,8 +303,11 @@ public struct DirectiveArgumentText: Equatable {
     /// Parse the line segments as name-value argument pairs separated by commas.
     ///
     /// ```
-    /// name-value-arguments -> name-value-argument name-value-arguments-rest
+    /// arguments -> first-argument name-value-arguments-rest
+    /// first-argument -> value-only-argument | name-value-argument
+    /// value-only-argument -> literal
     /// name-value-argument -> literal : literal
+    /// name-value-arguments -> name-value-argument name-value-arguments-rest
     /// name-value-arguments-rest -> , name-value-arguments | ε
     /// ```
     ///
@@ -294,6 +316,8 @@ public struct DirectiveArgumentText: Equatable {
     /// - An argument-name pair is only recognized within a single line or line segment;
     ///   that is, an argument cannot span multiple lines.
     /// - A comma is expected between name-value pairs.
+    /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
+    ///
     /// - Parameter parseErrors: an array to collect errors while parsing arguments.
     /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
     public func parseNameValueArguments(parseErrors: inout [ParseError]) -> [DirectiveArgument] {
@@ -326,8 +350,11 @@ public struct DirectiveArgumentText: Equatable {
     /// Parse the line segments as name-value argument pairs separated by commas.
     ///
     /// ```
-    /// name-value-arguments -> name-value-argument name-value-arguments-rest
+    /// arguments -> first-argument name-value-arguments-rest
+    /// first-argument -> value-only-argument | name-value-argument
+    /// value-only-argument -> literal
     /// name-value-argument -> literal : literal
+    /// name-value-arguments -> name-value-argument name-value-arguments-rest
     /// name-value-arguments-rest -> , name-value-arguments | ε
     /// ```
     ///
@@ -336,6 +363,8 @@ public struct DirectiveArgumentText: Equatable {
     /// - An argument-name pair is only recognized within a single line or line segment;
     ///   that is, an argument cannot span multiple lines.
     /// - A comma is expected between name-value pairs.
+    /// - The first argument can be unnamed. An unnamed argument will have an empty ``DirectiveArgument/name`` with no ``DirectiveArgument/nameRange``.
+    ///
     /// - Returns: an array of successfully parsed ``DirectiveArgument`` values.
     ///
     /// This overload discards parse errors.

@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -394,7 +394,97 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
             XCTAssertEqual(SourceLocation(line: 1, column: 11, source: nil)..<SourceLocation(line: 1, column: 16, source: nil), x.valueRange)
         }
     }
+    
+    func testUnlabeledOnlyArgument() {
+        let source = "@Outer(unlabeledArgumentValue)"
 
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+
+        let directive = document.child(at: 0) as! BlockDirective
+        XCTAssertEqual(1, directive.argumentText.segments.count)
+
+        var parseErrors = [DirectiveArgumentText.ParseError]()
+        let arguments = directive.argumentText.parseNameValueArguments(parseErrors: &parseErrors)
+        XCTAssertTrue(parseErrors.isEmpty)
+
+        XCTAssertEqual(1, arguments.count)
+
+        arguments[""].map { x in
+            XCTAssertEqual("", x.name)
+            XCTAssertEqual(nil, x.nameRange)
+            XCTAssertEqual("unlabeledArgumentValue", x.value)
+            XCTAssertEqual(SourceLocation(line: 1, column: 8, source: nil)..<SourceLocation(line: 1, column: 30, source: nil), x.valueRange)
+        }
+    }
+    
+    func testUnlabeledQuotedOnlyArgument(){
+        let source = "@Outer(\"Unlabeled argument value\")"
+
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+
+        let directive = document.child(at: 0) as! BlockDirective
+        XCTAssertEqual(1, directive.argumentText.segments.count)
+
+        var parseErrors = [DirectiveArgumentText.ParseError]()
+        let arguments = directive.argumentText.parseNameValueArguments(parseErrors: &parseErrors)
+        XCTAssertTrue(parseErrors.isEmpty)
+
+        XCTAssertEqual(1, arguments.count)
+
+        arguments[""].map { x in
+            XCTAssertEqual("", x.name)
+            XCTAssertEqual(nil, x.nameRange)
+            XCTAssertEqual("Unlabeled argument value", x.value)
+            XCTAssertEqual(SourceLocation(line: 1, column: 9, source: nil)..<SourceLocation(line: 1, column: 33, source: nil), x.valueRange)
+        }
+    }
+    
+    func testFirstArgumentWithoutName() {
+        let source = "@Outer(unlabeledArgumentValue, label: value)"
+
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+
+        let directive = document.child(at: 0) as! BlockDirective
+        XCTAssertEqual(1, directive.argumentText.segments.count)
+
+        var parseErrors = [DirectiveArgumentText.ParseError]()
+        let arguments = directive.argumentText.parseNameValueArguments(parseErrors: &parseErrors)
+        XCTAssertTrue(parseErrors.isEmpty)
+
+        XCTAssertEqual(2, arguments.count)
+
+        arguments[""].map { x in
+            XCTAssertEqual("", x.name)
+            XCTAssertEqual(nil, x.nameRange)
+            XCTAssertEqual("unlabeledArgumentValue", x.value)
+            XCTAssertEqual(SourceLocation(line: 1, column: 8, source: nil)..<SourceLocation(line: 1, column: 30, source: nil), x.valueRange)
+        }
+    }
+    
+    func testSecondArgumentWithoutName() throws {
+        let source = "@Outer(label: value, unlabeledArgumentValue)"
+
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+
+        let directive = document.child(at: 0) as! BlockDirective
+        XCTAssertEqual(1, directive.argumentText.segments.count)
+
+        var parseErrors = [DirectiveArgumentText.ParseError]()
+        let arguments = directive.argumentText.parseNameValueArguments(parseErrors: &parseErrors)
+        XCTAssertEqual(parseErrors.count, 1)
+       
+        XCTAssertEqual([.missingExpectedCharacter(":", location: .init(line: 1, column: 44, source: nil))], parseErrors)
+
+        XCTAssertEqual(1, arguments.count)
+
+        arguments["label"].map { x in
+            XCTAssertEqual("label", x.name)
+            XCTAssertEqual(SourceLocation(line: 1, column: 8, source: nil)..<SourceLocation(line: 1, column: 13, source: nil), x.nameRange)
+            XCTAssertEqual("value", x.value)
+            XCTAssertEqual(SourceLocation(line: 1, column: 15, source: nil)..<SourceLocation(line: 1, column: 20, source: nil), x.valueRange)
+        }
+    }
+    
     func testRangeAdjustment() {
         let source = """
         @Outer {

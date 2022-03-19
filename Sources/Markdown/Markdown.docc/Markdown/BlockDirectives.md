@@ -73,12 +73,18 @@ You can parse argument text segments however you like. Swift Markdown also inclu
 
 When using the name-value argument parser, this results in arguments `x` with value `1` and `y` with value `2`. Names and values are both strings; it's up to you to decide how to convert them into something more specific.
 
+When using the name-value argument parser, the first argument can be unnamed for when the directive name also describes the purpose of the first argument. This parsed name-value pair will have an empty name. All other arguments have both names and values. 
+
 Here is the grammar of name-value argument syntax:
 
 ```
-Arguments -> Argument ArgumentsRest?
-ArgumentsRest -> , Arguments
+Arguments -> FirstArgument ArgumentsRest?
+ArgumentsRest -> , NamedArguments
+NamedArguments -> Argument ArgumentsRest?
+FirstArgument -> UnnamedArgument
+               | Argument
 Argument -> Literal : Literal
+UnnamedArgument -> Literal
 Literal -> QuotedLiteral
          | UnquotedLiteral
 QuotedLiteral -> " QuotedLiteralContent "
@@ -171,4 +177,4 @@ for diagnostic in collector.diagnostics {
 }
 ```
 
-<!-- Copyright (c) 2021 Apple Inc and the Swift Project authors. All Rights Reserved. -->
+<!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->
