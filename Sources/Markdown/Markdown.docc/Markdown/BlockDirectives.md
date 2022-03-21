@@ -150,4 +150,9 @@ Pass the `.parseBlockDirectives` option when parsing a document to enable block 
 let document = Document(parsing: source, options: .parseBlockDirectives)
 ```
 
+## Collecting Diagnostics
+
+When parsing block directive syntax, you can optionally provide an array of errors 
+to collect parsing problems and report them to a user. See ``DirectiveArgumentText/ParseError``.
+
 <!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->
