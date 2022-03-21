@@ -1,0 +1,302 @@
+{
+  "abstract" : [
+    {
+      "text" : "The block elements of the aside taken from the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockQuote",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ",",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "excluding the initial text tag.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Aside"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/content"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown5AsideV7contentSayAA11BlockMarkup_pGvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "content"
+      },
+      {
+        "kind" : "text",
+        "text" : ": ["
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8Markdown11BlockMarkupP",
+        "text" : "BlockMarkup"
+      },
+      {
+        "kind" : "text",
+        "text" : "]"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "content"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "content"
+            },
+            {
+              "kind" : "text",
+              "text" : ": ["
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8Markdown11BlockMarkupP",
+              "text" : "BlockMarkup"
+            },
+            {
+              "kind" : "text",
+              "text" : "]"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/aside\/content"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/Aside": {
+  "abstract" : [
+    {
+      "text" : "An auxiliary aside element interpreted from a block quote.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Aside"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Aside"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Aside",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/aside"
+},
+"doc://Markdown/documentation/Markdown/Aside/content": {
+  "abstract" : [
+    {
+      "text" : "The block elements of the aside taken from the ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockQuote",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ",",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "excluding the initial text tag.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "content"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown11BlockMarkupP",
+      "text" : "BlockMarkup"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/content",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "content",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/aside\/content"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/BlockQuote": {
+  "abstract" : [
+    {
+      "text" : "A block quote.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BlockQuote"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockQuote",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BlockQuote"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BlockQuote",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockquote"
+}
+}
+}

@@ -1,0 +1,312 @@
+{
+  "abstract" : [
+    {
+      "text" : "Inherited from ",
+      "type" : "text"
+    },
+    {
+      "code" : "BasicInlineContainer.init(_:)",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis\/BasicInlineContainer-Implementations"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis\/init(_:)-2ygw"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Markdown",
+    "externalID" : "s:8Markdown8EmphasisVyACxcSTRzAA12InlineMarkup_p7ElementRtzlufc",
+    "fragments" : [
+      {
+        "kind" : "identifier",
+        "text" : "init"
+      },
+      {
+        "kind" : "text",
+        "text" : "<"
+      },
+      {
+        "kind" : "genericParameter",
+        "text" : "Children"
+      },
+      {
+        "kind" : "text",
+        "text" : ">("
+      },
+      {
+        "kind" : "typeIdentifier",
+        "text" : "Children"
+      },
+      {
+        "kind" : "text",
+        "text" : ")"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Initializer",
+    "symbolKind" : "init",
+    "title" : "init(_:)"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "init"
+            },
+            {
+              "kind" : "text",
+              "text" : "<"
+            },
+            {
+              "kind" : "genericParameter",
+              "text" : "Children"
+            },
+            {
+              "kind" : "text",
+              "text" : ">("
+            },
+            {
+              "kind" : "externalParam",
+              "text" : "_"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "internalParam",
+              "text" : "newChildren"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Children"
+            },
+            {
+              "kind" : "text",
+              "text" : ") "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "where"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Children"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:ST",
+              "text" : "Sequence"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Children"
+            },
+            {
+              "kind" : "text",
+              "text" : "."
+            },
+            {
+              "kind" : "typeIdentifier",
+              "text" : "Element"
+            },
+            {
+              "kind" : "text",
+              "text" : " == "
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8Markdown12InlineMarkupP",
+              "text" : "InlineMarkup"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/emphasis\/init(_:)-2ygw"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/Emphasis": {
+  "abstract" : [
+    {
+      "text" : "A markup element that tags inline elements with emphasis.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Emphasis"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Emphasis"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Emphasis",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/emphasis"
+},
+"doc://Markdown/documentation/Markdown/Emphasis/BasicInlineContainer-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis\/BasicInlineContainer-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "BasicInlineContainer Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/emphasis\/basicinlinecontainer-implementations"
+},
+"doc://Markdown/documentation/Markdown/Emphasis/init(_:)-2ygw": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis\/init(_:)-2ygw",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/emphasis\/init(_:)-2ygw"
+},
+"doc://Markdown/documentation/Markdown/InlineMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Inline Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinemarkup"
+}
+}
+}

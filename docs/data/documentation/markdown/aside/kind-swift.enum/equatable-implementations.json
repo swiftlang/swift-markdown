@@ -1,0 +1,215 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Aside",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum\/Equatable-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "Equatable Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum\/!=(_:_:)"
+      ],
+      "title" : "Operators"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/aside\/kind-swift.enum\/equatable-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/Aside": {
+  "abstract" : [
+    {
+      "text" : "An auxiliary aside element interpreted from a block quote.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Aside"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Aside"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Aside",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/aside"
+},
+"doc://Markdown/documentation/Markdown/Aside/Kind-swift.enum": {
+  "abstract" : [
+    {
+      "text" : "The kind of aside.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Kind"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Kind"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Aside.Kind",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/aside\/kind-swift.enum"
+},
+"doc://Markdown/documentation/Markdown/Aside/Kind-swift.enum/!=(_:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "!="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum\/!=(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "!=(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/aside\/kind-swift.enum\/!=(_:_:)"
+}
+}
+}

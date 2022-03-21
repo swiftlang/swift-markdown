@@ -1,0 +1,661 @@
+{
+  "abstract" : [
+    {
+      "text" : "A segment of a line of argument text.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown21DirectiveArgumentTextV11LineSegmentV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "LineSegment"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "LineSegment"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "DirectiveArgumentText.LineSegment"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "LineSegment"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/SQ"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/==(_:_:)"
+      ],
+      "title" : "Operators"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/lineStartIndex",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/parseIndex",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/range",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/trimmedText",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/untrimmedText"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/parseNameValueArguments(parseErrors:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/Equatable-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/directiveargumenttext\/linesegment"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/SQ": {
+  "identifier" : "doc:\/\/Markdown\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText": {
+  "abstract" : [
+    {
+      "text" : "The argument text provided to a directive, which can be parsed",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "into various kinds of arguments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DirectiveArgumentText"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DirectiveArgumentText"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DirectiveArgumentText",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment": {
+  "abstract" : [
+    {
+      "text" : "A segment of a line of argument text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LineSegment"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LineSegment"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DirectiveArgumentText.LineSegment",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/==(_:_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns a Boolean value indicating whether two line segments are equal.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "=="
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV",
+      "text" : "DirectiveArgumentText"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV11LineSegmentV",
+      "text" : "LineSegment"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV",
+      "text" : "DirectiveArgumentText"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV11LineSegmentV",
+      "text" : "LineSegment"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/==(_:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "==(_:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/==(_:_:)"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/equatable-implementations"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/lineStartIndex": {
+  "abstract" : [
+    {
+      "text" : "The index in ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/untrimmedText",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " where the line started.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "lineStartIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS5IndexV",
+      "text" : "Index"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/lineStartIndex",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "lineStartIndex",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/linestartindex"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/parseIndex": {
+  "abstract" : [
+    {
+      "text" : "The index from which parsing should start.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS5IndexV",
+      "text" : "Index"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/parseIndex",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseIndex",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/parseindex"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/parseNameValueArguments(parseErrors:)": {
+  "abstract" : [
+    {
+      "text" : "Parse the line segment as name-value argument pairs separated by commas.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseNameValueArguments"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "parseErrors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV",
+      "text" : "DirectiveArgumentText"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV10ParseErrorO",
+      "text" : "ParseError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17DirectiveArgumentV",
+      "text" : "DirectiveArgument"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/parseNameValueArguments(parseErrors:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseNameValueArguments(parseErrors:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/parsenamevaluearguments(parseerrors:)"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/range": {
+  "abstract" : [
+    {
+      "text" : "The range from which a segment was extracted from a line",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "of source, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if it was provided by other means.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "range"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown11SourceRangea",
+      "text" : "SourceRange"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/range",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "range",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/range"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/trimmedText": {
+  "abstract" : [
+    {
+      "text" : "The segment’s text starting from ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/parseIndex",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trimmedText"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Ss",
+      "text" : "Substring"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/trimmedText",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trimmedText",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/trimmedtext"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/LineSegment/untrimmedText": {
+  "abstract" : [
+    {
+      "text" : "The segment’s untrimmed text from which arguments can be parsed.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "untrimmedText"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/LineSegment\/untrimmedText",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "untrimmedText",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/linesegment\/untrimmedtext"
+}
+}
+}

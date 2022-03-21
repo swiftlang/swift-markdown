@@ -1,0 +1,424 @@
+{
+  "abstract" : [
+    {
+      "text" : "Options for parsing Markdown.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown12ParseOptionsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ParseOptions"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ParseOptions"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "ParseOptions"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ParseOptions"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/SQ",
+        "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP",
+        "doc:\/\/Markdown\/s9OptionSetP",
+        "doc:\/\/Markdown\/SY",
+        "doc:\/\/Markdown\/s10SetAlgebraP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/init(rawValue:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/rawValue"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/parseBlockDirectives",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/parseSymbolLinks"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/Equatable-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/OptionSet-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/SetAlgebra-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/parseoptions"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/SQ": {
+  "identifier" : "doc:\/\/Markdown\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://Markdown/SY": {
+  "identifier" : "doc:\/\/Markdown\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions": {
+  "abstract" : [
+    {
+      "text" : "Options for parsing Markdown.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParseOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParseOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ParseOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/equatable-implementations"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/OptionSet-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/OptionSet-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "OptionSet Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/optionset-implementations"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/SetAlgebra-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/SetAlgebra-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "SetAlgebra Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/setalgebra-implementations"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/init(rawValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/init(rawvalue:)"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/parseBlockDirectives": {
+  "abstract" : [
+    {
+      "text" : "Enable block directive syntax.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseBlockDirectives"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown12ParseOptionsV",
+      "text" : "ParseOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/parseBlockDirectives",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseBlockDirectives",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/parseblockdirectives"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/parseSymbolLinks": {
+  "abstract" : [
+    {
+      "text" : "Enable interpretation of symbol links from inline code spans surrounded by two backticks.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseSymbolLinks"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown12ParseOptionsV",
+      "text" : "ParseOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/parseSymbolLinks",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseSymbolLinks",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/parsesymbollinks"
+},
+"doc://Markdown/documentation/Markdown/ParseOptions/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/parseoptions\/rawvalue"
+},
+"doc://Markdown/s10SetAlgebraP": {
+  "identifier" : "doc:\/\/Markdown\/s10SetAlgebraP",
+  "title" : "Swift.SetAlgebra",
+  "type" : "unresolvable"
+},
+"doc://Markdown/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
+},
+"doc://Markdown/s9OptionSetP": {
+  "identifier" : "doc:\/\/Markdown\/s9OptionSetP",
+  "title" : "Swift.OptionSet",
+  "type" : "unresolvable"
+}
+}
+}

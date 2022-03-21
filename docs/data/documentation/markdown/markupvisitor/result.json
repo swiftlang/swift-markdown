@@ -1,0 +1,205 @@
+{
+  "abstract" : [
+    {
+      "text" : "The result type returned when visiting a element.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/VisitMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/Result"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown13MarkupVisitorP6ResultQa",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "associatedtype"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Result"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "required" : true,
+    "role" : "symbol",
+    "roleHeading" : "Associated Type",
+    "symbolKind" : "associatedtype",
+    "title" : "Result"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "associatedtype"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Result"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/markupvisitor\/result"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor": {
+  "abstract" : [
+    {
+      "text" : "Visits ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements and returns a result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupVisitor",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/Result": {
+  "abstract" : [
+    {
+      "text" : "The result type returned when visiting a element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "associatedtype"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/Result",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "Result",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/result"
+},
+"doc://Markdown/documentation/Markdown/VisitMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/VisitMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Visiting Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/visitmarkup"
+}
+}
+}

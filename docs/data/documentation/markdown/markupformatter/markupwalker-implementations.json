@@ -1,0 +1,179 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/MarkupWalker-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "MarkupWalker Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/descendInto(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/markupformatter\/markupwalker-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/FormatterAndOptions": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formatter and Options",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/formatterandoptions"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter": {
+  "abstract" : [
+    {
+      "text" : "Prints a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " tree with formatting options.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupFormatter"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupFormatter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/descendInto(_:)": {
+  "abstract" : [
+    {
+      "text" : "Continue walking by descending in the given element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "descendInto"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/descendInto(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "descendInto(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/descendinto(_:)"
+}
+}
+}

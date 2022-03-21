@@ -1,0 +1,598 @@
+{
+  "abstract" : [
+    {
+      "text" : "Block directives are a syntax extension that create attributed containers to hold other block elements, such as paragraphs and lists, or even other block directives. Here is what one looks like:",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirectives"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "article",
+    "roleHeading" : "Article",
+    "title" : "Block Directives"
+  },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "code" : [
+            "@Directive(x: 1, y: 2",
+            "           z: 3) {",
+            "    - A",
+            "    - B",
+            "    - C",
+            "}"
+          ],
+          "syntax" : "markdown",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This creates a syntax tree that looks like this:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "Document",
+            "└─ BlockDirective name: \"Directive\"",
+            "   ├─ Argument text segments:",
+            "   |    \"x: 1, y: 2\"",
+            "   |    \"           z: 3\"",
+            "   └─ UnorderedList",
+            "      ├─ ListItem",
+            "      │  └─ Paragraph",
+            "      │     └─ Text \"A\"",
+            "      ├─ ListItem",
+            "      │  └─ Paragraph",
+            "      │     └─ Text \"B\"",
+            "      └─ ListItem",
+            "         └─ Paragraph",
+            "            └─ Text \"C\""
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "There are three main pieces to a block directive: the name, the argument text, and its content.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Names",
+          "level" : 2,
+          "text" : "Names",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Block directives are opened with an at-symbol ",
+              "type" : "text"
+            },
+            {
+              "code" : "@",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " immediately followed by a non-empty name. Most characters are allowed except whitespace and punctuation used for other parts of block directive syntax unless they are escaped, such as parentheses ",
+              "type" : "text"
+            },
+            {
+              "code" : "()",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", curly brackets ",
+              "type" : "text"
+            },
+            {
+              "code" : "{}",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", commas ",
+              "type" : "text"
+            },
+            {
+              "code" : ",",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ", and colons ",
+              "type" : "text"
+            },
+            {
+              "code" : ":",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "BlockDirectiveOpening -> @ BlockDirectiveName",
+            "BlockDirectiveName -> [^(){}:, \\t]"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Argument-Text",
+          "level" : 2,
+          "text" : "Argument Text",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Block directives can have one or more ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "argument text segments",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : " inside parentheses.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "ArgumentText -> ( ArgumentTextSegment ArgumentTextRest? )",
+            "              | ε",
+            "ArgumentTextRest -> \\n ArgumentText",
+            "ArgumentTextSegment* -> [^)]",
+            "",
+            "* Escaping allowed with a backslash \\ character."
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "If you don’t need any argument text, you can simply omit the parentheses.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "@Directive {",
+            "    - A",
+            "    - B",
+            "    - C",
+            "}"
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "You can parse argument text segments however you like. Swift Markdown also includes a default name-value argument parser that can cover lots of use cases. These are comma-separated pairs of name and value ",
+              "type" : "text"
+            },
+            {
+              "inlineContent" : [
+                {
+                  "text" : "literals",
+                  "type" : "text"
+                }
+              ],
+              "type" : "emphasis"
+            },
+            {
+              "text" : ". For example:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "@Directive(x: 1, y: \"2\")"
+          ],
+          "syntax" : "markdown",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "When using the name-value argument parser, this results in arguments ",
+              "type" : "text"
+            },
+            {
+              "code" : "x",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " with value ",
+              "type" : "text"
+            },
+            {
+              "code" : "1",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " and ",
+              "type" : "text"
+            },
+            {
+              "code" : "y",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " with value ",
+              "type" : "text"
+            },
+            {
+              "code" : "2",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ". Names and values are both strings; it’s up to you to decide how to convert them into something more specific.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "When using the name-value argument parser, the first argument can be unnamed for when the directive name also describes the purpose of the first argument. This parsed name-value pair will have an empty name. All other arguments have both names and values.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Here is the grammar of name-value argument syntax:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "Arguments -> FirstArgument ArgumentsRest?",
+            "ArgumentsRest -> , NamedArguments",
+            "NamedArguments -> Argument ArgumentsRest?",
+            "FirstArgument -> UnnamedArgument",
+            "               | Argument",
+            "Argument -> Literal : Literal",
+            "UnnamedArgument -> Literal",
+            "Literal -> QuotedLiteral",
+            "         | UnquotedLiteral",
+            "QuotedLiteral -> \" QuotedLiteralContent \"",
+            "QuotedLiteralContent* -> [^:{}(),\"]",
+            "UnquotedLiteral* -> [^ \\t:{}(),\"]",
+            "",
+            "* Escaping allowed with a backslash \\ character."
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Because of the way Markdown is usually parsed, name-value arguments cannot span multiple lines.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "anchor" : "Content",
+          "level" : 2,
+          "text" : "Content",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Wrap content with curly brackets ",
+              "type" : "text"
+            },
+            {
+              "code" : "{}",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "@Outer {",
+            "  @Inner {",
+            "    - A",
+            "    - B",
+            "    - C",
+            "  }",
+            "}"
+          ],
+          "syntax" : "markdown",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "If a block directive doesn’t have any content, you can omit the curly brackets:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "@TOC",
+            "",
+            "# Title",
+            "",
+            "..."
+          ],
+          "syntax" : null,
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Nesting-and-Indentation",
+          "level" : 2,
+          "text" : "Nesting and Indentation",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Since it’s very common for block directives to nest, you can indent the lines that make up the name, arguments, and contents any amount.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "@Outer {",
+            "        @Inner {",
+            "          - A",
+            "            - B",
+            "        }",
+            "}"
+          ],
+          "syntax" : "markdown",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "For the contents, indentation is established by the first non-blank line, assuming that indentation for the rest of a directive’s contents. Runs of lines that don’t make up the definition of a block directive are handed off to the cmark parser. For ",
+              "type" : "text"
+            },
+            {
+              "code" : "@Inner",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : "’s contents above, the cmark parser will see:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "- A",
+            "  - B"
+          ],
+          "syntax" : "markdown",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Swift Markdown adjusts the source locations reported by cmark after parsing.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Enabling-Block-Directive-Syntax",
+          "level" : 2,
+          "text" : "Enabling Block Directive Syntax",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Pass the ",
+              "type" : "text"
+            },
+            {
+              "code" : ".parseBlockDirectives",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " option when parsing a document to enable block directive syntax:",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "let document = Document(parsing: source, options: .parseBlockDirectives)"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Collecting-Diagnostics",
+          "level" : 2,
+          "text" : "Collecting Diagnostics",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "When parsing block directive syntax, you can optionally provide an array of errors",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to collect parsing problems and report them to a user. See ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/ParseError",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/blockdirectives"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/ParseError": {
+  "abstract" : [
+    {
+      "text" : "Errors parsing name-value arguments from argument text segments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ParseError"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/ParseError",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ParseError"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DirectiveArgumentText.ParseError",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/parseerror"
+}
+}
+}

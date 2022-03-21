@@ -1,0 +1,304 @@
+{
+  "abstract" : [
+    {
+      "text" : "An optional ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Checkbox",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for the list item, which can indicate completion of a task, or some other off\/on information.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItem"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItem\/checkbox"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "extendedModule" : "Markdown",
+    "externalID" : "s:8Markdown8ListItemV8checkboxAA8CheckboxOSgvp",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "var"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "checkbox"
+      },
+      {
+        "kind" : "text",
+        "text" : ": "
+      },
+      {
+        "kind" : "typeIdentifier",
+        "preciseIdentifier" : "s:8Markdown8CheckboxO",
+        "text" : "Checkbox"
+      },
+      {
+        "kind" : "text",
+        "text" : "?"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Instance Property",
+    "symbolKind" : "property",
+    "title" : "checkbox"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "var"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "checkbox"
+            },
+            {
+              "kind" : "text",
+              "text" : ": "
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Checkbox",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8Markdown8CheckboxO",
+              "text" : "Checkbox"
+            },
+            {
+              "kind" : "text",
+              "text" : "? { "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "get"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "keyword",
+              "text" : "set"
+            },
+            {
+              "kind" : "text",
+              "text" : " }"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/listitem\/checkbox"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/Checkbox": {
+  "abstract" : [
+    {
+      "text" : "A checkbox that can represent an on\/off state.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Checkbox"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Checkbox",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Checkbox"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Checkbox",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/checkbox"
+},
+"doc://Markdown/documentation/Markdown/ListItem": {
+  "abstract" : [
+    {
+      "text" : "A list item in an ordered or unordered list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ListItem"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ListItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ListItem",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitem"
+},
+"doc://Markdown/documentation/Markdown/ListItem/checkbox": {
+  "abstract" : [
+    {
+      "text" : "An optional ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Checkbox",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for the list item, which can indicate completion of a task, or some other off\/on information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "checkbox"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown8CheckboxO",
+      "text" : "Checkbox"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItem\/checkbox",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "checkbox",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitem\/checkbox"
+}
+}
+}

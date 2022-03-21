@@ -1,0 +1,2822 @@
+{
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown6MarkupP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Markup"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Markup"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "Markup"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Markup"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "All supported markup elements are already implemented in the framework.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Use this protocol only as a generic constraint.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "style" : "note",
+          "type" : "aside"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/BasicBlockContainer",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BasicInlineContainer",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockContainer",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineContainer",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer",
+        "doc:\/\/Markdown\/documentation\/Markdown\/LiteralMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/RecurringInlineMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherited By",
+      "type" : "inheritedBy"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirective",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockQuote",
+        "doc:\/\/Markdown\/documentation\/Markdown\/CodeBlock",
+        "doc:\/\/Markdown\/documentation\/Markdown\/CustomBlock",
+        "doc:\/\/Markdown\/documentation\/Markdown\/CustomInline",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Document",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis",
+        "doc:\/\/Markdown\/documentation\/Markdown\/HTMLBlock",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Image",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineCode",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineHTML",
+        "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Link",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItem",
+        "doc:\/\/Markdown\/documentation\/Markdown\/OrderedList",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Paragraph",
+        "doc:\/\/Markdown\/documentation\/Markdown\/SoftBreak",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Strong",
+        "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Body-swift.struct",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Head-swift.struct",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Row",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Text",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ThematicBreak",
+        "doc:\/\/Markdown\/documentation\/Markdown\/UnorderedList"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ChildIndexPath",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgument",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Document",
+        "doc:\/\/Markdown\/documentation\/Markdown\/LiteralMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup"
+      ],
+      "title" : "Essentials"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/childCount",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/children",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/detachedFromParent",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/indexInParent",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/isEmpty",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/parent",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/range",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/root"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/accept(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(at:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(through:)-5nioe",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(through:)-6yfpl",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(through:)-88rrx",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/debugDescription(options:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/format(options:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/hasSameStructure(as:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/isIdentical(to:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/withUncheckedChildren(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/markup"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BasicBlockContainer": {
+  "abstract" : [
+    {
+      "text" : "A block element that can contain only other block elements and doesn’t require any other information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BasicBlockContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BasicBlockContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BasicBlockContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BasicBlockContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/basicblockcontainer"
+},
+"doc://Markdown/documentation/Markdown/BasicInlineContainer": {
+  "abstract" : [
+    {
+      "text" : "A block or inline markup element that can contain only ",
+      "type" : "text"
+    },
+    {
+      "code" : "InlineMarkup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements and doesn’t require any other information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BasicInlineContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BasicInlineContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BasicInlineContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BasicInlineContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/basicinlinecontainer"
+},
+"doc://Markdown/documentation/Markdown/BlockContainer": {
+  "abstract" : [
+    {
+      "text" : "A block element whose children must conform to ",
+      "type" : "text"
+    },
+    {
+      "code" : "BlockMarkup",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BlockContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BlockContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BlockContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockcontainer"
+},
+"doc://Markdown/documentation/Markdown/BlockDirective": {
+  "abstract" : [
+    {
+      "text" : "An element with attribute text that wraps other block elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BlockDirective"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirective",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BlockDirective"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BlockDirective",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockdirective"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/BlockQuote": {
+  "abstract" : [
+    {
+      "text" : "A block quote.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "BlockQuote"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockQuote",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "BlockQuote"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "BlockQuote",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockquote"
+},
+"doc://Markdown/documentation/Markdown/ChildIndexPath": {
+  "abstract" : [
+    {
+      "text" : "An array of indexes for traversing deeply into a markup tree.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "typealias"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ChildIndexPath"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ChildIndexPath",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ChildIndexPath"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ChildIndexPath",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/childindexpath"
+},
+"doc://Markdown/documentation/Markdown/CodeBlock": {
+  "abstract" : [
+    {
+      "text" : "A code block.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CodeBlock"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/CodeBlock",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CodeBlock"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CodeBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/codeblock"
+},
+"doc://Markdown/documentation/Markdown/CustomBlock": {
+  "abstract" : [
+    {
+      "text" : "A custom block markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CustomBlock"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/CustomBlock",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CustomBlock"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CustomBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/customblock"
+},
+"doc://Markdown/documentation/Markdown/CustomInline": {
+  "abstract" : [
+    {
+      "text" : "A custom inline markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CustomInline"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/CustomInline",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CustomInline"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CustomInline",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/custominline"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgument": {
+  "abstract" : [
+    {
+      "text" : "A directive argument, parsed from the form ",
+      "type" : "text"
+    },
+    {
+      "code" : "name: value",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " or ",
+      "type" : "text"
+    },
+    {
+      "code" : "name: \"value\"",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DirectiveArgument"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgument",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DirectiveArgument"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DirectiveArgument",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargument"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText": {
+  "abstract" : [
+    {
+      "text" : "The argument text provided to a directive, which can be parsed",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "into various kinds of arguments.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DirectiveArgumentText"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DirectiveArgumentText"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DirectiveArgumentText",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext"
+},
+"doc://Markdown/documentation/Markdown/Document": {
+  "abstract" : [
+    {
+      "text" : "A markup element representing the top level of a whole document.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Document"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Document",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Document"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Document",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/document"
+},
+"doc://Markdown/documentation/Markdown/Emphasis": {
+  "abstract" : [
+    {
+      "text" : "A markup element that tags inline elements with emphasis.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Emphasis"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Emphasis"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Emphasis",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/emphasis"
+},
+"doc://Markdown/documentation/Markdown/HTMLBlock": {
+  "abstract" : [
+    {
+      "text" : "A block element containing raw HTML.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HTMLBlock"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/HTMLBlock",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HTMLBlock"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HTMLBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/htmlblock"
+},
+"doc://Markdown/documentation/Markdown/Heading": {
+  "abstract" : [
+    {
+      "text" : "A heading.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Heading"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Heading"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Heading",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading"
+},
+"doc://Markdown/documentation/Markdown/Image": {
+  "abstract" : [
+    {
+      "text" : "An inline image reference.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Image"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Image",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Image"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Image",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/image"
+},
+"doc://Markdown/documentation/Markdown/InlineCode": {
+  "abstract" : [
+    {
+      "text" : "An inline code markup element, representing some code-like or “code voice” text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineCode"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineCode",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineCode"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineCode",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinecode"
+},
+"doc://Markdown/documentation/Markdown/InlineContainer": {
+  "abstract" : [
+    {
+      "text" : "An element whose children must conform to ",
+      "type" : "text"
+    },
+    {
+      "code" : "InlineMarkup",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinecontainer"
+},
+"doc://Markdown/documentation/Markdown/InlineHTML": {
+  "abstract" : [
+    {
+      "text" : "An inline markup element containing raw HTML.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineHTML"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineHTML",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineHTML"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineHTML",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinehtml"
+},
+"doc://Markdown/documentation/Markdown/InlineMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Inline Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinemarkup"
+},
+"doc://Markdown/documentation/Markdown/LineBreak": {
+  "abstract" : [
+    {
+      "text" : "A line break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LineBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LineBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LineBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/linebreak"
+},
+"doc://Markdown/documentation/Markdown/Link": {
+  "abstract" : [
+    {
+      "text" : "A link.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Link"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Link",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Link"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Link",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/link"
+},
+"doc://Markdown/documentation/Markdown/ListItem": {
+  "abstract" : [
+    {
+      "text" : "A list item in an ordered or unordered list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ListItem"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItem",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ListItem"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ListItem",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitem"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer": {
+  "abstract" : [
+    {
+      "text" : "A markup element that can contain only ",
+      "type" : "text"
+    },
+    {
+      "code" : "ListItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s as children and require no other information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ListItemContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ListItemContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ListItemContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer"
+},
+"doc://Markdown/documentation/Markdown/LiteralMarkup": {
+  "abstract" : [
+    {
+      "text" : "An element that is represented with just some plain text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LiteralMarkup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/LiteralMarkup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LiteralMarkup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LiteralMarkup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/literalmarkup"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/Markup/accept(_:)": {
+  "abstract" : [
+    {
+      "text" : "Accept a ",
+      "type" : "text"
+    },
+    {
+      "code" : "MarkupVisitor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " and call the specific visitation method for this element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/accept(_:)",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "accept(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/accept(_:)"
+},
+"doc://Markdown/documentation/Markdown/Markup/child(at:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the child at the given position if it is within the bounds of ",
+      "type" : "text"
+    },
+    {
+      "code" : "children.indices",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "child"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "child(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/child(at:)"
+},
+"doc://Markdown/documentation/Markdown/Markup/child(through:)-5nioe": {
+  "abstract" : [
+    {
+      "text" : "Traverse this markup tree by descending into the child at the index of each path element, returning ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if there is no child at that index.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "child"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "through"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14ChildIndexPatha",
+      "text" : "ChildIndexPath"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sa7Elementa",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "...) -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(through:)-5nioe",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "child(through:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/child(through:)-5nioe"
+},
+"doc://Markdown/documentation/Markdown/Markup/child(through:)-6yfpl": {
+  "abstract" : [
+    {
+      "text" : "Traverse this markup tree by descending into the child at the index of each path element, returning ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if there is no child at that index.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "child"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "S"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "through"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "S"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(through:)-6yfpl",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "child(through:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/child(through:)-6yfpl"
+},
+"doc://Markdown/documentation/Markdown/Markup/child(through:)-88rrx": {
+  "abstract" : [
+    {
+      "text" : "Traverse this markup tree by descending into the child at the index of each path element, returning ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if there is no child at that index or if the expected type for that path element doesn’t match.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "child"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "through"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown19TypedChildIndexPathV",
+      "text" : "TypedChildIndexPath"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/child(through:)-88rrx",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "child(through:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/child(through:)-88rrx"
+},
+"doc://Markdown/documentation/Markdown/Markup/childCount": {
+  "abstract" : [
+    {
+      "text" : "The number of this element’s children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "childCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/childCount",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "childCount",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/childcount"
+},
+"doc://Markdown/documentation/Markdown/Markup/children": {
+  "abstract" : [
+    {
+      "text" : "The children of the element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "children"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14MarkupChildrenV",
+      "text" : "MarkupChildren"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/children",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "children",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/children"
+},
+"doc://Markdown/documentation/Markdown/Markup/debugDescription(options:)": {
+  "abstract" : [
+    {
+      "text" : "Print a debug representation of the tree.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "debugDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17MarkupDumpOptionsV",
+      "text" : "MarkupDumpOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/debugDescription(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "debugDescription(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/debugdescription(options:)"
+},
+"doc://Markdown/documentation/Markdown/Markup/detachedFromParent": {
+  "abstract" : [
+    {
+      "text" : "Returns this element detached from its parent.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "detachedFromParent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/detachedFromParent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "detachedFromParent",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/detachedfromparent"
+},
+"doc://Markdown/documentation/Markdown/Markup/format(options:)": {
+  "abstract" : [
+    {
+      "text" : "Print this element with the given formatting rules.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "format"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV",
+      "text" : "MarkupFormatter"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV7OptionsV",
+      "text" : "Options"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/format(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "format(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/format(options:)"
+},
+"doc://Markdown/documentation/Markdown/Markup/hasSameStructure(as:)": {
+  "abstract" : [
+    {
+      "text" : "Returns true if this element has the same tree structure underneath it as another element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasSameStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/hasSameStructure(as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasSameStructure(as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/hassamestructure(as:)"
+},
+"doc://Markdown/documentation/Markdown/Markup/indexInParent": {
+  "abstract" : [
+    {
+      "text" : "The index in the parent’s children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "indexInParent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/indexInParent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "indexInParent",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/indexinparent"
+},
+"doc://Markdown/documentation/Markdown/Markup/isEmpty": {
+  "abstract" : [
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if this element has no children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEmpty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/isEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/isempty"
+},
+"doc://Markdown/documentation/Markdown/Markup/isIdentical(to:)": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if this element is identical to another, comparing internal unique identifiers.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isIdentical"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/isIdentical(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isIdentical(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/isidentical(to:)"
+},
+"doc://Markdown/documentation/Markdown/Markup/parent": {
+  "abstract" : [
+    {
+      "text" : "The parent of this element, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if this is a root.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/parent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parent",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/parent"
+},
+"doc://Markdown/documentation/Markdown/Markup/range": {
+  "abstract" : [
+    {
+      "text" : "The text range where this element was parsed, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if it was constructed outside of parsing.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "range"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown11SourceRangea",
+      "text" : "SourceRange"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/range",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "range",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/range"
+},
+"doc://Markdown/documentation/Markdown/Markup/root": {
+  "abstract" : [
+    {
+      "text" : "The root of the tree in which this element resides, or the element itself if it is the root.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "root"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/root",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "root",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/root"
+},
+"doc://Markdown/documentation/Markdown/Markup/withUncheckedChildren(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns a copy of this element with the given children instead.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withUncheckedChildren"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup\/withUncheckedChildren(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withUncheckedChildren(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup\/withuncheckedchildren(_:)"
+},
+"doc://Markdown/documentation/Markdown/MarkupChildren": {
+  "abstract" : [
+    {
+      "text" : "A lazy sequence consisting of an element’s child elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupChildren"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupChildren"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupChildren",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupchildren"
+},
+"doc://Markdown/documentation/Markdown/OrderedList": {
+  "abstract" : [
+    {
+      "text" : "An ordered list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OrderedList"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/OrderedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OrderedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OrderedList",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/orderedlist"
+},
+"doc://Markdown/documentation/Markdown/Paragraph": {
+  "abstract" : [
+    {
+      "text" : "A paragraph.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Paragraph"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Paragraph",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Paragraph"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Paragraph",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/paragraph"
+},
+"doc://Markdown/documentation/Markdown/PlainTextConvertibleMarkup": {
+  "abstract" : [
+    {
+      "text" : "An element that can be converted to plain text without formatting.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlainTextConvertibleMarkup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlainTextConvertibleMarkup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlainTextConvertibleMarkup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/plaintextconvertiblemarkup"
+},
+"doc://Markdown/documentation/Markdown/RecurringInlineMarkup": {
+  "abstract" : [
+    {
+      "text" : "An inline element that can recur throughout any structure.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "RecurringInlineMarkup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/RecurringInlineMarkup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "RecurringInlineMarkup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "RecurringInlineMarkup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/recurringinlinemarkup"
+},
+"doc://Markdown/documentation/Markdown/SoftBreak": {
+  "abstract" : [
+    {
+      "text" : "A soft break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SoftBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SoftBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SoftBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SoftBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/softbreak"
+},
+"doc://Markdown/documentation/Markdown/Strikethrough": {
+  "abstract" : [
+    {
+      "text" : "Inline elements that should be rendered with a strike through them.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Strikethrough"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Strikethrough"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Strikethrough",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/strikethrough"
+},
+"doc://Markdown/documentation/Markdown/Strong": {
+  "abstract" : [
+    {
+      "text" : "An element that tags inline elements with strong emphasis.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Strong"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strong",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Strong"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Strong",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/strong"
+},
+"doc://Markdown/documentation/Markdown/SymbolLink": {
+  "abstract" : [
+    {
+      "text" : "A link to a symbol.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SymbolLink"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SymbolLink"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SymbolLink",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/symbollink"
+},
+"doc://Markdown/documentation/Markdown/Table": {
+  "abstract" : [
+    {
+      "text" : "A table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Table"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Table"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table"
+},
+"doc://Markdown/documentation/Markdown/Table/Body-swift.struct": {
+  "abstract" : [
+    {
+      "text" : "The body of a table consisting of zero or more ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Row",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Body"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Body-swift.struct",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Body"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Body",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/body-swift.struct"
+},
+"doc://Markdown/documentation/Markdown/Table/Cell": {
+  "abstract" : [
+    {
+      "text" : "A cell in a table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Cell"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Cell"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Cell",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/cell"
+},
+"doc://Markdown/documentation/Markdown/Table/Head-swift.struct": {
+  "abstract" : [
+    {
+      "text" : "The head of a table which contains one or more ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Head"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Head-swift.struct",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Head"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Head",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/head-swift.struct"
+},
+"doc://Markdown/documentation/Markdown/Table/Row": {
+  "abstract" : [
+    {
+      "text" : "A row of cells in a table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Row"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Row",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Row"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Row",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/row"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer": {
+  "abstract" : [
+    {
+      "text" : "A container of ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TableCellContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TableCellContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TableCellContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer"
+},
+"doc://Markdown/documentation/Markdown/Text": {
+  "abstract" : [
+    {
+      "text" : "Plain text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Text",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Text"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Text",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/text"
+},
+"doc://Markdown/documentation/Markdown/ThematicBreak": {
+  "abstract" : [
+    {
+      "text" : "A thematic break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ThematicBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ThematicBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ThematicBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ThematicBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/thematicbreak"
+},
+"doc://Markdown/documentation/Markdown/TypedChildIndexPath": {
+  "abstract" : [
+    {
+      "text" : "A description of a traversal through a markup tree by index and optional expected type.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TypedChildIndexPath"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TypedChildIndexPath"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TypedChildIndexPath",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/typedchildindexpath"
+},
+"doc://Markdown/documentation/Markdown/UnorderedList": {
+  "abstract" : [
+    {
+      "text" : "An unordered list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnorderedList"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/UnorderedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnorderedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnorderedList",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/unorderedlist"
+}
+}
+}

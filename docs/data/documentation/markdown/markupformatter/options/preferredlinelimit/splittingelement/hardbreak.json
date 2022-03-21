@@ -1,0 +1,475 @@
+{
+  "abstract" : [
+    {
+      "text" : "Split ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Text",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements with ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " (a.k.a. ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "hard break",
+          "type" : "text"
+        }
+      ],
+      "type" : "emphasis"
+    },
+    {
+      "text" : ") elements if a line length",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "approaches the preferred maximum length if possible.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredLineLimit",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredLineLimit\/SplittingElement"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredLineLimit\/SplittingElement\/hardBreak"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown15MarkupFormatterV7OptionsV18PreferredLineLimitV16SplittingElementO9hardBreakyA2ImF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "hardBreak"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "MarkupFormatter.Options.PreferredLineLimit.SplittingElement.hardBreak"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "hardBreak"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/markupformatter\/options\/preferredlinelimit\/splittingelement\/hardbreak"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/FormatterAndOptions": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formatter and Options",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/formatterandoptions"
+},
+"doc://Markdown/documentation/Markdown/LineBreak": {
+  "abstract" : [
+    {
+      "text" : "A line break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LineBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LineBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LineBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/linebreak"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter": {
+  "abstract" : [
+    {
+      "text" : "Prints a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " tree with formatting options.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupFormatter"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupFormatter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options": {
+  "abstract" : [
+    {
+      "text" : "Formatting options for Markdown, based on ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/commonmark.org",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Options"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Options"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter.Options",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/options"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options/PreferredLineLimit": {
+  "abstract" : [
+    {
+      "text" : "The preferred maximum line length and element for splitting  that reach that preferred limit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PreferredLineLimit"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredLineLimit",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PreferredLineLimit"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter.Options.PreferredLineLimit",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/options\/preferredlinelimit"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options/PreferredLineLimit/SplittingElement": {
+  "abstract" : [
+    {
+      "text" : "The element to use when splitting lines that are longer than the preferred line length.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SplittingElement"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredLineLimit\/SplittingElement",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SplittingElement"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter.Options.PreferredLineLimit.SplittingElement",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/options\/preferredlinelimit\/splittingelement"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options/PreferredLineLimit/SplittingElement/hardBreak": {
+  "abstract" : [
+    {
+      "text" : "Split ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Text",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements with ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " (a.k.a. ",
+      "type" : "text"
+    },
+    {
+      "inlineContent" : [
+        {
+          "text" : "hard break",
+          "type" : "text"
+        }
+      ],
+      "type" : "emphasis"
+    },
+    {
+      "text" : ") elements if a line length",
+      "type" : "text"
+    },
+    {
+      "text" : " ",
+      "type" : "text"
+    },
+    {
+      "text" : "approaches the preferred maximum length if possible.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hardBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredLineLimit\/SplittingElement\/hardBreak",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "MarkupFormatter.Options.PreferredLineLimit.SplittingElement.hardBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/options\/preferredlinelimit\/splittingelement\/hardbreak"
+},
+"doc://Markdown/documentation/Markdown/Text": {
+  "abstract" : [
+    {
+      "text" : "Plain text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Text",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Text"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Text",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/text"
+},
+"https://commonmark.org": {
+  "identifier" : "https:\/\/commonmark.org",
+  "title" : "CommonMark",
+  "titleInlineContent" : [
+    {
+      "text" : "CommonMark",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/commonmark.org"
+}
+}
+}

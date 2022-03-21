@@ -1,0 +1,605 @@
+{
+  "abstract" : [
+    {
+      "text" : "A markup element that can contain only ",
+      "type" : "text"
+    },
+    {
+      "code" : "ListItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s as children and require no other information.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown17ListItemContainerP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "ListItemContainer"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "ListItemContainer"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "ListItemContainer"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "ListItemContainer"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8Markdown11BlockMarkupP",
+              "text" : "BlockMarkup"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/OrderedList",
+        "doc:\/\/Markdown\/documentation\/Markdown\/UnorderedList"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/init(_:)-7fodp"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/listItems"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/appendItem(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/replaceItemsInRange(_:with:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/setListItems(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/listitemcontainer"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer": {
+  "abstract" : [
+    {
+      "text" : "A markup element that can contain only ",
+      "type" : "text"
+    },
+    {
+      "code" : "ListItem",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : "s as children and require no other information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ListItemContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ListItemContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ListItemContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer/appendItem(_:)": {
+  "abstract" : [
+    {
+      "text" : "Append an item to the list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appendItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown8ListItemV",
+      "text" : "ListItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/appendItem(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appendItem(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer\/appenditem(_:)"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer/init(_:)-7fodp": {
+  "abstract" : [
+    {
+      "text" : "Create a list from a sequence of items.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 2,
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Items"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Items"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/init(_:)-7fodp",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer\/init(_:)-7fodp"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer/listItems": {
+  "abstract" : [
+    {
+      "text" : "The items of the list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "listItems"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s15LazyMapSequenceV",
+      "text" : "LazyMapSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14MarkupChildrenV",
+      "text" : "MarkupChildren"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown8ListItemV",
+      "text" : "ListItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/listItems",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "listItems",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer\/listitems"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer/replaceItemsInRange(_:with:)": {
+  "abstract" : [
+    {
+      "text" : "Replace list items in a range with a sequence of items.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "replaceItemsInRange"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Items"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sn",
+      "text" : "Range"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "with"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Items"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/replaceItemsInRange(_:with:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "replaceItemsInRange(_:with:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer\/replaceitemsinrange(_:with:)"
+},
+"doc://Markdown/documentation/Markdown/ListItemContainer/setListItems(_:)": {
+  "abstract" : [
+    {
+      "text" : "Replace all list items with a sequence of items.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setListItems"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Items"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Items"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ListItemContainer\/setListItems(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setListItems(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/listitemcontainer\/setlistitems(_:)"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/OrderedList": {
+  "abstract" : [
+    {
+      "text" : "An ordered list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "OrderedList"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/OrderedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "OrderedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "OrderedList",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/orderedlist"
+},
+"doc://Markdown/documentation/Markdown/UnorderedList": {
+  "abstract" : [
+    {
+      "text" : "An unordered list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "UnorderedList"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/UnorderedList",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "UnorderedList"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "UnorderedList",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/unorderedlist"
+}
+}
+}

@@ -1,0 +1,1714 @@
+{
+  "abstract" : [
+    {
+      "text" : "Prints a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " tree with formatting options.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown15MarkupFormatterV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "MarkupFormatter"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "MarkupFormatter"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "MarkupFormatter"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "MarkupFormatter"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupWalker"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/init(formattingOptions:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/formattingOptions",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/result"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/defaultVisit(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitBlockDirective(_:)-1siyt",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitBlockQuote(_:)-8ip9b",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitCodeBlock(_:)-8r9r6",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDocument(_:)-9cuj6",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitEmphasis(_:)-15nif",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitHTMLBlock(_:)-ls2u",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitHeading(_:)-6t30l",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitImage(_:)-8wtsr",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineCode(_:)-7hrq5",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineHTML(_:)-7od9q",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitLineBreak(_:)-845gk",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitLink(_:)-3amk7",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitListItem(_:)-918qg",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitOrderedList(_:)-6m4d0",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitParagraph(_:)-95ntz",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitSoftBreak(_:)-19yil",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitStrikethrough(_:)-7czuv",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitStrong(_:)-4f6dw",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitSymbolLink(_:)-35506",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTable(_:)-61rlp",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableBody(_:)-4ix1e",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableCell(_:)-1k80l",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableHead(_:)-1pg1o",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableRow(_:)-8a2f5",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitText(_:)-3ujdt",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitThematicBreak(_:)-zo6h",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitUnorderedList(_:)-78tg8"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/MarkupVisitor-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/MarkupWalker-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/markupformatter"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/FormatterAndOptions": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formatter and Options",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/formatterandoptions"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter": {
+  "abstract" : [
+    {
+      "text" : "Prints a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " tree with formatting options.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupFormatter"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupFormatter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/MarkupVisitor-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/MarkupVisitor-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "MarkupVisitor Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/markupvisitor-implementations"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/MarkupWalker-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/MarkupWalker-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "MarkupWalker Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/markupwalker-implementations"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options": {
+  "abstract" : [
+    {
+      "text" : "Formatting options for Markdown, based on ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "https:\/\/commonmark.org",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Options"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Options"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter.Options",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/options"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/defaultVisit(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "defaultVisit"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/defaultVisit(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "defaultVisit(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/defaultvisit(_:)"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/formattingOptions": {
+  "abstract" : [
+    {
+      "text" : "Formatting options to use while printing.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "formattingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV",
+      "text" : "MarkupFormatter"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV7OptionsV",
+      "text" : "Options"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/formattingOptions",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "formattingOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/formattingoptions"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/init(formattingOptions:)": {
+  "abstract" : [
+    {
+      "text" : "Create a ",
+      "type" : "text"
+    },
+    {
+      "code" : "MarkupPrinter",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with formatting options.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "formattingOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV",
+      "text" : "MarkupFormatter"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV7OptionsV",
+      "text" : "Options"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/init(formattingOptions:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(formattingOptions:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/init(formattingoptions:)"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/result": {
+  "abstract" : [
+    {
+      "text" : "The formatted result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "result"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/result",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "result",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/result"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitBlockDirective(_:)-1siyt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitBlockDirective"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14BlockDirectiveV",
+      "text" : "BlockDirective"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitBlockDirective(_:)-1siyt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitBlockDirective(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitblockdirective(_:)-1siyt"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitBlockQuote(_:)-8ip9b": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitBlockQuote"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown10BlockQuoteV",
+      "text" : "BlockQuote"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitBlockQuote(_:)-8ip9b",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitBlockQuote(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitblockquote(_:)-8ip9b"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitCodeBlock(_:)-8r9r6": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitCodeBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown9CodeBlockV",
+      "text" : "CodeBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitCodeBlock(_:)-8r9r6",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitCodeBlock(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitcodeblock(_:)-8r9r6"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitDocument(_:)-9cuj6": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitDocument"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown8DocumentV",
+      "text" : "Document"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDocument(_:)-9cuj6",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitDocument(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitdocument(_:)-9cuj6"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitEmphasis(_:)-15nif": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitEmphasis"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown8EmphasisV",
+      "text" : "Emphasis"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitEmphasis(_:)-15nif",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitEmphasis(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitemphasis(_:)-15nif"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitHTMLBlock(_:)-ls2u": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitHTMLBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown9HTMLBlockV",
+      "text" : "HTMLBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitHTMLBlock(_:)-ls2u",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitHTMLBlock(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visithtmlblock(_:)-ls2u"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitHeading(_:)-6t30l": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitHeading"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown7HeadingV",
+      "text" : "Heading"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitHeading(_:)-6t30l",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitHeading(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitheading(_:)-6t30l"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitImage(_:)-8wtsr": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitImage"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5ImageV",
+      "text" : "Image"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitImage(_:)-8wtsr",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitImage(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitimage(_:)-8wtsr"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitInlineCode(_:)-7hrq5": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitInlineCode"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown10InlineCodeV",
+      "text" : "InlineCode"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineCode(_:)-7hrq5",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitInlineCode(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitinlinecode(_:)-7hrq5"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitInlineHTML(_:)-7od9q": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitInlineHTML"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown10InlineHTMLV",
+      "text" : "InlineHTML"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineHTML(_:)-7od9q",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitInlineHTML(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitinlinehtml(_:)-7od9q"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitLineBreak(_:)-845gk": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitLineBreak"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown9LineBreakV",
+      "text" : "LineBreak"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitLineBreak(_:)-845gk",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitLineBreak(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitlinebreak(_:)-845gk"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitLink(_:)-3amk7": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitLink"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown4LinkV",
+      "text" : "Link"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitLink(_:)-3amk7",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitLink(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitlink(_:)-3amk7"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitListItem(_:)-918qg": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitListItem"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown8ListItemV",
+      "text" : "ListItem"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitListItem(_:)-918qg",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitListItem(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitlistitem(_:)-918qg"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitOrderedList(_:)-6m4d0": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitOrderedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown11OrderedListV",
+      "text" : "OrderedList"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitOrderedList(_:)-6m4d0",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitOrderedList(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitorderedlist(_:)-6m4d0"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitParagraph(_:)-95ntz": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitParagraph"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown9ParagraphV",
+      "text" : "Paragraph"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitParagraph(_:)-95ntz",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitParagraph(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitparagraph(_:)-95ntz"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitSoftBreak(_:)-19yil": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitSoftBreak"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown9SoftBreakV",
+      "text" : "SoftBreak"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitSoftBreak(_:)-19yil",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitSoftBreak(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitsoftbreak(_:)-19yil"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitStrikethrough(_:)-7czuv": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitStrikethrough"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown13StrikethroughV",
+      "text" : "Strikethrough"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitStrikethrough(_:)-7czuv",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitStrikethrough(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitstrikethrough(_:)-7czuv"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitStrong(_:)-4f6dw": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitStrong"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6StrongV",
+      "text" : "Strong"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitStrong(_:)-4f6dw",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitStrong(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitstrong(_:)-4f6dw"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitSymbolLink(_:)-35506": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitSymbolLink"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown10SymbolLinkV",
+      "text" : "SymbolLink"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitSymbolLink(_:)-35506",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitSymbolLink(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitsymbollink(_:)-35506"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitTable(_:)-61rlp": {
+  "abstract" : [
+    {
+      "text" : "Format a table as an indivisible unit.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitTable"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTable(_:)-61rlp",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitTable(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visittable(_:)-61rlp"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitTableBody(_:)-4ix1e": {
+  "abstract" : [
+    {
+      "text" : "See ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTable(_:)-61rlp",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for more information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitTableBody"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV4BodyV",
+      "text" : "Body"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableBody(_:)-4ix1e",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitTableBody(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visittablebody(_:)-4ix1e"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitTableCell(_:)-1k80l": {
+  "abstract" : [
+    {
+      "text" : "See ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTable(_:)-61rlp",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for more information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitTableCell"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV4CellV",
+      "text" : "Cell"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableCell(_:)-1k80l",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitTableCell(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visittablecell(_:)-1k80l"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitTableHead(_:)-1pg1o": {
+  "abstract" : [
+    {
+      "text" : "See ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTable(_:)-61rlp",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for more information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitTableHead"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV4HeadV",
+      "text" : "Head"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableHead(_:)-1pg1o",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitTableHead(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visittablehead(_:)-1pg1o"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitTableRow(_:)-8a2f5": {
+  "abstract" : [
+    {
+      "text" : "See ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTable(_:)-61rlp",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " for more information.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitTableRow"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV3RowV",
+      "text" : "Row"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitTableRow(_:)-8a2f5",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitTableRow(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visittablerow(_:)-8a2f5"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitText(_:)-3ujdt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitText"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown4TextV",
+      "text" : "Text"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitText(_:)-3ujdt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitText(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visittext(_:)-3ujdt"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitThematicBreak(_:)-zo6h": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitThematicBreak"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown13ThematicBreakV",
+      "text" : "ThematicBreak"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitThematicBreak(_:)-zo6h",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitThematicBreak(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitthematicbreak(_:)-zo6h"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitUnorderedList(_:)-78tg8": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitUnorderedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown13UnorderedListV",
+      "text" : "UnorderedList"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitUnorderedList(_:)-78tg8",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitUnorderedList(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitunorderedlist(_:)-78tg8"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor": {
+  "abstract" : [
+    {
+      "text" : "Visits ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements and returns a result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupVisitor",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor"
+},
+"doc://Markdown/documentation/Markdown/MarkupWalker": {
+  "abstract" : [
+    {
+      "text" : "An interface for walking a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " tree without altering it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupWalker"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupWalker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupWalker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupWalker",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupwalker"
+},
+"https://commonmark.org": {
+  "identifier" : "https:\/\/commonmark.org",
+  "title" : "CommonMark",
+  "titleInlineContent" : [
+    {
+      "text" : "CommonMark",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/commonmark.org"
+}
+}
+}

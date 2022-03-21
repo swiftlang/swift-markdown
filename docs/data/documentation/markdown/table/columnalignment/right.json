@@ -1,0 +1,230 @@
+{
+  "abstract" : [
+    {
+      "text" : "Right alignment.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/ColumnAlignment"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/ColumnAlignment\/right"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown5TableV15ColumnAlignmentO5rightyA2EmF",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "case"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "right"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Case",
+    "symbolKind" : "case",
+    "title" : "Table.ColumnAlignment.right"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "case"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "right"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/table\/columnalignment\/right"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/Table": {
+  "abstract" : [
+    {
+      "text" : "A table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Table"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Table"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table"
+},
+"doc://Markdown/documentation/Markdown/Table/ColumnAlignment": {
+  "abstract" : [
+    {
+      "text" : "The alignment of all cells under a table column.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ColumnAlignment"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/ColumnAlignment",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ColumnAlignment"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.ColumnAlignment",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/columnalignment"
+},
+"doc://Markdown/documentation/Markdown/Table/ColumnAlignment/right": {
+  "abstract" : [
+    {
+      "text" : "Right alignment.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "case"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "right"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/ColumnAlignment\/right",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "Table.ColumnAlignment.right",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/columnalignment\/right"
+}
+}
+}

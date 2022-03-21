@@ -1,0 +1,649 @@
+{
+  "abstract" : [
+    {
+      "text" : "A link to a symbol.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown10SymbolLinkV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "SymbolLink"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "SymbolLink"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "SymbolLink"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "SymbolLink"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "overview",
+          "level" : 2,
+          "text" : "Overview",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Symbol links are written the same as inline code spans but with",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "two backticks ``` instead of one. The contents inside the backticks become",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "the link’s destination.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Symbol links should be typically rendered with “code voice”, usually",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "monospace.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/CustomInline",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineCode",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineHTML",
+        "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+        "doc:\/\/Markdown\/documentation\/Markdown\/SoftBreak",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Text"
+      ],
+      "title" : "Inline Leaves"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/init(destination:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/destination"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/Markup-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/PlainTextConvertibleMarkup-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/symbollink"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/CustomInline": {
+  "abstract" : [
+    {
+      "text" : "A custom inline markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CustomInline"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/CustomInline",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CustomInline"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CustomInline",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/custominline"
+},
+"doc://Markdown/documentation/Markdown/InlineCode": {
+  "abstract" : [
+    {
+      "text" : "An inline code markup element, representing some code-like or “code voice” text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineCode"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineCode",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineCode"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineCode",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinecode"
+},
+"doc://Markdown/documentation/Markdown/InlineHTML": {
+  "abstract" : [
+    {
+      "text" : "An inline markup element containing raw HTML.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineHTML"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineHTML",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineHTML"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineHTML",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinehtml"
+},
+"doc://Markdown/documentation/Markdown/InlineMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Inline Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinemarkup"
+},
+"doc://Markdown/documentation/Markdown/LineBreak": {
+  "abstract" : [
+    {
+      "text" : "A line break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "LineBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "LineBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "LineBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/linebreak"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/PlainTextConvertibleMarkup": {
+  "abstract" : [
+    {
+      "text" : "An element that can be converted to plain text without formatting.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlainTextConvertibleMarkup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlainTextConvertibleMarkup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlainTextConvertibleMarkup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/plaintextconvertiblemarkup"
+},
+"doc://Markdown/documentation/Markdown/SoftBreak": {
+  "abstract" : [
+    {
+      "text" : "A soft break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SoftBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SoftBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SoftBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SoftBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/softbreak"
+},
+"doc://Markdown/documentation/Markdown/SymbolLink": {
+  "abstract" : [
+    {
+      "text" : "A link to a symbol.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "SymbolLink"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "SymbolLink"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "SymbolLink",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/symbollink"
+},
+"doc://Markdown/documentation/Markdown/SymbolLink/Markup-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/Markup-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/symbollink\/markup-implementations"
+},
+"doc://Markdown/documentation/Markdown/SymbolLink/PlainTextConvertibleMarkup-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/PlainTextConvertibleMarkup-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "PlainTextConvertibleMarkup Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/symbollink\/plaintextconvertiblemarkup-implementations"
+},
+"doc://Markdown/documentation/Markdown/SymbolLink/destination": {
+  "abstract" : [
+    {
+      "text" : "The link’s destination.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "destination"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/destination",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "destination",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/symbollink\/destination"
+},
+"doc://Markdown/documentation/Markdown/SymbolLink/init(destination:)": {
+  "abstract" : [
+    {
+      "text" : "Create a symbol link with a destination.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "destination"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    },
+    {
+      "kind" : "text",
+      "text" : "?)"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SymbolLink\/init(destination:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(destination:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/symbollink\/init(destination:)"
+},
+"doc://Markdown/documentation/Markdown/Text": {
+  "abstract" : [
+    {
+      "text" : "Plain text.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Text",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Text"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Text",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/text"
+}
+}
+}

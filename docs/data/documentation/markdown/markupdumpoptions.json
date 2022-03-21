@@ -1,0 +1,482 @@
+{
+  "abstract" : [
+    {
+      "text" : "Options when printing a debug description of a markup tree.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown17MarkupDumpOptionsV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "MarkupDumpOptions"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "MarkupDumpOptions"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "MarkupDumpOptions"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "MarkupDumpOptions"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/SQ",
+        "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP",
+        "doc:\/\/Markdown\/s9OptionSetP",
+        "doc:\/\/Markdown\/SY",
+        "doc:\/\/Markdown\/s10SetAlgebraP"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/init(rawValue:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/rawValue"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/printEverything",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/printSourceLocations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/printUniqueIdentifiers"
+      ],
+      "title" : "Type Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/Equatable-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/OptionSet-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/SetAlgebra-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/markupdumpoptions"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/SQ": {
+  "identifier" : "doc:\/\/Markdown\/SQ",
+  "title" : "Swift.Equatable",
+  "type" : "unresolvable"
+},
+"doc://Markdown/SY": {
+  "identifier" : "doc:\/\/Markdown\/SY",
+  "title" : "Swift.RawRepresentable",
+  "type" : "unresolvable"
+},
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/FormatterAndOptions": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/FormatterAndOptions",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Formatter and Options",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/formatterandoptions"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions": {
+  "abstract" : [
+    {
+      "text" : "Options when printing a debug description of a markup tree.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupDumpOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupDumpOptions"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupDumpOptions",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/Equatable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/Equatable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Equatable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/equatable-implementations"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/OptionSet-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/OptionSet-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "OptionSet Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/optionset-implementations"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/SetAlgebra-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/SetAlgebra-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "SetAlgebra Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/setalgebra-implementations"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/init(rawValue:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/init(rawValue:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(rawValue:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/init(rawvalue:)"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/printEverything": {
+  "abstract" : [
+    {
+      "text" : "Print all optional information about a markup tree.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "printEverything"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17MarkupDumpOptionsV",
+      "text" : "MarkupDumpOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/printEverything",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "printEverything",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/printeverything"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/printSourceLocations": {
+  "abstract" : [
+    {
+      "text" : "Include source locations and ranges of each element in the dump.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "printSourceLocations"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17MarkupDumpOptionsV",
+      "text" : "MarkupDumpOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/printSourceLocations",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "printSourceLocations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/printsourcelocations"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/printUniqueIdentifiers": {
+  "abstract" : [
+    {
+      "text" : "Include internal unique identifiers of each element in the dump.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "static"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "printUniqueIdentifiers"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17MarkupDumpOptionsV",
+      "text" : "MarkupDumpOptions"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/printUniqueIdentifiers",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "printUniqueIdentifiers",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/printuniqueidentifiers"
+},
+"doc://Markdown/documentation/Markdown/MarkupDumpOptions/rawValue": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "let"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rawValue"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupDumpOptions\/rawValue",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rawValue",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupdumpoptions\/rawvalue"
+},
+"doc://Markdown/s10SetAlgebraP": {
+  "identifier" : "doc:\/\/Markdown\/s10SetAlgebraP",
+  "title" : "Swift.SetAlgebra",
+  "type" : "unresolvable"
+},
+"doc://Markdown/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
+},
+"doc://Markdown/s9OptionSetP": {
+  "identifier" : "doc:\/\/Markdown\/s9OptionSetP",
+  "title" : "Swift.OptionSet",
+  "type" : "unresolvable"
+}
+}
+}

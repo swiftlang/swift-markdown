@@ -1,0 +1,744 @@
+{
+  "abstract" : [
+    {
+      "text" : "A container of ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown18TableCellContainerP",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "protocol"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "TableCellContainer"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "TableCellContainer"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Protocol",
+    "symbolKind" : "protocol",
+    "title" : "TableCellContainer"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "protocol"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "TableCellContainer"
+            },
+            {
+              "kind" : "text",
+              "text" : " : "
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:8Markdown6MarkupP",
+              "text" : "Markup"
+            },
+            {
+              "kind" : "text",
+              "text" : ", "
+            },
+            {
+              "kind" : "typeIdentifier",
+              "preciseIdentifier" : "s:s25ExpressibleByArrayLiteralP",
+              "text" : "ExpressibleByArrayLiteral"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+        "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP"
+      ],
+      "kind" : "relationships",
+      "title" : "Inherits From",
+      "type" : "inheritsFrom"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Head-swift.struct",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Row"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforming Types",
+      "type" : "conformingTypes"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table"
+      ],
+      "title" : "Tables"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/init(_:)-4lqa9"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/cells"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/appendCell(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/replaceCellsInRange(_:with:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/setCells(_:)"
+      ],
+      "title" : "Instance Methods"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/ExpressibleByArrayLiteral-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/tablecellcontainer"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/Table": {
+  "abstract" : [
+    {
+      "text" : "A table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Table"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Table"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table"
+},
+"doc://Markdown/documentation/Markdown/Table/Cell": {
+  "abstract" : [
+    {
+      "text" : "A cell in a table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Cell"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Cell"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Cell",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/cell"
+},
+"doc://Markdown/documentation/Markdown/Table/Head-swift.struct": {
+  "abstract" : [
+    {
+      "text" : "The head of a table which contains one or more ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Head"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Head-swift.struct",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Head"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Head",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/head-swift.struct"
+},
+"doc://Markdown/documentation/Markdown/Table/Row": {
+  "abstract" : [
+    {
+      "text" : "A row of cells in a table.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Row"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Row",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Row"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Table.Row",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/row"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer": {
+  "abstract" : [
+    {
+      "text" : "A container of ",
+      "type" : "text"
+    },
+    {
+      "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell",
+      "isActive" : true,
+      "type" : "reference"
+    },
+    {
+      "text" : " elements.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "TableCellContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "TableCellContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "TableCellContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer/ExpressibleByArrayLiteral-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/ExpressibleByArrayLiteral-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "ExpressibleByArrayLiteral Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer\/expressiblebyarrayliteral-implementations"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer/appendCell(_:)": {
+  "abstract" : [
+    {
+      "text" : "Append a cell to the row.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "appendCell"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV4CellV",
+      "text" : "Cell"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/appendCell(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "appendCell(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer\/appendcell(_:)"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer/cells": {
+  "abstract" : [
+    {
+      "text" : "The cells of the row.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:s15LazyMapSequenceV",
+      "text" : "LazyMapSequence"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14MarkupChildrenV",
+      "text" : "MarkupChildren"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV",
+      "text" : "Table"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown5TableV4CellV",
+      "text" : "Cell"
+    },
+    {
+      "kind" : "text",
+      "text" : ">"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/cells",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "cells",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer\/cells"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer/init(_:)-4lqa9": {
+  "abstract" : [
+    {
+      "text" : "Create a row from cells.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 2,
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/init(_:)-4lqa9",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "init(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer\/init(_:)-4lqa9"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer/replaceCellsInRange(_:with:)": {
+  "abstract" : [
+    {
+      "text" : "Replace cells in a range with a sequence of cells.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "replaceCellsInRange"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sn",
+      "text" : "Range"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ">, "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "with"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/replaceCellsInRange(_:with:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "replaceCellsInRange(_:with:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer\/replacecellsinrange(_:with:)"
+},
+"doc://Markdown/documentation/Markdown/TableCellContainer/setCells(_:)": {
+  "abstract" : [
+    {
+      "text" : "Replace all cells with a sequence of cells.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "setCells"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Cells"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TableCellContainer\/setCells(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "setCells(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/tablecellcontainer\/setcells(_:)"
+},
+"doc://Markdown/s25ExpressibleByArrayLiteralP": {
+  "identifier" : "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP",
+  "title" : "Swift.ExpressibleByArrayLiteral",
+  "type" : "unresolvable"
+}
+}
+}

@@ -1,0 +1,613 @@
+{
+  "abstract" : [
+    {
+      "text" : "A heading.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading"
+  },
+  "kind" : "symbol",
+  "metadata" : {
+    "externalID" : "s:8Markdown7HeadingV",
+    "fragments" : [
+      {
+        "kind" : "keyword",
+        "text" : "struct"
+      },
+      {
+        "kind" : "text",
+        "text" : " "
+      },
+      {
+        "kind" : "identifier",
+        "text" : "Heading"
+      }
+    ],
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "navigatorTitle" : [
+      {
+        "kind" : "identifier",
+        "text" : "Heading"
+      }
+    ],
+    "role" : "symbol",
+    "roleHeading" : "Structure",
+    "symbolKind" : "struct",
+    "title" : "Heading"
+  },
+  "primaryContentSections" : [
+    {
+      "declarations" : [
+        {
+          "languages" : [
+            "swift"
+          ],
+          "platforms" : [
+            "macOS"
+          ],
+          "tokens" : [
+            {
+              "kind" : "keyword",
+              "text" : "struct"
+            },
+            {
+              "kind" : "text",
+              "text" : " "
+            },
+            {
+              "kind" : "identifier",
+              "text" : "Heading"
+            }
+          ]
+        }
+      ],
+      "kind" : "declarations"
+    }
+  ],
+  "relationshipsSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineContainer",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup"
+      ],
+      "kind" : "relationships",
+      "title" : "Conforms To",
+      "type" : "conformsTo"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/HTMLBlock",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ThematicBreak",
+        "doc:\/\/Markdown\/documentation\/Markdown\/CodeBlock"
+      ],
+      "title" : "Leaf Blocks"
+    }
+  ],
+  "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/init(level:_:)-55307",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/init(level:_:)-8x7sr"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/level"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/InlineContainer-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/Markup-Implementations",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/PlainTextConvertibleMarkup-Implementations"
+      ],
+      "title" : "Default Implementations"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/heading"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/CodeBlock": {
+  "abstract" : [
+    {
+      "text" : "A code block.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "CodeBlock"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/CodeBlock",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "CodeBlock"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "CodeBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/codeblock"
+},
+"doc://Markdown/documentation/Markdown/HTMLBlock": {
+  "abstract" : [
+    {
+      "text" : "A block element containing raw HTML.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "HTMLBlock"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/HTMLBlock",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "HTMLBlock"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "HTMLBlock",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/htmlblock"
+},
+"doc://Markdown/documentation/Markdown/Heading": {
+  "abstract" : [
+    {
+      "text" : "A heading.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Heading"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Heading"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Heading",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading"
+},
+"doc://Markdown/documentation/Markdown/Heading/InlineContainer-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/InlineContainer-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "InlineContainer Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/inlinecontainer-implementations"
+},
+"doc://Markdown/documentation/Markdown/Heading/Markup-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/Markup-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/markup-implementations"
+},
+"doc://Markdown/documentation/Markdown/Heading/PlainTextConvertibleMarkup-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/PlainTextConvertibleMarkup-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "PlainTextConvertibleMarkup Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/plaintextconvertiblemarkup-implementations"
+},
+"doc://Markdown/documentation/Markdown/Heading/init(level:_:)-55307": {
+  "abstract" : [
+    {
+      "text" : "Create a heading with a level and a sequence of children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "level"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown12InlineMarkupP",
+      "text" : "InlineMarkup"
+    },
+    {
+      "kind" : "text",
+      "text" : "...)"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/init(level:_:)-55307",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(level:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/init(level:_:)-55307"
+},
+"doc://Markdown/documentation/Markdown/Heading/init(level:_:)-8x7sr": {
+  "abstract" : [
+    {
+      "text" : "Create a heading with a level and a sequence of children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "level"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/init(level:_:)-8x7sr",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(level:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/init(level:_:)-8x7sr"
+},
+"doc://Markdown/documentation/Markdown/Heading/level": {
+  "abstract" : [
+    {
+      "text" : "The level of the heading, starting at ",
+      "type" : "text"
+    },
+    {
+      "code" : "1",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "level"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/level",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "level",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/level"
+},
+"doc://Markdown/documentation/Markdown/InlineContainer": {
+  "abstract" : [
+    {
+      "text" : "An element whose children must conform to ",
+      "type" : "text"
+    },
+    {
+      "code" : "InlineMarkup",
+      "type" : "codeVoice"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineContainer"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineContainer",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineContainer"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineContainer",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlinecontainer"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/PlainTextConvertibleMarkup": {
+  "abstract" : [
+    {
+      "text" : "An element that can be converted to plain text without formatting.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "PlainTextConvertibleMarkup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/PlainTextConvertibleMarkup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "PlainTextConvertibleMarkup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "PlainTextConvertibleMarkup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/plaintextconvertiblemarkup"
+},
+"doc://Markdown/documentation/Markdown/ThematicBreak": {
+  "abstract" : [
+    {
+      "text" : "A thematic break.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "ThematicBreak"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ThematicBreak",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "ThematicBreak"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "ThematicBreak",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/thematicbreak"
+}
+}
+}

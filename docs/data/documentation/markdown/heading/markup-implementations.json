@@ -1,0 +1,958 @@
+{
+  "abstract" : [
+    {
+      "text" : "No overview available.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown",
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/Markup-Implementations"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "collectionGroup",
+    "title" : "Markup Implementations"
+  },
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "topicSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/childCount",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/children",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/detachedFromParent",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/indexInParent",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/isEmpty",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/parent",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/range",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/root"
+      ],
+      "title" : "Instance Properties"
+    },
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/accept(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/child(at:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/child(through:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/debugDescription(options:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/format(options:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/hasSameStructure(as:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/isIdentical(to:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/withUncheckedChildren(_:)"
+      ],
+      "title" : "Instance Methods"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/heading\/markup-implementations"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/BlockMarkup": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockMarkup",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Markup Block Nodes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/blockmarkup"
+},
+"doc://Markdown/documentation/Markdown/Heading": {
+  "abstract" : [
+    {
+      "text" : "A heading.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Heading"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Heading"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Heading",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading"
+},
+"doc://Markdown/documentation/Markdown/Heading/accept(_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "accept"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "V"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/accept(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "accept(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/accept(_:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/child(at:)": {
+  "abstract" : [
+    {
+      "text" : "Returns the child at the given position if it is within the bounds of ",
+      "type" : "text"
+    },
+    {
+      "code" : "children.indices",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "child"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "at"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/child(at:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "child(at:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/child(at:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/child(through:)": {
+  "abstract" : [
+    {
+      "text" : "Traverse this markup tree by descending into the child at the index of each path element, returning ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if there is no child at that index or if the expected type for that path element doesn’t match.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "child"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "through"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown19TypedChildIndexPathV",
+      "text" : "TypedChildIndexPath"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/child(through:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "child(through:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/child(through:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/childCount": {
+  "abstract" : [
+    {
+      "text" : "The number of this element’s children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "childCount"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/childCount",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "childCount",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/childcount"
+},
+"doc://Markdown/documentation/Markdown/Heading/children": {
+  "abstract" : [
+    {
+      "text" : "The children of the element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "children"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14MarkupChildrenV",
+      "text" : "MarkupChildren"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/children",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "children",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/children"
+},
+"doc://Markdown/documentation/Markdown/Heading/debugDescription(options:)": {
+  "abstract" : [
+    {
+      "text" : "Print a debug representation of the tree.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "debugDescription"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17MarkupDumpOptionsV",
+      "text" : "MarkupDumpOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/debugDescription(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "debugDescription(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/debugdescription(options:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/detachedFromParent": {
+  "abstract" : [
+    {
+      "text" : "Returns this element detached from its parent.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "detachedFromParent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/detachedFromParent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "detachedFromParent",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/detachedfromparent"
+},
+"doc://Markdown/documentation/Markdown/Heading/format(options:)": {
+  "abstract" : [
+    {
+      "text" : "Print this element with the given formatting rules.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "format"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV",
+      "text" : "MarkupFormatter"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV7OptionsV",
+      "text" : "Options"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:SS",
+      "text" : "String"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/format(options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "format(options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/format(options:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/hasSameStructure(as:)": {
+  "abstract" : [
+    {
+      "text" : "Returns true if this element has the same tree structure underneath it as another element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "hasSameStructure"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "as"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/hasSameStructure(as:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "hasSameStructure(as:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/hassamestructure(as:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/indexInParent": {
+  "abstract" : [
+    {
+      "text" : "The index in the parent’s children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "indexInParent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Si",
+      "text" : "Int"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/indexInParent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "indexInParent",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/indexinparent"
+},
+"doc://Markdown/documentation/Markdown/Heading/isEmpty": {
+  "abstract" : [
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if this element has no children.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isEmpty"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/isEmpty",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isEmpty",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/isempty"
+},
+"doc://Markdown/documentation/Markdown/Heading/isIdentical(to:)": {
+  "abstract" : [
+    {
+      "text" : "Returns ",
+      "type" : "text"
+    },
+    {
+      "code" : "true",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if this element is identical to another, comparing internal unique identifiers.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isIdentical"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "to"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/isIdentical(to:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isIdentical(to:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/isidentical(to:)"
+},
+"doc://Markdown/documentation/Markdown/Heading/parent": {
+  "abstract" : [
+    {
+      "text" : "The parent of this element, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if this is a root.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parent"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/parent",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parent",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/parent"
+},
+"doc://Markdown/documentation/Markdown/Heading/range": {
+  "abstract" : [
+    {
+      "text" : "The text range where this element was parsed, or ",
+      "type" : "text"
+    },
+    {
+      "code" : "nil",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " if it was constructed outside of parsing.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "range"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown11SourceRangea",
+      "text" : "SourceRange"
+    },
+    {
+      "kind" : "text",
+      "text" : "?"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/range",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "range",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/range"
+},
+"doc://Markdown/documentation/Markdown/Heading/root": {
+  "abstract" : [
+    {
+      "text" : "The root of the tree in which this element resides, or the element itself if it is the root.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "root"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/root",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "root",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/root"
+},
+"doc://Markdown/documentation/Markdown/Heading/withUncheckedChildren(_:)": {
+  "abstract" : [
+    {
+      "text" : "Returns a copy of this element with the given children instead.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "withUncheckedChildren"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6MarkupP",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Heading\/withUncheckedChildren(_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "withUncheckedChildren(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/heading\/withuncheckedchildren(_:)"
+}
+}
+}

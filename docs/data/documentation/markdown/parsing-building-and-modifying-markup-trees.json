@@ -1,0 +1,499 @@
+{
+  "abstract" : [
+    {
+      "text" : "Get started with Swift-Markdown’s markup trees.",
+      "type" : "text"
+    }
+  ],
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Parsing-Building-and-Modifying-Markup-Trees"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "article",
+    "roleHeading" : "Article",
+    "title" : "Parsing, Building, and Modifying Markup Trees"
+  },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "Parsing",
+          "level" : 2,
+          "text" : "Parsing",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "To create a new ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Document",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " by parsing markdown content, use Document’s ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Document\/init(parsing:options:)",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " initializer, supplying a ",
+              "type" : "text"
+            },
+            {
+              "code" : "String",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " or ",
+              "type" : "text"
+            },
+            {
+              "code" : "URL",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ":",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"This is a markup *document*.\"",
+            "let document = Document(parsing: source)",
+            "print(document.debugDescription())",
+            "\/\/ Document",
+            "\/\/ └─ Paragraph",
+            "\/\/    ├─ Text \"This is a markup \"",
+            "\/\/    ├─ Emphasis",
+            "\/\/    │  └─ Text \"document\"",
+            "\/\/    └─ Text \".\""
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Parsing text is just one way to build a tree of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " elements. You can also build them yourself declaratively.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Building-Markup-Trees",
+          "level" : 2,
+          "text" : "Building Markup Trees",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "You can build trees using initializers for the various element types provided.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let document = Document(",
+            "    Paragraph(",
+            "        Text(\"This is a \"),",
+            "        Emphasis(",
+            "            Text(\"paragraph.\"))))"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "This would be equivalent to parsing ",
+              "type" : "text"
+            },
+            {
+              "code" : "\"This is a *paragraph.*\"",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " but allows you to programmatically insert content from other data sources into individual elements.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Modifying-Markup-Trees-with-Persistence",
+          "level" : 2,
+          "text" : "Modifying Markup Trees with Persistence",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Swift Markdown uses a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "https:\/\/en.wikipedia.org\/wiki\/Persistent_data_structure",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " tree for its backing storage, providing effectively immutable, copy-on-write value types that only copy the substructure necessary to create a unique root without affecting the previous version of the tree.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "anchor" : "Modifying-Elements-Directly",
+          "level" : 3,
+          "text" : "Modifying Elements Directly",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "If you just need to make a quick change, you can modify an element anywhere in a tree, and Swift Markdown will create copies of substructure that cannot be shared.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"This is *emphasized.*\"",
+            "let document = Document(parsing: source)",
+            "print(document.debugDescription())",
+            "\/\/ Document",
+            "\/\/ └─ Paragraph",
+            "\/\/    ├─ Text \"This is \"",
+            "\/\/    └─ Emphasis",
+            "\/\/       └─ Text \"emphasized.\"",
+            "",
+            "var text = document.child(through:",
+            "    0, \/\/ Paragraph",
+            "    1, \/\/ Emphasis",
+            "    0) as! Text \/\/ Text",
+            "",
+            "text.string = \"really emphasized!\"",
+            "print(text.root.debugDescription())",
+            "\/\/ Document",
+            "\/\/ └─ Paragraph",
+            "\/\/    ├─ Text \"This is \"",
+            "\/\/    └─ Emphasis",
+            "\/\/       └─ Text \"really emphasized!\"",
+            "",
+            "\/\/ The original document is unchanged:",
+            "",
+            "print(document.debugDescription())",
+            "\/\/ Document",
+            "\/\/ └─ Paragraph",
+            "\/\/    ├─ Text \"This is \"",
+            "\/\/    └─ Emphasis",
+            "\/\/       └─ Text \"emphasized.\""
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "If you find yourself needing to systematically change many parts of a tree, or even provide a complete transformation into something else, maybe the familiar ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "https:\/\/en.wikipedia.org\/wiki\/Visitor_pattern",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " is what you want.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 2,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "seeAlsoSections" : [
+    {
+      "generated" : true,
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Visitors-Walkers-and-Rewriters"
+      ],
+      "title" : "Getting Started"
+    }
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/parsing-building-and-modifying-markup-trees"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/Document": {
+  "abstract" : [
+    {
+      "text" : "A markup element representing the top level of a whole document.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Document"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Document",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Document"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Document",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/document"
+},
+"doc://Markdown/documentation/Markdown/Document/init(parsing:options:)": {
+  "abstract" : [
+    {
+      "text" : "Parse a file’s contents into a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Document",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ".",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "parsing"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation3URLV",
+      "text" : "URL"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "options"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown12ParseOptionsV",
+      "text" : "ParseOptions"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Document\/init(parsing:options:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(parsing:options:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/document\/init(parsing:options:)"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/Visitors-Walkers-and-Rewriters": {
+  "abstract" : [
+    {
+      "text" : "Use ",
+      "type" : "text"
+    },
+    {
+      "code" : "MarkupVisitor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " to transform, walk, and rewrite markup trees.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Visitors-Walkers-and-Rewriters",
+  "kind" : "article",
+  "role" : "article",
+  "title" : "Visitors, Walkers, and Rewriters",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/visitors-walkers-and-rewriters"
+},
+"https://en.wikipedia.org/wiki/Persistent_data_structure": {
+  "identifier" : "https:\/\/en.wikipedia.org\/wiki\/Persistent_data_structure",
+  "title" : "persistent",
+  "titleInlineContent" : [
+    {
+      "text" : "persistent",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/en.wikipedia.org\/wiki\/Persistent_data_structure"
+},
+"https://en.wikipedia.org/wiki/Visitor_pattern": {
+  "identifier" : "https:\/\/en.wikipedia.org\/wiki\/Visitor_pattern",
+  "title" : "Visitor Pattern",
+  "titleInlineContent" : [
+    {
+      "text" : "Visitor Pattern",
+      "type" : "text"
+    }
+  ],
+  "type" : "link",
+  "url" : "https:\/\/en.wikipedia.org\/wiki\/Visitor_pattern"
+}
+}
+}
