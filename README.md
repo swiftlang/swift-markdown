@@ -62,4 +62,4 @@ Swift Markdown can be improved to better meet your needs.
 
 Please see the [contributing guide](https://swift.org/contributing/#contributing-code) for more information.
 
-<!-- Copyright (c) 2021 Apple Inc and the Swift Project authors. All Rights Reserved. -->
+<!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->
