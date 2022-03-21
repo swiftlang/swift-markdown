@@ -152,29 +152,7 @@ let document = Document(parsing: source, options: .parseBlockDirectives)
 
 ## Collecting Diagnostics
 
-When parsing block directive syntax, Swift Markdown supplies an optional diagnostic infrastructure for reporting parsing problems to a user. See ``Diagnostic``, ``DiagnosticEngine``, and ``DiagnosticConsumer``.
-
-Here is a simple case if you just want to collect diagnostics:
-
-```swift
-class DiagnosticCollector: DiagnosticConsumer {
-    var diagnostics = [Diagnostic]()
-    func receive(_ diagnostic: Diagnostic) {
-        diagnostics.append(diagnostic)
-    }
-}
-
-let collector = DiagnosticCollector()
-let diagnostics = DiagnosticEngine()
-diagnostics.subscribe(collector)
-
-let document = Document(parsing: source,
-                        options: .parseBlockDirectives,
-                        diagnostics: diagnostics)
-
-for diagnostic in collector.diagnostics {
-  print(diagnostic)
-}
-```
+When parsing block directive syntax, you can optionally provide an array of errors 
+to collect parsing problems and report them to a user. See ``DirectiveArgumentText/ParseError``.
 
 <!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->

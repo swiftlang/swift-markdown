@@ -20,8 +20,6 @@ Add the dependency to any targets you've declared in your manifest:
 .target(name: "MyTarget", dependencies: ["Markdown"]),
 ```
 
-## Parsing
-
 To parse a document, use `Document(parsing:)`, supplying a `String` or `URL`:
 
 ```swift
@@ -38,132 +36,8 @@ print(document.debugDescription())
 //    └─ Text "."
 ```
 
-Parsing text is just one way to build a tree of `Markup` elements. You can also build them yourself declaratively.
-
-## Building Markup Trees
-
-You can build trees using initializers for the various element types provided.
-
-```swift
-import Markdown
-
-let document = Document(
-    Paragraph(
-        Text("This is a "),
-        Emphasis(
-            Text("paragraph."))))
-```
-
-This would be equivalent to parsing `"This is a *paragraph.*"` but allows you to programmatically insert content from other data sources into individual elements.
-
-## Modifying Markup Trees with Persistence
-
-Swift Markdown uses a [persistent](https://en.wikipedia.org/wiki/Persistent_data_structure) tree for its backing storage, providing effectively immutable, copy-on-write value types that only copy the substructure necessary to create a unique root without affecting the previous version of the tree.
-
-### Modifying Elements Directly
-
-If you just need to make a quick change, you can modify an element anywhere in a tree, and Swift Markdown will create copies of substructure that cannot be shared.
-
-```swift
-import Markdown
-
-let source = "This is *emphasized.*"
-let document = Document(parsing: source)
-print(document.debugDescription())
-// Document
-// └─ Paragraph
-//    ├─ Text "This is "
-//    └─ Emphasis
-//       └─ Text "emphasized."
-
-var text = document.child(through:
-    0, // Paragraph
-    1, // Emphasis
-    0) as! Text // Text
-
-text.string = "really emphasized!"
-print(text.root.debugDescription())
-// Document
-// └─ Paragraph
-//    ├─ Text "This is "
-//    └─ Emphasis
-//       └─ Text "really emphasized!"
-
-// The original document is unchanged:
-
-print(document.debugDescription())
-// Document
-// └─ Paragraph
-//    ├─ Text "This is "
-//    └─ Emphasis
-//       └─ Text "emphasized."
-```
-
-If you find yourself needing to systematically change many parts of a tree, or even provide a complete transformation into something else, maybe the familiar [Visitor Pattern](https://en.wikipedia.org/wiki/Visitor_pattern) is what you want.
-
-## Visitors, Walkers, and Rewriters
-
-There is a core `MarkupVisitor` protocol that provides the basis for transforming, walking, or rewriting a markup tree.
-
-```swift
-public protocol MarkupVisitor {
-    associatedtype Result
-}
-```
-
-Using its `Result` type, you can transform a markup tree into anything: another markup tree, or perhaps a tree of XML or HTML elements. There are two included refinements of `MarkupVisitor` for common uses.
-
-The first refinement, `MarkupWalker`, has an associated `Result` type of `Void`, so it's meant for summarizing or detecting aspects of a markup tree. If you wanted to append to a string as elements are visited, this might be a good tool for that.
-
-```swift
-import Markdown
-
-/// Counts `Link`s in a `Document`.
-struct LinkCounter: MarkupWalker {
-    var count = 0
-    mutating func visitLink(_ link: Link) {
-        if link.destination == "https://swift.org" {
-            count += 1
-        }
-        descendInto(link)
-    }
-}
-
-let source = "There are [two](https://swift.org) links to <https://swift.org> here."
-let document = Document(parsing: source)
-print(document.debugDescription())
-var linkCounter = LinkCounter()
-linkCounter.visit(document)
-print(linkCounter.count)
-// 2
-```
-
-The second refinement, `MarkupRewriter`, has an associated `Result` type of `Markup?`, so it's meant to change or even remove elements from a markup tree. You can return `nil` to delete an element, or return another element to substitute in its place.
-
-```swift
-import Markdown
-
-/// Delete all **strong** elements in a markup tree.
-struct StrongDeleter: MarkupRewriter {
-    mutating func visitStrong(_ strong: Strong) -> Markup? {
-        return nil
-    }
-}
-
-let source = "Now you see me, **now you don't**"
-let document = Document(parsing: source)
-var strongDeleter = StrongDeleter()
-let newDocument = strongDeleter.visit(document)
-
-print(newDocument!.debugDescription())
-// Document
-// └─ Paragraph
-//    └─ Text "Now you see me, "
-```
-
-## Block Directives
-
-Swift Markdown includes a syntax extension for attributed block elements. See [Block Directive](Documentation/BlockDirectives.md) documentation for more information.
+Please see Swift `Markdown`'s [documentation site](https://apple.github.io/swift-markdown/documentation/markdown/)
+for more detailed information about the library.
 
 ## Getting Involved
 
@@ -188,4 +62,4 @@ Swift Markdown can be improved to better meet your needs.
 
 Please see the [contributing guide](https://swift.org/contributing/#contributing-code) for more information.
 
-<!-- Copyright (c) 2021 Apple Inc and the Swift Project authors. All Rights Reserved. -->
+<!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->
