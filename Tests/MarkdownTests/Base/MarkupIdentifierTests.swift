@@ -34,8 +34,6 @@ final class MarkupIdentifierTests: XCTestCase {
 
         let customBlock = buildCustomBlock(height: height, width: width)
 
-        print(customBlock.debugDescription(options: .printEverything))
-
         struct IDCounter: MarkupWalker {
             var id = 0
 
