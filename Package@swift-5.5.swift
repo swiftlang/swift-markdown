@@ -58,7 +58,7 @@ if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // SwiftPM command plugins are only supported by Swift version 5.6 and later.
     #if swift(>=5.6)
     package.dependencies += [
-        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.0.0"),
+        .package(url: "https://github.com/apple/swift-docc-plugin", .branch("main")),
     ]
     #endif
 } else {
