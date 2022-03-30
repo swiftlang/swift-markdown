@@ -10,6 +10,10 @@ The markup tree provided by this package is comprised of immutable/persistent, t
 
 ## Topics
 
+### Snippets
+
+- <doc:snippets>
+
 ### Getting Started
 
 - <doc:Parsing-Building-and-Modifying-Markup-Trees>
