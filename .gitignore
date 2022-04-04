@@ -12,3 +12,4 @@
 /*.xcodeproj
 .swiftpm
 Package.resolved
+.enable-library-evolution

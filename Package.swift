@@ -13,6 +13,8 @@
 
 import PackageDescription
 import class Foundation.ProcessInfo
+import struct Foundation.URL
+import class Foundation.FileManager
 
 let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil ? "swift-cmark" : "swift-cmark-gfm"
 
@@ -30,7 +32,9 @@ let package = Package(
                 "CAtomic",
                 .product(name: "cmark-gfm", package: cmarkPackageName),
                 .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
-            ]),
+            ],
+            swiftSettings: librarySwiftSettings()
+        ),
         .target(
             name: "markdown-tool",
             dependencies: [
@@ -44,6 +48,24 @@ let package = Package(
         .target(name: "CAtomic"),
     ]
 )
+
+func librarySwiftSettings() -> [SwiftSetting]? {
+    let manifestLocation = URL(fileURLWithPath: #filePath)
+
+    let enableLibraryEvolutionFileLocation = manifestLocation
+        .deletingLastPathComponent()
+        .appendingPathComponent(".enable-library-evolution")
+    
+    // If there is a `.enable-library-evolution` file as a sibling of this package manifest
+    // build libraries with library evolution enabled.
+    if FileManager.default.fileExists(atPath: enableLibraryEvolutionFileLocation.path) {
+        return [
+            .unsafeFlags(["-enable-library-evolution"])
+        ]
+    } else {
+        return []
+    }
+}
 
 // If the `SWIFTCI_USE_LOCAL_DEPS` environment variable is set,
 // we're building in the Swift.org CI system alongside other projects in the Swift toolchain and
