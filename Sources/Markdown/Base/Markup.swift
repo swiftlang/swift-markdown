@@ -183,14 +183,16 @@ extension Markup {
 
     /// Returns the child at the given position if it is within the bounds of `children.indices`.
     ///
-    /// - Complexity: `O(childCount)`
+    /// - Complexity: `O(1)`
     public func child(at position: Int) -> Markup? {
         precondition(position >= 0, "Cannot retrieve a child at negative index: \(position)")
-        guard position <= raw.markup.childCount else {
+        guard position < raw.markup.childCount else {
             return nil
         }
-        var iterator = children.dropFirst(position).makeIterator()
-        return iterator.next()
+        let rawChild = raw.markup.child(at: position)
+        let absoluteRawMarkup = AbsoluteRawMarkup(markup: rawChild, metadata: raw.metadata.firstChild())
+        let data = _MarkupData(absoluteRawMarkup, parent: self)
+        return makeMarkup(data)
     }
 
     /// Traverse this markup tree by descending into the child at the index of each path element, returning `nil` if there is no child at that index or if the expected type for that path element doesn't match.
