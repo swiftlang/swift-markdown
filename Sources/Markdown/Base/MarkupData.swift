@@ -28,6 +28,12 @@ struct MarkupIdentifier: Equatable {
     func nextSibling(from raw: RawMarkup) -> MarkupIdentifier {
         return .init(rootId: rootId, childId: childId + raw.subtreeCount)
     }
+    
+    /// Returns the identifier for the next sibling of the given raw elements.
+    func nextSibling(from raw: [RawMarkup]) -> MarkupIdentifier {
+        let subtreeCount = raw.lazy.map(\.subtreeCount).reduce(0, +)
+        return .init(rootId: rootId, childId: childId + subtreeCount)
+    }
 
     /// Returns the identifier for the previous sibling of the given raw element.
     ///
@@ -70,6 +76,11 @@ struct MarkupMetadata {
     /// - Note: This method assumes that this metadata belongs to `raw`.
     func nextSibling(from raw: RawMarkup) -> MarkupMetadata {
         return MarkupMetadata(id: id.nextSibling(from: raw), indexInParent: indexInParent + 1)
+    }
+    
+    /// Returns metadata for the next sibling of the given raw elements.
+    func nextSibling(from raw: [RawMarkup]) -> MarkupMetadata {
+        return MarkupMetadata(id: id.nextSibling(from: raw), indexInParent: indexInParent + raw.count)
     }
 
     /// Returns metadata for the previous sibling of the given raw element.
