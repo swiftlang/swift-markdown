@@ -194,8 +194,17 @@ extension Markup {
         if position == 0 {
             childMetadata = raw.metadata.firstChild()
         } else {
-            let siblings = (0..<position).map(raw.markup.child(at:))
-            childMetadata = raw.metadata.firstChild().nextSibling(from: siblings)
+            let siblingSubtreeCount = (0..<position).reduce(0) { partialSubtreeCount, currentPosition in
+                return partialSubtreeCount + raw.markup.child(at: currentPosition).subtreeCount
+            }
+            
+            let firstChildID = raw.metadata.firstChild().id
+            let childID = MarkupIdentifier(
+                rootId: firstChildID.rootId,
+                childId: firstChildID.childId + siblingSubtreeCount
+            )
+            
+            childMetadata = MarkupMetadata(id: childID, indexInParent: indexInParent + position)
         }
         
         let rawChild = raw.markup.child(at: position)
