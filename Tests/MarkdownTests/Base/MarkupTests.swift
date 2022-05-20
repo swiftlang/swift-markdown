@@ -344,6 +344,20 @@ final class MarkupTests: XCTestCase {
             
             XCTAssertEqual(indexedChildMetadata.id, sequencedChildMetadata.id)
             XCTAssertEqual(indexedChildMetadata.indexInParent, sequencedChildMetadata.indexInParent)
+            XCTAssertEqual(indexedChildMetadata.indexInParent, index)
+        }
+    }
+    
+    func testChildAtPositionHasCorrectDataID() throws {
+        let source = "This is a [*link*](github.com). And some **bold** and *italic* text."
+        
+        let document = Document(parsing: source)
+        let paragraph = try XCTUnwrap(document.child(at: 0) as? Paragraph)
+        
+        for (index, sequencedChild) in paragraph.children.enumerated() {
+            let indexedChild = try XCTUnwrap(paragraph.child(at: index))
+            
+            XCTAssertEqual(indexedChild._data.id, sequencedChild._data.id)
         }
     }
     
