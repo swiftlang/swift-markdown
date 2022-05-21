@@ -204,7 +204,7 @@ extension Markup {
                 childId: firstChildID.childId + siblingSubtreeCount
             )
             
-            childMetadata = MarkupMetadata(id: childID, indexInParent: indexInParent + position)
+            childMetadata = MarkupMetadata(id: childID, indexInParent: position)
         }
         
         let rawChild = raw.markup.child(at: position)
