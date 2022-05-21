@@ -283,4 +283,93 @@ final class MarkupTests: XCTestCase {
             )!.debugDescription()
         )
     }
+    
+    func testChildAtPositionHasCorrectType() throws {
+        let source = "This is a [*link*](github.com). And some **bold** and *italic* text."
+        
+        /*
+         Document
+         └─ Paragraph
+        */
+        let document = Document(parsing: source)
+        let paragraph = try XCTUnwrap(document.child(at: 0))
+        assertEqualType(paragraph, Paragraph.self)
+        
+        /*
+            ├─ Text "This is a "
+            ├─ Link destination: "github.com"
+            │  └─ Emphasis
+            │     └─ Text "link"
+         
+        */
+        assertEqualType(paragraph.child(at: 0), Text.self)
+        assertEqualType(paragraph.child(at: 1), Link.self)
+        assertEqualType(paragraph.child(at: 1)?.child(at: 0), Emphasis.self)
+        assertEqualType(paragraph.child(at: 1)?.child(at: 0)?.child(at: 0), Text.self)
+        
+        /*
+            ├─ Text ". And some "
+            ├─ Strong
+            │  └─ Text "bold"
+        */
+        assertEqualType(paragraph.child(at: 2), Text.self)
+        assertEqualType(paragraph.child(at: 3), Strong.self)
+        assertEqualType(paragraph.child(at: 3)?.child(at: 0), Text.self)
+        
+        /*
+            ├─ Text " and "
+            ├─ Emphasis
+            │  └─ Text "italic"
+            └─ Text " text."
+        */
+        assertEqualType(paragraph.child(at: 4), Text.self)
+        assertEqualType(paragraph.child(at: 5), Emphasis.self)
+        assertEqualType(paragraph.child(at: 5)?.child(at: 0), Text.self)
+        assertEqualType(paragraph.child(at: 6), Text.self)
+        
+        XCTAssertNil(paragraph.child(at: 7))
+    }
+    
+    func testChildAtPositionHasCorrectMetadata() throws {
+        let source = "This is a [*link*](github.com). And some **bold** and *italic* text."
+        
+        let document = Document(parsing: source)
+        let paragraph = try XCTUnwrap(document.child(at: 0) as? Paragraph)
+        
+        for (index, sequencedChild) in paragraph.children.enumerated() {
+            let indexedChild = try XCTUnwrap(paragraph.child(at: index))
+            
+            let indexedChildMetadata = indexedChild.raw.metadata
+            let sequencedChildMetadata = sequencedChild.raw.metadata
+            
+            XCTAssertEqual(indexedChildMetadata.id, sequencedChildMetadata.id)
+            XCTAssertEqual(indexedChildMetadata.indexInParent, sequencedChildMetadata.indexInParent)
+            XCTAssertEqual(indexedChildMetadata.indexInParent, index)
+        }
+    }
+    
+    func testChildAtPositionHasCorrectDataID() throws {
+        let source = "This is a [*link*](github.com). And some **bold** and *italic* text."
+        
+        let document = Document(parsing: source)
+        let paragraph = try XCTUnwrap(document.child(at: 0) as? Paragraph)
+        
+        for (index, sequencedChild) in paragraph.children.enumerated() {
+            let indexedChild = try XCTUnwrap(paragraph.child(at: index))
+            
+            XCTAssertEqual(indexedChild._data.id, sequencedChild._data.id)
+        }
+    }
+    
+    func assertEqualType<FirstType, SecondType>(
+        _ first: FirstType,
+        _ second: SecondType.Type,
+        file: StaticString = #file,
+        line: UInt = #line
+    ) {
+        guard first is SecondType else {
+            XCTFail("'\(type(of: first))' is not expected type '\(second)'", file: file, line: line)
+            return
+        }
+    }
 }
