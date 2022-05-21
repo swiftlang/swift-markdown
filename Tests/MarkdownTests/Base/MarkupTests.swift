@@ -348,6 +348,25 @@ final class MarkupTests: XCTestCase {
         }
     }
     
+    func testNestedChildAtPositionHasCorrectMetadata() throws {
+        let source = "This is some **bold** and *italic* text and a [multi-formatted *link* **to** `github`](github.com)."
+        
+        let document = Document(parsing: source)
+        let link = try XCTUnwrap(document.child(at: 0)?.child(at: 5) as? Link)
+        XCTAssertEqual(link.indexInParent, 5)
+        
+        for (index, sequencedChild) in link.children.enumerated() {
+            let indexedChild = try XCTUnwrap(link.child(at: index))
+            
+            let indexedChildMetadata = indexedChild.raw.metadata
+            let sequencedChildMetadata = sequencedChild.raw.metadata
+            
+            XCTAssertEqual(indexedChildMetadata.id, sequencedChildMetadata.id)
+            XCTAssertEqual(indexedChildMetadata.indexInParent, sequencedChildMetadata.indexInParent)
+            XCTAssertEqual(indexedChildMetadata.indexInParent, index)
+        }
+    }
+    
     func testChildAtPositionHasCorrectDataID() throws {
         let source = "This is a [*link*](github.com). And some **bold** and *italic* text."
         
@@ -356,6 +375,19 @@ final class MarkupTests: XCTestCase {
         
         for (index, sequencedChild) in paragraph.children.enumerated() {
             let indexedChild = try XCTUnwrap(paragraph.child(at: index))
+            
+            XCTAssertEqual(indexedChild._data.id, sequencedChild._data.id)
+        }
+    }
+    
+    func testNestedChildAtPositionHasCorrectDataID() throws {
+        let source = "This is some **bold** and *italic* text and a [multi-formatted *link* **to** `github`](github.com)."
+        
+        let document = Document(parsing: source)
+        let link = try XCTUnwrap(document.child(at: 0)?.child(at: 5) as? Link)
+        
+        for (index, sequencedChild) in link.children.enumerated() {
+            let indexedChild = try XCTUnwrap(link.child(at: index))
             
             XCTAssertEqual(indexedChild._data.id, sequencedChild._data.id)
         }
