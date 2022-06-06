@@ -43,7 +43,7 @@ for more detailed information about the library.
 
 ### Submitting a Bug Report
 
-Swift Markdown tracks all bug reports with [Swift JIRA](https://bugs.swift.org/).
+Swift Markdown tracks all bug reports with [Swift JIRA](https://github.com/apple/swift-markdown/issues).
 You can use the "Swift-Markdown" component for issues and feature requests specific to Swift Markdown.
 When you submit a bug report we ask that you follow the
 Swift [Bug Reporting](https://swift.org/contributing/#reporting-bugs) guidelines
