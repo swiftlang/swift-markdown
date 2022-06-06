@@ -43,7 +43,7 @@ for more detailed information about the library.
 
 ### Submitting a Bug Report
 
-Swift Markdown tracks all bug reports with [Swift JIRA](https://bugs.swift.org/).
+Swift Markdown tracks all bug reports with [GitHub Issues](https://github.com/apple/swift-markdown/issues).
 You can use the "Swift-Markdown" component for issues and feature requests specific to Swift Markdown.
 When you submit a bug report we ask that you follow the
 Swift [Bug Reporting](https://swift.org/contributing/#reporting-bugs) guidelines
@@ -51,8 +51,7 @@ and provide as many details as possible.
 
 ### Submitting a Feature Request
 
-For feature requests, please feel free to create an issue
-on [Swift JIRA](https://bugs.swift.org/) with the `New Feature` type
+For feature requests, please feel free to file a [GitHub issue](https://github.com/apple/swift-markdown/issues/new)
 or start a discussion on the [Swift Forums](https://forums.swift.org/c/development/swift-docc).
 
 Don't hesitate to submit a feature request if you see a way
