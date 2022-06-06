@@ -93,12 +93,10 @@ public struct Aside {
         case `throws` = "Throws"
 
         public init?(rawValue: String) {
-            // Allow lowercase aside prefixes to match.
-            let casesAndLowercasedRawValues = Kind.allCases.map { (kind: $0, rawValue: $0.rawValue.lowercased() )}
-            guard let matchingCaseAndRawValue = casesAndLowercasedRawValues.first(where: { $0.rawValue == rawValue.lowercased() }) else {
+            guard let kind = Kind.allCases.first(where: { $0.rawValue.caseInsensitiveCompare(rawValue) == .orderedSame }) else {
                 return nil
             }
-            self = matchingCaseAndRawValue.kind
+            self = kind
         }
     }
 
