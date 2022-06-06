@@ -51,7 +51,7 @@ and provide as many details as possible.
 
 ### Submitting a Feature Request
 
-For feature requests, please feel free to file a [GitHub issue](https://github.com/apple/swift-markdown/issues/new?template=FEATURE_REQUEST.md)
+For feature requests, please feel free to file a [GitHub issue](https://github.com/apple/swift-markdown/issues/new)
 or start a discussion on the [Swift Forums](https://forums.swift.org/c/development/swift-docc).
 
 Don't hesitate to submit a feature request if you see a way
