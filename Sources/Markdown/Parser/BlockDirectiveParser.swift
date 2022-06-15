@@ -102,7 +102,6 @@ struct PendingBlockDirective {
             // still consider subsequent lines for argument text, so we'll
             // indicate acceptance either way at this point.
             _ = parseArgumentsText(from: line)
-            endLocation = line.location!
             return true
         } else {
             parseState = .contentsStart
@@ -121,6 +120,7 @@ struct PendingBlockDirective {
             self.argumentsText.append(argumentsText)
             accepted = true
         }
+        endLocation = line.location!
 
         if line.text.starts(with: ")") {
             parseState = .argumentsEnd

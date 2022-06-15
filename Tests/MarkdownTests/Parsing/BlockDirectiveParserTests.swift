@@ -292,7 +292,7 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
 
         let expectedDump = """
         Document @1:1-3:4
-        ├─ BlockDirective @1:1-1:8 name: "Outer"
+        ├─ BlockDirective @1:1-1:13 name: "Outer"
         │  ├─ Argument text segments:
         │  |    @1:8-1:12: "x: 1"
         └─ Paragraph @2:3-3:2
@@ -866,5 +866,93 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
             XCTAssertEqual("name", x.name)
             XCTAssertEqual(x.value, "")
         }
+    }
+    
+    
+    func testSingleLineRange() {
+        let source = """
+        @Image(source: 1.png, alt: "hello")
+        """
+        
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        let directive = document.child(at: 0) as! BlockDirective
+        XCTAssertEqual(1, directive.argumentText.segments.count)
+
+        var parseErrors = [DirectiveArgumentText.ParseError]()
+        let arguments = directive.argumentText.parseNameValueArguments(parseErrors: &parseErrors)
+        XCTAssertTrue(parseErrors.isEmpty)
+        
+        XCTAssertEqual(arguments.count,2)
+        arguments["source"].map { x in
+            XCTAssertEqual(x.name, "source")
+            XCTAssertEqual(x.value, "1.png")
+        }
+        arguments["alt"].map { x in
+            XCTAssertEqual(x.name, "alt")
+            XCTAssertEqual(x.value, "hello")
+        }
+        
+        let expectedDump = #"""
+        Document @1:1-1:36
+        └─ BlockDirective @1:1-1:36 name: "Image"
+           ├─ Argument text segments:
+           |    @1:8-1:35: "source: 1.png, alt: \"hello\""
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+    
+    func testSingleLineMissingCloseParenthesis() {
+        let source = """
+        @Image(source: 1.png,
+        alt: "hello"
+        @Image(source: 2.png, alt: "hello2")
+        """
+        
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        let expectedDump = #"""
+        Document @1:1-3:37
+        ├─ BlockDirective @1:1-2:13 name: "Image"
+        │  ├─ Argument text segments:
+        │  |    @1:8-1:22: "source: 1.png,"
+        │  |    @2:1-2:13: "alt: \"hello\""
+        └─ BlockDirective @3:1-3:37 name: "Image"
+           ├─ Argument text segments:
+           |    @3:8-3:36: "source: 2.png, alt: \"hello2\""
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+    
+    func testSingleLineOnlyOpenParenthesis() {
+        let source = """
+        @Image(
+        @Image(source: 2.png, alt: "hello2")
+        """
+        
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        let expectedDump = #"""
+        Document @1:1-2:37
+        ├─ BlockDirective @1:1-1:8 name: "Image"
+        └─ BlockDirective @2:1-2:37 name: "Image"
+           ├─ Argument text segments:
+           |    @2:8-2:36: "source: 2.png, alt: \"hello2\""
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+    
+    func testSingleLineMissingParenthesis() {
+        let source = """
+        @Image
+        @Image(source: 2.png, alt: "hello2")
+        """
+        
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        let expectedDump = #"""
+        Document @1:1-2:37
+        ├─ BlockDirective @1:1-1:7 name: "Image"
+        └─ BlockDirective @2:1-2:37 name: "Image"
+           ├─ Argument text segments:
+           |    @2:8-2:36: "source: 2.png, alt: \"hello2\""
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
     }
 }
