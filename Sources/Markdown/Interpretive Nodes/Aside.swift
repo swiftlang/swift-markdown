@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -21,87 +21,116 @@ import Foundation
 /// > different meaning, as it doesn't quote speech.
 /// ```
 public struct Aside {
-    /// The kind of aside.
-    public enum Kind: String, CaseIterable {
+    /// Describes the different kinds of aside.
+    public struct Kind: RawRepresentable, CaseIterable, Equatable {
         /// A "note" aside.
-        case note = "Note"
-
+        public static let note = Kind(rawValue: "Note")!
+        
         /// A "tip" aside.
-        case tip = "Tip"
-
+        public static let tip = Kind(rawValue: "Tip")!
+        
         /// An "important" aside.
-        case important = "Important"
-
+        public static let important = Kind(rawValue: "Important")!
+        
         /// An "experiment" aside.
-        case experiment = "Experiment"
-
+        public static let experiment = Kind(rawValue: "Experiment")!
+        
         /// A "warning" aside.
-        case warning = "Warning"
-
+        public static let warning = Kind(rawValue: "Warning")!
+        
         /// An "attention" aside.
-        case attention = "Attention"
-
+        public static let attention = Kind(rawValue: "Attention")!
+        
         /// An "author" aside.
-        case author = "Author"
-
+        public static let author = Kind(rawValue: "Author")!
+        
         /// An "authors" aside.
-        case authors = "Authors"
-
+        public static let authors = Kind(rawValue: "Authors")!
+        
         /// A "bug" aside.
-        case bug = "Bug"
-
+        public static let bug = Kind(rawValue: "Bug")!
+        
         /// A "complexity" aside.
-        case complexity = "Complexity"
-
+        public static let complexity = Kind(rawValue: "Complexity")!
+        
         /// A "copyright" aside.
-        case copyright = "Copyright"
-
+        public static let copyright = Kind(rawValue: "Copyright")!
+        
         /// A "date" aside.
-        case date = "Date"
-
+        public static let date = Kind(rawValue: "Date")!
+        
         /// An "invariant" aside.
-        case invariant = "Invariant"
-
+        public static let invariant = Kind(rawValue: "Invariant")!
+        
         /// A "mutatingVariant" aside.
-        case mutatingVariant = "MutatingVariant"
-
+        public static let mutatingVariant = Kind(rawValue: "MutatingVariant")!
+        
         /// A "nonMutatingVariant" aside.
-        case nonMutatingVariant = "NonMutatingVariant"
-
+        public static let nonMutatingVariant = Kind(rawValue: "NonMutatingVariant")!
+        
         /// A "postcondition" aside.
-        case postcondition = "Postcondition"
-
+        public static let postcondition = Kind(rawValue: "Postcondition")!
+        
         /// A "precondition" aside.
-        case precondition = "Precondition"
-
+        public static let precondition = Kind(rawValue: "Precondition")!
+        
         /// A "remark" aside.
-        case remark = "Remark"
-
+        public static let remark = Kind(rawValue: "Remark")!
+        
         /// A "requires" aside.
-        case requires = "Requires"
-
+        public static let requires = Kind(rawValue: "Requires")!
+        
         /// A "since" aside.
-        case since = "Since"
-
+        public static let since = Kind(rawValue: "Since")!
+        
         /// A "todo" aside.
-        case todo = "ToDo"
-
+        public static let todo = Kind(rawValue: "ToDo")!
+        
         /// A "version" aside.
-        case version = "Version"
-
+        public static let version = Kind(rawValue: "Version")!
+        
         /// A "throws" aside.
-        case `throws` = "Throws"
-
+        public static let `throws` = Kind(rawValue: "Throws")!
+        
+        /// A collection of preconfigured aside kinds.
+        public static var allCases: [Aside.Kind] {
+            [
+                note,
+                tip,
+                important,
+                experiment,
+                warning,
+                attention,
+                author,
+                authors,
+                bug,
+                complexity,
+                copyright,
+                date,
+                invariant,
+                mutatingVariant,
+                nonMutatingVariant,
+                postcondition,
+                precondition,
+                remark,
+                requires,
+                since,
+                todo,
+                version,
+                `throws`,
+            ]
+        }
+        
+        /// The underlying raw string value.
+        public var rawValue: String
+        
+        /// Creates an aside kind with the specified raw value.
+        /// - Parameter rawValue: The string the aside displays as its title.
         public init?(rawValue: String) {
-            // Allow lowercase aside prefixes to match.
-            let casesAndLowercasedRawValues = Kind.allCases.map { (kind: $0, rawValue: $0.rawValue.lowercased() )}
-            guard let matchingCaseAndRawValue = casesAndLowercasedRawValues.first(where: { $0.rawValue == rawValue.lowercased() }) else {
-                return nil
-            }
-            self = matchingCaseAndRawValue.kind
+            self.rawValue = rawValue
         }
     }
-
+    
     /// The kind of aside interpreted from the initial text of the ``BlockQuote``.
     public var kind: Kind
 
@@ -116,14 +145,13 @@ public struct Aside {
             (0, Paragraph.self),
             (0, Text.self),
         ]) as? Text,
-        let firstColonIndex = initialText.string.firstIndex(where: { $0 == ":" }),
-        let kind = Kind(rawValue: String(initialText.string[initialText.string.startIndex..<firstColonIndex])) else {
+        let firstColonIndex = initialText.string.firstIndex(where: { $0 == ":" }) else {
             // Otherwise, default to a note aside.
             self.kind = .note
             self.content = Array(blockQuote.blockChildren)
             return
         }
-        self.kind = kind
+        self.kind = Kind(rawValue: String(initialText.string[..<firstColonIndex]))!
 
         // Trim off the aside tag prefix.
         let trimmedText = initialText.string[initialText.string.index(after: firstColonIndex)...].drop {
