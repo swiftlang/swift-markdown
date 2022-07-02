@@ -13,22 +13,15 @@ import XCTest
 
 class SourceLoacationTests: XCTestCase {
     func testNonAsciiCharacterColumn() throws {
-        func helper(source: String) throws {
-            print("source:: \(source)")
-            print("String.count: \(source.count)")
-            print("NSString.length: \((source as NSString).length)")
-            print("unicodeScalars.count: \(source.unicodeScalars.count)")
-            print("utf8.count: \(source.utf8.count)")
-
-            let document = Document(parsing: source)
+        func assertColumnNumberAssumesUTF8Encoding(text: String) throws {
+            let document = Document(parsing: text)
             let range = try XCTUnwrap(document.range)
-            print("range: \(range)")
-            XCTAssertEqual(range.upperBound.column - 1, source.utf8.count)
+            XCTAssertEqual(range.upperBound.column - 1, text.utf8.count)
         }
 
         // Emoji
-        try helper(source: "🇺🇳")
+        try assertColumnNumberAssumesUTF8Encoding(text: "🇺🇳")
         // CJK Character
-        try helper(source: "叶")
+        try assertColumnNumberAssumesUTF8Encoding(text: "叶")
     }
 }
