@@ -25,7 +25,7 @@ public struct SourceLocation: Hashable, CustomStringConvertible, Comparable {
     /// The line number of the location.
     public var line: Int
 
-    /// The number of Unicode code units from the start of the line to the character at this source location.
+    /// The number of bytes in UTF-8 encoding from the start of the line to the character at this source location.
     public var column: Int
 
     /// The source file for which this location applies, if it came from an accessible location.
