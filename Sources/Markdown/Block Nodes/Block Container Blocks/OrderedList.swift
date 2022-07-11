@@ -37,7 +37,7 @@ public extension OrderedList {
     /// The default starting index in CommonMark is 1. In this case, clients may use the default
     /// ordered-list start index of their desired rendering format. For example, when rendering to
     /// HTML, clients may omit the `start` attribute of the rendered list when this returns 1.
-    var start: Int {
+    var start: UInt {
         get {
             guard case let .orderedList(start) = _data.raw.markup.data else {
                 fatalError("\(self) markup wrapped unexpected \(_data.raw)")
