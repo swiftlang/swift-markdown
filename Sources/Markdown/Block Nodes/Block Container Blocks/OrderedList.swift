@@ -45,7 +45,6 @@ public extension OrderedList {
             return start
         }
         set {
-            precondition(newValue > 0, "List start must be 1 or greater")
             guard start != newValue else {
                 return
             }
