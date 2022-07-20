@@ -75,4 +75,26 @@ class SourceURLTests: XCTestCase {
         """
         XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
     }
+    
+    func testParseString_SmartOpts() {
+        let text = "The iPod (2001--2022) changed the way people listened and interacted with music---it'll forever be in our hearts!"
+        
+        // With Smart Opts
+        let smartOptsEnabledDocument = Document(parsing: text, options: [])
+        let smartOptsEnabledExpectedDump = """
+        Document
+        └─ Paragraph
+           └─ Text \"The iPod (2001–2022) changed the way people listened and interacted with music—it’ll forever be in our hearts!\"
+        """
+        XCTAssertEqual(smartOptsEnabledExpectedDump, smartOptsEnabledDocument.debugDescription())
+
+        // Without Smart Opts
+        let smartOptsDisabledDocument = Document(parsing: text, options: [.disableSmartOpts])
+        let smartOptsDisabledExpectedDump = """
+        Document
+        └─ Paragraph
+           └─ Text \"The iPod (2001--2022) changed the way people listened and interacted with music---it'll forever be in our hearts!\"
+        """
+        XCTAssertEqual(smartOptsDisabledExpectedDump, smartOptsDisabledDocument.debugDescription())
+    }
 }
