@@ -577,7 +577,11 @@ struct MarkupParser {
 
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
-        let parser = cmark_parser_new(CMARK_OPT_SMART)
+        
+        let parser = cmark_parser_new(options.contains(.disableSmartOpts)
+                                      ? CMARK_OPT_DEFAULT
+                                      : CMARK_OPT_SMART)
+        
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("table"))
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("strikethrough"))
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("tasklist"))
