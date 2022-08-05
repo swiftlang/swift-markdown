@@ -955,4 +955,31 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         """#
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
     }
+    
+    func testSingleLineDirective() {
+        let source = """
+        @xx { yy }
+        @xx { yy } zz }
+        @xx { yy
+            z
+        }
+        Hello
+        """
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+        let expectedDump = #"""
+        Document @1:1-6:6
+        ├─ BlockDirective @1:1-1:11 name: "xx"
+        │  └─ Paragraph @1:7-1:9
+        │     └─ Text @1:7-1:9 "yy"
+        ├─ BlockDirective @2:1-2:16 name: "xx"
+        │  └─ Paragraph @2:7-2:14
+        │     └─ Text @2:7-2:14 "yy } zz"
+        ├─ BlockDirective @3:1-5:2 name: "xx"
+        │  └─ Paragraph @4:5-4:6
+        │     └─ Text @4:5-4:6 "z"
+        └─ Paragraph @6:1-6:6
+           └─ Text @6:1-6:6 "Hello"
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
 }
