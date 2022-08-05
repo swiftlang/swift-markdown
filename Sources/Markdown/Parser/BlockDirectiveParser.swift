@@ -69,6 +69,9 @@ struct PendingBlockDirective {
     /// The location of the last character accepted into the block directive.
     var endLocation: SourceLocation
 
+    /// The pending line of the block directive
+    var pendingLine: TrimmedLine?
+
     /// `true` if the block directive container is expecting child content,
     /// i.e. it has parsed an opening curly brace `{`.
     var isAwaitingChildContent: Bool {
@@ -164,7 +167,7 @@ struct PendingBlockDirective {
 
     /// Continue parsing from the `contentsEnd` state.
     @discardableResult
-    mutating func parseContentsEnd(from line: TrimmedLine) -> Bool  {
+    mutating func parseContentsEnd(from line: TrimmedLine) -> Bool {
         precondition(isAwaitingChildContent)
         var line = line
         line.lexWhitespace()
@@ -172,6 +175,27 @@ struct PendingBlockDirective {
             parseState = .done
             endLocation = line.location!
         } else {
+            // If there is still some content on this line
+            // Consider them to be lineRun
+            // "@xx { yy": "yy" will be ignored
+            // "@xx { yy }": "yy" will be parsed
+            // "@xx { yy } zz }" "yy } zz" will be parsed
+
+            var reversedRemainingContent = TrimmedLine(Substring(line.text.reversed()), source: line.source, lineNumber: line.lineNumber)
+            if !line.text.isEmpty,
+               reversedRemainingContent.lex("}") != nil {
+                let trailingWhiteSpaceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
+                let textCount = line.text.count - trailingWhiteSpaceCount - 1
+                let leadingSpacingCount = line.untrimmedText.count - textCount - trailingWhiteSpaceCount - 1
+                innerIndentationColumnCount = leadingSpacingCount // Should we add a new property for this kind of usage?
+                
+                let startIndex = line.untrimmedText.startIndex
+                let endIndex = line.untrimmedText.index(startIndex, offsetBy: leadingSpacingCount)
+                let newLine = line.untrimmedText.replacingCharacters(in: startIndex..<endIndex, with: String(repeating: " ", count: leadingSpacingCount)).dropLast(trailingWhiteSpaceCount + 1)
+                pendingLine = TrimmedLine(newLine.dropFirst(0), source: line.source, lineNumber: line.lineNumber)
+                parseState = .done
+                endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
+            }
             return false
         }
         return true
@@ -814,6 +838,9 @@ struct ParseContainerStack {
                     closeTop()
                     push(.blockDirective(newBlockDirective, []))
                 }
+            }
+            if let pendingLine = newBlockDirective.pendingLine {
+                push(.lineRun([pendingLine], isInCodeFence: false))
             }
             if case .done = newBlockDirective.parseState {
                 closeTop()
