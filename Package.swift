@@ -31,7 +31,7 @@ let package = Package(
                 .product(name: "cmark-gfm", package: cmarkPackageName),
                 .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
             ]),
-        .target(
+        .executableTarget(
             name: "markdown-tool",
             dependencies: [
                 "Markdown",
