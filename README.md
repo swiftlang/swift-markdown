@@ -17,7 +17,9 @@ In your `Package.swift` Swift Package Manager manifest, add the following depend
 Add the dependency to any targets you've declared in your manifest:
 
 ```swift
-.product(name: "Markdown", package: "swift-markdown"),
+.target(name: "MyTarget", dependencies: [
+    .product(name: "Markdown", package: "swift-markdown"),
+]),
 ```
 
 To parse a document, use `Document(parsing:)`, supplying a `String` or `URL`:
