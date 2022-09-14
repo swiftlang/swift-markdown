@@ -1265,9 +1265,9 @@ class MarkupFormatterTableTests: XCTestCase {
               │     └─ Link destination: "https://swift.org"
               │        └─ Text "https://swift.org"
               └─ Row
-                 ├─ Cell
+                 ├─ Cell colspan: 2
                  │  └─ InlineHTML <br/>
-                 ├─ Cell
+                 ├─ Cell colspan: 0
                  └─ Cell
         """
         XCTAssertEqual(expectedDump, document.debugDescription())
@@ -1277,7 +1277,58 @@ class MarkupFormatterTableTests: XCTestCase {
         |*A*                       |**B**                 |~C~                |
         |:-------------------------|:--------------------:|------------------:|
         |[Apple](https://apple.com)|![image](image.png "")|<https://swift.org>|
-        |<br/>                     |                      |                   |
+        |<br/>                                           ||                   |
+        """
+
+        XCTAssertEqual(expected, formatted)
+        print(formatted)
+
+        let reparsed = Document(parsing: formatted)
+        print(reparsed.debugDescription())
+        XCTAssertTrue(document.hasSameStructure(as: reparsed))
+    }
+
+    func testRoundTripRowspan() {
+        let source = """
+        | one | two | three |
+        | --- | --- | ----- |
+        | big      || small |
+        | ^        || small |
+        """
+
+        let document = Document(parsing: source)
+
+        let expectedDump = """
+        Document
+        └─ Table alignments: |-|-|-|
+           ├─ Head
+           │  ├─ Cell
+           │  │  └─ Text "one"
+           │  ├─ Cell
+           │  │  └─ Text "two"
+           │  └─ Cell
+           │     └─ Text "three"
+           └─ Body
+              ├─ Row
+              │  ├─ Cell colspan: 2 rowspan: 2
+              │  │  └─ Text "big"
+              │  ├─ Cell colspan: 0
+              │  └─ Cell
+              │     └─ Text "small"
+              └─ Row
+                 ├─ Cell colspan: 2 rowspan: 0
+                 ├─ Cell colspan: 0
+                 └─ Cell
+                    └─ Text "small"
+        """
+        XCTAssertEqual(expectedDump, document.debugDescription())
+
+        let formatted = document.format()
+        let expected = """
+        |one|two|three|
+        |---|---|-----|
+        |big   ||small|
+        |^     ||small|
         """
 
         XCTAssertEqual(expected, formatted)
