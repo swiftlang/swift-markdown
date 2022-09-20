@@ -974,6 +974,16 @@ public struct MarkupFormatter: MarkupWalker {
             }
         }
 
+        /// Calculate the width of the given column and colspan.
+        ///
+        /// This adds up the appropriate column widths based on the given column span, including
+        /// the default span of 1, where it will only return the `finalColumnWidths` value for the
+        /// given `column`.
+        func columnWidth(column: Int, colspan: Int) -> Int {
+            let lastColumn = column + colspan
+            return (column..<lastColumn).map({ finalColumnWidths[$0] }).reduce(0, { $0 + $1 })
+        }
+
         // We now know the width that each printed column will be.
 
         /// Each of the header cells expanded to the right dimensions by
@@ -986,12 +996,7 @@ public struct MarkupFormatter: MarkupWalker {
                     // can be filled with the spanning cell.
                     return ""
                 } else {
-                    // With a colspan, we want to expand the cell width to
-                    // cover multiple columns. This helpfully generalizes
-                    // to `colspan == 1`, where it will only query the
-                    // current column!
-                    let lastColumn = column + Int(colspan)
-                    let minLineLength = (column..<lastColumn).map({ finalColumnWidths[$0] }).reduce(0, { $0 + $1 })
+                    let minLineLength = columnWidth(column: column, colspan: Int(colspan))
                     return headCellTexts[column]
                         .ensuringCount(atLeast: minLineLength, filler: " ")
                 }
@@ -1030,12 +1035,7 @@ public struct MarkupFormatter: MarkupWalker {
                         // can be filled with the spanning cell.
                         return ""
                     } else {
-                        // With a colspan, we want to expand the cell width to
-                        // cover multiple columns. This helpfully generalizes
-                        // to `colspan == 1`, where it will only query the
-                        // current column!
-                        let lastColumn = column + Int(colspan)
-                        let minLineLength = (column..<lastColumn).map({ finalColumnWidths[$0] }).reduce(0, { $0 + $1 })
+                        let minLineLength = columnWidth(column: column, colspan: Int(colspan))
                         return rowCellTexts[column]
                             .ensuringCount(atLeast: minLineLength, filler: " ")
                     }
