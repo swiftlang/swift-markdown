@@ -899,13 +899,35 @@ public struct MarkupFormatter: MarkupWalker {
             $0.formatIndependently(options: cellFormattingOptions)
         }).ensuringCount(atLeast: uniformColumnCount, filler: "")
 
+        /// All of the column-span values from the head cells, adding cells as
+        /// needed to meet the uniform `uniformColumnCount`.
+        let headCellSpans = Array(table.head.cells.map {
+            $0.colspan
+        }).ensuringCount(atLeast: uniformColumnCount, filler: 1)
+
         /// All of the independently formatted body cells' text by row, adding
         /// cells to each row to meet the `uniformColumnCount`.
         let bodyRowTexts = Array(table.body.rows.map { row -> [String] in
             return Array(row.cells.map {
-                $0.formatIndependently(options: cellFormattingOptions)
+                if $0.rowspan == 0 {
+                    // If this cell is being spanned over, replace its text
+                    // (which should be the empty string anyway) with the
+                    // rowspan marker.
+                    return "^"
+                } else {
+                    return $0.formatIndependently(options: cellFormattingOptions)
+                }
             }).ensuringCount(atLeast: uniformColumnCount,
                              filler: "")
+        })
+
+        /// All of the column- and row-span information for the body cells,
+        /// cells to each row to meet the `uniformColumnCount`.
+        let bodyRowSpans = Array(table.body.rows.map { row in
+            return Array(row.cells.map {
+                (colspan: $0.colspan, rowspan: $0.rowspan)
+            }).ensuringCount(atLeast: uniformColumnCount,
+                             filler: (colspan: 1, rowspan: 1))
         })
 
         // Next, calculate the maximum width of each column.
@@ -952,15 +974,32 @@ public struct MarkupFormatter: MarkupWalker {
             }
         }
 
+        /// Calculate the width of the given column and colspan.
+        ///
+        /// This adds up the appropriate column widths based on the given column span, including
+        /// the default span of 1, where it will only return the `finalColumnWidths` value for the
+        /// given `column`.
+        func columnWidth(column: Int, colspan: Int) -> Int {
+            let lastColumn = column + colspan
+            return (column..<lastColumn).map({ finalColumnWidths[$0] }).reduce(0, { $0 + $1 })
+        }
+
         // We now know the width that each printed column will be.
 
         /// Each of the header cells expanded to the right dimensions by
         /// extending each line with spaces to fit the uniform column width.
         let expandedHeaderCellTexts = (0..<uniformColumnCount)
             .map { column -> String in
-                let minLineLength = finalColumnWidths[column]
-                return headCellTexts[column]
-                    .ensuringCount(atLeast: minLineLength, filler: " ")
+                let colspan = headCellSpans[column]
+                if colspan == 0 {
+                    // If this cell is being spanned over, collapse it so it
+                    // can be filled with the spanning cell.
+                    return ""
+                } else {
+                    let minLineLength = columnWidth(column: column, colspan: Int(colspan))
+                    return headCellTexts[column]
+                        .ensuringCount(atLeast: minLineLength, filler: " ")
+                }
             }
 
         /// Rendered delimter row cells with the correct width.
@@ -988,10 +1027,18 @@ public struct MarkupFormatter: MarkupWalker {
         /// appropriately for their row and column.
         let expandedBodyRowTexts = bodyRowTexts.enumerated()
             .map { (row, rowCellTexts) -> [String] in
+                let rowSpans = bodyRowSpans[row]
                 return (0..<uniformColumnCount).map { column -> String in
-                    let minLineLength = finalColumnWidths[column]
-                    return rowCellTexts[column]
-                        .ensuringCount(atLeast: minLineLength, filler: " ")
+                    let colspan = rowSpans[column].colspan
+                    if colspan == 0 {
+                        // If this cell is being spanned over, collapse it so it
+                        // can be filled with the spanning cell.
+                        return ""
+                    } else {
+                        let minLineLength = columnWidth(column: column, colspan: Int(colspan))
+                        return rowCellTexts[column]
+                            .ensuringCount(atLeast: minLineLength, filler: " ")
+                    }
                 }
             }
 

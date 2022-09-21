@@ -258,4 +258,20 @@ struct MarkupTreeDumper: MarkupWalker {
     mutating func visitSymbolLink(_ symbolLink: SymbolLink) {
         dump(symbolLink, customDescription: symbolLink.destination.map { "destination: \($0)" })
     }
+
+    mutating func visitTableCell(_ tableCell: Table.Cell) {
+        var desc = ""
+        if tableCell.colspan != 1 {
+            desc += " colspan: \(tableCell.colspan)"
+        }
+        if tableCell.rowspan != 1 {
+            desc += " rowspan: \(tableCell.rowspan)"
+        }
+        desc = desc.trimmingCharacters(in: .whitespaces)
+        if !desc.isEmpty {
+            dump(tableCell, customDescription: desc)
+        } else {
+            dump(tableCell)
+        }
+    }
 }

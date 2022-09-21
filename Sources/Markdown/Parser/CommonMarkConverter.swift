@@ -570,17 +570,22 @@ struct MarkupParser {
         precondition(state.nodeType == .tableCell)
         let parsedRange = state.range(state.node)
         let childConversion = convertChildren(state)
+        let colspan = UInt(cmark_gfm_extensions_get_table_cell_colspan(state.node))
+        let rowspan = UInt(cmark_gfm_extensions_get_table_cell_rowspan(state.node))
         precondition(childConversion.state.node == state.node)
         precondition(childConversion.state.event == CMARK_EVENT_EXIT)
-        return MarkupConversion(state: childConversion.state.next(), result: .tableCell(parsedRange: parsedRange, childConversion.result))
+        return MarkupConversion(state: childConversion.state.next(), result: .tableCell(parsedRange: parsedRange, colspan: colspan, rowspan: rowspan, childConversion.result))
     }
 
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
+
+        var cmarkOptions = CMARK_OPT_TABLE_SPANS
+        if !options.contains(.disableSmartOpts) {
+            cmarkOptions |= CMARK_OPT_SMART
+        }
         
-        let parser = cmark_parser_new(options.contains(.disableSmartOpts)
-                                      ? CMARK_OPT_DEFAULT
-                                      : CMARK_OPT_SMART)
+        let parser = cmark_parser_new(cmarkOptions)
         
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("table"))
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("strikethrough"))
