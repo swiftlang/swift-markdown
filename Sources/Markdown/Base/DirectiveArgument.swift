@@ -201,7 +201,8 @@ public struct DirectiveArgumentText: Equatable {
             var line = TrimmedLine(untrimmedText[...],
                                    source: range?.lowerBound.source,
                                    lineNumber: range?.lowerBound.line,
-                                   parseIndex: parseIndex)
+                                   parseIndex: parseIndex,
+                                   startParseIndex: untrimmedText.index(parseIndex, offsetBy: 1 - (range?.lowerBound.column ?? 1)))
             line.lexWhitespace()
             while !line.isEmptyOrAllWhitespace {
                 let name: TrimmedLine.Lex?

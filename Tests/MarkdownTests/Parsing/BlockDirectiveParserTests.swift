@@ -1042,6 +1042,30 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
               └─ Text "Line c This is a single-line comment"
         """
         XCTAssertEqual(expected, documentation.debugDescription())
+    
+    func testDirectiveArgumentOnNonfirstLineParsing() throws {
+        let source = """
+
+        @Options(scope: page)
+        """
+
+        let line = 2
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        let directive = try XCTUnwrap(document.child(at: 0) as? BlockDirective)
+        let arguments = directive.argumentText.parseNameValueArguments()
+        let scopeArg = try XCTUnwrap(arguments["scope"])
+
+        XCTAssertEqual("scope", scopeArg.name)
+        XCTAssertEqual(
+            scopeArg.nameRange,
+            SourceLocation(line: line, column: 10, source: nil) ..< SourceLocation(line: line, column: 15, source: nil)
+        )
+
+        XCTAssertEqual("page", scopeArg.value)
+        XCTAssertEqual(
+            scopeArg.valueRange,
+            SourceLocation(line: line, column: 17, source: nil) ..< SourceLocation(line: line, column: 21, source: nil)
+        )
     }
 
     // FIXME: swift-testing macro for specifying the relationship between a bug and a test

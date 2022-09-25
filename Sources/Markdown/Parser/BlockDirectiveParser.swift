@@ -304,12 +304,12 @@ struct TrimmedLine {
     }
 
     /// - parameter untrimmedText: ``untrimmedText``
-    init(_ untrimmedText: Substring, source: URL?, lineNumber: Int?, parseIndex: Substring.Index? = nil) {
+    init(_ untrimmedText: Substring, source: URL?, lineNumber: Int?, parseIndex: Substring.Index? = nil, startParseIndex: Substring.Index? = nil) {
         self.untrimmedText = untrimmedText
         self.source = source
         self.parseIndex = parseIndex ?? untrimmedText.startIndex
         self.lineNumber = lineNumber
-        self.startParseIndex = self.parseIndex
+        self.startParseIndex = startParseIndex ?? self.parseIndex
     }
 
     /// Return the UTF-8 source location of the parse index if the line
