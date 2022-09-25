@@ -318,7 +318,7 @@ struct TrimmedLine {
         guard let lineNumber = lineNumber else {
             return nil
         }
-        let startIndex = (self.lineNumber ?? 1) == 1
+        let startIndex = lineNumber == 1
             ? untrimmedText.startIndex
             : startParseIndex
         let alreadyParsedPrefix = untrimmedText[startIndex..<parseIndex]
