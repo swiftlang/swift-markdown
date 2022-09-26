@@ -145,11 +145,12 @@ class MarkupFormatterSingleElementTests: XCTestCase {
     }
 
     func testPrintOrderedListCustomStart() {
+        let options = MarkupFormatter.Options(orderedListNumerals: .allSame(2))
         do { // no checkbox
             let expected = "2. A list item."
             var renderedList = OrderedList(ListItem(Paragraph(Text("A list item."))))
             renderedList.start = 2
-            let printed = renderedList.format()
+            let printed = renderedList.format(options: options)
             XCTAssertEqual(expected, printed)
         }
         do { // unchecked
@@ -157,7 +158,7 @@ class MarkupFormatterSingleElementTests: XCTestCase {
             var renderedList = OrderedList(ListItem(checkbox: .unchecked,
                                                     Paragraph(Text("A list item."))))
             renderedList.start = 2
-            let printed = renderedList.format()
+            let printed = renderedList.format(options: options)
             XCTAssertEqual(expected, printed)
         }
         do { // checked
@@ -165,7 +166,7 @@ class MarkupFormatterSingleElementTests: XCTestCase {
             var renderedList = OrderedList(ListItem(checkbox: .checked,
                                                     Paragraph(Text("A list item."))))
             renderedList.start = 2
-            let printed = renderedList.format()
+            let printed = renderedList.format(options: options)
             XCTAssertEqual(expected, printed)
         }
     }
