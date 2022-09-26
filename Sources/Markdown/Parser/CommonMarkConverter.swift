@@ -300,7 +300,7 @@ struct MarkupParser {
             return MarkupConversion(state: childConversion.state.next(), result: .unorderedList(parsedRange: parsedRange, childConversion.result))
         case CMARK_ORDERED_LIST:
             let cmarkStart = UInt(cmark_node_get_list_start(state.node))
-            return MarkupConversion(state: childConversion.state.next(), result: .orderedList(parsedRange: parsedRange, childConversion.result, start: cmarkStart))
+            return MarkupConversion(state: childConversion.state.next(), result: .orderedList(parsedRange: parsedRange, childConversion.result, startIndex: cmarkStart))
         default:
             fatalError("cmark reported a list node but said its list type is CMARK_NO_LIST?")
         }

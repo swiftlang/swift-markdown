@@ -48,7 +48,7 @@ public extension OrderedList {
             guard start != newValue else {
                 return
             }
-            _data = _data.replacingSelf(.orderedList(parsedRange: nil, _data.raw.markup.copyChildren(), start: newValue))
+            _data = _data.replacingSelf(.orderedList(parsedRange: nil, _data.raw.markup.copyChildren(), startIndex: newValue))
         }
     }
 
