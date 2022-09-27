@@ -149,7 +149,7 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         do { // no checkbox
             let expected = "2. A list item."
             var renderedList = OrderedList(ListItem(Paragraph(Text("A list item."))))
-            renderedList.start = 2
+            renderedList.startIndex = 2
             let printed = renderedList.format(options: options)
             XCTAssertEqual(expected, printed)
         }
@@ -157,7 +157,7 @@ class MarkupFormatterSingleElementTests: XCTestCase {
             let expected = "2. [ ] A list item."
             var renderedList = OrderedList(ListItem(checkbox: .unchecked,
                                                     Paragraph(Text("A list item."))))
-            renderedList.start = 2
+            renderedList.startIndex = 2
             let printed = renderedList.format(options: options)
             XCTAssertEqual(expected, printed)
         }
@@ -165,7 +165,7 @@ class MarkupFormatterSingleElementTests: XCTestCase {
             let expected = "2. [x] A list item."
             var renderedList = OrderedList(ListItem(checkbox: .checked,
                                                     Paragraph(Text("A list item."))))
-            renderedList.start = 2
+            renderedList.startIndex = 2
             let printed = renderedList.format(options: options)
             XCTAssertEqual(expected, printed)
         }
@@ -944,7 +944,7 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
 
         let expectedTreeDump = """
         Document
-        └─ OrderedList start: 1000
+        └─ OrderedList startIndex: 1000
            └─ ListItem
               └─ Paragraph
                  ├─ Text "Really really"

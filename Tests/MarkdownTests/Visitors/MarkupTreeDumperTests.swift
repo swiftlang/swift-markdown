@@ -55,7 +55,7 @@ final class MarkupTreeDumperTests: XCTestCase {
         ├─ BlockQuote @13:1-13:13 #38
         │  └─ Paragraph @13:3-13:13 #39
         │     └─ Text @13:3-13:13 #40 "BlockQuote"
-        ├─ OrderedList @15:1-17:1 #41 start: 2
+        ├─ OrderedList @15:1-17:1 #41 startIndex: 2
         │  ├─ ListItem @15:1-15:9 #42
         │  │  └─ Paragraph @15:4-15:9 #43
         │  │     └─ Text @15:4-15:9 #44 "flour"
