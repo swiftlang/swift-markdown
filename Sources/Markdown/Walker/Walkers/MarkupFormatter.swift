@@ -496,6 +496,7 @@ public struct MarkupFormatter: MarkupWalker {
             return nil
         }
         let numeral: UInt
+        // FIXME: allow `orderedListNumerals` to defer to the user-authored starting index (#76, rdar://99970544)
         switch formattingOptions.orderedListNumerals {
         case let .allSame(n):
             numeral = n

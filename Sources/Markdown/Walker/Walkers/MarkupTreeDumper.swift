@@ -189,6 +189,14 @@ struct MarkupTreeDumper: MarkupWalker {
         dump(heading, customDescription: "level: \(heading.level)")
     }
 
+    mutating func visitOrderedList(_ orderedList: OrderedList) {
+        if orderedList.startIndex != 1 {
+            dump(orderedList, customDescription: "startIndex: \(orderedList.startIndex)")
+        } else {
+            defaultVisit(orderedList)
+        }
+    }
+
     mutating func visitCodeBlock(_ codeBlock: CodeBlock) {
         let lines = indentLiteralBlock(codeBlock.code, from: codeBlock, countLines: false)
         dump(codeBlock, customDescription: "language: \(codeBlock.language ?? "none")\n\(lines)")
