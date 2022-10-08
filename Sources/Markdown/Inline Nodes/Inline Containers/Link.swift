@@ -58,7 +58,7 @@ public extension Link {
             if let d = newValue, d.isEmpty {
                 _data = _data.replacingSelf(.link(destination: nil, parsedRange: nil, _data.raw.markup.copyChildren()))
             } else {
-                _data = _data.replacingSelf(.link(destination: newValue, parsedRange: nil, _data.raw.markup.copyChildren()))
+                _data = _data.replacingSelf(.link(destination: newValue, parsedRange: _data.range, _data.raw.markup.copyChildren()))
             }
         }
     }
