@@ -54,6 +54,7 @@ fileprivate enum CommonMarkNodeType: String {
     case strong
     case link
     case image
+    case inlineAttributes = "attribute"
     case none = "NONE"
     case unknown = "<unknown>"
 
@@ -229,6 +230,8 @@ struct MarkupParser {
             return convertTableRow(state)
         case .tableCell:
             return convertTableCell(state)
+        case .inlineAttributes:
+            return convertInlineAttributes(state)
         default:
             fatalError("Unknown cmark node type '\(state.nodeType.rawValue)' encountered during conversion")
         }
@@ -577,6 +580,17 @@ struct MarkupParser {
         precondition(childConversion.state.event == CMARK_EVENT_EXIT)
         return MarkupConversion(state: childConversion.state.next(), result: .tableCell(parsedRange: parsedRange, colspan: colspan, rowspan: rowspan, childConversion.result))
     }
+
+    private static func convertInlineAttributes(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .inlineAttributes)
+        let parsedRange = state.range(state.node)
+        let childConversion = convertChildren(state)
+        let attributes = String(cString: cmark_node_get_attributes(state.node))
+        precondition(childConversion.state.node == state.node)
+        precondition(childConversion.state.event == CMARK_EVENT_EXIT)
+        return MarkupConversion(state: childConversion.state.next(), result: .inlineAttributes(attributes: attributes, parsedRange: parsedRange, childConversion.result))
+     }
 
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
