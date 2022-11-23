@@ -1,3 +1,7 @@
+# Tinder Fork
+
+This fork of Apple's repo is primarily for build integration considerations; specifically the removal of whitespace in its filesystem.
+
 # Swift Markdown
 
 Swift `Markdown` is a Swift package for parsing, building, editing, and analyzing Markdown documents.
