@@ -34,4 +34,16 @@ class InlineAttributesTests: XCTestCase {
             """
         XCTAssertEqual(expectedDump, inlineAttributes.debugDescription())
     }
+    
+    func testParseInlineAttributes() {
+        let source = "^[Hello, world!](rainbow: 'extreme')"
+        let document = Document(parsing: source)
+        let expectedDump = """
+            Document @1:1-1:37
+            └─ Paragraph @1:1-1:37
+               └─ InlineAttributes @1:1-1:37 attributes: `rainbow: 'extreme'`
+                  └─ Text @1:3-1:16 "Hello, world!"
+            """
+        XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
+    }
 }
