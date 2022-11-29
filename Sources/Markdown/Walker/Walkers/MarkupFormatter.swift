@@ -1120,4 +1120,28 @@ public struct MarkupFormatter: MarkupWalker {
         print(symbolLink.destination ?? "", for: symbolLink)
         print("``", for: symbolLink)
     }
+
+    public mutating func visitInlineAttributes(_ attributes: InlineAttributes) {
+        let savedState = state
+        func printInlineAttributes() {
+            print("[", for: attributes)
+            descendInto(attributes)
+            print("](", for: attributes)
+            print(attributes.attributes, for: attributes)
+            print(")", for: attributes)
+        }
+    
+        printInlineAttributes()
+
+        // Inline attributes *can* have their key-value pairs split across multiple
+        // lines as they are formatted as JSON5, however formatting the output as such
+        // gets into the realm of JSON formatting which might be out of scope of
+        // this formatter. Therefore if exceeded, prefer to print it on the next
+        // line to give as much opportunity to keep the attributes on one line.
+        if attributes.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+            restoreState(to: savedState)
+            queueNewline()
+            printInlineAttributes()
+        }
+    }
 }

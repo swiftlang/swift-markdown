@@ -282,4 +282,8 @@ struct MarkupTreeDumper: MarkupWalker {
             dump(tableCell)
         }
     }
+
+    mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> () {
+        dump(attributes, customDescription: "attributes: `\(attributes.attributes)`")
+    }
 }

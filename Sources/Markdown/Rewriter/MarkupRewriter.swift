@@ -75,6 +75,9 @@ extension MarkupRewriter {
     public mutating func visitLink(_ link: Link) -> Result {
         return defaultVisit(link)
     }
+    public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> Result {
+        return defaultVisit(attributes)
+    }
     public mutating func visitSoftBreak(_ softBreak: SoftBreak) -> Result {
         return defaultVisit(softBreak)
     }

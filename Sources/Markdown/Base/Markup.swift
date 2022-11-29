@@ -69,6 +69,8 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return Table.Cell(data)
     case .symbolLink:
         return SymbolLink(data)
+    case .inlineAttributes:
+        return InlineAttributes(data)
     }
 }
 
