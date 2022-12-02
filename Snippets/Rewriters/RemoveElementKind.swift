@@ -1,4 +1,4 @@
-//! Remove all instances of a kind of element using a `MarkupRewriter`.
+// Remove all instances of a kind of element using a `MarkupRewriter`.
 import Markdown
 
 // MARK: Hide

@@ -1,4 +1,4 @@
-//! Format a parsed Markdown document with default settings.
+// Format a parsed Markdown document with default settings.
 
 import Markdown
 
