@@ -1,5 +1,4 @@
-//! Parse the contents of a file by its ``URL`` without having to read
-//! its contents yourself.
+// Parse the contents of a file by its ``URL`` without having to read its contents yourself.
 
 import Foundation
 import Markdown

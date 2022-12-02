@@ -1,4 +1,4 @@
-//! Parse a ``String`` as Markdown
+// Parse a ``String`` as Markdown
 
 import Markdown
 

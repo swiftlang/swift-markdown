@@ -1,4 +1,4 @@
-//! Keep lines under a certain length.
+// Keep lines under a certain length.
 import Markdown
 
 let source = """
