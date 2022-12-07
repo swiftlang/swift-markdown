@@ -1,16 +1,16 @@
-// Format lines to stay under a certain length.
+// Format the unordered list marker.
 
 import Markdown
 
 let source = """
-This is a really, really, really, really, really, really, really, really, really, really, really long line.
+- An
+- unordered
+- list
 """
 
 let document = Document(parsing: source)
-// Break lines longer than 80 characters in width with a soft break.
-let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)
-let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)
-let formattedSource = document.format(options: formattingOptions)
+// Use an star or asterisk `*` as the unordered list marker.
+let formattedSource = document.format(options: .init(unorderedListMarker: .star))
 
 print("""
 ## Original source:

@@ -1,16 +1,15 @@
-// Format lines to stay under a certain length.
+// Format a consistent style for emphasis markers.
 
 import Markdown
 
 let source = """
-This is a really, really, really, really, really, really, really, really, really, really, really long line.
+This document uses a mix of *star* and _underbar_ emphasized elements.
 """
 
 let document = Document(parsing: source)
-// Break lines longer than 80 characters in width with a soft break.
-let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)
-let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)
-let formattedSource = document.format(options: formattingOptions)
+// Use only * for emphasis markers.
+let emphasisMarker = MarkupFormatter.Options.EmphasisMarker.star
+let formattedSource = document.format(options: .init(emphasisMarker: emphasisMarker))
 
 print("""
 ## Original source:

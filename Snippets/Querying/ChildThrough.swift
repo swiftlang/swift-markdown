@@ -1,28 +1,23 @@
-// Remove all instances of a kind of element using a `MarkupRewriter`.
+// Find a matching element deep within a ``Markup`` tree.
 
 import Markdown
 
 let source = """
-The strong emphasis element is **going to be** deleted.
+Reach into a document to find the *emphasized text*.
 """
-
-struct StrongDeleter: MarkupRewriter {
-  // Delete all ``Strong`` elements.
-  func visitStrong(_ strong: Strong) -> Markup? {
-    return nil
-  }
-}
-
 let document = Document(parsing: source)
-var deleter = StrongDeleter()
-let newDocument = deleter.visit(document) as! Document
+let emphasizedText = document.child(through: [
+    (0, Paragraph.self),
+    (1, Emphasis.self),
+    (0, Text.self)
+]) as! Text
 
 print("""
-## Original Markdown structure:
+## Document structure:
 \(document.debugDescription())
 
-## New Markdown structure:
-\(newDocument.debugDescription())
+## Found element:
+\(emphasizedText.detachedFromParent.debugDescription())
 """)
 // snippet.hide
 /*

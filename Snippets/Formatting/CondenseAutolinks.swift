@@ -1,15 +1,13 @@
-// Format lines to stay under a certain length.
+// Format links that use URLs as their link text into autolinks.
 
 import Markdown
 
 let source = """
-This is a really, really, really, really, really, really, really, really, really, really, really long line.
+This [https://swift.org](https://swift.org) link will become <https://swift.org>
 """
 
 let document = Document(parsing: source)
-// Break lines longer than 80 characters in width with a soft break.
-let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)
-let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)
+let formattingOptions = MarkupFormatter.Options(condenseAutolinks: true)
 let formattedSource = document.format(options: formattingOptions)
 
 print("""
