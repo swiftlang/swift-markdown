@@ -1,15 +1,16 @@
-// Format lines to stay under a certain length.
+// Format the counting behavior of ordered lists.
 
 import Markdown
 
 let source = """
-This is a really, really, really, really, really, really, really, really, really, really, really long line.
+1. An
+2. ordered
+3. list
 """
 
 let document = Document(parsing: source)
-// Break lines longer than 80 characters in width with a soft break.
-let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)
-let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)
+// Use all 0. markers to allow easily reordering ordered list items.
+let formattingOptions = MarkupFormatter.Options(orderedListNumerals: .allSame(1))
 let formattedSource = document.format(options: formattingOptions)
 
 print("""

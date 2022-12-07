@@ -3,11 +3,19 @@
 import Foundation
 import Markdown
 
-let file = URL(fileURLWithPath: "test.md")
-let document = try Document(parsing: file)
+// snippet.hide
+let inputFileURL = URL(fileURLWithPath: #file).deletingLastPathComponent().appendingPathComponent("test.md")
+// snippet.show
+let document = try Document(parsing: inputFileURL)
 
-// MARK: HIDE
-
-print("Parsed \(file.path)")
-print("## Parsed document structure")
 print(document.debugDescription())
+// snippet.hide
+/*
+ This source file is part of the Swift.org open source project
+
+ Copyright (c) 2022 Apple Inc. and the Swift project authors
+ Licensed under Apache License v2.0 with Runtime Library Exception
+
+ See https://swift.org/LICENSE.txt for license information
+ See https://swift.org/CONTRIBUTORS.txt for Swift project authors
+*/

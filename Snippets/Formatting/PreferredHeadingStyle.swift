@@ -1,15 +1,21 @@
-// Format lines to stay under a certain length.
+// Format a Markdown document to use ATX style headings throughout.
 
 import Markdown
 
 let source = """
-This is a really, really, really, really, really, really, really, really, really, really, really long line.
+# Title
+
+## Second-level Heading
+
+Another Second-level Heading
+----------------------------
+
+The above heading will be converted to ATX style, using hashes.
 """
 
 let document = Document(parsing: source)
-// Break lines longer than 80 characters in width with a soft break.
-let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)
-let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)
+let headingStyle = MarkupFormatter.Options.PreferredHeadingStyle.atx
+let formattingOptions = MarkupFormatter.Options(preferredHeadingStyle: headingStyle)
 let formattedSource = document.format(options: formattingOptions)
 
 print("""

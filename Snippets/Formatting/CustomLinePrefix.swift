@@ -1,15 +1,14 @@
-// Format lines to stay under a certain length.
+// Format a Markdown document to have a custom line prefix, such as a comment prefix for use in source code.
 
 import Markdown
 
 let source = """
-This is a really, really, really, really, really, really, really, really, really, really, really long line.
+This document's lines
+will be prefixed with `//`.
 """
 
 let document = Document(parsing: source)
-// Break lines longer than 80 characters in width with a soft break.
-let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)
-let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)
+let formattingOptions = MarkupFormatter.Options(customLinePrefix: "// ")
 let formattedSource = document.format(options: formattingOptions)
 
 print("""
