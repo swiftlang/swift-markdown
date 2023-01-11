@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -92,6 +92,9 @@ public struct Aside {
         /// A "throws" aside.
         public static let `throws` = Kind(rawValue: "Throws")!
         
+        /// A "seeAlso" aside.
+        public static let seeAlso = Kind(rawValue: "SeeAlso")!
+        
         /// A collection of preconfigured aside kinds.
         public static var allCases: [Aside.Kind] {
             [
@@ -118,7 +121,33 @@ public struct Aside {
                 todo,
                 version,
                 `throws`,
+                seeAlso,
             ]
+        }
+        
+        /// The heading text to use when rendering this kind of aside.
+        ///
+        /// For multi-word asides this value may differ from the aside's ``rawValue``.
+        /// For example, the ``seeAlso`` aside's `rawValue` is `"SeeAlso"` but its
+        /// `displayName` is `"See Also"`.
+        /// Likewise, ``nonMutatingVariant``'s `rawValue` is
+        /// `"NonMutatingVariant"` and its `displayName` is `"Non-Mutating Variant"`.
+        ///
+        /// For simpler, single-word asides like ``bug``, the `displayName` and `rawValue` will
+        /// be the same.
+        public var displayName: String {
+            switch self {
+            case .seeAlso:
+                return "See Also"
+            case .nonMutatingVariant:
+                return "Non-Mutating Variant"
+            case .mutatingVariant:
+                return "Mutating Variant"
+            case .todo:
+                return "To Do"
+            default:
+                return rawValue
+            }
         }
         
         /// The underlying raw string value.
