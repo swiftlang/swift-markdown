@@ -11,7 +11,7 @@
 @testable import Markdown
 import XCTest
 
-class SourceLoacationTests: XCTestCase {
+class SourceLocationTests: XCTestCase {
     func testNonAsciiCharacterColumn() throws {
         func assertColumnNumberAssumesUTF8Encoding(text: String) throws {
             let document = Document(parsing: text)
