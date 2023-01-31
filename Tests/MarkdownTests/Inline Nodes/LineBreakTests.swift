@@ -39,10 +39,10 @@ final class LineBreakTests: XCTestCase {
 
     /// Test that hard line breaks work with a slash.
     func testSlashHardLineBreak() {
-        let source = """
-                     Paragraph.\\
+        let source = #"""
+                     Paragraph.\
                      Still the same paragraph.
-                     """
+                     """#
         let document = Document(parsing: source)
         let paragraph = document.child(at: 0) as! Paragraph
         XCTAssertTrue(Array(paragraph.children)[1] is LineBreak)
