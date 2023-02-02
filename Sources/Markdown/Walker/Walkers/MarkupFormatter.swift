@@ -279,7 +279,7 @@ public struct MarkupFormatter: MarkupWalker {
                     thematicBreakCharacter: ThematicBreakCharacter = .dash,
                     thematicBreakLength: UInt = 5,
                     emphasisMarker: EmphasisMarker = .star,
-                    strongEmphasisMarker: EmphasisMarker = .star,
+                    strongEmphasisMarker: EmphasisMarker? = nil,
                     condenseAutolinks: Bool = true,
                     preferredHeadingStyle: PreferredHeadingStyle = .atx,
                     preferredLineLimit: PreferredLineLimit? = nil,
@@ -291,7 +291,7 @@ public struct MarkupFormatter: MarkupWalker {
             self.defaultCodeBlockLanguage = defaultCodeBlockLanguage
             self.thematicBreakCharacter = thematicBreakCharacter
             self.emphasisMarker = emphasisMarker
-            self.strongEmphasisMarker = strongEmphasisMarker
+            self.strongEmphasisMarker = strongEmphasisMarker ?? emphasisMarker
             self.condenseAutolinks = condenseAutolinks
             self.preferredHeadingStyle = preferredHeadingStyle
             self.preferredLineLimit = preferredLineLimit
