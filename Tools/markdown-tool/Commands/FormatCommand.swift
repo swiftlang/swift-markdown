@@ -97,7 +97,7 @@ extension MarkdownCommand {
         var emphasisMarker: String = "*"
 
         @Option(help: "Strong emphasis marker; choices: \(MarkupFormatter.Options.EmphasisMarker.allCases.map { $0.rawValue }.joined(separator: ", "))")
-        var strongEmphasisMarker: String = "*"
+        var strongEmphasisMarker: String?
 
         @Flag(inversion: .prefixedNo, exclusivity: .chooseLast, help: "Condense links whose text matches their destination to 'autolinks' e.g. <https://swift.org>")
         var condenseAutolinks: Bool = true
@@ -209,7 +209,7 @@ extension MarkdownCommand {
                 throw ArgumentParser.ValidationError("The value '\(self.emphasisMarker)' is invalid for '--emphasis-marker'")
             }
 
-            guard let strongEmphasisMarker = MarkupFormatter.Options.EmphasisMarker(argument: strongEmphasisMarker) else {
+            guard let strongEmphasisMarker = MarkupFormatter.Options.EmphasisMarker(argument: strongEmphasisMarker ?? self.emphasisMarker) else {
                 throw ArgumentParser.ValidationError("The value '\(self.strongEmphasisMarker)' is invalid for '--strong-emphasis-marker'")
             }
 
