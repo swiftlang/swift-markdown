@@ -533,13 +533,13 @@ class MarkupFormatterOptionsTests: XCTestCase {
 
             do {
                 let document = Document(parsing: underline)
-                let printed = document.format(options: .init(emphasisMarker: .star))
+                let printed = document.format(options: .init(strongEmphasisMarker: .star))
                 XCTAssertEqual(star, printed)
             }
 
             do {
                 let document = Document(parsing: star)
-                let printed = document.format(options: .init(emphasisMarker: .underline))
+                let printed = document.format(options: .init(strongEmphasisMarker: .underline))
                 XCTAssertEqual(underline, printed)
             }
 
