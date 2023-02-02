@@ -209,7 +209,7 @@ extension MarkdownCommand {
             }
 
             guard let unorderedListMarker = MarkupFormatter.Options.UnorderedListMarker(argument: unorderedListMarker) else {
-                throw ArgumentParser.ValidationError("The value '\(self.emphasisMarker)' is invalid for '--unordered-list-marker'")
+                throw ArgumentParser.ValidationError("The value '\(self.unorderedListMarker)' is invalid for '--unordered-list-marker'")
             }
 
             let orderedListNumerals: MarkupFormatter.Options.OrderedListNumerals
