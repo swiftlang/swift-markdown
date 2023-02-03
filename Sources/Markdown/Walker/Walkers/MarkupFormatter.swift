@@ -266,7 +266,7 @@ public struct MarkupFormatter: MarkupWalker {
             - thematicBreakCharacter: The character to use for thematic breaks.
             - thematicBreakLength: The length of printed thematic breaks.
             - emphasisMarker: The character to use for emphasis markers.
-            - strongEmphasisMarker: The character to use for strong emphasis markers.
+            - strongEmphasisMarker: The character to use for strong emphasis markers. If no value is provided, uses `emphasisMarker`.
             - condenseAutolinks: Print links whose link text and destination match as autolinks, e.g. `<https://swift.org>`.
             - preferredHeadingStyle: The preferred heading style.
             - lineLimit: The preferred maximum line length and method for splitting ``Text`` elements in an attempt to maintain that line length.
