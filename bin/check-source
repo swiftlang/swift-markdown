@@ -49,7 +49,7 @@ for language in swift-or-c bash md-or-tutorial html docker; do
   reader=head
   case "$language" in
       swift-or-c)
-        exceptions=( -name 'Package*.swift')
+        exceptions=( -name 'Package*.swift' -o -path './Snippets/*')
         matching_files=( -name '*.swift' -o -name '*.c' -o -name '*.h' )
         cat > "$tmp" <<"EOF"
 /*
