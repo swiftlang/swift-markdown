@@ -48,7 +48,6 @@ public struct HtmlFormatter: MarkupWalker {
 
     public mutating func visitHTMLBlock(_ html: HTMLBlock) -> () {
         result += html.rawHTML
-        result += "\n"
     }
 
     public mutating func visitListItem(_ listItem: ListItem) -> () {
