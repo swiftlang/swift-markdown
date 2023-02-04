@@ -14,7 +14,7 @@ import XCTest
 final class MarkupTreeDumperTests: XCTestCase {
     func testDumpEverything() {
         let expectedDump = """
-        Document @1:1-42:90 Root #\(everythingDocument.raw.metadata.id.rootId) #0
+        Document @1:1-45:90 Root #\(everythingDocument.raw.metadata.id.rootId) #0
         ├─ Heading @1:1-1:9 #1 level: 1
         │  └─ Text @1:3-1:9 #2 "Header"
         ├─ Paragraph @3:1-3:65 #3
@@ -62,37 +62,44 @@ final class MarkupTreeDumperTests: XCTestCase {
         │  └─ ListItem @16:1-17:1 #45
         │     └─ Paragraph @16:4-16:9 #46
         │        └─ Text @16:4-16:9 #47 "sugar"
-        ├─ CodeBlock @18:1-22:4 #48 language: swift
+        ├─ UnorderedList @18:1-20:1 #48
+        │  ├─ ListItem @18:1-18:37 #49 checkbox: [x]
+        │  │  └─ Paragraph @18:7-18:37 #50
+        │  │     └─ Text @18:7-18:37 #51 "Combine flour and baking soda."
+        │  └─ ListItem @19:1-20:1 #52 checkbox: [ ]
+        │     └─ Paragraph @19:7-19:30 #53
+        │        └─ Text @19:7-19:30 #54 "Combine sugar and eggs."
+        ├─ CodeBlock @21:1-25:4 #55 language: swift
         │  func foo() {
         │      let x = 1
         │  }
-        ├─ CodeBlock @24:5-25:1 #49 language: none
+        ├─ CodeBlock @27:5-28:1 #56 language: none
         │  // Is this real code? Or just fantasy?
-        ├─ Paragraph @26:1-26:31 #50
-        │  ├─ Text @26:1-26:12 #51 "This is an "
-        │  ├─ Link @26:12-26:30 #52 destination: "topic://autolink"
-        │  │  └─ Text @26:13-26:29 #53 "topic://autolink"
-        │  └─ Text @26:30-26:31 #54 "."
-        ├─ ThematicBreak @28:1-29:1 #55
-        ├─ HTMLBlock @30:1-32:5 #56
+        ├─ Paragraph @29:1-29:31 #57
+        │  ├─ Text @29:1-29:12 #58 "This is an "
+        │  ├─ Link @29:12-29:30 #59 destination: "topic://autolink"
+        │  │  └─ Text @29:13-29:29 #60 "topic://autolink"
+        │  └─ Text @29:30-29:31 #61 "."
+        ├─ ThematicBreak @31:1-32:1 #62
+        ├─ HTMLBlock @33:1-35:5 #63
         │  <a href="foo.png">
         │  An HTML Block.
         │  </a>
-        ├─ Paragraph @34:1-34:33 #57
-        │  ├─ Text @34:1-34:14 #58 "This is some "
-        │  ├─ InlineHTML @34:14-34:17 #59 <p>
-        │  ├─ Text @34:17-34:28 #60 "inline html"
-        │  ├─ InlineHTML @34:28-34:32 #61 </p>
-        │  └─ Text @34:32-34:33 #62 "."
-        ├─ Paragraph @36:1-37:6 #63
-        │  ├─ Text @36:1-36:7 #64 "line"
-        │  ├─ LineBreak #65
-        │  └─ Text @37:1-37:6 #66 "break"
-        ├─ Paragraph @39:1-40:6 #67
-        │  ├─ Text @39:1-39:5 #68 "soft"
-        │  ├─ SoftBreak #69
-        │  └─ Text @40:1-40:6 #70 "break"
-        └─ HTMLBlock @42:1-42:90 #71
+        ├─ Paragraph @37:1-37:33 #64
+        │  ├─ Text @37:1-37:14 #65 "This is some "
+        │  ├─ InlineHTML @37:14-37:17 #66 <p>
+        │  ├─ Text @37:17-37:28 #67 "inline html"
+        │  ├─ InlineHTML @37:28-37:32 #68 </p>
+        │  └─ Text @37:32-37:33 #69 "."
+        ├─ Paragraph @39:1-40:6 #70
+        │  ├─ Text @39:1-39:7 #71 "line"
+        │  ├─ LineBreak #72
+        │  └─ Text @40:1-40:6 #73 "break"
+        ├─ Paragraph @42:1-43:6 #74
+        │  ├─ Text @42:1-42:5 #75 "soft"
+        │  ├─ SoftBreak #76
+        │  └─ Text @43:1-43:6 #77 "break"
+        └─ HTMLBlock @45:1-45:90 #78
            <!-- Copyright (c) 2021 Apple Inc and the Swift Project authors. All Rights Reserved. -->
         """
         XCTAssertEqual(expectedDump, everythingDocument.debugDescription(options: [.printEverything]))
