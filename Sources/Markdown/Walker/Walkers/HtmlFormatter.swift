@@ -10,22 +10,54 @@
 
 import Foundation
 
+public struct HtmlFormatterOptions: OptionSet {
+    public var rawValue: UInt
+    public init(rawValue: UInt) {
+        self.rawValue = rawValue
+    }
+
+    /// Attempt to parse blockquotes as asides.
+    ///
+    /// If a blockquote is found to begin with an aside marker, e.g. "`Remark:`" then the
+    /// corresponding HTML will be an `<aside>` tag instead of a `<blockquote>` tag, with the aside
+    /// kind given in the `data-kind` attribute.
+    ///
+    /// - Note: To prevent false positives, the aside checking will only look for a single-word
+    ///   aside marker, i.e. the following blockquote will not parse as an aside:
+    ///
+    ///   ```markdown
+    ///   > This is a compound sentence: It contains two clauses separated by a colon.
+    ///   ```
+    public static let parseAsides = HtmlFormatterOptions(rawValue: 1 << 0)
+}
+
 public struct HtmlFormatter: MarkupWalker {
     public var result = ""
+    public let options: HtmlFormatterOptions
 
     var inTableHead = false
     var tableColumnAlignments: [Table.ColumnAlignment?]? = nil
     var currentTableColumn = 0
 
-    public init() {}
+    public init(options: HtmlFormatterOptions = []) {
+        self.options = options
+    }
 
     // MARK: Block elements
 
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> () {
-        // TODO: attempt to parse this as an aside and handle it differently
-        result += "<blockquote>\n"
-        descendInto(blockQuote)
-        result += "</blockquote>\n"
+        if blockQuote.isAside() {
+            let aside = Aside(blockQuote)
+            result += "<aside data-kind=\"\(aside.kind.rawValue)\">\n"
+            for child in aside.content {
+                visit(child)
+            }
+            result += "</aside>\n"
+        } else {
+            result += "<blockquote>\n"
+            descendInto(blockQuote)
+            result += "</blockquote>\n"
+        }
     }
 
     public mutating func visitCodeBlock(_ codeBlock: CodeBlock) -> () {

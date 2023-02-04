@@ -21,6 +21,13 @@ extension MarkdownCommand {
         )
         var inputFilePath: String?
 
+        @Flag(
+            inversion: .prefixedNo,
+            exclusivity: .chooseLast,
+            help: "Parse block quotes as asides if they have an aside marker"
+        )
+        var parseAsides: Bool = false
+
         func run() throws {
             let document: Document
             if let inputFilePath = inputFilePath {
@@ -29,7 +36,12 @@ extension MarkdownCommand {
                 (_, document) = try MarkdownCommand.parseStandardInput(options: [])
             }
 
-            var visitor = HtmlFormatter()
+            var formatterOptions = HtmlFormatterOptions()
+            if parseAsides {
+                formatterOptions.insert(.parseAsides)
+            }
+
+            var visitor = HtmlFormatter(options: formatterOptions)
             visitor.visit(document)
 
             print(visitor.result)

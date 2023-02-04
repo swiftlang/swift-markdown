@@ -72,4 +72,27 @@ final class HtmlFormatterTests: XCTestCase {
 
         XCTAssertEqual(visitor.result, expectedDump)
     }
+
+    func testFormatAsides() {
+        let inputText = """
+        > This is a regular block quote.
+
+        > Note: This is actually an aside.
+        """
+
+        let expectedOutput = """
+        <blockquote>
+        <p>This is a regular block quote.</p>
+        </blockquote>
+        <aside data-kind="Note">
+        <p>This is actually an aside.</p>
+        </aside>
+
+        """
+
+        var visitor = HtmlFormatter(options: [.parseAsides])
+        visitor.visit(Document(parsing: inputText))
+
+        XCTAssertEqual(visitor.result, expectedOutput)
+    }
 }
