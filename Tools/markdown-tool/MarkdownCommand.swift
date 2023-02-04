@@ -17,6 +17,7 @@ struct MarkdownCommand: ParsableCommand {
     static let configuration = CommandConfiguration(commandName: "markdown", shouldDisplay: false, subcommands: [
         DumpTree.self,
         Format.self,
+        PrintHtml.self,
     ])
 
     static func parseFile(at path: String, options: ParseOptions) throws -> (source: String, parsed: Document) {
