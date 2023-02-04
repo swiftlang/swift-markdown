@@ -53,6 +53,13 @@ public struct HtmlFormatter: MarkupWalker {
 
     public mutating func visitListItem(_ listItem: ListItem) -> () {
         result += "<li>"
+        if let checkbox = listItem.checkbox {
+            result += "<input type=\"checkbox\" disabled=\"\""
+            if checkbox == .checked {
+                result += " checked=\"\""
+            }
+            result += " /> "
+        }
         descendInto(listItem)
         result += "</li>\n"
     }
