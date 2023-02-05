@@ -92,8 +92,10 @@ final class HtmlFormatterTests: XCTestCase {
 
     // JSON5 parsing (which allows property names without quotes) is only available in Apple Foundation
     #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-    @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
     func testInlineAttributesJSON5() {
+        if #unavailable(macOS 12, iOS 15, tvOS 15, watchOS 8) {
+            return
+        }
         let inputText = """
         ^[formatted text](class: "fancy")
         """
