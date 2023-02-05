@@ -12,6 +12,7 @@ import ArgumentParser
 import Markdown
 
 extension MarkdownCommand {
+    /// A command to render HTML for given Markdown content.
     struct PrintHtml: ParsableCommand {
         static var configuration = CommandConfiguration(commandName: "print-html", abstract: "Convert Markdown content into HTML")
 

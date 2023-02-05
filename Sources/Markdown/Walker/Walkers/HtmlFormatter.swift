@@ -10,6 +10,7 @@
 
 import Foundation
 
+/// Options given to the ``HtmlFormatter``.
 public struct HtmlFormatterOptions: OptionSet {
     public var rawValue: UInt
     public init(rawValue: UInt) {
@@ -34,9 +35,12 @@ public struct HtmlFormatterOptions: OptionSet {
     public static let parseInlineAttributeClass = HtmlFormatterOptions(rawValue: 1 << 1)
 }
 
+/// A ``MarkupWalker`` that prints rendered HTML for a given ``Markup`` tree.
 public struct HtmlFormatter: MarkupWalker {
+    /// The resulting HTML built up after printing.
     public var result = ""
-    public let options: HtmlFormatterOptions
+
+    let options: HtmlFormatterOptions
 
     var inTableHead = false
     var tableColumnAlignments: [Table.ColumnAlignment?]? = nil
