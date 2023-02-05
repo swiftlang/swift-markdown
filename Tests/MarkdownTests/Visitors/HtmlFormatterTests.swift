@@ -157,4 +157,154 @@ final class HtmlFormatterTests: XCTestCase {
             )
         }
     }
+
+    func testFormatTables() {
+        do {
+            let inputText = """
+            | aaa | bbb |
+            | --- | --- |
+            | aaa | bbb |
+            """
+
+            let expectedOutput = """
+            <table>
+            <thead>
+            <tr>
+            <th>aaa</th>
+            <th>bbb</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>aaa</td>
+            <td>bbb</td>
+            </tr>
+            </tbody>
+            </table>
+
+            """
+
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+        }
+
+        do {
+            let inputText = """
+            | aaa | bbb |
+            | :-- | --: |
+            | aaa | bbb |
+            """
+
+            let expectedOutput = """
+            <table>
+            <thead>
+            <tr>
+            <th align="left">aaa</th>
+            <th align="right">bbb</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td align="left">aaa</td>
+            <td align="right">bbb</td>
+            </tr>
+            </tbody>
+            </table>
+
+            """
+
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+        }
+
+        do {
+            let inputText = """
+            | one | two |
+            | --- | --- |
+            | hello    ||
+            """
+
+            let expectedOutput = """
+            <table>
+            <thead>
+            <tr>
+            <th>one</th>
+            <th>two</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td colspan="2">hello</td>
+            </tr>
+            </tbody>
+            </table>
+
+            """
+
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+        }
+
+        do {
+            let inputText = """
+            | one | two   |
+            | --- | ---   |
+            | big | small |
+            | ^   | small |
+            """
+
+            let expectedOutput = """
+            <table>
+            <thead>
+            <tr>
+            <th>one</th>
+            <th>two</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td rowspan="2">big</td>
+            <td>small</td>
+            </tr>
+            <tr>
+            <td>small</td>
+            </tr>
+            </tbody>
+            </table>
+
+            """
+
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+        }
+
+        do {
+            let inputText = """
+            | one | two | three |
+            | --- | --- | ----- |
+            | big      || small |
+            | ^        || small |
+            """
+
+            let expectedOutput = """
+            <table>
+            <thead>
+            <tr>
+            <th>one</th>
+            <th>two</th>
+            <th>three</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td rowspan="2" colspan="2">big</td>
+            <td>small</td>
+            </tr>
+            <tr>
+            <td>small</td>
+            </tr>
+            </tbody>
+            </table>
+
+            """
+
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+        }
+    }
 }

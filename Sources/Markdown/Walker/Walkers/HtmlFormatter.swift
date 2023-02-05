@@ -180,6 +180,8 @@ public struct HtmlFormatter: MarkupWalker {
     public mutating func visitTableCell(_ tableCell: Table.Cell) -> () {
         guard let alignments = tableColumnAlignments, currentTableColumn < alignments.count else { return }
 
+        guard tableCell.colspan > 0 && tableCell.rowspan > 0 else { return }
+
         let element: String
         if inTableHead {
             element = "th"
