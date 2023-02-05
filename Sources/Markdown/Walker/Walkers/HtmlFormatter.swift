@@ -298,9 +298,11 @@ public struct HtmlFormatter: MarkupWalker {
             }
 
             let decoder = JSONDecoder()
-            if #available(macOS 12, *) {
+            #if !os(Linux) && !os(Windows)
+            if #available(macOS 12, iOS 15, tvOS 15, watchOS 8, *) {
                 decoder.allowsJSON5 = true
             }
+            #endif
 
             let parsedAttributes = try? decoder.decode(ParsedAttributes.self, from: attributesData)
             if let parsedAttributes = parsedAttributes {
