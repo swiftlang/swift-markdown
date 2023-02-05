@@ -52,10 +52,7 @@ extension MarkdownCommand {
                 formatterOptions.insert(.parseInlineAttributeClass)
             }
 
-            var visitor = HtmlFormatter(options: formatterOptions)
-            visitor.visit(document)
-
-            print(visitor.result)
+            print(HtmlFormatter.format(document, options: formatterOptions))
         }
     }
 }

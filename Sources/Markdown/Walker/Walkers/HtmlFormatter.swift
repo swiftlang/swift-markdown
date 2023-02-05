@@ -50,6 +50,19 @@ public struct HtmlFormatter: MarkupWalker {
         self.options = options
     }
 
+    /// Format HTML for the given markup tree.
+    public static func format(_ markup: Markup, options: HtmlFormatterOptions = []) -> String {
+        var walker = HtmlFormatter(options: options)
+        walker.visit(markup)
+        return walker.result
+    }
+
+    /// Format HTML for the given input text.
+    public static func format(_ inputString: String, options: HtmlFormatterOptions = []) -> String {
+        let document = Document(parsing: inputString)
+        return format(document, options: options)
+    }
+
     // MARK: Block elements
 
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> () {

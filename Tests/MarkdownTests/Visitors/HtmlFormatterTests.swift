@@ -67,10 +67,7 @@ final class HtmlFormatterTests: XCTestCase {
 
         """ // The rendered output contains a trailing newline
 
-        var visitor = HtmlFormatter()
-        visitor.visit(everythingDocument)
-
-        XCTAssertEqual(visitor.result, expectedDump)
+        XCTAssertEqual(HtmlFormatter.format(everythingDocument), expectedDump)
     }
 
     func testFormatAsides() {
@@ -90,10 +87,7 @@ final class HtmlFormatterTests: XCTestCase {
 
         """
 
-        var visitor = HtmlFormatter(options: [.parseAsides])
-        visitor.visit(Document(parsing: inputText))
-
-        XCTAssertEqual(visitor.result, expectedOutput)
+        XCTAssertEqual(HtmlFormatter.format(inputText, options: [.parseAsides]), expectedOutput)
     }
 
     func testInlineAttributes() {
@@ -111,7 +105,7 @@ final class HtmlFormatterTests: XCTestCase {
             var visitor = HtmlFormatter()
             visitor.visit(document)
 
-            XCTAssertEqual(visitor.result, expectedOutput)
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -120,10 +114,10 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            var visitor = HtmlFormatter(options: [.parseInlineAttributeClass])
-            visitor.visit(document)
-
-            XCTAssertEqual(visitor.result, expectedOutput)
+            XCTAssertEqual(
+                HtmlFormatter.format(inputText, options: [.parseInlineAttributeClass]),
+                expectedOutput
+            )
         }
     }
 }
