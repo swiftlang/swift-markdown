@@ -90,7 +90,10 @@ final class HtmlFormatterTests: XCTestCase {
         XCTAssertEqual(HtmlFormatter.format(inputText, options: [.parseAsides]), expectedOutput)
     }
 
-    func testInlineAttributes() {
+    // JSON5 parsing (which allows property names without quotes) is only available in Apple Foundation
+    #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+    @available(macOS 12, iOS 15, tvOS 15, watchOS 8, *)
+    func testInlineAttributesJSON5() {
         let inputText = """
         ^[formatted text](class: "fancy")
         """
@@ -111,6 +114,38 @@ final class HtmlFormatterTests: XCTestCase {
         do {
             let expectedOutput = """
             <p><span data-attributes="class: \\"fancy\\"" class="fancy">formatted text</span></p>
+
+            """
+
+            XCTAssertEqual(
+                HtmlFormatter.format(inputText, options: [.parseInlineAttributeClass]),
+                expectedOutput
+            )
+        }
+    }
+    #endif
+
+    func testInlineAttributes() {
+        let inputText = """
+        ^[formatted text]("class": "fancy")
+        """
+        let document = Document(parsing: inputText)
+
+        do {
+            let expectedOutput = """
+            <p><span data-attributes="\\"class\\": \\"fancy\\"">formatted text</span></p>
+
+            """
+
+            var visitor = HtmlFormatter()
+            visitor.visit(document)
+
+            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+        }
+
+        do {
+            let expectedOutput = """
+            <p><span data-attributes="\\"class\\": \\"fancy\\"" class="fancy">formatted text</span></p>
 
             """
 
