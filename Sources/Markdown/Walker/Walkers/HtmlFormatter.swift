@@ -29,6 +29,9 @@ public struct HtmlFormatterOptions: OptionSet {
     ///   > This is a compound sentence: It contains two clauses separated by a colon.
     ///   ```
     public static let parseAsides = HtmlFormatterOptions(rawValue: 1 << 0)
+
+    /// Parse inline attributes as JSON and use the `"class"` property as the resulting span's `class`.
+    public static let parseInlineAttributeClass = HtmlFormatterOptions(rawValue: 1 << 1)
 }
 
 public struct HtmlFormatter: MarkupWalker {
@@ -267,8 +270,28 @@ public struct HtmlFormatter: MarkupWalker {
     }
 
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> () {
-        // TODO: it would be cool to attempt to parse the attributes, look for `class` and set that separately
-        result += "<span data-attributes=\"\(attributes.attributes)>"
+        result += "<span data-attributes=\"\(attributes.attributes.replacingOccurrences(of: "\"", with: "\\\""))\""
+
+        let wrappedAttributes = "{\(attributes.attributes)}"
+        if options.contains(.parseInlineAttributeClass),
+           let attributesData = wrappedAttributes.data(using: .utf8)
+        {
+            struct ParsedAttributes: Decodable {
+                var `class`: String
+            }
+
+            let decoder = JSONDecoder()
+            if #available(macOS 12, *) {
+                decoder.allowsJSON5 = true
+            }
+
+            let parsedAttributes = try? decoder.decode(ParsedAttributes.self, from: attributesData)
+            if let parsedAttributes = parsedAttributes {
+                result += " class=\"\(parsedAttributes.class)\""
+            }
+        }
+
+        result += ">"
         descendInto(attributes)
         result += "</span>"
     }

@@ -95,4 +95,35 @@ final class HtmlFormatterTests: XCTestCase {
 
         XCTAssertEqual(visitor.result, expectedOutput)
     }
+
+    func testInlineAttributes() {
+        let inputText = """
+        ^[formatted text](class: "fancy")
+        """
+        let document = Document(parsing: inputText)
+
+        do {
+            let expectedOutput = """
+            <p><span data-attributes="class: \\"fancy\\"">formatted text</span></p>
+
+            """
+
+            var visitor = HtmlFormatter()
+            visitor.visit(document)
+
+            XCTAssertEqual(visitor.result, expectedOutput)
+        }
+
+        do {
+            let expectedOutput = """
+            <p><span data-attributes="class: \\"fancy\\"" class="fancy">formatted text</span></p>
+
+            """
+
+            var visitor = HtmlFormatter(options: [.parseInlineAttributeClass])
+            visitor.visit(document)
+
+            XCTAssertEqual(visitor.result, expectedOutput)
+        }
+    }
 }

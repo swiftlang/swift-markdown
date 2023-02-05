@@ -28,6 +28,13 @@ extension MarkdownCommand {
         )
         var parseAsides: Bool = false
 
+        @Flag(
+            inversion: .prefixedNo,
+            exclusivity: .chooseLast,
+            help: "Parse inline attributes as JSON, and use the 'class' property as a 'class' attribute"
+        )
+        var parseInlineAttributeClass: Bool = false
+
         func run() throws {
             let document: Document
             if let inputFilePath = inputFilePath {
@@ -39,6 +46,9 @@ extension MarkdownCommand {
             var formatterOptions = HtmlFormatterOptions()
             if parseAsides {
                 formatterOptions.insert(.parseAsides)
+            }
+            if parseInlineAttributeClass {
+                formatterOptions.insert(.parseInlineAttributeClass)
             }
 
             var visitor = HtmlFormatter(options: formatterOptions)
