@@ -71,6 +71,8 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return SymbolLink(data)
     case .inlineAttributes:
         return InlineAttributes(data)
+    case .doxygenParam:
+        return DoxygenParam(data)
     }
 }
 
