@@ -675,10 +675,11 @@ private enum ParseContainer: CustomStringConvertible {
             // We need to keep track of what we removed because cmark will report different source locations than what we
             // had in the source. We'll adjust those when we get them back.
             let trimmedIndentationAndLines = lines.map { line -> (line: TrimmedLine,
-                                                                  indentation: TrimmedLine.Lex?) in
+                                                                  indentation: Int) in
                 var trimmedLine = line
                 let trimmedWhitespace = trimmedLine.lexWhitespace(maxLength: indentationColumnCount)
-                return (trimmedLine, trimmedWhitespace)
+                let indentation = (trimmedWhitespace?.text.count ?? 0) + line.untrimmedText.distance(from: line.untrimmedText.startIndex, to: line.parseIndex)
+                return (trimmedLine, indentation)
             }
 
             // Build the logical block of text that cmark will see.
