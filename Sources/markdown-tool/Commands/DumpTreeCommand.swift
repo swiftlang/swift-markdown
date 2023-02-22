@@ -28,8 +28,18 @@ extension MarkdownCommand {
         @Flag<Bool>(inversion: .prefixedNo, exclusivity: .chooseLast, help: "Parse block directives")
         var parseBlockDirectives: Bool = false
 
+        @Flag<Bool>(inversion: .prefixedNo, exclusivity: .chooseLast, help: "Parse a minimal set of Doxygen commands (requires --parse-block-directives)")
+        var experimentalParseDoxygenCommands: Bool = false
+
         func run() throws {
-            let parseOptions: ParseOptions = parseBlockDirectives ? [.parseBlockDirectives] : []
+            var parseOptions = ParseOptions()
+            if parseBlockDirectives {
+                parseOptions.insert(.parseBlockDirectives)
+            }
+            if experimentalParseDoxygenCommands {
+                parseOptions.insert(.parseMinimalDoxygen)
+            }
+
             let document: Document
             if let inputFilePath = inputFilePath {
                 (_, document) = try MarkdownCommand.parseFile(at: inputFilePath, options: parseOptions)

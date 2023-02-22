@@ -24,5 +24,8 @@ public struct ParseOptions: OptionSet {
     
     /// Disable converting straight quotes to curly, --- to em dashes, -- to en dashes during parsing
     public static let disableSmartOpts = ParseOptions(rawValue: 1 << 2)
+
+    /// Parse a limited set of Doxygen commands. Requires ``parseBlockDirectives``.
+    public static let parseMinimalDoxygen = ParseOptions(rawValue: 1 << 3)
 }
 
