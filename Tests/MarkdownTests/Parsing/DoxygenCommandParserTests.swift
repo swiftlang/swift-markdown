@@ -170,8 +170,8 @@ class DoxygenCommandParserTests: XCTestCase {
         let expectedDump = """
         Document @1:1-2:39
         └─ DoxygenParam @1:1-2:39 parameter: thing
-           └─ Paragraph @1:1-2:39
-              ├─ Text @1:1-1:11 "The thing."
+           └─ Paragraph @1:14-2:39
+              ├─ Text @1:14-1:24 "The thing."
               ├─ SoftBreak
               └─ Text @2:1-2:39 "This is the thing that is messed with."
         """
