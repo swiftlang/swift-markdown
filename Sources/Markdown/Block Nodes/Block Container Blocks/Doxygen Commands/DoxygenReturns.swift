@@ -10,7 +10,7 @@
 
 import Foundation
 
-/// A parsed Doxygen `\returns` command.
+/// A parsed Doxygen `\returns`, `\return`, or `\result` command.
 ///
 /// The Doxygen support in Swift-Markdown parses `\returns` commands of the form
 /// `\returns description`, where `description` continues until the next blank line or parsed
