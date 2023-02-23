@@ -32,6 +32,28 @@ class DoxygenCommandParserTests: XCTestCase {
         XCTAssertEqual(document.debugDescription(), expectedDump)
     }
 
+    func testParseReturns() {
+        func assertValidParse(source: String) {
+            let document = Document(parsing: source, options: parseOptions)
+            XCTAssert(document.child(at: 0) is DoxygenReturns)
+
+            let expectedDump = """
+            Document
+            └─ DoxygenReturns
+               └─ Paragraph
+                  └─ Text "The thing."
+            """
+            XCTAssertEqual(document.debugDescription(), expectedDump)
+        }
+
+        assertValidParse(source: "@returns The thing.")
+        assertValidParse(source: "@return The thing.")
+        assertValidParse(source: "@result The thing.")
+        assertValidParse(source: #"\returns The thing."#)
+        assertValidParse(source: #"\return The thing."#)
+        assertValidParse(source: #"\result The thing."#)
+    }
+
     func testParseParamWithSlash() throws {
         let source = #"""
         \param thing The thing.

@@ -226,11 +226,14 @@ struct PendingBlockDirective {
 struct PendingDoxygenCommand {
     enum CommandKind {
         case param(name: Substring)
+        case returns
 
         var debugDescription: String {
             switch self {
             case .param(name: let name):
                 return "'param' Argument: '\(name)'"
+            case .returns:
+                return "'returns'"
             }
         }
     }
@@ -730,6 +733,8 @@ private enum ParseContainer: CustomStringConvertible {
             switch pendingDoxygenCommand.kind {
             case .param(let name):
                 return [.doxygenParam(name: String(name), parsedRange: range, children)]
+            case .returns:
+                return [.doxygenReturns(parsedRange: range, children)]
             }
         }
     }
@@ -867,6 +872,14 @@ struct ParseContainerStack {
                 atLocation: at.range!.lowerBound,
                 nameLocation: name.range!.lowerBound,
                 kind: .param(name: paramName.text),
+                endLocation: name.range!.upperBound)
+            pendingCommand.addLine(remainder)
+            return (pendingCommand, remainder)
+        case "return", "returns", "result":
+            var pendingCommand = PendingDoxygenCommand(
+                atLocation: at.range!.lowerBound,
+                nameLocation: name.range!.lowerBound,
+                kind: .returns,
                 endLocation: name.range!.upperBound)
             pendingCommand.addLine(remainder)
             return (pendingCommand, remainder)

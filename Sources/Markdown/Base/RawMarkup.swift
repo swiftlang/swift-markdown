@@ -53,6 +53,7 @@ enum RawMarkupData: Equatable {
     case tableCell(colspan: UInt, rowspan: UInt)
 
     case doxygenParam(name: String)
+    case doxygenReturns
 }
 
 extension RawMarkupData {
@@ -335,6 +336,10 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
 
     static func doxygenParam(name: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
         return .create(data: .doxygenParam(name: name), parsedRange: parsedRange, children: children)
+    }
+
+    static func doxygenReturns(parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        return .create(data: .doxygenReturns, parsedRange: parsedRange, children: children)
     }
 }
 
