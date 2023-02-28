@@ -22,7 +22,7 @@ import Foundation
 /// For more information about transformation matrices, refer to the Transformation
 /// documentation.
 /// ```
-public struct DoxygenParam: BlockContainer {
+public struct DoxygenParameter: BlockContainer {
     public var _data: _MarkupData
 
     init(_ raw: RawMarkup) throws {
@@ -38,11 +38,11 @@ public struct DoxygenParam: BlockContainer {
     }
 
     public func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
-        return visitor.visitDoxygenParam(self)
+        return visitor.visitDoxygenParameter(self)
     }
 }
 
-public extension DoxygenParam {
+public extension DoxygenParameter {
     /// Create a new Doxygen parameter definition.
     ///
     /// - Parameter name: The name of the parameter being described.

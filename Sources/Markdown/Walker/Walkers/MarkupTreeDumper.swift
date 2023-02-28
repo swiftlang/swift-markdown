@@ -287,7 +287,7 @@ struct MarkupTreeDumper: MarkupWalker {
         dump(attributes, customDescription: "attributes: `\(attributes.attributes)`")
     }
 
-    mutating func visitDoxygenParam(_ doxygenParam: DoxygenParam) -> () {
+    mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> () {
         dump(doxygenParam, customDescription: "parameter: \(doxygenParam.name)")
     }
 }

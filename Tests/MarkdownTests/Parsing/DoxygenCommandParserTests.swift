@@ -20,12 +20,12 @@ class DoxygenCommandParserTests: XCTestCase {
         """
 
         let document = Document(parsing: source, options: parseOptions)
-        let param = try XCTUnwrap(document.child(at: 0) as? DoxygenParam)
+        let param = try XCTUnwrap(document.child(at: 0) as? DoxygenParameter)
         XCTAssertEqual(param.name, "thing")
 
         let expectedDump = """
         Document
-        └─ DoxygenParam parameter: thing
+        └─ DoxygenParameter parameter: thing
            └─ Paragraph
               └─ Text "The thing."
         """
@@ -60,12 +60,12 @@ class DoxygenCommandParserTests: XCTestCase {
         """#
 
         let document = Document(parsing: source, options: parseOptions)
-        let param = try XCTUnwrap(document.child(at: 0) as? DoxygenParam)
+        let param = try XCTUnwrap(document.child(at: 0) as? DoxygenParameter)
         XCTAssertEqual(param.name, "thing")
 
         let expectedDump = """
         Document
-        └─ DoxygenParam parameter: thing
+        └─ DoxygenParameter parameter: thing
            └─ Paragraph
               └─ Text "The thing."
         """
@@ -82,7 +82,7 @@ class DoxygenCommandParserTests: XCTestCase {
 
         let expectedDump = """
         Document
-        └─ DoxygenParam parameter: thing
+        └─ DoxygenParameter parameter: thing
            └─ Paragraph
               ├─ Text "The thing."
               ├─ SoftBreak
@@ -102,7 +102,7 @@ class DoxygenCommandParserTests: XCTestCase {
 
         let expectedDump = """
         Document
-        ├─ DoxygenParam parameter: thing
+        ├─ DoxygenParameter parameter: thing
         │  └─ Paragraph
         │     └─ Text "The thing."
         └─ Paragraph
@@ -125,10 +125,10 @@ class DoxygenCommandParserTests: XCTestCase {
         Document
         ├─ Paragraph
         │  └─ Text "Messes with the thing."
-        ├─ DoxygenParam parameter: thing
+        ├─ DoxygenParameter parameter: thing
         │  └─ Paragraph
         │     └─ Text "The thing."
-        └─ DoxygenParam parameter: otherThing
+        └─ DoxygenParameter parameter: otherThing
            └─ Paragraph
               └─ Text "The other thing."
         """
@@ -151,7 +151,7 @@ class DoxygenCommandParserTests: XCTestCase {
         Document
         ├─ Paragraph
         │  └─ Text "Messes with the thing."
-        ├─ DoxygenParam parameter: thing
+        ├─ DoxygenParameter parameter: thing
         │  └─ Paragraph
         │     └─ Text "The thing."
         └─ BlockDirective name: "Comment"
@@ -173,7 +173,7 @@ class DoxygenCommandParserTests: XCTestCase {
         Document
         ├─ Paragraph
         │  └─ Text "This is a paragraph."
-        └─ DoxygenParam parameter: thing
+        └─ DoxygenParameter parameter: thing
            └─ Paragraph
               └─ Text "The thing."
         """
@@ -191,7 +191,7 @@ class DoxygenCommandParserTests: XCTestCase {
         // FIXME: The source location for the first description line is wrong
         let expectedDump = """
         Document @1:1-2:39
-        └─ DoxygenParam @1:1-2:39 parameter: thing
+        └─ DoxygenParameter @1:1-2:39 parameter: thing
            └─ Paragraph @1:14-2:39
               ├─ Text @1:14-1:24 "The thing."
               ├─ SoftBreak
