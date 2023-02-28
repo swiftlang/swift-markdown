@@ -23,8 +23,8 @@ public struct DoxygenReturns: BlockContainer {
     public var _data: _MarkupData
 
     init(_ raw: RawMarkup) throws {
-        guard case .doxygenParam = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: BlockDirective.self)
+        guard case .doxygenReturns = raw.data else {
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: DoxygenReturns.self)
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))

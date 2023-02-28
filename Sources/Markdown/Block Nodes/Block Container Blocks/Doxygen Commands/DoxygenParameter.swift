@@ -27,7 +27,7 @@ public struct DoxygenParameter: BlockContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .doxygenParam = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: BlockDirective.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: DoxygenParameter.self)
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
