@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -288,6 +288,44 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         let printed = SymbolLink(destination: "foo()").format()
         XCTAssertEqual(expected, printed)
     }
+
+    func testPrintDoxygenParameter() {
+        let expected = #"\param thing The thing."#
+        let printed = DoxygenParameter(name: "thing", children: Paragraph(Text("The thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenParameterMultiline() {
+        let expected = #"""
+        \param thing The thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenParameter(name: "thing", children: Paragraph(
+            Text("The thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenReturns() {
+        let expected = #"\returns Another thing."#
+        let printed = DoxygenReturns(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenReturnsMultiline() {
+        let expected = #"""
+        \returns Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenReturns(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
 }
 
 /// Tests that formatting options work correctly.
@@ -469,6 +507,23 @@ class MarkupFormatterOptionsTests: XCTestCase {
             XCTAssertEqual(incrementing, printed)
         }
     }
+
+    func testDoxygenCommandPrefix() {
+        let backslash = #"\param thing The thing."#
+        let at = "@param thing The thing."
+
+        do {
+            let document = Document(parsing: backslash, options: [.parseMinimalDoxygen, .parseBlockDirectives])
+            let printed = document.format(options: .init(doxygenCommandPrefix: .at))
+            XCTAssertEqual(at, printed)
+        }
+
+        do {
+            let document = Document(parsing: at, options: [.parseMinimalDoxygen, .parseBlockDirectives])
+            let printed = document.format(options: .init(doxygenCommandPrefix: .backslash))
+            XCTAssertEqual(backslash, printed)
+        }
+    }
 }
 
 /// Tests that an printed and reparsed element has the same structure as
@@ -646,7 +701,8 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         let document = try Document(parsing: readMeURL)
 //        try document.format().write(toFile: "/tmp/test.md", atomically: true, encoding: .utf8)
         checkRoundTrip(for: document)
-    }}
+    }
+}
 
 /**
  Test enforcement of a preferred maximum line length.
