@@ -72,7 +72,7 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
     case .inlineAttributes:
         return InlineAttributes(data)
     case .doxygenParam:
-        return DoxygenParam(data)
+        return DoxygenParameter(data)
     case .doxygenReturns:
         return DoxygenReturns(data)
     }
