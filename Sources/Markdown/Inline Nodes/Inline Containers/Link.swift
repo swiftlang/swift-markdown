@@ -64,7 +64,7 @@ public extension Link {
     }
 
     var isAutolink: Bool {
-        guard let destination,
+        guard let destination = destination,
               childCount == 1,
               let text = child(at: 0) as? Text,
               destination == text.string else {
