@@ -819,11 +819,8 @@ public struct MarkupFormatter: MarkupWalker {
     public mutating func visitLink(_ link: Link) {
         let savedState = state
         if formattingOptions.condenseAutolinks,
-            let destination = link.destination,
-        link.childCount == 1,
-        let text = link.child(at: 0) as? Text,
-            // Print autolink-style
-            destination == text.string {
+           link.isAutolink,
+           let destination = link.destination {
             print("<\(destination)>", for: link)
         } else {
             func printRegularLink() {
