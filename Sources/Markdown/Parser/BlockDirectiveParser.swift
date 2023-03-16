@@ -182,6 +182,7 @@ struct PendingBlockDirective {
             // "@xx { yy } zz }" "yy } zz" will be parsed
 
             var reversedRemainingContent = TrimmedLine(Substring(line.text.reversed()), source: line.source, lineNumber: line.lineNumber)
+            reversedRemainingContent.lexWhitespace()
             if !line.text.isEmpty,
                reversedRemainingContent.lex("}") != nil {
                 let trailingWhiteSpaceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
