@@ -1009,7 +1009,10 @@ struct ParseContainerStack {
                 // A pending block directive can accept this line if it is in the middle of
                 // parsing arguments text (to allow indentation to align arguments) or
                 // if the line isn't taking part in a code block.
-                let canAcceptLine = pendingBlockDirective.parseState == .argumentsText || !isCodeFenceOrIndentedCodeBlock(on: line)
+                let canAcceptLine =
+                    pendingBlockDirective.parseState != .done &&
+                    (pendingBlockDirective.parseState == .argumentsText ||
+                     !isCodeFenceOrIndentedCodeBlock(on: line))
                 if canAcceptLine && pendingBlockDirective.accept(line) {
                     pop()
                     push(.blockDirective(pendingBlockDirective, children))
