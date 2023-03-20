@@ -347,6 +347,11 @@ public struct MarkupFormatter: MarkupWalker {
 
         /// The current line number.
         var lineNumber = 0
+
+        /// The "effective" line number, taking into account any queued newlines which have not been printed.
+        var effectiveLineNumber: Int {
+            lineNumber + queuedNewlines
+        }
     }
 
     /// The state of the formatter.
@@ -769,7 +774,7 @@ public struct MarkupFormatter: MarkupWalker {
         // If printing with automatic wrapping still put us over the line,
         // prefer to print it on the next line to give as much opportunity
         // to keep the contents on one line.
-        if inlineCode.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+        if inlineCode.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
