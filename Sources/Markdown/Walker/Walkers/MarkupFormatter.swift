@@ -1138,7 +1138,7 @@ public struct MarkupFormatter: MarkupWalker {
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) {
         let savedState = state
         func printInlineAttributes() {
-            print("[", for: attributes)
+            print("^[", for: attributes)
             descendInto(attributes)
             print("](", for: attributes)
             print(attributes.attributes, for: attributes)
@@ -1152,7 +1152,7 @@ public struct MarkupFormatter: MarkupWalker {
         // gets into the realm of JSON formatting which might be out of scope of
         // this formatter. Therefore if exceeded, prefer to print it on the next
         // line to give as much opportunity to keep the attributes on one line.
-        if attributes.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+        if attributes.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             printInlineAttributes()

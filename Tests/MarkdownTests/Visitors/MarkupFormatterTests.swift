@@ -744,6 +744,24 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         checkCharacterEquivalence(for: source)
     }
 
+    func testRoundTripHardBreakWithInlineAttribute() {
+        let source = """
+        This is some text.\("  ")
+        ^[This is some attributed text.](rainbow: 'extreme')
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithInlineAttribute() {
+        let source = """
+        This is some text.
+        ^[This is some attributed text.](rainbow: 'extreme')
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
     /// Why not?
     func testRoundTripReadMe() throws {
         let readMeURL = URL(fileURLWithPath: #file)
