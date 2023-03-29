@@ -708,6 +708,42 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         checkCharacterEquivalence(for: source)
     }
 
+    func testRoundTripHardBreakWithImage() {
+        let source = """
+        This is some text.\("  ")
+        ![This is an image.](image.png "")
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithImage() {
+        let source = """
+        This is some text.
+        ![This is an image.](image.png "")
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithLink() {
+        let source = """
+        This is some text.\("  ")
+        [This is a link.](https://swift.org)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithLink() {
+        let source = """
+        This is some text.
+        [This is a link.](https://swift.org)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
     /// Why not?
     func testRoundTripReadMe() throws {
         let readMeURL = URL(fileURLWithPath: #file)
