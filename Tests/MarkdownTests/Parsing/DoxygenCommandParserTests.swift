@@ -127,6 +127,29 @@ class DoxygenCommandParserTests: XCTestCase {
         XCTAssertEqual(document.debugDescription(), expectedDump)
     }
 
+    func testParseWithIndentedAtSign() {
+        let source = """
+        Method description.
+
+         @param thing The thing.
+            This is the thing that is messed with.
+        """
+
+        let document = Document(parsing: source, options: parseOptions)
+
+        let expectedDump = """
+        Document
+        ├─ Paragraph
+        │  └─ Text "Method description."
+        └─ DoxygenParameter parameter: thing
+           └─ Paragraph
+              ├─ Text "The thing."
+              ├─ SoftBreak
+              └─ Text "This is the thing that is messed with."
+        """
+        XCTAssertEqual(document.debugDescription(), expectedDump)
+    }
+
     func testBreakDescriptionWithBlankLine() {
         let source = """
         @param thing The thing.
@@ -250,6 +273,29 @@ class DoxygenCommandParserTests: XCTestCase {
               ├─ Text @1:14-1:24 "The thing."
               ├─ SoftBreak
               └─ Text @2:5-2:43 "This is the thing that is messed with."
+        """
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSourceLocationsWithIndentedAtSign() {
+        let source = """
+        Method description.
+
+         @param thing The thing.
+            This is the thing that is messed with.
+        """
+
+        let document = Document(parsing: source, options: parseOptions)
+
+        let expectedDump = """
+        Document @1:1-4:43
+        ├─ Paragraph @1:1-1:20
+        │  └─ Text @1:1-1:20 "Method description."
+        └─ DoxygenParameter @3:2-4:43 parameter: thing
+           └─ Paragraph @3:15-4:43
+              ├─ Text @3:15-3:25 "The thing."
+              ├─ SoftBreak
+              └─ Text @4:5-4:43 "This is the thing that is messed with."
         """
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
     }

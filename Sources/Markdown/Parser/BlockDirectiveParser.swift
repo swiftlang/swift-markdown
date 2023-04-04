@@ -241,6 +241,8 @@ struct PendingDoxygenCommand {
 
     var atLocation: SourceLocation
 
+    var atSignIndentation: Int
+
     var nameLocation: SourceLocation
 
     var innerIndentation: Int? = nil
@@ -248,6 +250,10 @@ struct PendingDoxygenCommand {
     var kind: CommandKind
 
     var endLocation: SourceLocation
+
+    var indentationAdjustment: Int {
+        innerIndentation ?? atSignIndentation
+    }
 
     mutating func addLine(_ line: TrimmedLine) {
         endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
@@ -662,7 +668,7 @@ private enum ParseContainer: CustomStringConvertible {
         case .blockDirective(let pendingBlockDirective, _):
             return pendingBlockDirective.indentationColumnCount
         case .doxygenCommand(let pendingCommand, _):
-            return pendingCommand.innerIndentation ?? 0
+            return pendingCommand.indentationAdjustment
         }
     }
 
@@ -848,6 +854,7 @@ struct ParseContainerStack {
         guard !isCodeFenceOrIndentedCodeBlock(on: line) else { return nil }
 
         var remainder = line
+        let indent = remainder.lexWhitespace()
         guard let at = remainder.lex(until: { ch in
             switch ch {
             case "@", "\\":
@@ -877,6 +884,7 @@ struct ParseContainerStack {
             remainder.lexWhitespace()
             var pendingCommand = PendingDoxygenCommand(
                 atLocation: at.range!.lowerBound,
+                atSignIndentation: indent?.text.count ?? 0,
                 nameLocation: name.range!.lowerBound,
                 kind: .param(name: paramName.text),
                 endLocation: name.range!.upperBound)
@@ -885,6 +893,7 @@ struct ParseContainerStack {
         case "return", "returns", "result":
             var pendingCommand = PendingDoxygenCommand(
                 atLocation: at.range!.lowerBound,
+                atSignIndentation: indent?.text.count ?? 0,
                 nameLocation: name.range!.lowerBound,
                 kind: .returns,
                 endLocation: name.range!.upperBound)
