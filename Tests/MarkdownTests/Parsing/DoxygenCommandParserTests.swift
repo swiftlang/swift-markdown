@@ -91,6 +91,42 @@ class DoxygenCommandParserTests: XCTestCase {
         XCTAssertEqual(document.debugDescription(), expectedDump)
     }
 
+    func testParseIndentedDescription() {
+        let source = """
+        @param thing
+            The thing.
+        """
+
+        let document = Document(parsing: source, options: parseOptions)
+
+        let expectedDump = """
+        Document
+        └─ DoxygenParameter parameter: thing
+           └─ Paragraph
+              └─ Text "The thing."
+        """
+        XCTAssertEqual(document.debugDescription(), expectedDump)
+    }
+
+    func testParseMultilineIndentedDescription() {
+        let source = """
+        @param thing The thing.
+            This is the thing that is messed with.
+        """
+
+        let document = Document(parsing: source, options: parseOptions)
+
+        let expectedDump = """
+        Document
+        └─ DoxygenParameter parameter: thing
+           └─ Paragraph
+              ├─ Text "The thing."
+              ├─ SoftBreak
+              └─ Text "This is the thing that is messed with."
+        """
+        XCTAssertEqual(document.debugDescription(), expectedDump)
+    }
+
     func testBreakDescriptionWithBlankLine() {
         let source = """
         @param thing The thing.
@@ -188,7 +224,6 @@ class DoxygenCommandParserTests: XCTestCase {
 
         let document = Document(parsing: source, options: parseOptions)
 
-        // FIXME: The source location for the first description line is wrong
         let expectedDump = """
         Document @1:1-2:39
         └─ DoxygenParameter @1:1-2:39 parameter: thing
@@ -196,6 +231,25 @@ class DoxygenCommandParserTests: XCTestCase {
               ├─ Text @1:14-1:24 "The thing."
               ├─ SoftBreak
               └─ Text @2:1-2:39 "This is the thing that is messed with."
+        """
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSourceLocationsWithIndentation() {
+        let source = """
+        @param thing The thing.
+            This is the thing that is messed with.
+        """
+
+        let document = Document(parsing: source, options: parseOptions)
+
+        let expectedDump = """
+        Document @1:1-2:43
+        └─ DoxygenParameter @1:1-2:43 parameter: thing
+           └─ Paragraph @1:14-2:43
+              ├─ Text @1:14-1:24 "The thing."
+              ├─ SoftBreak
+              └─ Text @2:5-2:43 "This is the thing that is messed with."
         """
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
     }

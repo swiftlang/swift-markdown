@@ -243,12 +243,18 @@ struct PendingDoxygenCommand {
 
     var nameLocation: SourceLocation
 
+    var innerIndentation: Int? = nil
+
     var kind: CommandKind
 
     var endLocation: SourceLocation
 
     mutating func addLine(_ line: TrimmedLine) {
         endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
+
+        if innerIndentation == nil, line.location?.line != atLocation.line, !line.isEmptyOrAllWhitespace {
+            innerIndentation = line.indentationColumnCount
+        }
     }
 }
 
@@ -655,8 +661,8 @@ private enum ParseContainer: CustomStringConvertible {
             return parent?.indentationAdjustment(under: nil) ?? 0
         case .blockDirective(let pendingBlockDirective, _):
             return pendingBlockDirective.indentationColumnCount
-        case .doxygenCommand:
-            return parent?.indentationAdjustment(under: nil) ?? 0
+        case .doxygenCommand(let pendingCommand, _):
+            return pendingCommand.innerIndentation ?? 0
         }
     }
 
