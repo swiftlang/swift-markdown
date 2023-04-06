@@ -29,9 +29,16 @@ This is the thing that is modified.
 }
 ```
 
-Doxygen commands are not parsed within code blocks or block directive content. No indentation
-adjustment is performed on paragraph arguments that span multiple lines, unlike with block directive
-content.
+Trailing lines in a command's description are allowed to be indented relative to the command. For
+example, the description below is parsed as a paragraph, not a code block:
+
+```markdown
+\param thing
+    The thing.
+    This is the thing that is modified.
+```
+
+Doxygen commands are not parsed within code blocks or block directive content.
 
 ## Topics
 
