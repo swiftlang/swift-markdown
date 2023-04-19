@@ -190,9 +190,7 @@ struct PendingBlockDirective {
                 let leadingSpacingCount = line.untrimmedText.count - textCount - trailingWhiteSpaceCount - 1
                 innerIndentationColumnCount = leadingSpacingCount // Should we add a new property for this kind of usage?
                 
-                let startIndex = line.untrimmedText.startIndex
-                let endIndex = line.untrimmedText.index(startIndex, offsetBy: leadingSpacingCount)
-                let newLine = line.untrimmedText.replacingCharacters(in: startIndex..<endIndex, with: String(repeating: " ", count: leadingSpacingCount)).dropLast(trailingWhiteSpaceCount + 1)
+                let newLine = String(repeating: " ", count: leadingSpacingCount) + line.untrimmedText.dropFirst(leadingSpacingCount).dropLast(trailingWhiteSpaceCount + 1)
                 pendingLine = TrimmedLine(newLine.dropFirst(0), source: line.source, lineNumber: line.lineNumber)
                 parseState = .done
                 endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
