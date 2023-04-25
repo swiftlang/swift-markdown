@@ -1020,4 +1020,27 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         """#
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
     }
+    
+    func testParsingTreeDumpFollowedByDirective() {
+        let source = """
+        Document
+        ├─ Heading level: 1
+        │  └─ Text "Title"
+        @Comment { Line c This is a single-line comment }
+        """
+        let documentation = Document(parsing: source, options: .parseBlockDirectives)
+        let expected = """
+        Document
+        ├─ Paragraph
+        │  ├─ Text "Document"
+        │  ├─ SoftBreak
+        │  ├─ Text "├─ Heading level: 1"
+        │  ├─ SoftBreak
+        │  └─ Text "│  └─ Text “Title”"
+        └─ BlockDirective name: "Comment"
+           └─ Paragraph
+              └─ Text "Line c This is a single-line comment"
+        """
+        XCTAssertEqual(expected, documentation.debugDescription())
+    }
 }
