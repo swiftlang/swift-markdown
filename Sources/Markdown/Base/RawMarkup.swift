@@ -54,6 +54,8 @@ enum RawMarkupData: Equatable {
 
     case doxygenParam(name: String)
     case doxygenReturns
+    case footnoteReference(footnoteID: String)
+    case footnoteDefinition(footnoteID: String)
 }
 
 extension RawMarkupData {
@@ -247,6 +249,10 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     static func blockDirective(name: String, nameLocation: SourceLocation?, argumentText: DirectiveArgumentText, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
         return .create(data: .blockDirective(name: name, nameLocation: nameLocation, arguments: argumentText), parsedRange: parsedRange, children: children)
     }
+    
+    static func footnoteDefinition(footnoteID: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        return .create(data: .footnoteDefinition(footnoteID: footnoteID), parsedRange: parsedRange, children: children)
+    }
 
     // MARK: Inline Creation
 
@@ -297,6 +303,11 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     static func inlineAttributes(attributes: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
         return .create(data: .inlineAttributes(attributes: attributes), parsedRange: parsedRange, children: children)
     }
+    
+    static func footnoteReference(footnoteID: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        return .create(data: .footnoteReference(footnoteID: footnoteID), parsedRange: parsedRange, children: children)
+    }
+    
 
     // MARK: Extensions
 

@@ -30,6 +30,8 @@ struct MarkdownCommand: ParsableCommand {
     ])
 
     static func parseFile(at path: String, options: ParseOptions) throws -> (source: String, parsed: Document) {
+        print(path)
+        print(Process().currentDirectoryPath)
         let data = try Data(contentsOf: URL(fileURLWithPath: path))
         guard let inputString = String(data: data, encoding: .utf8) else {
             throw Error.couldntDecodeInputAsUTF8
