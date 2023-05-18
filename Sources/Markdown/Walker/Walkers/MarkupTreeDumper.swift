@@ -295,7 +295,7 @@ struct MarkupTreeDumper: MarkupWalker {
         dump(footnoteReference, customDescription: "footnoteID: `\(footnoteReference.footnoteID)`")
     }
     
-    mutating func visitFootnoteReference(_ footnoteDefinition: FootnoteDefinition) -> () {
+    mutating func visitFootnoteDefinition(_ footnoteDefinition: FootnoteDefinition) -> () {
         dump(footnoteDefinition, customDescription: "footnoteID: `\(footnoteDefinition.footnoteID)`")
     }
 

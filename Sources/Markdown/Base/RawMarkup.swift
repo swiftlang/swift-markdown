@@ -251,6 +251,7 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     }
     
     static func footnoteDefinition(footnoteID: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        
         return .create(data: .footnoteDefinition(footnoteID: footnoteID), parsedRange: parsedRange, children: children)
     }
 

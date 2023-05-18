@@ -22,6 +22,10 @@ public extension FootnoteDefinition {
         try! self.init(.footnoteDefinition(footnoteID: footnoteID, parsedRange: nil, children.map { $0.raw.markup }))
     }
     
+    init(footnoteID: String, _ children: BlockMarkup...) {
+        self.init(footnoteID: footnoteID, children)
+    }
+    
     var footnoteID: String {
         get {
             guard case let .footnoteDefinition(footnoteID: footnoteID) = _data.raw.markup.data else {
