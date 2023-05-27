@@ -414,9 +414,7 @@ struct TrimmedLine {
                 isEscaped = true
             }
             else if isQuoted {
-                if c == "\"" {
-                    isQuoted = false
-                }
+                isQuoted = (c != "\"")
             }
             else if allowQuote,
                c == "\"" {
