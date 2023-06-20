@@ -283,6 +283,21 @@ final class MarkupTests: XCTestCase {
             )!.debugDescription()
         )
     }
+
+    func testChildThroughIndicesWithMultipleParagraphs() {
+        let source = """
+This is a markup __*document*__ with *some* **more** attributes.
+
+This is the *second* paragraph.
+This is on a **new** line, but, continues on the same paragraph.
+
+This is the *third* paragraph.
+This is on a **new** line, but, continues on the same paragraph.
+"""
+
+        let document = Document(parsing: source)
+        XCTAssertNotNil(document.child(through: [2, 5]) as? Strong)
+    }
     
     func testChildAtPositionHasCorrectType() throws {
         let source = "This is a [*link*](github.com). And some **bold** and *italic* text."
