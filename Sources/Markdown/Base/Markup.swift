@@ -75,6 +75,10 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return DoxygenParameter(data)
     case .doxygenReturns:
         return DoxygenReturns(data)
+    case .footnoteReference:
+        return FootnoteReference(data)
+    case .footnoteDefinition:
+        return FootnoteDefinition(data)
     }
 }
 
