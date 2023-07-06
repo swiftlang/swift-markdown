@@ -16,12 +16,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitHTMLBlock(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitHTMLBlock(_:)-s5sx",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitHTMLBlock(_:)-83l09"
       ],
       "title" : "MarkupVisitor Implementations"
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "html"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -296,56 +291,6 @@
   "title" : "HTMLBlock",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/htmlblock"
-},
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitHTMLBlock(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "visitHTMLBlock"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown9HTMLBlockV",
-      "text" : "HTMLBlock"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Result"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitHTMLBlock(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "visitHTMLBlock(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visithtmlblock(_:)"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor": {
   "abstract" : [
@@ -501,6 +446,56 @@
   "title" : "visitHTMLBlock(_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/visithtmlblock(_:)-83l09"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitHTMLBlock(_:)-s5sx": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitHTMLBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown9HTMLBlockV",
+      "text" : "HTMLBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitHTMLBlock(_:)-s5sx",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitHTMLBlock(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visithtmlblock(_:)-s5sx"
 },
 "doc://Markdown/documentation/Markdown/VisitMarkup": {
   "abstract" : [

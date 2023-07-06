@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -57,7 +51,8 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/dropLast(_:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/elementsEqual(_:by:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/enumerated()",
-        "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/filter(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/filter(_:)-2veyq",
+        "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/filter(_:)-7e3hf",
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/first(where:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/flatMap(_:)-1pkwd",
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/flatMap(_:)-8eebk",
@@ -837,7 +832,85 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/reversedmarkupchildren\/enumerated()"
 },
-"doc://Markdown/documentation/Markdown/ReversedMarkupChildren/filter(_:)": {
+"doc://Markdown/documentation/Markdown/ReversedMarkupChildren/filter(_:)-2veyq": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation9PredicateV",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/filter(_:)-2veyq",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/reversedmarkupchildren\/filter(_:)-2veyq"
+},
+"doc://Markdown/documentation/Markdown/ReversedMarkupChildren/filter(_:)-7e3hf": {
   "abstract" : [
 
   ],
@@ -916,12 +989,12 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/filter(_:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren\/filter(_:)-7e3hf",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "filter(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/reversedmarkupchildren\/filter(_:)"
+  "url" : "\/documentation\/markdown\/reversedmarkupchildren\/filter(_:)-7e3hf"
 },
 "doc://Markdown/documentation/Markdown/ReversedMarkupChildren/first(where:)": {
   "abstract" : [

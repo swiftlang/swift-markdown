@@ -19,7 +19,7 @@
         "doc:\/\/Markdown\/documentation\/Markdown",
         "doc:\/\/Markdown\/documentation\/Markdown\/Infrastructure",
         "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation",
-        "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/-Implementations"
+        "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/Comparable-Implementations"
       ]
     ]
   },
@@ -96,7 +96,10 @@
     ],
     "modules" : [
       {
-        "name" : "Markdown"
+        "name" : "Markdown",
+        "relatedModules" : [
+          "Swift"
+        ]
       }
     ],
     "role" : "symbol",
@@ -200,7 +203,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -287,17 +290,6 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/sourcelocation"
 },
-"doc://Markdown/documentation/Markdown/SourceLocation/-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : " Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/sourcelocation\/-implementations"
-},
 "doc://Markdown/documentation/Markdown/SourceLocation/...(_:_:)": {
   "abstract" : [
 
@@ -371,6 +363,17 @@
   "title" : "...(_:_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/sourcelocation\/'...(_:_:)"
+},
+"doc://Markdown/documentation/Markdown/SourceLocation/Comparable-Implementations": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/Comparable-Implementations",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Comparable Implementations",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/sourcelocation\/comparable-implementations"
 }
 }
 }

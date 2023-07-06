@@ -115,6 +115,7 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis",
         "doc:\/\/Markdown\/documentation\/Markdown\/Heading",
         "doc:\/\/Markdown\/documentation\/Markdown\/Image",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineAttributes",
         "doc:\/\/Markdown\/documentation\/Markdown\/Link",
         "doc:\/\/Markdown\/documentation\/Markdown\/Paragraph",
         "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough",
@@ -128,7 +129,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -328,6 +329,40 @@
   "title" : "Image",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/image"
+},
+"doc://Markdown/documentation/Markdown/InlineAttributes": {
+  "abstract" : [
+    {
+      "text" : "A set of one or more inline attributes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlineattributes"
 },
 "doc://Markdown/documentation/Markdown/InlineContainer": {
   "abstract" : [

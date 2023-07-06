@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -30,7 +24,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -40,8 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/Strong\/plainText-5g53l",
-        "doc:\/\/Markdown\/documentation\/Markdown\/Strong\/plainText-8q15j"
+        "doc:\/\/Markdown\/documentation\/Markdown\/Strong\/plainText"
       ],
       "title" : "Instance Properties"
     }
@@ -127,7 +120,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/strong"
 },
-"doc://Markdown/documentation/Markdown/Strong/plainText-5g53l": {
+"doc://Markdown/documentation/Markdown/Strong/plainText": {
   "abstract" : [
 
   ],
@@ -154,46 +147,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strong\/plainText-5g53l",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strong\/plainText",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "plainText",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/strong\/plaintext-5g53l"
-},
-"doc://Markdown/documentation/Markdown/Strong/plainText-8q15j": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "plainText"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strong\/plainText-8q15j",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "plainText",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/strong\/plaintext-8q15j"
+  "url" : "\/documentation\/markdown\/strong\/plaintext"
 }
 }
 }

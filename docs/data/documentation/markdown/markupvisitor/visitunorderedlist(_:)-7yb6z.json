@@ -16,13 +16,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitUnorderedList(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitUnorderedList(_:)-8dv6s"
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitUnorderedList(_:)-8dv6s",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitUnorderedList(_:)-6prlk"
       ],
       "title" : "MarkupVisitor Implementations"
     }
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "unorderedList"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -262,56 +257,6 @@
   "title" : "Markdown",
   "type" : "topic",
   "url" : "\/documentation\/markdown"
-},
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitUnorderedList(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "visitUnorderedList"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown13UnorderedListV",
-      "text" : "UnorderedList"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Result"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitUnorderedList(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "visitUnorderedList(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visitunorderedlist(_:)"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor": {
   "abstract" : [
@@ -354,6 +299,56 @@
   "title" : "MarkupVisitor",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitUnorderedList(_:)-6prlk": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitUnorderedList"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown13UnorderedListV",
+      "text" : "UnorderedList"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitUnorderedList(_:)-6prlk",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitUnorderedList(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitunorderedlist(_:)-6prlk"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitUnorderedList(_:)-7yb6z": {
   "abstract" : [

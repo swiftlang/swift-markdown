@@ -16,12 +16,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitStrong(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitStrong(_:)-5weuh",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitStrong(_:)-6mmnf"
       ],
       "title" : "MarkupVisitor Implementations"
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "strong"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -262,56 +257,6 @@
   "title" : "Markdown",
   "type" : "topic",
   "url" : "\/documentation\/markdown"
-},
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitStrong(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "visitStrong"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown6StrongV",
-      "text" : "Strong"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Result"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitStrong(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "visitStrong(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visitstrong(_:)"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor": {
   "abstract" : [
@@ -417,6 +362,56 @@
   "title" : "visitStrong(_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/visitstrong(_:)-54sa6"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitStrong(_:)-5weuh": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitStrong"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown6StrongV",
+      "text" : "Strong"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitStrong(_:)-5weuh",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitStrong(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitstrong(_:)-5weuh"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitStrong(_:)-6mmnf": {
   "abstract" : [

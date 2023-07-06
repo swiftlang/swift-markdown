@@ -16,12 +16,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitBlockQuote(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitBlockQuote(_:)-4fxw4",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitBlockQuote(_:)-9he4b"
       ],
       "title" : "MarkupVisitor Implementations"
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "blockQuote"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -297,7 +292,49 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/blockquote"
 },
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitBlockQuote(_:)": {
+"doc://Markdown/documentation/Markdown/MarkupVisitor": {
+  "abstract" : [
+    {
+      "text" : "Visits ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements and returns a result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupVisitor",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitBlockQuote(_:)-4fxw4": {
   "abstract" : [
 
   ],
@@ -340,54 +377,12 @@
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitBlockQuote(_:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitBlockQuote(_:)-4fxw4",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "visitBlockQuote(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visitblockquote(_:)"
-},
-"doc://Markdown/documentation/Markdown/MarkupVisitor": {
-  "abstract" : [
-    {
-      "text" : "Visits ",
-      "type" : "text"
-    },
-    {
-      "code" : "Markup",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " elements and returns a result.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MarkupVisitor"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MarkupVisitor"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MarkupVisitor",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markupvisitor"
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitblockquote(_:)-4fxw4"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitBlockQuote(_:)-7ktt2": {
   "abstract" : [

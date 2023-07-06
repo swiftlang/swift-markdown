@@ -94,7 +94,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -134,8 +134,6 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/-Implementations",
-        "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/-Implementations",
         "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/Comparable-Implementations",
         "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/Equatable-Implementations"
       ],
@@ -238,17 +236,6 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/sourcelocation"
 },
-"doc://Markdown/documentation/Markdown/SourceLocation/-Implementations": {
-  "abstract" : [
-
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/SourceLocation\/-Implementations",
-  "kind" : "article",
-  "role" : "collectionGroup",
-  "title" : " Implementations",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/sourcelocation\/-implementations"
-},
 "doc://Markdown/documentation/Markdown/SourceLocation/Comparable-Implementations": {
   "abstract" : [
 
@@ -338,7 +325,7 @@
 "doc://Markdown/documentation/Markdown/SourceLocation/column": {
   "abstract" : [
     {
-      "text" : "The number of Unicode code units from the start of the line to the character at this source location.",
+      "text" : "The number of bytes in UTF-8 encoding from the start of the line to the character at this source location.",
       "type" : "text"
     }
   ],

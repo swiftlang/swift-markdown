@@ -209,7 +209,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -245,7 +245,7 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/body-swift.property",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/columnAlignments",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/head-swift.property",
-        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/isEmpty-11if2",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/isEmpty",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/maxColumnCount"
       ],
       "title" : "Instance Properties"
@@ -822,7 +822,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/table\/init(columnalignments:header:body:)"
 },
-"doc://Markdown/documentation/Markdown/Table/isEmpty-11if2": {
+"doc://Markdown/documentation/Markdown/Table/isEmpty": {
   "abstract" : [
     {
       "code" : "true",
@@ -874,12 +874,12 @@
       "text" : "Bool"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/isEmpty-11if2",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/isEmpty",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "isEmpty",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/table\/isempty-11if2"
+  "url" : "\/documentation\/markdown\/table\/isempty"
 },
 "doc://Markdown/documentation/Markdown/Table/maxColumnCount": {
   "abstract" : [

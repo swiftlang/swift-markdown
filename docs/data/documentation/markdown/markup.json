@@ -105,6 +105,7 @@
               "type" : "paragraph"
             }
           ],
+          "name" : "Note",
           "style" : "note",
           "type" : "aside"
         }
@@ -139,10 +140,13 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/CustomBlock",
         "doc:\/\/Markdown\/documentation\/Markdown\/CustomInline",
         "doc:\/\/Markdown\/documentation\/Markdown\/Document",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenParameter",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenReturns",
         "doc:\/\/Markdown\/documentation\/Markdown\/Emphasis",
         "doc:\/\/Markdown\/documentation\/Markdown\/HTMLBlock",
         "doc:\/\/Markdown\/documentation\/Markdown\/Heading",
         "doc:\/\/Markdown\/documentation\/Markdown\/Image",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineAttributes",
         "doc:\/\/Markdown\/documentation\/Markdown\/InlineCode",
         "doc:\/\/Markdown\/documentation\/Markdown\/InlineHTML",
         "doc:\/\/Markdown\/documentation\/Markdown\/LineBreak",
@@ -170,7 +174,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -713,6 +717,106 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/document"
 },
+"doc://Markdown/documentation/Markdown/DoxygenParameter": {
+  "abstract" : [
+    {
+      "text" : "A parsed Doxygen ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\param",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " command.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenParameter"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenParameter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenParameter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DoxygenParameter",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/doxygenparameter"
+},
+"doc://Markdown/documentation/Markdown/DoxygenReturns": {
+  "abstract" : [
+    {
+      "text" : "A parsed Doxygen ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\returns",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\return",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", or ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\result",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " command.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenReturns"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenReturns",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenReturns"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DoxygenReturns",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/doxygenreturns"
+},
 "doc://Markdown/documentation/Markdown/Emphasis": {
   "abstract" : [
     {
@@ -848,6 +952,40 @@
   "title" : "Image",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/image"
+},
+"doc://Markdown/documentation/Markdown/InlineAttributes": {
+  "abstract" : [
+    {
+      "text" : "A set of one or more inline attributes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlineattributes"
 },
 "doc://Markdown/documentation/Markdown/InlineCode": {
   "abstract" : [

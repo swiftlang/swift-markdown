@@ -16,12 +16,7 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitImage(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitImage(_:)-16o8c",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitImage(_:)-5bjld"
       ],
       "title" : "MarkupVisitor Implementations"
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "image"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -297,7 +292,49 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/image"
 },
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitImage(_:)": {
+"doc://Markdown/documentation/Markdown/MarkupVisitor": {
+  "abstract" : [
+    {
+      "text" : "Visits ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements and returns a result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupVisitor",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitImage(_:)-16o8c": {
   "abstract" : [
 
   ],
@@ -340,54 +377,12 @@
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitImage(_:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitImage(_:)-16o8c",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "visitImage(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visitimage(_:)"
-},
-"doc://Markdown/documentation/Markdown/MarkupVisitor": {
-  "abstract" : [
-    {
-      "text" : "Visits ",
-      "type" : "text"
-    },
-    {
-      "code" : "Markup",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " elements and returns a result.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "protocol"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "MarkupVisitor"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
-  "kind" : "symbol",
-  "navigatorTitle" : [
-    {
-      "kind" : "identifier",
-      "text" : "MarkupVisitor"
-    }
-  ],
-  "role" : "symbol",
-  "title" : "MarkupVisitor",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markupvisitor"
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitimage(_:)-16o8c"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitImage(_:)-5bjld": {
   "abstract" : [

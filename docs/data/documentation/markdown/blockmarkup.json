@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -28,7 +22,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -37,7 +31,8 @@
   "seeAlsoSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirectives"
+        "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirectives",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenCommands"
       ],
       "title" : "Related Documentation"
     },
@@ -304,6 +299,20 @@
   "title" : "CustomBlock",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/customblock"
+},
+"doc://Markdown/documentation/Markdown/DoxygenCommands": {
+  "abstract" : [
+    {
+      "text" : "Include a limited set of Doxygen commands in parsed Markdown.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenCommands",
+  "kind" : "article",
+  "role" : "collectionGroup",
+  "title" : "Doxygen Commands",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/doxygencommands"
 },
 "doc://Markdown/documentation/Markdown/HTMLBlock": {
   "abstract" : [

@@ -1,0 +1,1224 @@
+{
+  "hierarchy" : {
+    "paths" : [
+      [
+        "doc:\/\/Markdown\/documentation\/Markdown"
+      ]
+    ]
+  },
+  "identifier" : {
+    "interfaceLanguage" : "swift",
+    "url" : "doc:\/\/Markdown\/documentation\/Markdown\/Snippets"
+  },
+  "kind" : "article",
+  "metadata" : {
+    "modules" : [
+      {
+        "name" : "Markdown"
+      }
+    ],
+    "role" : "article",
+    "roleHeading" : "Article",
+    "title" : "Snippets"
+  },
+  "primaryContentSections" : [
+    {
+      "content" : [
+        {
+          "anchor" : "Parsing",
+          "level" : 2,
+          "text" : "Parsing",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Parse strings in memory or files on disk into a structured ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " tree.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Parse a ",
+              "type" : "text"
+            },
+            {
+              "code" : "String",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " as Markdown.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"Some *Markdown* source\"",
+            "let document = Document(parsing: source)",
+            "",
+            "print(document.debugDescription())"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Parse the contents of a file by its ",
+              "type" : "text"
+            },
+            {
+              "code" : "URL",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : " without having to read its contents yourself.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Foundation",
+            "import Markdown",
+            "",
+            "let document = try Document(parsing: inputFileURL)",
+            "",
+            "print(document.debugDescription())"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Querying",
+          "level" : 2,
+          "text" : "Querying",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Find a matching element deep within a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " tree.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "Reach into a document to find the *emphasized text*.",
+            "\"\"\"",
+            "let document = Document(parsing: source)",
+            "let emphasizedText = document.child(through: [",
+            "    (0, Paragraph.self),",
+            "    (1, Emphasis.self),",
+            "    (0, Text.self)",
+            "]) as! Text",
+            "",
+            "print(\"\"\"",
+            "## Document structure:",
+            "\\(document.debugDescription())",
+            "",
+            "## Found element:",
+            "\\(emphasizedText.detachedFromParent.debugDescription())",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Walkers-Rewriters-and-Visitors",
+          "level" : 2,
+          "text" : "Walkers, Rewriters, and Visitors",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Use ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupWalker",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " to collect information about ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " trees without modifying their contents.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Collect all links in a Markdown document.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "struct LinkCollector: MarkupWalker {",
+            "  var links = [String]()",
+            "  mutating func visitLink(_ link: Link) {",
+            "    link.destination.map { links.append($0) }",
+            "  }",
+            "}",
+            "",
+            "let source = \"\"\"",
+            "A link to a [non-existent website](https:\/\/iqnvodkfjd.com).",
+            "",
+            "A link to a missing resource at <https:\/\/www.swift.org\/what>.",
+            "",
+            "A valid link to <https:\/\/www.swift.org>.",
+            "\"\"\"",
+            "let document = Document(parsing: source)",
+            "var linkCollector = LinkCollector()",
+            "linkCollector.visit(document)",
+            "print(\"## Found links:\")",
+            "print(linkCollector.links.joined(separator: \"\\n\"))"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Use ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " to programmatically change the structure and contents of ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " trees.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Remove all instances of a kind of element using a ",
+              "type" : "text"
+            },
+            {
+              "code" : "MarkupRewriter",
+              "type" : "codeVoice"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "The strong emphasis element is **going to be** deleted.",
+            "\"\"\"",
+            "",
+            "struct StrongDeleter: MarkupRewriter {",
+            "  \/\/ Delete all ``Strong`` elements.",
+            "  func visitStrong(_ strong: Strong) -> Markup? {",
+            "    return nil",
+            "  }",
+            "}",
+            "",
+            "let document = Document(parsing: source)",
+            "var deleter = StrongDeleter()",
+            "let newDocument = deleter.visit(document) as! Document",
+            "",
+            "print(\"\"\"",
+            "## Original Markdown structure:",
+            "\\(document.debugDescription())",
+            "",
+            "## New Markdown structure:",
+            "\\(newDocument.debugDescription())",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Replace some text with a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : ".",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "You can use a similar approach for other kinds of replacements.",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "Try updating link destinations in your document by implementing",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "a ",
+                  "type" : "text"
+                },
+                {
+                  "code" : "visitLink",
+                  "type" : "codeVoice"
+                },
+                {
+                  "text" : " method and returning a new ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Link",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " element.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Experiment",
+          "style" : "experiment",
+          "type" : "aside"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "struct TextReplacer: MarkupRewriter {",
+            "    var target: String",
+            "    var replacement: String",
+            "",
+            "    init(replacing target: String, with replacement: String?) {",
+            "        precondition(!target.isEmpty)",
+            "        self.target = target",
+            "        self.replacement = replacement ?? \"\"",
+            "    }",
+            "",
+            "    func visitText(_ text: Text) -> Markup? {",
+            "        return Text(text.string.replacingOccurrences(of: target, with: replacement))",
+            "    }",
+            "}",
+            "",
+            "let source = \"\"\"",
+            "The word \"foo\" will be replaced with \"bar\".",
+            "\"\"\"",
+            "let document = Document(parsing: source)",
+            "var replacer = TextReplacer(replacing: \"foo\", with: \"bar\")",
+            "let newDocument = replacer.visit(document) as! Document",
+            "",
+            "print(\"\"\"",
+            "## Original Markdown structure:",
+            "\\(document.debugDescription())",
+            "",
+            "## New Markdown structure:",
+            "\\(newDocument.debugDescription())",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Use ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " to convert a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " tree to another nested structure.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Implement a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " to transform a ",
+              "type" : "text"
+            },
+            {
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+              "isActive" : true,
+              "type" : "reference"
+            },
+            {
+              "text" : " tree",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "to another structured data format such as XML.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "This is not a complete example converting",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "the unique and important properties of each kind of ",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+                  "isActive" : true,
+                  "type" : "reference"
+                },
+                {
+                  "text" : " element",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "as XML attributes.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Note",
+          "style" : "note",
+          "type" : "aside"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "Implement all visitor methods for each type",
+                  "type" : "text"
+                },
+                {
+                  "text" : " ",
+                  "type" : "text"
+                },
+                {
+                  "text" : "for a more complete XML or HTML converter.",
+                  "type" : "text"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "Experiment",
+          "style" : "experiment",
+          "type" : "aside"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "struct XMLConverter: MarkupVisitor {",
+            "    mutating func defaultVisit(_ markup: Markup) -> XML {",
+            "        return XML(tag: String(describing: type(of: markup)),",
+            "                   children: markup.children.map { defaultVisit($0) },",
+            "                   text: (markup as? Text).map { $0.string })",
+            "    }",
+            "}",
+            "",
+            "let source = \"\"\"",
+            "A ***basic*** document.",
+            "\"\"\"",
+            "let document = Document(parsing: source)",
+            "var xmlConverter = XMLConverter()",
+            "let xml = xmlConverter.visit(document)",
+            "",
+            "print(\"\"\"",
+            "## Original document structure:",
+            "\\(document.debugDescription())",
+            "",
+            "## Resulting XML:",
+            "\\(xml.format())",
+            "\"\"\")",
+            "",
+            "\/\/ A very basic XML tree type.",
+            "struct XML {",
+            "  var tag: String",
+            "  var children: [XML]",
+            "  var text: String?",
+            "",
+            "  func format(indent: Int = 0) -> String {",
+            "    let indentation = String(repeating: \" \", count: indent)",
+            "    if tag == \"Text\" {",
+            "      return \"\\(indentation)<\\(tag)>\\(text ?? \"\")<\/\\(tag)>\"",
+            "    } else {",
+            "      var result = \"\\(indentation)<\\(tag)>\"",
+            "      for child in children {",
+            "        result += \"\\n\\(child.format(indent: indent + 2))\"",
+            "      }",
+            "      result += \"\\n\\(indentation)<\\(tag)>\"",
+            "      return result",
+            "    }",
+            "  }",
+            "}"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "anchor" : "Formatting",
+          "level" : 2,
+          "text" : "Formatting",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Use the following formatting options alone or in combination to format",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "a Markdown document to a consistent, preferred style.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format Markdown with the default settings.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "|a|b|c|",
+            "|-|:-|-:|",
+            "|*Some text*|x|<https:\/\/swift.org>|",
+            "\"\"\"",
+            "",
+            "\/\/ There is not an option for formatting tables per se but is useful to show the behavior for tables.",
+            "\/\/ Table columns are automatically expanded to fit the column's largest",
+            "\/\/ cell, making the table easier to read in the Markdown source.",
+            "",
+            "let document = Document(parsing: source)",
+            "let formattedSource = document.format()",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format lines to stay under a certain length.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "This is a really, really, really, really, really, really, really, really, really, really, really long line.",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "\/\/ Break lines longer than 80 characters in width with a soft break.",
+            "let lineLimit = MarkupFormatter.Options.PreferredLineLimit(maxLength: 80, breakWith: .softBreak)",
+            "let formattingOptions = MarkupFormatter.Options(preferredLineLimit: lineLimit)",
+            "let formattedSource = document.format(options: formattingOptions)",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format links that use URLs as their link text into autolinks.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "This [https:\/\/swift.org](https:\/\/swift.org) link will become <https:\/\/swift.org>",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "let formattingOptions = MarkupFormatter.Options(condenseAutolinks: true)",
+            "let formattedSource = document.format(options: formattingOptions)",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format a Markdown document to have a custom line prefix, such as a comment prefix for use in source code.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "This document's lines",
+            "will be prefixed with `\/\/`.",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "let formattingOptions = MarkupFormatter.Options(customLinePrefix: \"\/\/ \")",
+            "let formattedSource = document.format(options: formattingOptions)",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format a consistent style for emphasis markers.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "This document uses a mix of *star* and _underbar_ emphasized elements.",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "\/\/ Use only * for emphasis markers.",
+            "let emphasisMarker = MarkupFormatter.Options.EmphasisMarker.star",
+            "let formattedSource = document.format(options: .init(emphasisMarker: emphasisMarker))",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format the counting behavior of ordered lists.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "1. An",
+            "2. ordered",
+            "3. list",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "\/\/ Use all 0. markers to allow easily reordering ordered list items.",
+            "let formattingOptions = MarkupFormatter.Options(orderedListNumerals: .allSame(1))",
+            "let formattedSource = document.format(options: formattingOptions)",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format the unordered list marker.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "- An",
+            "- unordered",
+            "- list",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "\/\/ Use an star or asterisk `*` as the unordered list marker.",
+            "let formattedSource = document.format(options: .init(unorderedListMarker: .star))",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format a Markdown document to use ATX style headings throughout.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "# Title",
+            "",
+            "## Second-level Heading",
+            "",
+            "Another Second-level Heading",
+            "----------------------------",
+            "",
+            "The above heading will be converted to ATX style, using hashes.",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "let headingStyle = MarkupFormatter.Options.PreferredHeadingStyle.atx",
+            "let formattingOptions = MarkupFormatter.Options(preferredHeadingStyle: headingStyle)",
+            "let formattedSource = document.format(options: formattingOptions)",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format a consistent style for thematic breaks.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "First paragraph.",
+            "",
+            "-----",
+            "",
+            "Second paragraph.",
+            "",
+            "*****",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "let thematicBreakCharacter = MarkupFormatter.Options.ThematicBreakCharacter.dash",
+            "\/\/ Make all thematic breaks 10 dash `-` characters.",
+            "let formattingOptions = MarkupFormatter.Options(thematicBreakCharacter: thematicBreakCharacter, thematicBreakLength: 10)",
+            "let formattedSource = document.format(options: formattingOptions)",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "Format all code blocks to use a consistent style for code blocks,",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "optionally setting the default info string to declare that they",
+              "type" : "text"
+            },
+            {
+              "text" : " ",
+              "type" : "text"
+            },
+            {
+              "text" : "have a particular syntax.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        },
+        {
+          "code" : [
+            "import Markdown",
+            "",
+            "let source = \"\"\"",
+            "This document contains a mix of indented and fenced code blocks.",
+            "",
+            "    A code block.",
+            "",
+            "```",
+            "func foo() {}",
+            "```",
+            "\"\"\"",
+            "",
+            "let document = Document(parsing: source)",
+            "\/\/ Always fenced code blocks.",
+            "let fencedCodeBlock = MarkupFormatter.Options.UseCodeFence.always",
+            "\/\/ Use `swift` as the info string on all fenced code blocks.",
+            "let defaultCodeBlockLanguage = \"swift\"",
+            "let formattedSource = document.format(options: .init(useCodeFence: fencedCodeBlock, defaultCodeBlockLanguage: defaultCodeBlockLanguage))",
+            "",
+            "print(\"\"\"",
+            "## Original source:",
+            "\\(source)",
+            "",
+            "## Formatted source:",
+            "\\(formattedSource)",
+            "\"\"\")"
+          ],
+          "syntax" : "swift",
+          "type" : "codeListing"
+        }
+      ],
+      "kind" : "content"
+    }
+  ],
+  "schemaVersion" : {
+    "major" : 0,
+    "minor" : 3,
+    "patch" : 0
+  },
+  "sections" : [
+
+  ],
+  "variants" : [
+    {
+      "paths" : [
+        "\/documentation\/markdown\/snippets"
+      ],
+      "traits" : [
+        {
+          "interfaceLanguage" : "swift"
+        }
+      ]
+    }
+  ]
+, 
+"references": {
+"doc://Markdown/documentation/Markdown": {
+  "abstract" : [
+    {
+      "text" : "Swift ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markdown",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
+      "type" : "text"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "Markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown"
+},
+"doc://Markdown/documentation/Markdown/Link": {
+  "abstract" : [
+    {
+      "text" : "A link.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Link"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Link",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Link"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Link",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/link"
+},
+"doc://Markdown/documentation/Markdown/Markup": {
+  "abstract" : [
+    {
+      "text" : "A markup element.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Markup",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "Markup"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "Markup",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markup"
+},
+"doc://Markdown/documentation/Markdown/MarkupRewriter": {
+  "abstract" : [
+    {
+      "text" : "A ",
+      "type" : "text"
+    },
+    {
+      "code" : "MarkupVisitor",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " with the capability to rewrite elements in the tree.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupRewriter"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupRewriter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupRewriter",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markuprewriter"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor": {
+  "abstract" : [
+    {
+      "text" : "Visits ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " elements and returns a result.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupVisitor"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupVisitor",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor"
+},
+"doc://Markdown/documentation/Markdown/MarkupWalker": {
+  "abstract" : [
+    {
+      "text" : "An interface for walking a ",
+      "type" : "text"
+    },
+    {
+      "code" : "Markup",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " tree without altering it.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "protocol"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "MarkupWalker"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupWalker",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "MarkupWalker"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupWalker",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupwalker"
+}
+}
+}

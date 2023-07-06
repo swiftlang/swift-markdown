@@ -235,6 +235,27 @@
             }
           ],
           "type" : "paragraph"
+        },
+        {
+          "content" : [
+            {
+              "inlineContent" : [
+                {
+                  "text" : "",
+                  "type" : "text"
+                },
+                {
+                  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/parseNameValueArguments(parseErrors:)",
+                  "isActive" : true,
+                  "type" : "reference"
+                }
+              ],
+              "type" : "paragraph"
+            }
+          ],
+          "name" : "See Also",
+          "style" : "note",
+          "type" : "aside"
         }
       ],
       "kind" : "content"
@@ -242,7 +263,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -494,6 +515,81 @@
   "title" : "parseNameValueArguments()",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/directiveargumenttext\/parsenamevaluearguments()"
+},
+"doc://Markdown/documentation/Markdown/DirectiveArgumentText/parseNameValueArguments(parseErrors:)": {
+  "abstract" : [
+    {
+      "text" : "Parse the line segments as name-value argument pairs separated by commas.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "parseNameValueArguments"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "parseErrors"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "inout"
+    },
+    {
+      "kind" : "text",
+      "text" : " ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV",
+      "text" : "DirectiveArgumentText"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown21DirectiveArgumentTextV10ParseErrorO",
+      "text" : "ParseError"
+    },
+    {
+      "kind" : "text",
+      "text" : "]) -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown17DirectiveArgumentV",
+      "text" : "DirectiveArgument"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DirectiveArgumentText\/parseNameValueArguments(parseErrors:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "parseNameValueArguments(parseErrors:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/directiveargumenttext\/parsenamevaluearguments(parseerrors:)"
 }
 }
 }

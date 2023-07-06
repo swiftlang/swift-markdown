@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -40,8 +34,7 @@
       "generated" : true,
       "identifiers" : [
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/lazy",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/publisher",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/underestimatedCount-y81o"
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/publisher"
       ],
       "title" : "Instance Properties"
     },
@@ -54,7 +47,8 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/contains(where:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/elementsEqual(_:by:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/enumerated()",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/filter(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/filter(_:)-13uam",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/filter(_:)-19vxf",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/first(where:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/flatMap(_:)-1g0yf",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/flatMap(_:)-9m64s",
@@ -625,7 +619,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/typedchildindexpath\/enumerated()"
 },
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/filter(_:)": {
+"doc://Markdown/documentation/Markdown/TypedChildIndexPath/filter(_:)-13uam": {
   "abstract" : [
 
   ],
@@ -704,12 +698,90 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/filter(_:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/filter(_:)-13uam",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "filter(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/filter(_:)"
+  "url" : "\/documentation\/markdown\/typedchildindexpath\/filter(_:)-13uam"
+},
+"doc://Markdown/documentation/Markdown/TypedChildIndexPath/filter(_:)-19vxf": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation9PredicateV",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/filter(_:)-19vxf",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/typedchildindexpath\/filter(_:)-19vxf"
 },
 "doc://Markdown/documentation/Markdown/TypedChildIndexPath/first(where:)": {
   "abstract" : [
@@ -2339,40 +2411,6 @@
   "title" : "starts(with:by:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/typedchildindexpath\/starts(with:by:)"
-},
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/underestimatedCount-y81o": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "underestimatedCount"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Si",
-      "text" : "Int"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/underestimatedCount-y81o",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "underestimatedCount",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/underestimatedcount-y81o"
 },
 "doc://Markdown/documentation/Markdown/TypedChildIndexPath/withContiguousStorageIfAvailable(_:)": {
   "abstract" : [

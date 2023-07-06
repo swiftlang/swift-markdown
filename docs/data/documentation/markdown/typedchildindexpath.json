@@ -94,7 +94,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -140,7 +140,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-43ttc"
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)"
       ],
       "title" : "Subscripts"
     },
@@ -841,7 +841,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/typedchildindexpath\/startindex"
 },
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/subscript(_:)-43ttc": {
+"doc://Markdown/documentation/Markdown/TypedChildIndexPath/subscript(_:)": {
   "abstract" : [
 
   ],
@@ -878,12 +878,12 @@
       "text" : "Element"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-43ttc",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "subscript(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/subscript(_:)-43ttc"
+  "url" : "\/documentation\/markdown\/typedchildindexpath\/subscript(_:)"
 },
 "doc://Markdown/s25ExpressibleByArrayLiteralP": {
   "identifier" : "doc:\/\/Markdown\/s25ExpressibleByArrayLiteralP",

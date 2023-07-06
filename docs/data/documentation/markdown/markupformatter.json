@@ -100,7 +100,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -133,10 +133,13 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitBlockQuote(_:)-8ip9b",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitCodeBlock(_:)-8r9r6",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDocument(_:)-9cuj6",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDoxygenParameter(_:)-1b9rt",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDoxygenReturns(_:)-8wr6b",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitEmphasis(_:)-15nif",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitHTMLBlock(_:)-ls2u",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitHeading(_:)-6t30l",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitImage(_:)-8wtsr",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineAttributes(_:)-8cnh6",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineCode(_:)-7hrq5",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineHTML(_:)-7od9q",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitLineBreak(_:)-845gk",
@@ -653,6 +656,82 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupformatter\/visitdocument(_:)-9cuj6"
 },
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitDoxygenParameter(_:)-1b9rt": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitDoxygenParameter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown16DoxygenParameterV",
+      "text" : "DoxygenParameter"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDoxygenParameter(_:)-1b9rt",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitDoxygenParameter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitdoxygenparameter(_:)-1b9rt"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitDoxygenReturns(_:)-8wr6b": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitDoxygenReturns"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14DoxygenReturnsV",
+      "text" : "DoxygenReturns"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitDoxygenReturns(_:)-8wr6b",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitDoxygenReturns(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitdoxygenreturns(_:)-8wr6b"
+},
 "doc://Markdown/documentation/Markdown/MarkupFormatter/visitEmphasis(_:)-15nif": {
   "abstract" : [
 
@@ -804,6 +883,44 @@
   "title" : "visitImage(_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupformatter\/visitimage(_:)-8wtsr"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/visitInlineAttributes(_:)-8cnh6": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitInlineAttributes"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown16InlineAttributesV",
+      "text" : "InlineAttributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/visitInlineAttributes(_:)-8cnh6",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitInlineAttributes(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/visitinlineattributes(_:)-8cnh6"
 },
 "doc://Markdown/documentation/Markdown/MarkupFormatter/visitInlineCode(_:)-7hrq5": {
   "abstract" : [

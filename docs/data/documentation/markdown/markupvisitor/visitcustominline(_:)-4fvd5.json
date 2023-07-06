@@ -16,13 +16,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitCustomInline(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomInline(_:)-8a21s"
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomInline(_:)-8a21s",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomInline(_:)-7i4b"
       ],
       "title" : "MarkupVisitor Implementations"
     }
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "customInline"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -296,56 +291,6 @@
   "title" : "CustomInline",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/custominline"
-},
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitCustomInline(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "visitCustomInline"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown12CustomInlineV",
-      "text" : "CustomInline"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Result"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitCustomInline(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "visitCustomInline(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visitcustominline(_:)"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor": {
   "abstract" : [
@@ -451,6 +396,56 @@
   "title" : "visitCustomInline(_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/visitcustominline(_:)-4fvd5"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitCustomInline(_:)-7i4b": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitCustomInline"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown12CustomInlineV",
+      "text" : "CustomInline"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomInline(_:)-7i4b",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitCustomInline(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitcustominline(_:)-7i4b"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitCustomInline(_:)-8a21s": {
   "abstract" : [

@@ -8,7 +8,7 @@
   "hierarchy" : {
     "paths" : [
       [
-        "doc:\/\/Markdown\/documentation\/Markdown"
+        "doc:\/\/Markdown\/documentation\/swift-markdown"
       ]
     ]
   },
@@ -20,7 +20,7 @@
   "metadata" : {
     "modules" : [
       {
-        "name" : "Markdown"
+        "name" : "swift-markdown"
       }
     ],
     "role" : "article",
@@ -330,6 +330,7 @@
               "type" : "paragraph"
             }
           ],
+          "name" : "Note",
           "style" : "note",
           "type" : "aside"
         },
@@ -518,7 +519,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -538,28 +539,6 @@
   ]
 , 
 "references": {
-"doc://Markdown/documentation/Markdown": {
-  "abstract" : [
-    {
-      "text" : "Swift ",
-      "type" : "text"
-    },
-    {
-      "code" : "Markdown",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " is a Swift package for parsing, building, editing, and analyzing Markdown documents.",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown",
-  "kind" : "symbol",
-  "role" : "collection",
-  "title" : "Markdown",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown"
-},
 "doc://Markdown/documentation/Markdown/DirectiveArgumentText/ParseError": {
   "abstract" : [
     {
@@ -593,6 +572,17 @@
   "title" : "DirectiveArgumentText.ParseError",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/directiveargumenttext\/parseerror"
+},
+"doc://Markdown/documentation/swift-markdown": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/swift-markdown",
+  "kind" : "symbol",
+  "role" : "collection",
+  "title" : "swift-markdown",
+  "type" : "topic",
+  "url" : "\/documentation\/swift-markdown"
 }
 }
 }

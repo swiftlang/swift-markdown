@@ -133,7 +133,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -152,6 +152,12 @@
   "topicSections" : [
     {
       "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.struct"
+      ],
+      "title" : "Structures"
+    },
+    {
+      "identifiers" : [
         "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/init(_:)"
       ],
       "title" : "Initializers"
@@ -162,12 +168,6 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/kind-swift.property"
       ],
       "title" : "Instance Properties"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum"
-      ],
-      "title" : "Enumerations"
     }
   ],
   "variants" : [
@@ -240,17 +240,17 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/aside"
 },
-"doc://Markdown/documentation/Markdown/Aside/Kind-swift.enum": {
+"doc://Markdown/documentation/Markdown/Aside/Kind-swift.struct": {
   "abstract" : [
     {
-      "text" : "The kind of aside.",
+      "text" : "Describes the different kinds of aside.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -261,7 +261,7 @@
       "text" : "Kind"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.struct",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -272,7 +272,7 @@
   "role" : "symbol",
   "title" : "Aside.Kind",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/aside\/kind-swift.enum"
+  "url" : "\/documentation\/markdown\/aside\/kind-swift.struct"
 },
 "doc://Markdown/documentation/Markdown/Aside/content": {
   "abstract" : [
@@ -409,7 +409,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown5AsideV4KindO",
+      "preciseIdentifier" : "s:8Markdown5AsideV4KindV",
       "text" : "Kind"
     }
   ],

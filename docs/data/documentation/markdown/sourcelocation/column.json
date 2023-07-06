@@ -1,7 +1,7 @@
 {
   "abstract" : [
     {
-      "text" : "The number of Unicode code units from the start of the line to the character at this source location.",
+      "text" : "The number of bytes in UTF-8 encoding from the start of the line to the character at this source location.",
       "type" : "text"
     }
   ],
@@ -94,7 +94,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -184,7 +184,7 @@
 "doc://Markdown/documentation/Markdown/SourceLocation/column": {
   "abstract" : [
     {
-      "text" : "The number of Unicode code units from the start of the line to the character at this source location.",
+      "text" : "The number of bytes in UTF-8 encoding from the start of the line to the character at this source location.",
       "type" : "text"
     }
   ],

@@ -93,7 +93,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -113,6 +113,12 @@
     }
   ],
   "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/OrderedList\/startIndex"
+      ],
+      "title" : "Instance Properties"
+    },
     {
       "generated" : true,
       "identifiers" : [
@@ -436,6 +442,43 @@
   "title" : "Markup Implementations",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/orderedlist\/markup-implementations"
+},
+"doc://Markdown/documentation/Markdown/OrderedList/startIndex": {
+  "abstract" : [
+    {
+      "text" : "The starting index for the list.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "startIndex"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/OrderedList\/startIndex",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "startIndex",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/orderedlist\/startindex"
 },
 "doc://Markdown/documentation/Markdown/UnorderedList": {
   "abstract" : [
