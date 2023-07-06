@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -57,7 +51,8 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/dropLast(_:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/elementsEqual(_:by:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/enumerated()",
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/filter(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/filter(_:)-68yay",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/filter(_:)-9lr6t",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/first(where:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/flatMap(_:)-5q10s",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/flatMap(_:)-7153h",
@@ -836,7 +831,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupchildren\/enumerated()"
 },
-"doc://Markdown/documentation/Markdown/MarkupChildren/filter(_:)": {
+"doc://Markdown/documentation/Markdown/MarkupChildren/filter(_:)-68yay": {
   "abstract" : [
 
   ],
@@ -915,12 +910,90 @@
       "text" : "]"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/filter(_:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/filter(_:)-68yay",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "filter(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/markupchildren\/filter(_:)"
+  "url" : "\/documentation\/markdown\/markupchildren\/filter(_:)-68yay"
+},
+"doc://Markdown/documentation/Markdown/MarkupChildren/filter(_:)-9lr6t": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "filter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:10Foundation9PredicateV",
+      "text" : "Predicate"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ">) "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> ["
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : "]"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupChildren\/filter(_:)-9lr6t",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "filter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupchildren\/filter(_:)-9lr6t"
 },
 "doc://Markdown/documentation/Markdown/MarkupChildren/first(where:)": {
   "abstract" : [

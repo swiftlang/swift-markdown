@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -29,7 +23,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -42,7 +36,7 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/count",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/first",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/isEmpty",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/underestimatedCount-3t1uw"
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/underestimatedCount"
       ],
       "title" : "Instance Properties"
     },
@@ -55,7 +49,6 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/formIndex(_:offsetBy:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/formIndex(_:offsetBy:limitedBy:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/formIndex(after:)",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/indexed()",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/makeIterator()",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/map(_:)-8mfng",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/prefix(_:)",
@@ -65,18 +58,10 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/randomElement()",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/randomElement(using:)",
         "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/split(maxSplits:omittingEmptySubsequences:whereSeparator:)",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/suffix(from:)"
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/suffix(from:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/trimmingPrefix(while:)"
       ],
       "title" : "Instance Methods"
-    },
-    {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-1q3ub",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-252cf",
-        "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-76t40"
-      ],
-      "title" : "Subscripts"
     }
   ],
   "variants" : [
@@ -691,52 +676,6 @@
   "title" : "formIndex(after:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/typedchildindexpath\/formindex(after:)"
-},
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/indexed()": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "indexed"
-    },
-    {
-      "kind" : "text",
-      "text" : "() -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s17IndexedCollectionV",
-      "text" : "IndexedCollection"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/indexed()",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "indexed()",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/indexed()"
 },
 "doc://Markdown/documentation/Markdown/TypedChildIndexPath/isEmpty": {
   "abstract" : [
@@ -1455,192 +1394,6 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/typedchildindexpath\/split(maxsplits:omittingemptysubsequences:whereseparator:)"
 },
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/subscript(_:)-1q3ub": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "genericParameter",
-      "text" : "R"
-    },
-    {
-      "kind" : "text",
-      "text" : ">("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "R"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "SubSequence"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-1q3ub",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/subscript(_:)-1q3ub"
-},
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/subscript(_:)-252cf": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "(("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s15UnboundedRange_O",
-      "text" : "UnboundedRange_"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> ()) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "SubSequence"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-252cf",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/subscript(_:)-252cf"
-},
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/subscript(_:)-76t40": {
-  "abstract" : [
-
-  ],
-  "conformance" : {
-    "availabilityPrefix" : [
-      {
-        "text" : "Available when",
-        "type" : "text"
-      }
-    ],
-    "conformancePrefix" : [
-      {
-        "text" : "Conforms when",
-        "type" : "text"
-      }
-    ],
-    "constraints" : [
-      {
-        "code" : "SubSequence",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : " is ",
-        "type" : "text"
-      },
-      {
-        "code" : "Slice<Self>",
-        "type" : "codeVoice"
-      },
-      {
-        "text" : ".",
-        "type" : "text"
-      }
-    ]
-  },
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "subscript"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sn",
-      "text" : "Range"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Index"
-    },
-    {
-      "kind" : "text",
-      "text" : ">) -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:s5SliceV",
-      "text" : "Slice"
-    },
-    {
-      "kind" : "text",
-      "text" : "<"
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : ">"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/subscript(_:)-76t40",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "subscript(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/subscript(_:)-76t40"
-},
 "doc://Markdown/documentation/Markdown/TypedChildIndexPath/suffix(from:)": {
   "abstract" : [
 
@@ -1706,7 +1459,97 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/typedchildindexpath\/suffix(from:)"
 },
-"doc://Markdown/documentation/Markdown/TypedChildIndexPath/underestimatedCount-3t1uw": {
+"doc://Markdown/documentation/Markdown/TypedChildIndexPath/trimmingPrefix(while:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "trimmingPrefix"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "while"
+    },
+    {
+      "kind" : "text",
+      "text" : ": ("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Element"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "throws"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    },
+    {
+      "kind" : "text",
+      "text" : ") "
+    },
+    {
+      "kind" : "keyword",
+      "text" : "rethrows"
+    },
+    {
+      "kind" : "text",
+      "text" : " -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "SubSequence"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/trimmingPrefix(while:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "trimmingPrefix(while:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/typedchildindexpath\/trimmingprefix(while:)"
+},
+"doc://Markdown/documentation/Markdown/TypedChildIndexPath/underestimatedCount": {
   "abstract" : [
 
   ],
@@ -1733,12 +1576,12 @@
       "text" : "Int"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/underestimatedCount-3t1uw",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/TypedChildIndexPath\/underestimatedCount",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "underestimatedCount",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/typedchildindexpath\/underestimatedcount-3t1uw"
+  "url" : "\/documentation\/markdown\/typedchildindexpath\/underestimatedcount"
 }
 }
 }

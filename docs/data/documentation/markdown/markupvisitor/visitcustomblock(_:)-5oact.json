@@ -16,13 +16,8 @@
   "defaultImplementationsSections" : [
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitCustomBlock(_:)"
-      ],
-      "title" : "MarkupRewriter Implementations"
-    },
-    {
-      "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomBlock(_:)-grvn"
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomBlock(_:)-grvn",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomBlock(_:)-83wge"
       ],
       "title" : "MarkupVisitor Implementations"
     }
@@ -172,26 +167,6 @@
       "kind" : "declarations"
     },
     {
-      "content" : [
-        {
-          "anchor" : "return-value",
-          "level" : 2,
-          "text" : "Return Value",
-          "type" : "heading"
-        },
-        {
-          "inlineContent" : [
-            {
-              "text" : "The result of the visit.",
-              "type" : "text"
-            }
-          ],
-          "type" : "paragraph"
-        }
-      ],
-      "kind" : "content"
-    },
-    {
       "kind" : "parameters",
       "parameters" : [
         {
@@ -217,11 +192,31 @@
           "name" : "customBlock"
         }
       ]
+    },
+    {
+      "content" : [
+        {
+          "anchor" : "return-value",
+          "level" : 2,
+          "text" : "Return Value",
+          "type" : "heading"
+        },
+        {
+          "inlineContent" : [
+            {
+              "text" : "The result of the visit.",
+              "type" : "text"
+            }
+          ],
+          "type" : "paragraph"
+        }
+      ],
+      "kind" : "content"
     }
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -296,56 +291,6 @@
   "title" : "CustomBlock",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/customblock"
-},
-"doc://Markdown/documentation/Markdown/MarkupRewriter/visitCustomBlock(_:)": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "func"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "visitCustomBlock"
-    },
-    {
-      "kind" : "text",
-      "text" : "("
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown11CustomBlockV",
-      "text" : "CustomBlock"
-    },
-    {
-      "kind" : "text",
-      "text" : ") -> "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Self"
-    },
-    {
-      "kind" : "text",
-      "text" : "."
-    },
-    {
-      "kind" : "typeIdentifier",
-      "text" : "Result"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupRewriter\/visitCustomBlock(_:)",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "visitCustomBlock(_:)",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/markuprewriter\/visitcustomblock(_:)"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor": {
   "abstract" : [
@@ -451,6 +396,56 @@
   "title" : "visitCustomBlock(_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/visitcustomblock(_:)-5oact"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitCustomBlock(_:)-83wge": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitCustomBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown11CustomBlockV",
+      "text" : "CustomBlock"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomBlock(_:)-83wge",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "visitCustomBlock(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitcustomblock(_:)-83wge"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitCustomBlock(_:)-grvn": {
   "abstract" : [

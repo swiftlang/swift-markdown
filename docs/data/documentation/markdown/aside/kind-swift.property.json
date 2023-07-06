@@ -28,7 +28,7 @@
   },
   "kind" : "symbol",
   "metadata" : {
-    "externalID" : "s:8Markdown5AsideV4kindAC4KindOvp",
+    "externalID" : "s:8Markdown5AsideV4kindAC4KindVvp",
     "fragments" : [
       {
         "kind" : "keyword",
@@ -57,7 +57,7 @@
       },
       {
         "kind" : "typeIdentifier",
-        "preciseIdentifier" : "s:8Markdown5AsideV4KindO",
+        "preciseIdentifier" : "s:8Markdown5AsideV4KindV",
         "text" : "Kind"
       }
     ],
@@ -109,9 +109,9 @@
               "text" : "."
             },
             {
-              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum",
+              "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.struct",
               "kind" : "typeIdentifier",
-              "preciseIdentifier" : "s:8Markdown5AsideV4KindO",
+              "preciseIdentifier" : "s:8Markdown5AsideV4KindV",
               "text" : "Kind"
             }
           ]
@@ -122,7 +122,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -198,17 +198,17 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/aside"
 },
-"doc://Markdown/documentation/Markdown/Aside/Kind-swift.enum": {
+"doc://Markdown/documentation/Markdown/Aside/Kind-swift.struct": {
   "abstract" : [
     {
-      "text" : "The kind of aside.",
+      "text" : "Describes the different kinds of aside.",
       "type" : "text"
     }
   ],
   "fragments" : [
     {
       "kind" : "keyword",
-      "text" : "enum"
+      "text" : "struct"
     },
     {
       "kind" : "text",
@@ -219,7 +219,7 @@
       "text" : "Kind"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.enum",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Aside\/Kind-swift.struct",
   "kind" : "symbol",
   "navigatorTitle" : [
     {
@@ -230,7 +230,7 @@
   "role" : "symbol",
   "title" : "Aside.Kind",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/aside\/kind-swift.enum"
+  "url" : "\/documentation\/markdown\/aside\/kind-swift.struct"
 },
 "doc://Markdown/documentation/Markdown/Aside/kind-swift.property": {
   "abstract" : [
@@ -276,7 +276,7 @@
     },
     {
       "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:8Markdown5AsideV4KindO",
+      "preciseIdentifier" : "s:8Markdown5AsideV4KindV",
       "text" : "Kind"
     }
   ],

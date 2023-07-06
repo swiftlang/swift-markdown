@@ -94,7 +94,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -122,7 +122,8 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/Link\/destination"
+        "doc:\/\/Markdown\/documentation\/Markdown\/Link\/destination",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Link\/isAutolink"
       ],
       "title" : "Instance Properties"
     },
@@ -503,6 +504,40 @@
   "title" : "init(destination:_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/link\/init(destination:_:)-9u2kw"
+},
+"doc://Markdown/documentation/Markdown/Link/isAutolink": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "isAutolink"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Sb",
+      "text" : "Bool"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Link\/isAutolink",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "isAutolink",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/link\/isautolink"
 },
 "doc://Markdown/documentation/Markdown/Markup": {
   "abstract" : [

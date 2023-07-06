@@ -96,13 +96,26 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
   ],
   "topicSections" : [
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell\/init(colspan:rowspan:_:)"
+      ],
+      "title" : "Initializers"
+    },
+    {
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell\/colspan",
+        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell\/rowspan"
+      ],
+      "title" : "Instance Properties"
+    },
     {
       "generated" : true,
       "identifiers" : [
@@ -420,6 +433,151 @@
   "title" : "PlainTextConvertibleMarkup Implementations",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/table\/cell\/plaintextconvertiblemarkup-implementations"
+},
+"doc://Markdown/documentation/Markdown/Table/Cell/colspan": {
+  "abstract" : [
+    {
+      "text" : "The number of columns this cell spans over.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "colspan"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell\/colspan",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "colspan",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/cell\/colspan"
+},
+"doc://Markdown/documentation/Markdown/Table/Cell/init(colspan:rowspan:_:)": {
+  "abstract" : [
+
+  ],
+  "fragments" : [
+    {
+      "kind" : "identifier",
+      "text" : "init"
+    },
+    {
+      "kind" : "text",
+      "text" : "<"
+    },
+    {
+      "kind" : "genericParameter",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ">("
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "colspan"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "rowspan"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    },
+    {
+      "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Children"
+    },
+    {
+      "kind" : "text",
+      "text" : ")"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell\/init(colspan:rowspan:_:)",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "init(colspan:rowspan:_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/cell\/init(colspan:rowspan:_:)"
+},
+"doc://Markdown/documentation/Markdown/Table/Cell/rowspan": {
+  "abstract" : [
+    {
+      "text" : "The number of rows this cell spans over.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "var"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "rowspan"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:Su",
+      "text" : "UInt"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/Cell\/rowspan",
+  "kind" : "symbol",
+  "role" : "symbol",
+  "title" : "rowspan",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/table\/cell\/rowspan"
 }
 }
 }

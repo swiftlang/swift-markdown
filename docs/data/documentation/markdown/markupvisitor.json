@@ -106,6 +106,7 @@
               "type" : "paragraph"
             }
           ],
+          "name" : "Note",
           "style" : "note",
           "type" : "aside"
         },
@@ -196,7 +197,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -211,7 +212,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/defaultVisit(_:)",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/defaultVisit(_:)-2e19l",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visit(_:)-2170a",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitBlockDirective(_:)-8nalz",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitBlockQuote(_:)-7ktt2",
@@ -219,10 +220,13 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomBlock(_:)-5oact",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitCustomInline(_:)-4fvd5",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitDocument(_:)-1j4li",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitDoxygenParameter(_:)-5i2r5",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitDoxygenReturns(_:)-338x",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitEmphasis(_:)-6xyul",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitHTMLBlock(_:)-3erep",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitHeading(_:)-q8bz",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitImage(_:)-9ignf",
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitInlineAttributes(_:)-4hf65",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitInlineCode(_:)-4or1d",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitInlineHTML(_:)-88m8p",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitLineBreak(_:)-24ixj",
@@ -471,7 +475,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/result"
 },
-"doc://Markdown/documentation/Markdown/MarkupVisitor/defaultVisit(_:)": {
+"doc://Markdown/documentation/Markdown/MarkupVisitor/defaultVisit(_:)-2e19l": {
   "abstract" : [
     {
       "text" : "A default implementation to use when a visitor method isn’t implemented for a particular element.",
@@ -518,13 +522,13 @@
       "text" : "Result"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/defaultVisit(_:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/defaultVisit(_:)-2e19l",
   "kind" : "symbol",
   "required" : true,
   "role" : "symbol",
   "title" : "defaultVisit(_:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/markupvisitor\/defaultvisit(_:)"
+  "url" : "\/documentation\/markdown\/markupvisitor\/defaultvisit(_:)-2e19l"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visit(_:)-2170a": {
   "abstract" : [
@@ -967,6 +971,132 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/visitdocument(_:)-1j4li"
 },
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitDoxygenParameter(_:)-5i2r5": {
+  "abstract" : [
+    {
+      "text" : "Visit a ",
+      "type" : "text"
+    },
+    {
+      "code" : "DoxygenParam",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " element and return the result.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitDoxygenParameter"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown16DoxygenParameterV",
+      "text" : "DoxygenParameter"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitDoxygenParameter(_:)-5i2r5",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "visitDoxygenParameter(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitdoxygenparameter(_:)-5i2r5"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitDoxygenReturns(_:)-338x": {
+  "abstract" : [
+    {
+      "text" : "Visit a ",
+      "type" : "text"
+    },
+    {
+      "code" : "DoxygenReturns",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " element and return the result.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 1,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitDoxygenReturns"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown14DoxygenReturnsV",
+      "text" : "DoxygenReturns"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitDoxygenReturns(_:)-338x",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "visitDoxygenReturns(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitdoxygenreturns(_:)-338x"
+},
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitEmphasis(_:)-6xyul": {
   "abstract" : [
     {
@@ -1218,6 +1348,69 @@
   "title" : "visitImage(_:)",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupvisitor\/visitimage(_:)-9ignf"
+},
+"doc://Markdown/documentation/Markdown/MarkupVisitor/visitInlineAttributes(_:)-4hf65": {
+  "abstract" : [
+    {
+      "text" : "Visit an ",
+      "type" : "text"
+    },
+    {
+      "code" : "InlineAttributes",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " element and return the result.",
+      "type" : "text"
+    }
+  ],
+  "defaultImplementations" : 2,
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "func"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "visitInlineAttributes"
+    },
+    {
+      "kind" : "text",
+      "text" : "("
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown16InlineAttributesV",
+      "text" : "InlineAttributes"
+    },
+    {
+      "kind" : "text",
+      "text" : ") -> "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Self"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "text" : "Result"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupVisitor\/visitInlineAttributes(_:)-4hf65",
+  "kind" : "symbol",
+  "required" : true,
+  "role" : "symbol",
+  "title" : "visitInlineAttributes(_:)",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupvisitor\/visitinlineattributes(_:)-4hf65"
 },
 "doc://Markdown/documentation/Markdown/MarkupVisitor/visitInlineCode(_:)-4or1d": {
   "abstract" : [

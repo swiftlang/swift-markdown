@@ -97,13 +97,25 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
 
   ],
   "topicSections" : [
+    {
+      "abstract" : [
+        {
+          "text" : "A quick overview of examples showing tasks you can achieve with Swift Markdown.",
+          "type" : "text"
+        }
+      ],
+      "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/Snippets"
+      ],
+      "title" : "Snippets"
+    },
     {
       "identifiers" : [
         "doc:\/\/Markdown\/documentation\/Markdown\/Parsing-Building-and-Modifying-Markup-Trees",
@@ -147,13 +159,6 @@
       "title" : "Visit Markup"
     },
     {
-      "generated" : true,
-      "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirectives"
-      ],
-      "title" : "Articles"
-    },
-    {
       "identifiers" : [
         "doc:\/\/Markdown\/documentation\/Markdown\/BasicBlockContainer",
         "doc:\/\/Markdown\/documentation\/Markdown\/BasicInlineContainer",
@@ -166,6 +171,9 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenParameter",
+        "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenReturns",
+        "doc:\/\/Markdown\/documentation\/Markdown\/InlineAttributes",
         "doc:\/\/Markdown\/documentation\/Markdown\/ParseOptions",
         "doc:\/\/Markdown\/documentation\/Markdown\/RawMarkupHeader",
         "doc:\/\/Markdown\/documentation\/Markdown\/ReversedMarkupChildren"
@@ -362,20 +370,6 @@
   "title" : "BlockContainer",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/blockcontainer"
-},
-"doc://Markdown/documentation/Markdown/BlockDirectives": {
-  "abstract" : [
-    {
-      "text" : "Block directives are a syntax extension that create attributed containers to hold other block elements, such as paragraphs and lists, or even other block directives. Here is what one looks like:",
-      "type" : "text"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/BlockDirectives",
-  "kind" : "article",
-  "role" : "article",
-  "title" : "Block Directives",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/blockdirectives"
 },
 "doc://Markdown/documentation/Markdown/BlockMarkup": {
   "abstract" : [
@@ -582,6 +576,106 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/document"
 },
+"doc://Markdown/documentation/Markdown/DoxygenParameter": {
+  "abstract" : [
+    {
+      "text" : "A parsed Doxygen ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\param",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " command.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenParameter"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenParameter",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenParameter"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DoxygenParameter",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/doxygenparameter"
+},
+"doc://Markdown/documentation/Markdown/DoxygenReturns": {
+  "abstract" : [
+    {
+      "text" : "A parsed Doxygen ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\returns",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\return",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : ", or ",
+      "type" : "text"
+    },
+    {
+      "code" : "\\result",
+      "type" : "codeVoice"
+    },
+    {
+      "text" : " command.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenReturns"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/DoxygenReturns",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenReturns"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "DoxygenReturns",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/doxygenreturns"
+},
 "doc://Markdown/documentation/Markdown/FormatterAndOptions": {
   "abstract" : [
 
@@ -603,6 +697,40 @@
   "title" : "Infrastructure",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/infrastructure"
+},
+"doc://Markdown/documentation/Markdown/InlineAttributes": {
+  "abstract" : [
+    {
+      "text" : "A set of one or more inline attributes.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "struct"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "InlineAttributes"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/InlineAttributes",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "InlineAttributes"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "InlineAttributes",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/inlineattributes"
 },
 "doc://Markdown/documentation/Markdown/InlineContainer": {
   "abstract" : [
@@ -988,6 +1116,17 @@
   "title" : "ReversedMarkupChildren",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/reversedmarkupchildren"
+},
+"doc://Markdown/documentation/Markdown/Snippets": {
+  "abstract" : [
+
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Snippets",
+  "kind" : "article",
+  "role" : "article",
+  "title" : "Snippets",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/snippets"
 },
 "doc://Markdown/documentation/Markdown/TypedChildIndexPath": {
   "abstract" : [

@@ -71,7 +71,10 @@
     ],
     "modules" : [
       {
-        "name" : "Markdown"
+        "name" : "Markdown",
+        "relatedModules" : [
+          "Swift"
+        ]
       }
     ],
     "role" : "symbol",
@@ -143,7 +146,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [

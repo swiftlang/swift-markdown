@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -30,7 +24,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -44,7 +38,6 @@
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/children",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/detachedFromParent",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/indexInParent",
-        "doc:\/\/Markdown\/documentation\/Markdown\/Table\/isEmpty-55qp6",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/parent",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/range",
         "doc:\/\/Markdown\/documentation\/Markdown\/Table\/root"
@@ -662,47 +655,6 @@
   "title" : "indexInParent",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/table\/indexinparent"
-},
-"doc://Markdown/documentation/Markdown/Table/isEmpty-55qp6": {
-  "abstract" : [
-    {
-      "code" : "true",
-      "type" : "codeVoice"
-    },
-    {
-      "text" : " if this element has no children.",
-      "type" : "text"
-    }
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "isEmpty"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:Sb",
-      "text" : "Bool"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Table\/isEmpty-55qp6",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "isEmpty",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/table\/isempty-55qp6"
 },
 "doc://Markdown/documentation/Markdown/Table/isIdentical(to:)": {
   "abstract" : [

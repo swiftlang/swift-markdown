@@ -91,7 +91,7 @@
   ],
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -106,7 +106,7 @@
     },
     {
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:)"
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:doxygenCommandPrefix:)"
       ],
       "title" : "Initializers"
     },
@@ -118,6 +118,7 @@
     },
     {
       "identifiers" : [
+        "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/DoxygenCommandPrefix",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/EmphasisMarker",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/OrderedListNumerals",
         "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/PreferredHeadingStyle",
@@ -259,6 +260,40 @@
   "title" : "MarkupFormatter.Options",
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupformatter\/options"
+},
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options/DoxygenCommandPrefix": {
+  "abstract" : [
+    {
+      "text" : "The character to use when formatting Doxygen commands.",
+      "type" : "text"
+    }
+  ],
+  "fragments" : [
+    {
+      "kind" : "keyword",
+      "text" : "enum"
+    },
+    {
+      "kind" : "text",
+      "text" : " "
+    },
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenCommandPrefix"
+    }
+  ],
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/DoxygenCommandPrefix",
+  "kind" : "symbol",
+  "navigatorTitle" : [
+    {
+      "kind" : "identifier",
+      "text" : "DoxygenCommandPrefix"
+    }
+  ],
+  "role" : "symbol",
+  "title" : "MarkupFormatter.Options.DoxygenCommandPrefix",
+  "type" : "topic",
+  "url" : "\/documentation\/markdown\/markupformatter\/options\/doxygencommandprefix"
 },
 "doc://Markdown/documentation/Markdown/MarkupFormatter/Options/EmphasisMarker": {
   "abstract" : [
@@ -552,7 +587,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/markupformatter\/options\/default"
 },
-"doc://Markdown/documentation/Markdown/MarkupFormatter/Options/init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:)": {
+"doc://Markdown/documentation/Markdown/MarkupFormatter/Options/init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:doxygenCommandPrefix:)": {
   "abstract" : [
     {
       "text" : "Create a set of formatting options to use when printing an element.",
@@ -879,15 +914,50 @@
     },
     {
       "kind" : "text",
+      "text" : ", "
+    },
+    {
+      "kind" : "externalParam",
+      "text" : "doxygenCommandPrefix"
+    },
+    {
+      "kind" : "text",
+      "text" : ": "
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV",
+      "text" : "MarkupFormatter"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV7OptionsV",
+      "text" : "Options"
+    },
+    {
+      "kind" : "text",
+      "text" : "."
+    },
+    {
+      "kind" : "typeIdentifier",
+      "preciseIdentifier" : "s:8Markdown15MarkupFormatterV7OptionsV20DoxygenCommandPrefixO",
+      "text" : "DoxygenCommandPrefix"
+    },
+    {
+      "kind" : "text",
       "text" : ")"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:)",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/MarkupFormatter\/Options\/init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:doxygenCommandPrefix:)",
   "kind" : "symbol",
   "role" : "symbol",
-  "title" : "init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:)",
+  "title" : "init(unorderedListMarker:orderedListNumerals:useCodeFence:defaultCodeBlockLanguage:thematicBreakCharacter:thematicBreakLength:emphasisMarker:condenseAutolinks:preferredHeadingStyle:preferredLineLimit:customLinePrefix:doxygenCommandPrefix:)",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/markupformatter\/options\/init(unorderedlistmarker:orderedlistnumerals:usecodefence:defaultcodeblocklanguage:thematicbreakcharacter:thematicbreaklength:emphasismarker:condenseautolinks:preferredheadingstyle:preferredlinelimit:customlineprefix:)"
+  "url" : "\/documentation\/markdown\/markupformatter\/options\/init(unorderedlistmarker:orderedlistnumerals:usecodefence:defaultcodeblocklanguage:thematicbreakcharacter:thematicbreaklength:emphasismarker:condenseautolinks:preferredheadingstyle:preferredlinelimit:customlineprefix:doxygencommandprefix:)"
 },
 "https://commonmark.org": {
   "identifier" : "https:\/\/commonmark.org",

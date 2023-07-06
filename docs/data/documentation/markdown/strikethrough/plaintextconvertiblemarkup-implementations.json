@@ -1,10 +1,4 @@
 {
-  "abstract" : [
-    {
-      "text" : "No overview available.",
-      "type" : "text"
-    }
-  ],
   "hierarchy" : {
     "paths" : [
       [
@@ -30,7 +24,7 @@
   },
   "schemaVersion" : {
     "major" : 0,
-    "minor" : 2,
+    "minor" : 3,
     "patch" : 0
   },
   "sections" : [
@@ -40,8 +34,7 @@
     {
       "generated" : true,
       "identifiers" : [
-        "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough\/plainText-7ugvz",
-        "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough\/plainText-86c96"
+        "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough\/plainText"
       ],
       "title" : "Instance Properties"
     }
@@ -127,7 +120,7 @@
   "type" : "topic",
   "url" : "\/documentation\/markdown\/strikethrough"
 },
-"doc://Markdown/documentation/Markdown/Strikethrough/plainText-7ugvz": {
+"doc://Markdown/documentation/Markdown/Strikethrough/plainText": {
   "abstract" : [
 
   ],
@@ -154,46 +147,12 @@
       "text" : "String"
     }
   ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough\/plainText-7ugvz",
+  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough\/plainText",
   "kind" : "symbol",
   "role" : "symbol",
   "title" : "plainText",
   "type" : "topic",
-  "url" : "\/documentation\/markdown\/strikethrough\/plaintext-7ugvz"
-},
-"doc://Markdown/documentation/Markdown/Strikethrough/plainText-86c96": {
-  "abstract" : [
-
-  ],
-  "fragments" : [
-    {
-      "kind" : "keyword",
-      "text" : "var"
-    },
-    {
-      "kind" : "text",
-      "text" : " "
-    },
-    {
-      "kind" : "identifier",
-      "text" : "plainText"
-    },
-    {
-      "kind" : "text",
-      "text" : ": "
-    },
-    {
-      "kind" : "typeIdentifier",
-      "preciseIdentifier" : "s:SS",
-      "text" : "String"
-    }
-  ],
-  "identifier" : "doc:\/\/Markdown\/documentation\/Markdown\/Strikethrough\/plainText-86c96",
-  "kind" : "symbol",
-  "role" : "symbol",
-  "title" : "plainText",
-  "type" : "topic",
-  "url" : "\/documentation\/markdown\/strikethrough\/plaintext-86c96"
+  "url" : "\/documentation\/markdown\/strikethrough\/plaintext"
 }
 }
 }
