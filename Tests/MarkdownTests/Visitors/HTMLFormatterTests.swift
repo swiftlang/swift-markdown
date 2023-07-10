@@ -11,7 +11,7 @@
 import XCTest
 @testable import Markdown
 
-final class HtmlFormatterTests: XCTestCase {
+final class HTMLFormatterTests: XCTestCase {
     func testFormatEverything() {
         let expectedDump = """
         <h1>Header</h1>
@@ -67,7 +67,7 @@ final class HtmlFormatterTests: XCTestCase {
 
         """ // The rendered output contains a trailing newline
 
-        XCTAssertEqual(HtmlFormatter.format(everythingDocument), expectedDump)
+        XCTAssertEqual(HTMLFormatter.format(everythingDocument), expectedDump)
     }
 
     func testFormatAsides() {
@@ -87,7 +87,7 @@ final class HtmlFormatterTests: XCTestCase {
 
         """
 
-        XCTAssertEqual(HtmlFormatter.format(inputText, options: [.parseAsides]), expectedOutput)
+        XCTAssertEqual(HTMLFormatter.format(inputText, options: [.parseAsides]), expectedOutput)
     }
 
     // JSON5 parsing (which allows property names without quotes) is only available in Apple Foundation
@@ -107,10 +107,10 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            var visitor = HtmlFormatter()
+            var visitor = HTMLFormatter()
             visitor.visit(document)
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -120,7 +120,7 @@ final class HtmlFormatterTests: XCTestCase {
             """
 
             XCTAssertEqual(
-                HtmlFormatter.format(inputText, options: [.parseInlineAttributeClass]),
+                HTMLFormatter.format(inputText, options: [.parseInlineAttributeClass]),
                 expectedOutput
             )
         }
@@ -139,10 +139,10 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            var visitor = HtmlFormatter()
+            var visitor = HTMLFormatter()
             visitor.visit(document)
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -152,7 +152,7 @@ final class HtmlFormatterTests: XCTestCase {
             """
 
             XCTAssertEqual(
-                HtmlFormatter.format(inputText, options: [.parseInlineAttributeClass]),
+                HTMLFormatter.format(inputText, options: [.parseInlineAttributeClass]),
                 expectedOutput
             )
         }
@@ -184,7 +184,7 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -212,7 +212,7 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -239,7 +239,7 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -271,7 +271,7 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
 
         do {
@@ -304,7 +304,7 @@ final class HtmlFormatterTests: XCTestCase {
 
             """
 
-            XCTAssertEqual(HtmlFormatter.format(inputText), expectedOutput)
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
     }
 }

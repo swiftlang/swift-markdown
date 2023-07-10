@@ -10,8 +10,8 @@
 
 import Foundation
 
-/// Options given to the ``HtmlFormatter``.
-public struct HtmlFormatterOptions: OptionSet {
+/// Options given to the ``HTMLFormatter``.
+public struct HTMLFormatterOptions: OptionSet {
     public var rawValue: UInt
     public init(rawValue: UInt) {
         self.rawValue = rawValue
@@ -29,36 +29,36 @@ public struct HtmlFormatterOptions: OptionSet {
     ///   ```markdown
     ///   > This is a compound sentence: It contains two clauses separated by a colon.
     ///   ```
-    public static let parseAsides = HtmlFormatterOptions(rawValue: 1 << 0)
+    public static let parseAsides = HTMLFormatterOptions(rawValue: 1 << 0)
 
     /// Parse inline attributes as JSON and use the `"class"` property as the resulting span's `class`.
-    public static let parseInlineAttributeClass = HtmlFormatterOptions(rawValue: 1 << 1)
+    public static let parseInlineAttributeClass = HTMLFormatterOptions(rawValue: 1 << 1)
 }
 
 /// A ``MarkupWalker`` that prints rendered HTML for a given ``Markup`` tree.
-public struct HtmlFormatter: MarkupWalker {
+public struct HTMLFormatter: MarkupWalker {
     /// The resulting HTML built up after printing.
     public var result = ""
 
-    let options: HtmlFormatterOptions
+    let options: HTMLFormatterOptions
 
     var inTableHead = false
     var tableColumnAlignments: [Table.ColumnAlignment?]? = nil
     var currentTableColumn = 0
 
-    public init(options: HtmlFormatterOptions = []) {
+    public init(options: HTMLFormatterOptions = []) {
         self.options = options
     }
 
     /// Format HTML for the given markup tree.
-    public static func format(_ markup: Markup, options: HtmlFormatterOptions = []) -> String {
-        var walker = HtmlFormatter(options: options)
+    public static func format(_ markup: Markup, options: HTMLFormatterOptions = []) -> String {
+        var walker = HTMLFormatter(options: options)
         walker.visit(markup)
         return walker.result
     }
 
     /// Format HTML for the given input text.
-    public static func format(_ inputString: String, options: HtmlFormatterOptions = []) -> String {
+    public static func format(_ inputString: String, options: HTMLFormatterOptions = []) -> String {
         let document = Document(parsing: inputString)
         return format(document, options: options)
     }

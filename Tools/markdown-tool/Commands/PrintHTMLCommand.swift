@@ -13,7 +13,7 @@ import Markdown
 
 extension MarkdownCommand {
     /// A command to render HTML for given Markdown content.
-    struct PrintHtml: ParsableCommand {
+    struct PrintHTML: ParsableCommand {
         static var configuration = CommandConfiguration(commandName: "print-html", abstract: "Convert Markdown content into HTML")
 
         @Argument(
@@ -44,7 +44,7 @@ extension MarkdownCommand {
                 (_, document) = try MarkdownCommand.parseStandardInput(options: [])
             }
 
-            var formatterOptions = HtmlFormatterOptions()
+            var formatterOptions = HTMLFormatterOptions()
             if parseAsides {
                 formatterOptions.insert(.parseAsides)
             }
@@ -52,7 +52,7 @@ extension MarkdownCommand {
                 formatterOptions.insert(.parseInlineAttributeClass)
             }
 
-            print(HtmlFormatter.format(document, options: formatterOptions))
+            print(HTMLFormatter.format(document, options: formatterOptions))
         }
     }
 }
