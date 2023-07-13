@@ -11,13 +11,18 @@ The markup tree provided by this package is comprised of immutable/persistent, t
 In your `Package.swift` Swift Package Manager manifest, add the following dependency to your `dependencies` argument:
 
 ```swift
-.package(url: "https://github.com/apple/swift-markdown.git", .branch("main")),
+.package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
 ```
 
 Add the dependency to any targets you've declared in your manifest:
 
 ```swift
-.target(name: "MyTarget", dependencies: ["Markdown"]),
+.target(
+    name: "MyTarget", 
+    dependencies: [
+        .product(name: "Markdown", package: "swift-markdown"),
+    ]
+),
 ```
 
 To parse a document, use `Document(parsing:)`, supplying a `String` or `URL`:
@@ -61,4 +66,4 @@ Swift Markdown can be improved to better meet your needs.
 
 Please see the [contributing guide](https://swift.org/contributing/#contributing-code) for more information.
 
-<!-- Copyright (c) 2021-2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->
+<!-- Copyright (c) 2021-2023 Apple Inc and the Swift Project authors. All Rights Reserved. -->
