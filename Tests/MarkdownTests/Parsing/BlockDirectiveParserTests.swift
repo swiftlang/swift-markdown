@@ -982,4 +982,65 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         """#
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
     }
+
+    func testSingleLineDirectiveWithTrailingWhitespace() {
+        let source = """
+        @blah { content }\(" ")
+        @blah {
+            content
+        }
+        """
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+        
+        let expectedDump = #"""
+        Document @1:1-4:2
+        ├─ BlockDirective @1:1-1:19 name: "blah"
+        │  └─ Paragraph @1:9-1:17
+        │     └─ Text @1:9-1:16 "content"
+        └─ BlockDirective @2:1-4:2 name: "blah"
+           └─ Paragraph @3:5-3:12
+              └─ Text @3:5-3:12 "content"
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSingleLineDirectiveWithTrailingContent() {
+        let source = """
+        @blah { content }
+        content
+        """
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+        let expectedDump = #"""
+        Document @1:1-2:8
+        ├─ BlockDirective @1:1-1:18 name: "blah"
+        │  └─ Paragraph @1:9-1:16
+        │     └─ Text @1:9-1:16 "content"
+        └─ Paragraph @2:1-2:8
+           └─ Text @2:1-2:8 "content"
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+    
+    func testParsingTreeDumpFollowedByDirective() {
+        let source = """
+        Document
+        ├─ Heading level: 1
+        │  └─ Text "Title"
+        @Comment { Line c This is a single-line comment }
+        """
+        let documentation = Document(parsing: source, options: .parseBlockDirectives)
+        let expected = """
+        Document
+        ├─ Paragraph
+        │  ├─ Text "Document"
+        │  ├─ SoftBreak
+        │  ├─ Text "├─ Heading level: 1"
+        │  ├─ SoftBreak
+        │  └─ Text "│  └─ Text “Title”"
+        └─ BlockDirective name: "Comment"
+           └─ Paragraph
+              └─ Text "Line c This is a single-line comment"
+        """
+        XCTAssertEqual(expected, documentation.debugDescription())
+    }
 }

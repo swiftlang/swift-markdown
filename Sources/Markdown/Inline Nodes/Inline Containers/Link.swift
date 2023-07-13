@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -61,6 +61,16 @@ public extension Link {
                 _data = _data.replacingSelf(.link(destination: newValue, parsedRange: nil, _data.raw.markup.copyChildren()))
             }
         }
+    }
+
+    var isAutolink: Bool {
+        guard let destination = destination,
+              childCount == 1,
+              let text = child(at: 0) as? Text,
+              destination == text.string else {
+            return false
+        }
+        return true
     }
 
     // MARK: Visitation

@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -230,6 +230,15 @@ public struct MarkupFormatter: MarkupWalker {
             }
         }
 
+        /// The character to use when formatting Doxygen commands.
+        public enum DoxygenCommandPrefix: String, CaseIterable {
+            /// Precede Doxygen commands with a backslash (`\`).
+            case backslash = "\\"
+
+            /// Precede Doxygen commands with an at-sign (`@`).
+            case at = "@"
+        }
+
         // MARK: Option Properties
 
         var orderedListNumerals: OrderedListNumerals
@@ -243,6 +252,7 @@ public struct MarkupFormatter: MarkupWalker {
         var preferredHeadingStyle: PreferredHeadingStyle
         var preferredLineLimit: PreferredLineLimit?
         var customLinePrefix: String
+        var doxygenCommandPrefix: DoxygenCommandPrefix
 
         /**
          Create a set of formatting options to use when printing an element.
@@ -270,7 +280,8 @@ public struct MarkupFormatter: MarkupWalker {
                     condenseAutolinks: Bool = true,
                     preferredHeadingStyle: PreferredHeadingStyle = .atx,
                     preferredLineLimit: PreferredLineLimit? = nil,
-                    customLinePrefix: String = "") {
+                    customLinePrefix: String = "",
+                    doxygenCommandPrefix: DoxygenCommandPrefix = .backslash) {
             self.unorderedListMarker = unorderedListMarker
             self.orderedListNumerals = orderedListNumerals
             self.useCodeFence = useCodeFence
@@ -284,6 +295,7 @@ public struct MarkupFormatter: MarkupWalker {
             // three characters long.
             self.thematicBreakLength = max(3, thematicBreakLength)
             self.customLinePrefix = customLinePrefix
+            self.doxygenCommandPrefix = doxygenCommandPrefix
         }
 
         /// The default set of formatting options.
@@ -807,11 +819,8 @@ public struct MarkupFormatter: MarkupWalker {
     public mutating func visitLink(_ link: Link) {
         let savedState = state
         if formattingOptions.condenseAutolinks,
-            let destination = link.destination,
-        link.childCount == 1,
-        let text = link.child(at: 0) as? Text,
-            // Print autolink-style
-            destination == text.string {
+           link.isAutolink,
+           let destination = link.destination {
             print("<\(destination)>", for: link)
         } else {
             func printRegularLink() {
@@ -1143,5 +1152,17 @@ public struct MarkupFormatter: MarkupWalker {
             queueNewline()
             printInlineAttributes()
         }
+    }
+
+    public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> () {
+        print("\(formattingOptions.doxygenCommandPrefix.rawValue)param", for: doxygenParam)
+        print(" \(doxygenParam.name) ", for: doxygenParam)
+        descendInto(doxygenParam)
+    }
+
+    public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) -> () {
+        // FIXME: store the actual command name used in the original markup
+        print("\(formattingOptions.doxygenCommandPrefix.rawValue)returns ", for: doxygenReturns)
+        descendInto(doxygenReturns)
     }
 }

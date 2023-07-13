@@ -41,3 +41,5 @@ a Markdown document to a consistent, preferred style.
 @Snippet(path: "swift-markdown/Snippets/Formatting/PreferredHeadingStyle")
 @Snippet(path: "swift-markdown/Snippets/Formatting/ThematicBreakCharacter")
 @Snippet(path: "swift-markdown/Snippets/Formatting/UseCodeFence")
+
+<!-- Copyright (c) 2022 Apple Inc and the Swift Project authors. All Rights Reserved. -->

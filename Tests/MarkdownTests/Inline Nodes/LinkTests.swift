@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -33,5 +33,19 @@ class LinkTests: XCTestCase {
             └─ Text "Hello, world!"
             """
         XCTAssertEqual(expectedDump, link.debugDescription())
+    }
+    
+    func testAutoLink() {
+        let children = [Text("example.com")]
+        var link = Link(destination: "example.com", children)
+        let expectedDump = """
+            Link destination: "example.com"
+            └─ Text "example.com"
+            """
+        XCTAssertEqual(expectedDump, link.debugDescription())
+        XCTAssertTrue(link.isAutolink)
+        
+        link.destination = "test.example.com"
+        XCTAssertFalse(link.isAutolink)
     }
 }

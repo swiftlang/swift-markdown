@@ -182,6 +182,7 @@ struct PendingBlockDirective {
             // "@xx { yy } zz }" "yy } zz" will be parsed
 
             var reversedRemainingContent = TrimmedLine(Substring(line.text.reversed()), source: line.source, lineNumber: line.lineNumber)
+            reversedRemainingContent.lexWhitespace()
             if !line.text.isEmpty,
                reversedRemainingContent.lex("}") != nil {
                 let trailingWhiteSpaceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
@@ -189,9 +190,7 @@ struct PendingBlockDirective {
                 let leadingSpacingCount = line.untrimmedText.count - textCount - trailingWhiteSpaceCount - 1
                 innerIndentationColumnCount = leadingSpacingCount // Should we add a new property for this kind of usage?
                 
-                let startIndex = line.untrimmedText.startIndex
-                let endIndex = line.untrimmedText.index(startIndex, offsetBy: leadingSpacingCount)
-                let newLine = line.untrimmedText.replacingCharacters(in: startIndex..<endIndex, with: String(repeating: " ", count: leadingSpacingCount)).dropLast(trailingWhiteSpaceCount + 1)
+                let newLine = String(repeating: " ", count: leadingSpacingCount) + line.untrimmedText.dropFirst(leadingSpacingCount).dropLast(trailingWhiteSpaceCount + 1)
                 pendingLine = TrimmedLine(newLine.dropFirst(0), source: line.source, lineNumber: line.lineNumber)
                 parseState = .done
                 endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
@@ -219,6 +218,46 @@ struct PendingBlockDirective {
             return parseContentsEnd(from: line)
         case .done:
             fatalError("A closed block directive container cannot accept further lines of content.")
+        }
+    }
+}
+
+struct PendingDoxygenCommand {
+    enum CommandKind {
+        case param(name: Substring)
+        case returns
+
+        var debugDescription: String {
+            switch self {
+            case .param(name: let name):
+                return "'param' Argument: '\(name)'"
+            case .returns:
+                return "'returns'"
+            }
+        }
+    }
+
+    var atLocation: SourceLocation
+
+    var atSignIndentation: Int
+
+    var nameLocation: SourceLocation
+
+    var innerIndentation: Int? = nil
+
+    var kind: CommandKind
+
+    var endLocation: SourceLocation
+
+    var indentationAdjustment: Int {
+        innerIndentation ?? atSignIndentation
+    }
+
+    mutating func addLine(_ line: TrimmedLine) {
+        endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
+
+        if innerIndentation == nil, line.location?.line != atLocation.line, !line.isEmptyOrAllWhitespace {
+            innerIndentation = line.indentationColumnCount
         }
     }
 }
@@ -369,29 +408,19 @@ struct TrimmedLine {
         while let c = prefix.next() {
             if isEscaped {
                 isEscaped = false
-                takeCount += 1
-                continue
             }
-            if allowEscape,
+            else if allowEscape,
                c == "\\" {
                 isEscaped = true
-                takeCount += 1
-                continue
             }
-            if isQuoted {
-                if c == "\"" {
-                    isQuoted = false
-                }
-                takeCount += 1
-                continue
+            else if isQuoted {
+                isQuoted = (c != "\"")
             }
-            if allowQuote,
+            else if allowQuote,
                c == "\"" {
                 isQuoted = true
-                takeCount += 1
-                continue
             }
-            if case .stop = stop(c) {
+            else if case .stop = stop(c) {
                 break
             }
             takeCount += 1
@@ -459,8 +488,11 @@ private enum ParseContainer: CustomStringConvertible {
     /// A block directive container, which can contain other block directives or runs of lines.
     case blockDirective(PendingBlockDirective, [ParseContainer])
 
-    init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines) where TrimmedLines.Element == TrimmedLine {
-        self = ParseContainerStack(parsingHierarchyFrom: trimmedLines).top
+    /// A Doxygen command, which can contain arbitrary markup (but not block directives).
+    case doxygenCommand(PendingDoxygenCommand, [TrimmedLine])
+
+    init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines, options: ParseOptions) where TrimmedLines.Element == TrimmedLine {
+        self = ParseContainerStack(parsingHierarchyFrom: trimmedLines, options: options).top
     }
 
     var children: [ParseContainer] {
@@ -470,6 +502,8 @@ private enum ParseContainer: CustomStringConvertible {
         case .blockDirective(_, let children):
             return children
         case .lineRun:
+            return []
+        case .doxygenCommand:
             return []
         }
     }
@@ -545,6 +579,15 @@ private enum ParseContainer: CustomStringConvertible {
                     indent -= 4
                 }
                 print(children: children)
+            case .doxygenCommand(let pendingDoxygenCommand, let lines):
+                print("* Doxygen command \(pendingDoxygenCommand.kind.debugDescription)")
+                queueNewline()
+                indent += 4
+                for line in lines {
+                    print(line.text.debugDescription)
+                    queueNewline()
+                }
+                indent -= 4
             }
         }
     }
@@ -565,6 +608,9 @@ private enum ParseContainer: CustomStringConvertible {
         case .blockDirective(var pendingBlockDirective, let children):
             pendingBlockDirective.updateIndentation(for: line)
             self = .blockDirective(pendingBlockDirective, children)
+        case .doxygenCommand:
+            var newParent: ParseContainer? = nil
+            parent?.updateIndentation(under: &newParent, for: line)
         }
     }
 
@@ -609,6 +655,8 @@ private enum ParseContainer: CustomStringConvertible {
             return parent?.indentationAdjustment(under: nil) ?? 0
         case .blockDirective(let pendingBlockDirective, _):
             return pendingBlockDirective.indentationColumnCount
+        case .doxygenCommand(let pendingCommand, _):
+            return pendingCommand.indentationAdjustment
         }
     }
 
@@ -631,10 +679,11 @@ private enum ParseContainer: CustomStringConvertible {
             // We need to keep track of what we removed because cmark will report different source locations than what we
             // had in the source. We'll adjust those when we get them back.
             let trimmedIndentationAndLines = lines.map { line -> (line: TrimmedLine,
-                                                                  indentation: TrimmedLine.Lex?) in
+                                                                  indentation: Int) in
                 var trimmedLine = line
                 let trimmedWhitespace = trimmedLine.lexWhitespace(maxLength: indentationColumnCount)
-                return (trimmedLine, trimmedWhitespace)
+                let indentation = (trimmedWhitespace?.text.count ?? 0) + line.untrimmedText.distance(from: line.untrimmedText.startIndex, to: line.parseIndex)
+                return (trimmedLine, indentation)
             }
 
             // Build the logical block of text that cmark will see.
@@ -677,6 +726,17 @@ private enum ParseContainer: CustomStringConvertible {
                                     }),
                                     parsedRange: pendingBlockDirective.atLocation..<pendingBlockDirective.endLocation,
                                     children)]
+        case let .doxygenCommand(pendingDoxygenCommand, lines):
+            let range = pendingDoxygenCommand.atLocation..<pendingDoxygenCommand.endLocation
+            ranges.add(range)
+            let children = ParseContainer.lineRun(lines, isInCodeFence: false)
+                .convertToRawMarkup(ranges: &ranges, parent: self, options: options)
+            switch pendingDoxygenCommand.kind {
+            case .param(let name):
+                return [.doxygenParam(name: String(name), parsedRange: range, children)]
+            case .returns:
+                return [.doxygenReturns(parsedRange: range, children)]
+            }
         }
     }
 }
@@ -689,8 +749,11 @@ struct ParseContainerStack {
     /// The stack of containers to be incrementally folded into a hierarchy.
     private var stack: [ParseContainer]
 
-    init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines) where TrimmedLines.Element == TrimmedLine {
+    private let options: ParseOptions
+
+    init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines, options: ParseOptions) where TrimmedLines.Element == TrimmedLine {
         self.stack = [.root([])]
+        self.options = options
         for line in trimmedLines {
             accept(line)
         }
@@ -706,6 +769,20 @@ struct ParseContainerStack {
             }
             return true
         } != nil
+    }
+
+    private var canParseDoxygenCommand: Bool {
+        guard options.contains(.parseMinimalDoxygen) else { return false }
+
+        guard !isInBlockDirective else { return false }
+
+        if case .blockDirective = top {
+            return false
+        } else if case .lineRun(_, isInCodeFence: let codeFence) = top {
+            return !codeFence
+        } else {
+            return true
+        }
     }
 
     private func isCodeFenceOrIndentedCodeBlock(on line: TrimmedLine) -> Bool {
@@ -760,21 +837,94 @@ struct ParseContainerStack {
         return pendingBlockDirective
     }
 
+    private func parseDoxygenCommandOpening(on line: TrimmedLine) -> (pendingCommand: PendingDoxygenCommand, remainder: TrimmedLine)? {
+        guard canParseDoxygenCommand else { return nil }
+        guard !isCodeFenceOrIndentedCodeBlock(on: line) else { return nil }
+
+        var remainder = line
+        let indent = remainder.lexWhitespace()
+        guard let at = remainder.lex(until: { ch in
+            switch ch {
+            case "@", "\\":
+                return .continue
+            default:
+                return .stop
+            }
+        }) else { return nil }
+        guard let name = remainder.lex(until: { ch in
+            if ch.isWhitespace {
+                return .stop
+            } else {
+                return .continue
+            }
+        }) else { return nil }
+        remainder.lexWhitespace()
+
+        switch name.text.lowercased() {
+        case "param":
+            guard let paramName = remainder.lex(until: { ch in
+                if ch.isWhitespace {
+                    return .stop
+                } else {
+                    return .continue
+                }
+            }) else { return nil }
+            remainder.lexWhitespace()
+            var pendingCommand = PendingDoxygenCommand(
+                atLocation: at.range!.lowerBound,
+                atSignIndentation: indent?.text.count ?? 0,
+                nameLocation: name.range!.lowerBound,
+                kind: .param(name: paramName.text),
+                endLocation: name.range!.upperBound)
+            pendingCommand.addLine(remainder)
+            return (pendingCommand, remainder)
+        case "return", "returns", "result":
+            var pendingCommand = PendingDoxygenCommand(
+                atLocation: at.range!.lowerBound,
+                atSignIndentation: indent?.text.count ?? 0,
+                nameLocation: name.range!.lowerBound,
+                kind: .returns,
+                endLocation: name.range!.upperBound)
+            pendingCommand.addLine(remainder)
+            return (pendingCommand, remainder)
+        default:
+            return nil
+        }
+    }
+
     /// Accept a trimmed line, opening new block directives as indicated by the source,
     /// closing a block directive if applicable, or adding the line to a run of lines to be parsed
     /// as Markdown later.
     private mutating func accept(_ line: TrimmedLine) {
-        if line.isEmptyOrAllWhitespace,
-           case let .blockDirective(pendingBlockDirective, _) = top {
-            switch pendingBlockDirective.parseState {
-            case .argumentsStart,
-                 .contentsStart,
-                 .done:
-                closeTop()
+        if line.isEmptyOrAllWhitespace {
+            switch top {
+            case let .blockDirective(pendingBlockDirective, _):
+                switch pendingBlockDirective.parseState {
+                case .argumentsStart,
+                     .contentsStart,
+                     .done:
+                    closeTop()
 
+                default:
+                    break
+                }
+            case .doxygenCommand:
+                closeTop()
             default:
                 break
             }
+        }
+
+        // If we can parse a Doxygen command from this line, start one and skip everything else.
+        if let result = parseDoxygenCommandOpening(on: line) {
+            switch top {
+            case .root:
+                break
+            default:
+                closeTop()
+            }
+            push(.doxygenCommand(result.pendingCommand, [result.remainder]))
+            return
         }
 
         // If we're inside a block directive, check to see whether we need to update its
@@ -822,7 +972,7 @@ struct ParseContainerStack {
             switch top {
             case .root:
                 push(.blockDirective(newBlockDirective, []))
-            case .lineRun:
+            case .lineRun, .doxygenCommand:
                 closeTop()
                 push(.blockDirective(newBlockDirective, []))
             case .blockDirective(let previousBlockDirective, _):
@@ -848,16 +998,24 @@ struct ParseContainerStack {
         } else {
             switch top {
             case .root:
-                push(.lineRun([line], isInCodeFence: false))
+                push(.lineRun([line], isInCodeFence: line.isProbablyCodeFence))
             case .lineRun(var lines, let isInCodeFence):
                 pop()
                 lines.append(line)
                 push(.lineRun(lines, isInCodeFence: isInCodeFence != line.isProbablyCodeFence))
+            case .doxygenCommand(var pendingDoxygenCommand, var lines):
+                pop()
+                lines.append(line)
+                pendingDoxygenCommand.addLine(line)
+                push(.doxygenCommand(pendingDoxygenCommand, lines))
             case .blockDirective(var pendingBlockDirective, let children):
                 // A pending block directive can accept this line if it is in the middle of
                 // parsing arguments text (to allow indentation to align arguments) or
                 // if the line isn't taking part in a code block.
-                let canAcceptLine = pendingBlockDirective.parseState == .argumentsText || !isCodeFenceOrIndentedCodeBlock(on: line)
+                let canAcceptLine =
+                    pendingBlockDirective.parseState != .done &&
+                    (pendingBlockDirective.parseState == .argumentsText ||
+                     !isCodeFenceOrIndentedCodeBlock(on: line))
                 if canAcceptLine && pendingBlockDirective.accept(line) {
                     pop()
                     push(.blockDirective(pendingBlockDirective, children))
@@ -923,6 +1081,8 @@ struct ParseContainerStack {
             push(.blockDirective(pendingBlockDirective, children))
         case .lineRun:
             fatalError("Line runs cannot have children")
+        case .doxygenCommand:
+            fatalError("Doxygen commands cannot have children")
         }
     }
 
@@ -985,7 +1145,7 @@ struct BlockDirectiveParser {
         // Phase 1: Categorize the lines into a hierarchy of block containers by parsing the prefix
         // of the line, opening and closing block directives appropriately, and folding elements
         // into a root document.
-        let rootContainer = ParseContainer(parsingHierarchyFrom: trimmedLines)
+        let rootContainer = ParseContainer(parsingHierarchyFrom: trimmedLines, options: options)
 
         // Phase 2: Convert the hierarchy of block containers into a real ``Document``.
         // This is where the CommonMark parser is called upon to parse runs of lines of content,
