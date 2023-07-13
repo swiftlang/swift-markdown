@@ -48,4 +48,29 @@ class LinkTests: XCTestCase {
         link.destination = "test.example.com"
         XCTAssertFalse(link.isAutolink)
     }
+    
+    func testTitleLink() throws {
+        let markdown = #"""
+        [Example](example.com "The example title")
+        [Example2](example2.com)
+        """#
+        
+        let document = Document(parsing: markdown)
+        XCTAssertEqual(document.childCount, 1)
+        let paragraph = try XCTUnwrap(document.child(at: 0) as? Paragraph)
+        XCTAssertEqual(paragraph.childCount, 3)
+
+        XCTAssertTrue(paragraph.child(at: 1) is SoftBreak)
+        let linkWithTitle = try XCTUnwrap(paragraph.child(at: 0) as? Link)
+        let linkWithoutTitle = try XCTUnwrap(paragraph.child(at: 2) as? Link)
+
+        
+        XCTAssertEqual(try XCTUnwrap(linkWithTitle.child(at: 0) as? Text).string, "Example")
+        XCTAssertEqual(linkWithTitle.destination, "example.com")
+        XCTAssertEqual(linkWithTitle.title, "The example title")
+        
+        XCTAssertEqual(try XCTUnwrap(linkWithoutTitle.child(at: 0) as? Text).string, "Example2")
+        XCTAssertEqual(linkWithoutTitle.destination, "example2.com")
+        XCTAssertEqual(linkWithoutTitle.title, "")
+    }
 }
