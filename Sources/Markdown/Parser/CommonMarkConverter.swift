@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -455,7 +455,15 @@ struct MarkupParser {
         let title = String(cString: cmark_node_get_title(state.node))
         precondition(childConversion.state.node == state.node)
         precondition(childConversion.state.event == CMARK_EVENT_EXIT)
-        return MarkupConversion(state: childConversion.state.next(), result: .link(destination: destination, title: title, parsedRange: parsedRange, childConversion.result))
+        return MarkupConversion(
+            state: childConversion.state.next(),
+            result: .link(
+                destination: destination.isEmpty ? nil : destination,
+                title: title.isEmpty ? nil : title,
+                parsedRange: parsedRange,
+                childConversion.result
+            )
+        )
     }
 
     private static func convertImage(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
@@ -463,11 +471,18 @@ struct MarkupParser {
         precondition(state.nodeType == .image)
         let parsedRange = state.range(state.node)
         let childConversion = convertChildren(state)
-        let destination = String(cString: cmark_node_get_url(state.node))
+        let source = String(cString: cmark_node_get_url(state.node))
         let title = String(cString: cmark_node_get_title(state.node))
         precondition(childConversion.state.node == state.node)
         precondition(childConversion.state.event == CMARK_EVENT_EXIT)
-        return MarkupConversion(state: childConversion.state.next(), result: .image(source: destination, title: title, parsedRange: parsedRange, childConversion.result))
+        return MarkupConversion(
+            state: childConversion.state.next(),
+            result: .image(
+                source: source.isEmpty ? nil : source,
+                title: title.isEmpty ? nil : title,
+                parsedRange: parsedRange, childConversion.result
+            )
+        )
     }
 
     private static func convertStrikethrough(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
