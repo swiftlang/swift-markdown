@@ -1,10 +1,8 @@
-// swift-tools-version:5.3
-// In order to support users running on the latest Xcodes, please ensure that
-// Package@swift-5.5.swift is kept in sync with this file.
+// swift-tools-version:5.5
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -51,9 +49,16 @@ let package = Package(
 if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building standalone, so fetch all dependencies remotely.
     package.dependencies += [
-        .package(url: "https://github.com/apple/swift-cmark.git", .branch("gfm")),
-        .package(url: "https://github.com/apple/swift-argument-parser", .upToNextMinor(from: "1.0.1")),
+        .package(url: "https://github.com/apple/swift-cmark.git", branch: "gfm"),
+        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
     ]
+    
+    // SwiftPM command plugins are only supported by Swift version 5.6 and later.
+    #if swift(>=5.6)
+    package.dependencies += [
+        .package(url: "https://github.com/apple/swift-docc-plugin", from: "1.1.0"),
+    ]
+    #endif
 } else {
     // Building in the Swift.org CI system, so rely on local versions of dependencies.
     package.dependencies += [

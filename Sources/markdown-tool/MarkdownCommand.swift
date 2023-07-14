@@ -12,6 +12,7 @@ import ArgumentParser
 import Foundation
 import Markdown
 
+@main
 struct MarkdownCommand: ParsableCommand {
     enum Error: LocalizedError {
         case couldntDecodeInputAsUTF8
@@ -50,5 +51,3 @@ struct MarkdownCommand: ParsableCommand {
         return (stdinString, Document(parsing: stdinString, options: options))
     }
 }
-
-MarkdownCommand.main()
