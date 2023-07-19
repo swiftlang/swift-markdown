@@ -345,10 +345,15 @@ public struct MarkupFormatter: MarkupWalker {
         /// The length of the last line.
         var lastLineLength = 0
 
-        /// The current line number.
+        /// The line number of the most recently printed content. This is updated in
+        /// `addressPendingNewlines(for:)` when line breaks are printed.
         var lineNumber = 0
 
-        /// The "effective" line number, taking into account any queued newlines which have not been printed.
+        /// The "effective" line number, taking into account any queued newlines which have not
+        /// been printed.
+        ///
+        /// This property allows line number comparisons between different formatter states to
+        /// accommodate queued soft line breaks as well as printed content.
         var effectiveLineNumber: Int {
             lineNumber + queuedNewlines
         }
