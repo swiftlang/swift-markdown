@@ -690,6 +690,78 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         checkCharacterEquivalence(for: source)
     }
 
+    func testRoundTripHardBreakWithInlineCode() {
+        let source = """
+        This is some text.\("  ")
+        `This is some code.`
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithInlineCode() {
+        let source = """
+        This is some text.
+        `This is some code.`
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithImage() {
+        let source = """
+        This is some text.\("  ")
+        ![This is an image.](image.png "")
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithImage() {
+        let source = """
+        This is some text.
+        ![This is an image.](image.png "")
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithLink() {
+        let source = """
+        This is some text.\("  ")
+        [This is a link.](https://swift.org)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithLink() {
+        let source = """
+        This is some text.
+        [This is a link.](https://swift.org)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithInlineAttribute() {
+        let source = """
+        This is some text.\("  ")
+        ^[This is some attributed text.](rainbow: 'extreme')
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithInlineAttribute() {
+        let source = """
+        This is some text.
+        ^[This is some attributed text.](rainbow: 'extreme')
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
     /// Why not?
     func testRoundTripReadMe() throws {
         let readMeURL = URL(fileURLWithPath: #file)

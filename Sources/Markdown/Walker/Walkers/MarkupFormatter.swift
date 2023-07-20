@@ -345,8 +345,19 @@ public struct MarkupFormatter: MarkupWalker {
         /// The length of the last line.
         var lastLineLength = 0
 
-        /// The current line number.
+        /// The line number of the most recently printed content. 
+        ///
+        /// This is updated in `addressPendingNewlines(for:)` when line breaks are printed.
         var lineNumber = 0
+
+        /// The "effective" line number, taking into account any queued newlines which have not
+        /// been printed.
+        ///
+        /// This property allows line number comparisons between different formatter states to
+        /// accommodate queued soft line breaks as well as printed content.
+        var effectiveLineNumber: Int {
+            lineNumber + queuedNewlines
+        }
     }
 
     /// The state of the formatter.
@@ -769,7 +780,7 @@ public struct MarkupFormatter: MarkupWalker {
         // If printing with automatic wrapping still put us over the line,
         // prefer to print it on the next line to give as much opportunity
         // to keep the contents on one line.
-        if inlineCode.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+        if inlineCode.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
@@ -800,7 +811,7 @@ public struct MarkupFormatter: MarkupWalker {
         // Image elements' source URLs can't be split. If wrapping the alt text
         // of an image still put us over the line, prefer to print it on the
         // next line to give as much opportunity to keep the alt text contents on one line.
-        if image.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+        if image.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             printImage()
@@ -837,7 +848,7 @@ public struct MarkupFormatter: MarkupWalker {
             // Link elements' destination URLs can't be split. If wrapping the link text
             // of a link still put us over the line, prefer to print it on the
             // next line to give as much opportunity to keep the link text contents on one line.
-            if link.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+            if link.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
                 restoreState(to: savedState)
                 queueNewline()
                 printRegularLink()
@@ -1133,7 +1144,7 @@ public struct MarkupFormatter: MarkupWalker {
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) {
         let savedState = state
         func printInlineAttributes() {
-            print("[", for: attributes)
+            print("^[", for: attributes)
             descendInto(attributes)
             print("](", for: attributes)
             print(attributes.attributes, for: attributes)
@@ -1147,7 +1158,7 @@ public struct MarkupFormatter: MarkupWalker {
         // gets into the realm of JSON formatting which might be out of scope of
         // this formatter. Therefore if exceeded, prefer to print it on the next
         // line to give as much opportunity to keep the attributes on one line.
-        if attributes.indexInParent > 0 && (isOverPreferredLineLimit || state.lineNumber > savedState.lineNumber) {
+        if attributes.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             printInlineAttributes()
