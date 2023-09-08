@@ -18,17 +18,17 @@ public extension InlineContainer {
     ///
     /// - Precondition: All children of an `InlineContainer`
     ///   must conform to `InlineMarkup`.
-    var inlineChildren: LazyMapSequence<MarkupChildren, InlineMarkup> {
-        return children.lazy.map { $0 as! InlineMarkup }
+    var inlineChildren: LazyMapSequence<MarkupChildren, any InlineMarkup> {
+        return children.lazy.map { $0 as! any InlineMarkup }
     }
 
     /// Replace all inline child elements with a new sequence of inline elements.
-    mutating func setInlineChildren<Items: Sequence>(_ newChildren: Items) where Items.Element == InlineMarkup {
+    mutating func setInlineChildren(_ newChildren: some Sequence<any InlineMarkup>) {
         replaceChildrenInRange(0..<childCount, with: newChildren)
     }
 
     /// Replace child inline elements in a range with a new sequence of elements.
-    mutating func replaceChildrenInRange<Items: Sequence>(_ range: Range<Int>, with incomingItems: Items) where Items.Element == InlineMarkup {
+    mutating func replaceChildrenInRange(_ range: Range<Int>, with incomingItems: some Sequence<any InlineMarkup>) {
         var rawChildren = raw.markup.copyChildren()
         rawChildren.replaceSubrange(range, with: incomingItems.map { $0.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
@@ -39,7 +39,7 @@ public extension InlineContainer {
 
     var plainText: String {
         return children.compactMap {
-            return ($0 as? InlineMarkup)?.plainText
+            return ($0 as? any InlineMarkup)?.plainText
         }.joined()
     }
 }

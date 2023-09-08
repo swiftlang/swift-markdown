@@ -11,7 +11,7 @@
 @testable import Markdown
 import XCTest
 
-func assertElementDidntChange(_ element: Markup, assertedStructure expected: Markup, expectedId: MarkupIdentifier) {
+func assertElementDidntChange(_ element: some Markup, assertedStructure expected: some Markup, expectedId: MarkupIdentifier) {
     XCTAssertTrue(element.hasSameStructure(as: expected))
     XCTAssertEqual(element._data.id, expectedId)
 }

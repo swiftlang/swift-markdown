@@ -44,7 +44,7 @@ public extension DoxygenReturns {
     ///
     /// - Parameter name: The name of the parameter being described.
     /// - Parameter children: Block child elements.
-    init<Children: Sequence>(children: Children) where Children.Element == BlockMarkup {
+    init(children: some Sequence<any BlockMarkup>) {
         try! self.init(.doxygenReturns(parsedRange: nil, children.map({ $0.raw.markup })))
     }
 
@@ -52,7 +52,7 @@ public extension DoxygenReturns {
     ///
     /// - Parameter name: The name of the parameter being described.
     /// - Parameter children: Block child elements.
-    init(children: BlockMarkup...) {
+    init(children: (any BlockMarkup)...) {
         self.init(children: children)
     }
 }

@@ -37,7 +37,7 @@ final class MarkupIdentifierTests: XCTestCase {
         struct IDCounter: MarkupWalker {
             var id = 0
 
-            mutating func defaultVisit(_ markup: Markup) {
+            mutating func defaultVisit(_ markup: some Markup) {
                 XCTAssertEqual(id, markup._data.id.childId)
                 id += 1
                 descendInto(markup)
@@ -51,7 +51,7 @@ final class MarkupIdentifierTests: XCTestCase {
 
     /// The very first child id shall be 1 greater than that of its parent.
     func testFirstChildIdentifier() {
-        func checkFirstChildOf(_ markup: Markup, expectedId: Int) {
+        func checkFirstChildOf(_ markup: some Markup, expectedId: Int) {
             guard let firstChild = markup.child(at: 0) else {
                 return
             }

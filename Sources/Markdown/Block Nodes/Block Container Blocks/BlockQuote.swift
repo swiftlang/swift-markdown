@@ -29,7 +29,7 @@ public struct BlockQuote: BlockMarkup, BasicBlockContainer {
 public extension BlockQuote {
     // MARK: BasicBlockContainer
 
-    init<Children: Sequence>(_ children: Children) where Children.Element == BlockMarkup {
+    init(_ children: some Sequence<any BlockMarkup>) {
         try! self.init(.blockQuote(parsedRange: nil, children.map { $0.raw.markup }))
     }
 

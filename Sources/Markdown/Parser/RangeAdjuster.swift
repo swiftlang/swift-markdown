@@ -21,7 +21,7 @@ struct RangeAdjuster: MarkupWalker {
     /// by line number. `nil` means that no whitespace was removed on that line.
     var trimmedIndentationPerLine: [Int]
 
-    mutating func defaultVisit(_ markup: Markup) {
+    mutating func defaultVisit(_ markup: some Markup) {
         /// This should only be used in the parser where ranges are guaranteed
         /// to be filled in from cmark.
         let adjustedRange = markup.range.map { range -> SourceRange in

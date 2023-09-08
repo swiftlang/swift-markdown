@@ -82,9 +82,9 @@ struct MarkupTreeDumper: MarkupWalker {
 
     /// The current path in the tree so far, used for printing edges
     /// in the dumped tree.
-    private var path = [Markup]()
+    private var path = [any Markup]()
 
-    private mutating func dump(_ markup: Markup, customDescription: String? = nil) {
+    private mutating func dump(_ markup: some Markup, customDescription: String? = nil) {
         indent(markup)
         result += "\(type(of: markup))"
         if options.contains(.printSourceLocations),
@@ -106,7 +106,7 @@ struct MarkupTreeDumper: MarkupWalker {
         increasingDepth(markup)
     }
 
-    mutating func defaultVisit(_ markup: Markup) {
+    mutating func defaultVisit(_ markup: some Markup) {
         dump(markup)
     }
 
@@ -125,7 +125,7 @@ struct MarkupTreeDumper: MarkupWalker {
         return String(prefix.reversed())
     }
 
-    private mutating func indentLiteralBlock(_ string: String, from element: Markup, countLines: Bool = false) -> String {
+    private mutating func indentLiteralBlock(_ string: String, from element: some Markup, countLines: Bool = false) -> String {
         path.append(element)
         let prefix = lineIndentPrefix
         let result = string.split(separator: "\n").enumerated().map { (index, line) in
@@ -140,7 +140,7 @@ struct MarkupTreeDumper: MarkupWalker {
      Add an indentation prefix for a markup element using the current `path`.
      - parameter markup: The `Markup` element about to be printed
      */
-    private mutating func indent(_ markup: Markup) {
+    private mutating func indent(_ markup: some Markup) {
         if !path.isEmpty {
             result.append("\n")
         }
@@ -159,7 +159,7 @@ struct MarkupTreeDumper: MarkupWalker {
 
      - parameter element: The parent element you're descending into.
      */
-    private mutating func increasingDepth(_ element: Markup) {
+    private mutating func increasingDepth(_ element: some Markup) {
         path.append(element)
         descendInto(element)
         path.removeLast()

@@ -22,7 +22,7 @@ import Foundation
 /// ```
 public struct Aside {
     /// Describes the different kinds of aside.
-    public struct Kind: RawRepresentable, CaseIterable, Equatable {
+    public struct Kind: RawRepresentable, CaseIterable, Hashable, Sendable {
         /// A "note" aside.
         public static let note = Kind(rawValue: "Note")!
         
@@ -165,7 +165,7 @@ public struct Aside {
 
     /// The block elements of the aside taken from the ``BlockQuote``,
     /// excluding the initial text tag.
-    public var content: [BlockMarkup]
+    public var content: [any BlockMarkup]
 
     /// Create an aside from a block quote.
     public init(_ blockQuote: BlockQuote) {

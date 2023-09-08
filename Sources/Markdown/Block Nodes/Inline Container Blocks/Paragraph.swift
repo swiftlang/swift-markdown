@@ -29,7 +29,7 @@ public struct Paragraph: BlockMarkup, BasicInlineContainer {
 public extension Paragraph {
     // MARK: InlineContainer
 
-    init<Children: Sequence>(_ newChildren: Children) where Children.Element == InlineMarkup {
+    init(_ newChildren: some Sequence<any InlineMarkup>) {
         try! self.init(.paragraph(parsedRange: nil, newChildren.map { $0.raw.markup }))
     }
 

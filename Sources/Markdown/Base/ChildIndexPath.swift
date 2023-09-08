@@ -16,7 +16,7 @@ public struct TypedChildIndexPath: RandomAccessCollection, ExpressibleByArrayLit
     /// A pair consisting of an expected index and optional expected type for a child element.
     ///
     /// This type is a shorthand convenience when creating a ``TypedChildIndexPath`` from an array literal.
-    public typealias ArrayLiteralElement = (Int, Markup.Type?)
+    public typealias ArrayLiteralElement = (Int, (any Markup.Type)?)
 
     /// An element of a complex child index path.
     public struct Element {
@@ -28,7 +28,7 @@ public struct TypedChildIndexPath: RandomAccessCollection, ExpressibleByArrayLit
 
          Use this to restrict the type of node to enter at this point in the traversal. If the child doesn't match this type, the traversal will fail. To allow any type of child markup type, set this to `nil`.
          */
-        var expectedType: Markup.Type?
+        var expectedType: (any Markup.Type)?
     }
 
     /// The elements of the path.

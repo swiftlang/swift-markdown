@@ -29,12 +29,12 @@ public struct InlineAttributes: InlineMarkup, InlineContainer {
 
 public extension InlineAttributes {
     /// Create a set of custom inline attributes applied to zero or more child inline elements.
-    init<Children: Sequence>(attributes: String, _ children: Children) where Children.Element == RecurringInlineMarkup {
+    init(attributes: String, _ children: some Sequence<any RecurringInlineMarkup>) {
         try! self.init(.inlineAttributes(attributes: attributes, parsedRange: nil, children.map { $0.raw.markup }))
     }
 
     /// Create a set of custom attributes applied to zero or more child inline elements.
-    init(attributes: String, _ children: RecurringInlineMarkup...) {
+    init(attributes: String, _ children: (any RecurringInlineMarkup)...) {
         self.init(attributes: attributes, children)
     }
     

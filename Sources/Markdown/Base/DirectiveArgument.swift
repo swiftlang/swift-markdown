@@ -287,7 +287,7 @@ public struct DirectiveArgumentText: Equatable {
     }
 
     /// Create a body of argument text from a sequence of ``LineSegment`` elements.
-    public init<Segments: Sequence>(segments: Segments) where Segments.Element == LineSegment {
+    public init(segments: some Sequence<LineSegment>) {
         self.segments = Array(segments)
     }
 

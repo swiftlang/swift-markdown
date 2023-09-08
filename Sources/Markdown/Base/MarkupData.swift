@@ -114,7 +114,7 @@ public struct _MarkupData {
     let raw: AbsoluteRawMarkup
 
     /// This element's parent, or `nil` if this is a root.
-    let parent: Markup?
+    let parent: (any Markup)?
 
     /// The index of the element in its parent if it has one, else `0`.
     var indexInParent: Int {
@@ -147,7 +147,7 @@ public struct _MarkupData {
     ///
     /// - parameter raw: The `AbsoluteRawMarkup` representing the element.
     /// - parameter parent: This element's parent, `nil` if the element is a root.
-    init(_ raw: AbsoluteRawMarkup, parent: Markup? = nil) {
+    init(_ raw: AbsoluteRawMarkup, parent: (any Markup)? = nil) {
         self.raw = raw
         self.parent = parent
     }
@@ -163,7 +163,7 @@ public struct _MarkupData {
     }
 
     /// Returns a new `MarkupData` with the given child now at the `index`.
-    func substitutingChild(_ rawChild: RawMarkup, at index: Int) -> Markup {
+    func substitutingChild(_ rawChild: RawMarkup, at index: Int) -> any Markup {
         let newRaw = raw.markup.substitutingChild(rawChild, at: index)
         return makeMarkup(replacingSelf(newRaw))
     }

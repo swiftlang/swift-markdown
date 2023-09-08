@@ -9,7 +9,7 @@
 */
 
 /// Creates an element of a type that corresponds to the kind of markup data and casts back up to `Markup`.
-func makeMarkup(_ data: _MarkupData) -> Markup {
+func makeMarkup(_ data: _MarkupData) -> any Markup {
     switch data.raw.markup.data {
     case .blockQuote:
         return BlockQuote(data)
@@ -130,7 +130,7 @@ extension Markup {
     ///
     /// - parameter newChildren: A sequence of children to use instead of the current children.
     /// - warning: This does not check for compatibility. This API should only be used when the type of the children are already known to be the right kind.
-    public func withUncheckedChildren<Children: Sequence>(_ newChildren: Children) -> Markup where Children.Element == Markup {
+    public func withUncheckedChildren(_ newChildren: some Sequence<any Markup>) -> any Markup {
         let newRaw = raw.markup.withChildren(newChildren.map { $0.raw.markup })
         return makeMarkup(_data.replacingSelf(newRaw))
     }
@@ -149,17 +149,17 @@ extension Markup {
     /// The root of the tree in which this element resides, or the element itself if it is the root.
     ///
     /// - Complexity: `O(height)`
-    public var root: Markup {
+    public var root: any Markup {
         return makeMarkup(_data.root)
     }
 
     /// The parent of this element, or `nil` if this is a root.
-    public var parent: Markup? {
+    public var parent: (any Markup)? {
         return _data.parent
     }
 
     /// Returns this element detached from its parent.
-    public var detachedFromParent: Markup {
+    public var detachedFromParent: any Markup {
         guard _data.id.childId != 0 else {
             // This is already a root.
             return self
@@ -190,7 +190,7 @@ extension Markup {
     /// Returns the child at the given position if it is within the bounds of `children.indices`.
     ///
     /// - Complexity: `O(childCount)`
-    public func child(at position: Int) -> Markup? {
+    public func child(at position: Int) -> (any Markup)? {
         precondition(position >= 0, "Cannot retrieve a child at negative index: \(position)")
         guard position < raw.markup.childCount else {
             return nil
@@ -262,8 +262,8 @@ extension Markup {
     ///   (0, Text.self),
     /// ]
     /// ```
-    public func child(through path: TypedChildIndexPath) -> Markup? {
-        var element: Markup = self
+    public func child(through path: TypedChildIndexPath) -> (any Markup)? {
+        var element: any Markup = self
         for pathElement in path {
             guard pathElement.index <= element.childCount else {
                 return nil
@@ -315,7 +315,7 @@ extension Markup {
     ///   (0, nil),
     /// ]
     /// ```
-    public func child<S: Sequence>(through path: S) -> Markup? where S.Element == Int {
+    public func child(through path: some Sequence<Int>) -> (any Markup)? {
         let pathElements = path.map { TypedChildIndexPath.Element(index: $0, expectedType: nil)}
         return child(through: TypedChildIndexPath(pathElements))
     }
@@ -350,7 +350,7 @@ extension Markup {
     ///   (0, nil),
     /// ]
     /// ```
-    public func child(through path: ChildIndexPath.Element...) -> Markup? {
+    public func child(through path: ChildIndexPath.Element...) -> (any Markup)? {
         return child(through: path)
     }
 
@@ -363,20 +363,20 @@ extension Markup {
     ///
     /// - Note: Use this to bypass checking for structural equality.
     /// - Complexity: `O(1)`
-    public func isIdentical(to other: Markup) -> Bool {
+    public func isIdentical(to other: some Markup) -> Bool {
         return self._data.id == other._data.id
     }
 
     /// Returns true if this element has the same tree structure underneath it as another element.
     ///
     /// - Complexity: `O(subtreeCount)`
-    public func hasSameStructure(as other: Markup) -> Bool {
+    public func hasSameStructure(as other: some Markup) -> Bool {
         return self.raw.markup.hasSameStructure(as: other.raw.markup)
     }
 
     /// Print this element with the given formatting rules.
     public func format(options: MarkupFormatter.Options = .default) -> String {
-        let elementToFormat: Markup
+        let elementToFormat: any Markup
 
         if options.preferredLineLimit != nil {
             // If there is a preferred line limit, first remove
@@ -398,7 +398,7 @@ extension Markup {
 
 /// Replaces soft break elements with a single space.
 fileprivate struct SoftBreakDeleter: MarkupRewriter {
-    func visitSoftBreak(_ softBreak: SoftBreak) -> Markup? {
+    func visitSoftBreak(_ softBreak: SoftBreak) -> (any Markup)? {
         return Text(" ")
     }
 }

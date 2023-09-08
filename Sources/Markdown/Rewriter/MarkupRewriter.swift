@@ -9,10 +9,10 @@
 */
 
 /// A `MarkupVisitor` with the capability to rewrite elements in the tree.
-public protocol MarkupRewriter: MarkupVisitor where Result == Markup? {}
+public protocol MarkupRewriter: MarkupVisitor where Result == (any Markup)? {}
 
 extension MarkupRewriter {
-    public mutating func defaultVisit(_ markup: Markup) -> Markup? {
+    public mutating func defaultVisit(_ markup: some Markup) -> Result {
         let newChildren = markup.children.compactMap {
             return self.visit($0)
         }

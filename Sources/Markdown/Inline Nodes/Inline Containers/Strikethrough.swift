@@ -28,7 +28,7 @@ public struct Strikethrough: RecurringInlineMarkup, BasicInlineContainer {
 public extension Strikethrough {
     // MARK: BasicInlineContainer
 
-    init<Children>(_ newChildren: Children) where Children : Sequence, Children.Element == InlineMarkup {
+    init(_ newChildren: some Sequence<any InlineMarkup>) {
         try! self.init(.strikethrough(parsedRange: nil, newChildren.map { $0.raw.markup }))
     }
 
@@ -36,7 +36,7 @@ public extension Strikethrough {
 
     var plainText: String {
         let childrenPlainText = children.compactMap {
-            return ($0 as? InlineMarkup)?.plainText
+            return ($0 as? any InlineMarkup)?.plainText
         }.joined()
         return "~\(childrenPlainText)~"
     }

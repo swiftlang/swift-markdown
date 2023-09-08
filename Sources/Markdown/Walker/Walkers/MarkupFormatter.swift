@@ -12,9 +12,9 @@ import Foundation
 
 fileprivate extension Markup {
     /// The parental chain of elements from a root to this element.
-    var parentalChain: [Markup] {
-        var stack: [Markup] = [self]
-        var current: Markup = self
+    var parentalChain: [any Markup] {
+        var stack: [any Markup] = [self]
+        var current: any Markup = self
         while let parent = current.parent {
             stack.append(parent)
             current = parent
@@ -23,7 +23,7 @@ fileprivate extension Markup {
     }
 
     /// Return the first ancestor that matches a condition, or `nil` if there is no such ancestor.
-    func firstAncestor(where ancestorMatches: (Markup) -> Bool) -> Markup? {
+    func firstAncestor(where ancestorMatches: (any Markup) -> Bool) -> (any Markup)? {
         var currentParent = parent
         while let current = currentParent {
             if ancestorMatches(current) {
@@ -68,11 +68,11 @@ fileprivate extension Table.Cell {
     func formatIndependently(options: MarkupFormatter.Options) -> String {
         /// Replaces all soft and hard breaks with a single space.
         struct BreakDeleter: MarkupRewriter {
-            mutating func visitSoftBreak(_ softBreak: SoftBreak) -> Markup? {
+            mutating func visitSoftBreak(_ softBreak: SoftBreak) -> (any Markup)? {
                 return Text(" ")
             }
 
-            mutating func visitLineBreak(_ softBreak: SoftBreak) -> Markup? {
+            mutating func visitLineBreak(_ softBreak: SoftBreak) -> (any Markup)? {
                 return Text(" ")
             }
         }
@@ -422,7 +422,7 @@ public struct MarkupFormatter: MarkupWalker {
 
      This should work with multiple nesting.
      */
-    func linePrefix(for element: Markup) -> String {
+    func linePrefix(for element: some Markup) -> String {
         var prefix = formattingOptions.customLinePrefix
         var unorderedListCount = 0
         var orderedListCount = 0
@@ -483,7 +483,7 @@ public struct MarkupFormatter: MarkupWalker {
     /// > such as block quotes, which require a `>` character on each line.
     ///
     /// - SeeAlso: ``linePrefix(for:)``.
-    mutating func addressPendingNewlines(for element: Markup) {
+    mutating func addressPendingNewlines(for element: some Markup) {
         guard state.queuedNewlines > 0 else {
             // Return early to prevent current line length from
             // getting modified below.
@@ -530,7 +530,7 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     /// Address any pending newlines and print raw text while visiting an element.
-    mutating func print<S: StringProtocol>(_ rawText: S, for element: Markup) {
+    mutating func print<S: StringProtocol>(_ rawText: S, for element: some Markup) {
         addressPendingNewlines(for: element)
 
         // If this is the first time we're printing something, we can't
@@ -554,7 +554,7 @@ public struct MarkupFormatter: MarkupWalker {
     ///
     /// If there is no preferred line limit set in the formatting options,
     /// ``print(_:for:)`` as usual without automatic wrapping.
-    mutating func softWrapPrint(_ string: String, for element: InlineMarkup) {
+    mutating func softWrapPrint(_ string: String, for element: some InlineMarkup) {
         guard let lineLimit = formattingOptions.preferredLineLimit else {
             print(string, for: element)
             return
@@ -621,7 +621,7 @@ public struct MarkupFormatter: MarkupWalker {
 
     // MARK: Formatter Walker Methods
 
-    public func defaultVisit(_ markup: Markup) {
+    public func defaultVisit(_ markup: some Markup) {
         fatalError("Formatter not implemented for \(type(of: markup))")
     }
 
@@ -691,14 +691,14 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     mutating public func visitUnorderedList(_ unorderedList: UnorderedList) {
-        if unorderedList.indexInParent > 0 && !(unorderedList.parent?.parent is ListItemContainer) {
+      if unorderedList.indexInParent > 0 && !(unorderedList.parent?.parent is (any ListItemContainer)) {
             ensurePrecedingNewlineCount(atLeast: 2)
         }
         descendInto(unorderedList)
     }
 
     mutating public func visitOrderedList(_ orderedList: OrderedList) {
-        if orderedList.indexInParent > 0 && !(orderedList.parent?.parent is ListItemContainer) {
+      if orderedList.indexInParent > 0 && !(orderedList.parent?.parent is (any ListItemContainer)) {
             ensurePrecedingNewlineCount(atLeast: 2)
         }
         descendInto(orderedList)

@@ -29,7 +29,7 @@ public struct Image: InlineMarkup, InlineContainer {
 
 public extension Image {
     /// Create an image from a source and zero or more child inline elements.
-    init<Children: Sequence>(source: String? = nil, title: String? = nil, _ children: Children) where Children.Element == RecurringInlineMarkup {
+    init(source: String? = nil, title: String? = nil, _ children: some Sequence<any RecurringInlineMarkup>) {
         let titleToUse: String?
         if let t = title, t.isEmpty {
             titleToUse = nil
@@ -48,7 +48,7 @@ public extension Image {
     }
 
     /// Create an image from a source and zero or more child inline elements.
-    init(source: String? = nil, title: String? = nil, _ children: RecurringInlineMarkup...) {
+    init(source: String? = nil, title: String? = nil, _ children: (any RecurringInlineMarkup)...) {
         self.init(source: source, title: title, children)
     }
 

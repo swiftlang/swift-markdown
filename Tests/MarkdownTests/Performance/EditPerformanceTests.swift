@@ -38,7 +38,7 @@ final class EditPerformanceTests: XCTestCase {
         }
 
         let list = buildDeepList()
-        var deepChild: Markup = list
+        var deepChild: any Markup = list
         while let child = deepChild.child(at: 0) {
             deepChild = child
         }

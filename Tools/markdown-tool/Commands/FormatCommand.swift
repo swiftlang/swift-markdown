@@ -139,6 +139,7 @@ extension MarkdownCommand {
             which.waitUntilExit()
 
             guard which.terminationStatus == 0 else { return nil }
+
             let output = String(decoding: standardOutput.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
 
             return output.trimmingCharacters(in: CharacterSet(charactersIn: "\n"))

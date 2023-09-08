@@ -16,7 +16,7 @@ final class MarkupWalkerTests: XCTestCase {
     func testDefaultVisit() {
         struct CountEveryElement: MarkupWalker {
             var count = 0
-            mutating func defaultVisit(_ markup: Markup) {
+            mutating func defaultVisit(_ markup: some Markup) {
                 count += 1
                 descendInto(markup)
             }

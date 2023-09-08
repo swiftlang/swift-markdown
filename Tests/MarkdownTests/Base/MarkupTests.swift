@@ -55,7 +55,7 @@ final class MarkupTests: XCTestCase {
         let document = Document(parsing: source)
 
         struct AssertRangesPresent: MarkupWalker {
-            mutating func defaultVisit(_ markup: Markup) {
+            mutating func defaultVisit(_ markup: some Markup) {
                 XCTAssertNotNil(markup.range)
                 descendInto(markup)
             }
@@ -65,7 +65,7 @@ final class MarkupTests: XCTestCase {
         rangesPresent.visit(document)
 
         struct AssertRangesNotPresent: MarkupWalker {
-            mutating func defaultVisit(_ markup: Markup) {
+            mutating func defaultVisit(_ markup: some Markup) {
                 XCTAssertNil(markup.range)
                 descendInto(markup)
             }

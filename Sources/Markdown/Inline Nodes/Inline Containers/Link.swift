@@ -29,7 +29,7 @@ public struct Link: InlineMarkup, InlineContainer {
 
 public extension Link {
     /// Create a link with a destination and zero or more child inline elements.
-    init<Children: Sequence>(destination: String? = nil, title: String? = nil, _ children: Children) where Children.Element == RecurringInlineMarkup {
+    init(destination: String? = nil, title: String? = nil, _ children: some Sequence<any RecurringInlineMarkup>) {
 
         let destinationToUse: String?
         if let d = destination, d.isEmpty {
@@ -48,7 +48,7 @@ public extension Link {
     }
 
     /// Create a link with a destination and zero or more child inline elements.
-    init(destination: String, _ children: RecurringInlineMarkup...) {
+    init(destination: String, _ children: (any RecurringInlineMarkup)...) {
         self.init(destination: destination, children)
     }
 

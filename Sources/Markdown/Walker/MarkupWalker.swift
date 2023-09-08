@@ -15,12 +15,12 @@ extension MarkupWalker {
     /// Continue walking by descending in the given element.
     /// 
     /// - Parameter markup: the element whose children the walker should visit.
-    public mutating func descendInto(_ markup: Markup) {
+    public mutating func descendInto(_ markup: some Markup) {
         for child in markup.children {
             visit(child)
         }
     }
-    public mutating func defaultVisit(_ markup: Markup) {
+    public mutating func defaultVisit(_ markup: some Markup) {
         descendInto(markup)
     }
 }

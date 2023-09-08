@@ -491,7 +491,7 @@ private enum ParseContainer: CustomStringConvertible {
     /// A Doxygen command, which can contain arbitrary markup (but not block directives).
     case doxygenCommand(PendingDoxygenCommand, [TrimmedLine])
 
-    init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines, options: ParseOptions) where TrimmedLines.Element == TrimmedLine {
+    init(parsingHierarchyFrom trimmedLines: some Sequence<TrimmedLine>, options: ParseOptions) {
         self = ParseContainerStack(parsingHierarchyFrom: trimmedLines, options: options).top
     }
 
@@ -544,7 +544,7 @@ private enum ParseContainer: CustomStringConvertible {
             }
         }
 
-        mutating private func print<Children: Sequence>(children: Children) where Children.Element == ParseContainer {
+        mutating private func print(children: some Sequence<ParseContainer>) {
             queueNewline()
             indent += 4
             for child in children {
@@ -751,7 +751,7 @@ struct ParseContainerStack {
 
     private let options: ParseOptions
 
-    init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines, options: ParseOptions) where TrimmedLines.Element == TrimmedLine {
+    init(parsingHierarchyFrom trimmedLines: some Sequence<TrimmedLine>, options: ParseOptions) {
         self.stack = [.root([])]
         self.options = options
         for line in trimmedLines {

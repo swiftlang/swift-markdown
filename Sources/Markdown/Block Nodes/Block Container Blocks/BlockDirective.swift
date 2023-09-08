@@ -87,9 +87,11 @@ public extension BlockDirective {
     /// - parameter name: The name of the directive.
     /// - parameter argumentText: The text to use when interpreting arguments to the directive.
     /// - parameter children: block child elements.
-    init<Children: Sequence>(name: String,
-                             argumentText: String? = nil,
-                             children: Children) where Children.Element == BlockMarkup {
+    init(
+        name: String,
+        argumentText: String? = nil,
+        children: some Sequence<any BlockMarkup>
+    ) {
         let argumentSegments = argumentText?.split(separator: "\n",
                                                    maxSplits: .max,
                                                    omittingEmptySubsequences: false).map { lineText -> DirectiveArgumentText.LineSegment in
@@ -112,7 +114,7 @@ public extension BlockDirective {
     /// - parameter children: block child elements.
     init(name: String,
          argumentText: String? = nil,
-         children: BlockMarkup...) {
+         children: (any BlockMarkup)...) {
         self.init(name: name, argumentText: argumentText, children: children)
     }
 

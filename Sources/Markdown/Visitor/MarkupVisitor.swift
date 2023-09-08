@@ -25,7 +25,7 @@ public protocol MarkupVisitor {
      - parameter markup: the element to visit.
      - returns: The result of the visit.
      */
-    mutating func defaultVisit(_ markup: Markup) -> Result
+    mutating func defaultVisit(_ markup: some Markup) -> Result
 
     /**
      Visit any kind of `Markup` element and return the result.
@@ -33,7 +33,7 @@ public protocol MarkupVisitor {
      - parameter markup: Any kind of `Markup` element.
      - returns: The result of the visit.
      */
-    mutating func visit(_ markup: Markup) -> Result
+    mutating func visit(_ markup: some Markup) -> Result
 
     /**
      Visit a `BlockQuote` element and return the result.
@@ -296,7 +296,7 @@ extension MarkupVisitor {
     // Default implementation: call `accept` on the markup element,
     // dispatching into each leaf element's implementation, which then
     // dispatches to the correct visit___ method.
-    public mutating func visit(_ markup: Markup) -> Result {
+    public mutating func visit(_ markup: some Markup) -> Result {
         return markup.accept(&self)
     }
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> Result {

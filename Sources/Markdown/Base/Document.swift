@@ -65,7 +65,7 @@ public extension Document {
     }
 
     /// Create a document from a sequence of block markup elements.
-    init<Children: Sequence>(_ children: Children) where Children.Element == BlockMarkup {
+    init(_ children: some Sequence<any BlockMarkup>) {
         try! self.init(.document(parsedRange: nil, children.map { $0.raw.markup }))
     }
 

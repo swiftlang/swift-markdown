@@ -33,7 +33,7 @@ class MarkupRewriterTests: XCTestCase {
     /// Tests that a particular kind of element can be deleted
     func funcTestDeleteEveryOccurrence() {
         struct StrongDeleter: MarkupRewriter {
-            mutating func visitStrong(_ strong: Strong) -> Markup? {
+            mutating func visitStrong(_ strong: Strong) -> (any Markup)? {
                 return nil
             }
         }
@@ -66,7 +66,7 @@ class MarkupRewriterTests: XCTestCase {
     func testSpecificKindRewrittenEverywhere() {
         /// Replaces every `Text` markup element with its uppercased equivalent.
         struct UppercaseText: MarkupRewriter {
-            mutating func visitText(_ text: Text) -> Markup? {
+          mutating func visitText(_ text: Text) -> (any Markup)? {
                 var newText = text
                 newText.string = text.string.uppercased()
                 return newText

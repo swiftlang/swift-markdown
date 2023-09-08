@@ -38,7 +38,7 @@ extension Table {
 
 public extension Table.Body {
     /// Create a table body from a sequence of ``Table/Row`` elements.
-    init<Rows: Sequence>(_ rows: Rows) where Rows.Element == Table.Row {
+    init(_ rows: some Sequence<Table.Row>) {
         try! self.init(RawMarkup.tableBody(parsedRange: nil, rows: rows.map { $0.raw.markup }))
     }
 
@@ -56,12 +56,12 @@ public extension Table.Body {
     }
 
     /// Replace all list items with a sequence of items.
-    mutating func setRows<Rows: Sequence>(_ newRows: Rows) where Rows.Element == Table.Row {
+    mutating func setRows(_ newRows: some Sequence<Table.Row>) {
         replaceRowsInRange(0..<childCount, with: newRows)
     }
 
     /// Replace list items in a range with a sequence of items.
-    mutating func replaceRowsInRange<Rows: Sequence>(_ range: Range<Int>, with incomingRows: Rows) where Rows.Element == Table.Row {
+    mutating func replaceRowsInRange(_ range: Range<Int>, with incomingRows: some Sequence<Table.Row>) {
         var rawChildren = raw.markup.copyChildren()
         rawChildren.replaceSubrange(range, with: incomingRows.map { $0.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)

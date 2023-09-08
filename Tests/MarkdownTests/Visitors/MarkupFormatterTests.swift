@@ -529,7 +529,7 @@ class MarkupFormatterOptionsTests: XCTestCase {
 /// Tests that an printed and reparsed element has the same structure as
 /// the original.
 class MarkupFormatterSimpleRoundTripTests: XCTestCase {
-    func checkRoundTrip(for element: Markup,
+    func checkRoundTrip(for element: some Markup,
                         file: StaticString = #file,
                         line: UInt = #line) {
         let printed = element.format()

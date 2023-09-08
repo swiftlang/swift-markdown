@@ -31,7 +31,7 @@ public extension Heading {
     // MARK: Primitive
 
     /// Create a heading with a level and a sequence of children.
-    init<Children: Sequence>(level: Int, _ children: Children) where Children.Element == InlineMarkup {
+    init(level: Int, _ children: some Sequence<any InlineMarkup>) {
         try! self.init(.heading(level: level, parsedRange: nil, children.map { $0.raw.markup }))
     }
 
@@ -55,7 +55,7 @@ public extension Heading {
     // MARK: Secondary
 
     /// Create a heading with a level and a sequence of children.
-    init(level: Int, _ children: InlineMarkup...) {
+    init(level: Int, _ children: (any InlineMarkup)...) {
         self.init(level: level, children)
     }
 

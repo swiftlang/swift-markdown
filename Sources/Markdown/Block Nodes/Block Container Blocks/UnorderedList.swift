@@ -29,7 +29,7 @@ public struct UnorderedList: ListItemContainer {
 public extension UnorderedList {
     // MARK: ListItemContainer
 
-    init<Items: Sequence>(_ items: Items) where Items.Element == ListItem {
+    init(_ items: some Sequence<ListItem>) {
         try! self.init(.unorderedList(parsedRange: nil, items.map { $0.raw.markup }))
     }
 

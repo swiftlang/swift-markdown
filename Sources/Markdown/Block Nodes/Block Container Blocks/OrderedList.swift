@@ -28,7 +28,7 @@ public struct OrderedList: ListItemContainer, BlockMarkup {
 public extension OrderedList {
     // MARK: ListItemContainer
 
-    init<Items: Sequence>(_ items: Items) where Items.Element == ListItem {
+    init(_ items: some Sequence<ListItem>) {
         try! self.init(.orderedList(parsedRange: nil, items.map { $0.raw.markup }))
     }
 

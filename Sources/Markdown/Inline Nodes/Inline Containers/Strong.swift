@@ -28,7 +28,7 @@ public struct Strong: RecurringInlineMarkup, BasicInlineContainer {
 public extension Strong {
     // MARK: BasicInlineContainer
 
-    init<Children>(_ newChildren: Children) where Children : Sequence, Children.Element == InlineMarkup {
+    init(_ newChildren: some Sequence<any InlineMarkup>)  {
         try! self.init(.strong(parsedRange: nil, newChildren.map { $0.raw.markup }))
     }
 
@@ -36,7 +36,7 @@ public extension Strong {
 
     var plainText: String {
         let childrenPlainText = children.compactMap {
-            return ($0 as? InlineMarkup)?.plainText
+            return ($0 as? any InlineMarkup)?.plainText
         }.joined()
         return "\(childrenPlainText)"
     }

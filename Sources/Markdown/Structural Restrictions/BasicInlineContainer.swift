@@ -11,12 +11,12 @@
 /// A block or inline markup element that can contain only `InlineMarkup` elements and doesn't require any other information.
 public protocol BasicInlineContainer: InlineContainer {
     /// Create this element with a sequence of inline markup elements.
-    init<Children: Sequence>(_ children: Children) where Children.Element == InlineMarkup 
+    init(_ children: some Sequence<any InlineMarkup>)
 }
 
 extension BasicInlineContainer {
     /// Create this element with a sequence of inline markup elements.
-    public init(_ children: InlineMarkup...) {
+    public init(_ children: (any InlineMarkup)...) {
         self.init(children)
     }
 }

@@ -92,7 +92,7 @@ public struct RawMarkupHeader {
 
 final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     enum Error: LocalizedError {
-        case concreteConversionError(from: RawMarkup, to: Markup.Type)
+        case concreteConversionError(from: RawMarkup, to: any Markup.Type)
         var errorDescription: String? {
             switch self {
             case let .concreteConversionError(raw, to: type):
@@ -194,7 +194,7 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
         return RawMarkup.create(data: header.data, parsedRange: newChild.header.parsedRange, children: newChildren)
     }
 
-    func withChildren<Children: Collection>(_ newChildren: Children) -> RawMarkup where Children.Element == RawMarkup {
+    func withChildren(_ newChildren: some Collection<RawMarkup>) -> RawMarkup {
         return .create(data: header.data, parsedRange: header.parsedRange, children: Array(newChildren))
     }
 

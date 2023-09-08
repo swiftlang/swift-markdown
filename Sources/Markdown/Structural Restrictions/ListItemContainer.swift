@@ -11,7 +11,7 @@
 /// A markup element that can contain only `ListItem`s as children and require no other information.
 public protocol ListItemContainer: BlockMarkup {
     /// Create a list from a sequence of items.
-    init<Items: Sequence>(_ items: Items) where  Items.Element == ListItem
+    init(_ items: some Sequence<ListItem>)
 }
 
 // MARK: - Public API
@@ -35,12 +35,12 @@ public extension ListItemContainer {
     }
 
     /// Replace all list items with a sequence of items.
-    mutating func setListItems<Items: Sequence>(_ newItems: Items) where Items.Element == ListItem {
+    mutating func setListItems(_ newItems: some Sequence<ListItem>) {
         replaceItemsInRange(0..<childCount, with: newItems)
     }
 
     /// Replace list items in a range with a sequence of items.
-    mutating func replaceItemsInRange<Items: Sequence>(_ range: Range<Int>, with incomingItems: Items) where Items.Element == ListItem {
+    mutating func replaceItemsInRange(_ range: Range<Int>, with incomingItems: some Sequence<ListItem>){
         var rawChildren = raw.markup.copyChildren()
         rawChildren.replaceSubrange(range, with: incomingItems.map { $0.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)

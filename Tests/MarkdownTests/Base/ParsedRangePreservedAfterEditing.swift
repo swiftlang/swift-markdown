@@ -30,7 +30,7 @@ class ParsedRangePreservedAfterEditingTests: XCTestCase {
         Third element is a paragraph.
         """
         var document = Document(parsing: source)
-        document.setBlockChildren(document.children.map { child -> BlockMarkup in
+        document.setBlockChildren(document.children.map { child -> (any BlockMarkup) in
             guard let existingParagraph = child as? Paragraph else {
                 return Paragraph(Text("Replaced paragraph."))
             }
@@ -62,7 +62,7 @@ class ParsedRangePreservedAfterEditingTests: XCTestCase {
 
         /// Verifies that all elements have a non-nil range.
         struct VerifyAllRangesInPlace: MarkupWalker {
-            mutating func defaultVisit(_ markup: Markup) {
+          mutating func defaultVisit(_ markup: some Markup) {
                 XCTAssertNotNil(markup.range)
             }
         }
@@ -74,7 +74,7 @@ class ParsedRangePreservedAfterEditingTests: XCTestCase {
 
         /// Wraps all ``Text`` elements in ``Emphasis``.
         struct TextReplacer: MarkupRewriter {
-            mutating func visitText(_ text: Text) -> Markup? {
+          mutating func visitText(_ text: Text) -> (any Markup)? {
                 return Emphasis(text)
             }
         }
@@ -95,7 +95,7 @@ class ParsedRangePreservedAfterEditingTests: XCTestCase {
                 descendInto(emphasis)
             }
 
-            mutating func defaultVisit(_ markup: Markup) {
+            mutating func defaultVisit(_ markup: some Markup) {
                 XCTAssertNotNil(markup.range)
                 descendInto(markup)
             }

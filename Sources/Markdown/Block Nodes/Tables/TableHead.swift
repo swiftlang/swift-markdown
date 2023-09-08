@@ -32,7 +32,7 @@ extension Table {
 public extension Table.Head {
     // MARK: TableCellContainer
 
-    init<Cells>(_ cells: Cells) where Cells : Sequence, Cells.Element == Table.Cell {
+    init(_ cells: some Sequence<Table.Cell>) {
         try! self.init(.tableHead(parsedRange: nil, columns: cells.map { $0.raw.markup }))
     }
 

@@ -14,7 +14,7 @@ import XCTest
 /// Checks that each element visited has
 struct CheckAllElementsHaveSourceLocationURL: MarkupWalker {
     let source: URL
-    func defaultVisit(_ markup: Markup) {
+    func defaultVisit(_ markup: some Markup) {
         XCTAssertEqual(source, markup.range?.lowerBound.source)
     }
 }

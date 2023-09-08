@@ -9,7 +9,7 @@
 */
 
 /// A checkbox that can represent an on/off state.
-public enum Checkbox {
+public enum Checkbox: Sendable {
     /// The checkbox is checked, representing an "on", "true", or "incomplete" state.
     case checked
     /// The checkbox is unchecked, representing an "off", "false", or "incomplete" state.
@@ -38,14 +38,14 @@ public extension ListItem {
     /// Create a list item.
     /// - Parameter checkbox: An optional ``Checkbox`` for the list item.
     /// - Parameter children: The child block elements of the list item.
-    init(checkbox: Checkbox? = .none, _ children: BlockMarkup...) {
+    init(checkbox: Checkbox? = .none, _ children: (any BlockMarkup)...) {
         try! self.init(.listItem(checkbox: checkbox, parsedRange: nil, children.map { $0.raw.markup }))
     }
 
     /// Create a list item.
     /// - Parameter checkbox: An optional ``Checkbox`` for the list item.
     /// - Parameter children: The child block elements of the list item.
-    init<Children: Sequence>(checkbox: Checkbox? = .none, _ children: Children) where Children.Element == BlockMarkup {
+    init(checkbox: Checkbox? = .none, _ children: some Sequence<any BlockMarkup>) {
         try! self.init(.listItem(checkbox: checkbox, parsedRange: nil, children.map { $0.raw.markup }))
     }
 

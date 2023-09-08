@@ -15,15 +15,15 @@
 /// cached and calculated on demand.
 public struct MarkupChildren: Sequence {
     public struct Iterator: IteratorProtocol {
-        let parent: Markup
+        let parent: any Markup
         var childMetadata: MarkupMetadata
 
-        init(_ parent: Markup) {
+        init(_ parent: any Markup) {
             self.parent = parent
             self.childMetadata = parent.raw.metadata.firstChild()
         }
 
-        public mutating func next() -> Markup? {
+        public mutating func next() -> (any Markup)? {
             let index = childMetadata.indexInParent
             guard index < parent.childCount else {
                 return nil
@@ -37,12 +37,12 @@ public struct MarkupChildren: Sequence {
     }
 
     /// The parent whose children this sequence represents.
-    let parent: Markup
+    let parent: any Markup
 
     /// Create a lazy sequence of an element's children.
     ///
     /// - parameter parent: the parent whose children this sequence represents.
-    init(_ parent: Markup) {
+    init(_ parent: any Markup) {
         self.parent = parent
     }
 
@@ -69,17 +69,17 @@ public struct ReversedMarkupChildren: Sequence {
         ///
         /// This is also necessary for creating an "absolute" child from
         /// parentless ``RawMarkup``.
-        let parent: Markup
+        let parent: any Markup
 
         /// The metadata to use when creating an absolute child element.
         var childMetadata: MarkupMetadata
 
-        init(_ parent: Markup) {
+        init(_ parent: any Markup) {
             self.parent = parent
             self.childMetadata = parent.raw.metadata.lastChildMetadata(of: parent.raw.markup)
         }
 
-        public mutating func next() -> Markup? {
+        public mutating func next() -> (any Markup)? {
             let index = childMetadata.indexInParent
             guard index >= 0 else {
                 return nil
@@ -93,12 +93,12 @@ public struct ReversedMarkupChildren: Sequence {
     }
 
     /// The parent whose children this sequence represents.
-    let parent: Markup
+    let parent: any Markup
 
     /// Create a reversed view of an element's children.
     ///
     /// - parameter parent: The parent whose children this sequence will represent.
-    init(_ parent: Markup) {
+    init(_ parent: some Markup) {
         self.parent = parent
     }
 

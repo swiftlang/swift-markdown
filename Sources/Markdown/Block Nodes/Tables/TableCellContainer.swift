@@ -13,7 +13,7 @@ public protocol TableCellContainer: Markup, ExpressibleByArrayLiteral {
     /// Create a row from cells.
     ///
     /// - parameter cells: A sequence of ``Table/Cell`` elements from which to make this row.
-    init<Cells: Sequence>(_ cells: Cells) where Cells.Element == Table.Cell
+    init(_ cells: some Sequence<Table.Cell>)
 }
 
 // MARK: - Public API
@@ -47,12 +47,12 @@ public extension TableCellContainer {
     /// Replace all cells with a sequence of cells.
     ///
     /// - parameter newCells: A sequence of ``Table/Cell`` elements that will replace all of the cells in this row.
-    mutating func setCells<Cells: Sequence>(_ newCells: Cells) where Cells.Element == Table.Cell {
+    mutating func setCells(_ newCells: some Sequence<Table.Cell>) {
         replaceCellsInRange(0..<childCount, with: newCells)
     }
 
     /// Replace cells in a range with a sequence of cells.
-    mutating func replaceCellsInRange<Cells: Sequence>(_ range: Range<Int>, with incomingCells: Cells) where Cells.Element == Table.Cell {
+    mutating func replaceCellsInRange(_ range: Range<Int>, with incomingCells: some Sequence<Table.Cell>) {
         var rawChildren = raw.markup.copyChildren()
         rawChildren.replaceSubrange(range, with: incomingCells.map { $0.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
