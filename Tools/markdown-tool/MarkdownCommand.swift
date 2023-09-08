@@ -14,17 +14,6 @@ import Markdown
 
 @main
 struct MarkdownCommand: ParsableCommand {
-    enum Error: LocalizedError {
-        case couldntDecodeInputAsUTF8
-
-        var errorDescription: String? {
-            switch self {
-            case .couldntDecodeInputAsUTF8:
-                return "Couldn't decode input as UTF-8"
-            }
-        }
-    }
-
     static let configuration = CommandConfiguration(commandName: "markdown", shouldDisplay: false, subcommands: [
         DumpTree.self,
         Format.self,
