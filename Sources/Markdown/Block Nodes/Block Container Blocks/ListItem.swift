@@ -9,7 +9,7 @@
 */
 
 /// A checkbox that can represent an on/off state.
-public enum Checkbox {
+public enum Checkbox: Sendable {
     /// The checkbox is checked, representing an "on", "true", or "incomplete" state.
     case checked
     /// The checkbox is unchecked, representing an "off", "false", or "incomplete" state.
