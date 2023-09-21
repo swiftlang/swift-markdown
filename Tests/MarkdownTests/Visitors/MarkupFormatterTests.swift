@@ -711,7 +711,7 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
     func testRoundTripHardBreakWithImage() {
         let source = """
         This is some text.\("  ")
-        ![This is an image.](image.png)
+        ![This is an image.](image.png "")
         """
         checkRoundTrip(for: source)
         checkCharacterEquivalence(for: source)
@@ -720,7 +720,7 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
     func testRoundTripSoftBreakWithImage() {
         let source = """
         This is some text.
-        ![This is an image.](image.png)
+        ![This is an image.](image.png "")
         """
         checkRoundTrip(for: source)
         checkCharacterEquivalence(for: source)
@@ -1394,6 +1394,7 @@ class MarkupFormatterTableTests: XCTestCase {
         """
 
         let document = Document(parsing: source)
+
         let expectedDump = """
         Document
         └─ Table alignments: |l|c|r|
@@ -1413,7 +1414,7 @@ class MarkupFormatterTableTests: XCTestCase {
               │  │  └─ Link destination: "https://apple.com"
               │  │     └─ Text "Apple"
               │  ├─ Cell
-              │  │  └─ Image source: "image.png"
+              │  │  └─ Image source: "image.png" title: ""
               │  │     └─ Text "image"
               │  └─ Cell
               │     └─ Link destination: "https://swift.org"
@@ -1428,14 +1429,17 @@ class MarkupFormatterTableTests: XCTestCase {
 
         let formatted = document.format()
         let expected = """
-        |*A*                       |**B**              |~C~                |
-        |:-------------------------|:-----------------:|------------------:|
-        |[Apple](https://apple.com)|![image](image.png)|<https://swift.org>|
-        |<br/>                                        ||                   |
+        |*A*                       |**B**                 |~C~                |
+        |:-------------------------|:--------------------:|------------------:|
+        |[Apple](https://apple.com)|![image](image.png "")|<https://swift.org>|
+        |<br/>                                           ||                   |
         """
+
         XCTAssertEqual(expected, formatted)
+        print(formatted)
 
         let reparsed = Document(parsing: formatted)
+        print(reparsed.debugDescription())
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
     }
 
