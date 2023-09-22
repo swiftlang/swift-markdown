@@ -29,12 +29,6 @@ let package = Package(
                 .product(name: "cmark-gfm", package: cmarkPackageName),
                 .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
             ]),
-        .executableTarget(
-            name: "markdown-tool",
-            dependencies: [
-                "Markdown",
-                .product(name: "ArgumentParser", package: "swift-argument-parser")
-            ]),
         .testTarget(
             name: "MarkdownTests",
             dependencies: ["Markdown"],
@@ -50,7 +44,6 @@ if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building standalone, so fetch all dependencies remotely.
     package.dependencies += [
         .package(url: "https://github.com/apple/swift-cmark.git", branch: "gfm"),
-        .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
     ]
     
     // SwiftPM command plugins are only supported by Swift version 5.6 and later.
@@ -63,6 +56,5 @@ if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building in the Swift.org CI system, so rely on local versions of dependencies.
     package.dependencies += [
         .package(path: "../cmark"),
-        .package(path: "../swift-argument-parser"),
     ]
 }
