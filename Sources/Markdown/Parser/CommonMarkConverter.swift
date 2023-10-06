@@ -611,9 +611,12 @@ struct MarkupParser {
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
 
-        var cmarkOptions = CMARK_OPT_TABLE_SPANS | CMARK_OPT_SOURCEPOS
+        var cmarkOptions = CMARK_OPT_TABLE_SPANS
         if !options.contains(.disableSmartOpts) {
             cmarkOptions |= CMARK_OPT_SMART
+        }
+        if !options.contains(.disableSourcePosOpts) {
+            cmarkOptions |= CMARK_OPT_SOURCEPOS
         }
         
         let parser = cmark_parser_new(cmarkOptions)
