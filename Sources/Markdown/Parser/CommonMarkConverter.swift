@@ -615,6 +615,9 @@ struct MarkupParser {
         if !options.contains(.disableSmartOpts) {
             cmarkOptions |= CMARK_OPT_SMART
         }
+        if !options.contains(.disableSourcePosOpts) {
+            cmarkOptions |= CMARK_OPT_SOURCEPOS
+        }
         
         let parser = cmark_parser_new(cmarkOptions)
         
