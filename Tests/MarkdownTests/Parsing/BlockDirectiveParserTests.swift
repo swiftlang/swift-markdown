@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -1042,5 +1042,28 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
               └─ Text "Line c This is a single-line comment"
         """
         XCTAssertEqual(expected, documentation.debugDescription())
+    }
+
+    // FIXME: swift-testing macro for specifying the relationship between a bug and a test
+    // Uncomment the following code when we integrate swift-testing
+    // @Test("Directive MultiLine WithoutContent Parsing", .bug("#152", relationship: .verifiesFix))
+    func testDirectiveMultiLineWithoutContentParsing() throws {
+        let source = """
+        @Image(
+          source: "example.png",
+          alt: "Example image"
+        )
+        """
+
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        _ = try XCTUnwrap(document.child(at: 0) as? BlockDirective)
+        let expected = #"""
+        Document @1:1-4:2
+        └─ BlockDirective @1:1-4:2 name: "Image"
+           ├─ Argument text segments:
+           |    @2:1-2:25: "  source: \"example.png\","
+           |    @3:1-3:23: "  alt: \"Example image\""
+        """#
+        XCTAssertEqual(expected, document.debugDescription(options: .printSourceLocations))
     }
 }
