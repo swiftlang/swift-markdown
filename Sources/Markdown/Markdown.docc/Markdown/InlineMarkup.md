@@ -1,4 +1,8 @@
-# Markup Inline Nodes
+# ``InlineMarkup``
+
+@Metadata {
+    @DocumentationExtension(mergeBehavior: append)
+}
 
 ## Topics
 
