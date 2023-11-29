@@ -1,9 +1,5 @@
 # ``BlockMarkup``
 
-@Metadata {
-    @DocumentationExtension(mergeBehavior: append)
-}
-
 ## Topics
 
 ### Block Container Blocks
