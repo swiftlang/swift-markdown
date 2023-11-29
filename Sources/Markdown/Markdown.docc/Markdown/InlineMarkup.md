@@ -1,9 +1,5 @@
 # ``InlineMarkup``
 
-@Metadata {
-    @DocumentationExtension(mergeBehavior: append)
-}
-
 ## Topics
 
 ### Inline Container
