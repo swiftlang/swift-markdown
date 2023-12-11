@@ -95,7 +95,6 @@ public extension BlockDirective {
                                                    omittingEmptySubsequences: false).map { lineText -> DirectiveArgumentText.LineSegment in
                                                     let untrimmedText = String(lineText)
                                                     return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedText,
-                                                                                             lineStartIndex: untrimmedText.startIndex,
                                                                                              range: nil)
                                                    } ?? []
         try! self.init(.blockDirective(name: name,

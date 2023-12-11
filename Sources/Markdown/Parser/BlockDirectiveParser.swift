@@ -732,7 +732,7 @@ private enum ParseContainer: CustomStringConvertible {
                     }
                     let parseIndex = base.utf8.index($0.text.startIndex, offsetBy: -base.utf8.distance(from: base.startIndex, to: lineStartIndex))
                     let untrimmedLine = String(base[lineStartIndex..<$0.text.endIndex])
-                    return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedLine, lineStartIndex: untrimmedLine.startIndex, parseIndex: parseIndex, range: $0.range)
+                    return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedLine, parseIndex: parseIndex, range: $0.range)
                 }),
                 parsedRange: pendingBlockDirective.atLocation..<pendingBlockDirective.endLocation,
                 children)]
