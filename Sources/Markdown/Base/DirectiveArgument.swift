@@ -76,16 +76,6 @@ public struct DirectiveArgumentText: Equatable {
             self.range = range
         }
 
-        /// Returns a Boolean value indicating whether two line segments are equal.
-        /// - Parameter lhs: a line segment to compare
-        /// - Parameter rhs: another line segment to compare
-        /// - Returns: `true` if the two segments are equal.
-        public static func ==(lhs: LineSegment, rhs: LineSegment) -> Bool {
-            return lhs.untrimmedText == rhs.untrimmedText &&
-                lhs.parseIndex == rhs.parseIndex &&
-                lhs.range == rhs.range
-        }
-
         /// Parse a quoted literal.
         ///
         /// ```
