@@ -1061,12 +1061,14 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         ) throws {
             func substring(with range: SourceRange) -> String {
                 let line = content.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)[range.lowerBound.line - 1]
-                return String(line.prefix(range.upperBound.column - 1).dropFirst(range.lowerBound.column - 1))
+                let startIndex = line.utf8.index(line.utf8.startIndex, offsetBy: range.lowerBound.column - 1)
+                let endIndex = line.utf8.index(line.utf8.startIndex, offsetBy: range.upperBound.column - 1)
+                return String(line[startIndex ..< endIndex])
             }
             
             let source = URL(fileURLWithPath: "/test-file-location")
             let document = Document(parsing: content, source: source, options: .parseBlockDirectives)
-            let directive = try XCTUnwrap(document.child(at: 0) as? BlockDirective, file: file, line: line)
+            let directive = try XCTUnwrap(document.children.compactMap({ $0 as? BlockDirective }).first, file: file, line: line)
             let arguments = directive.argumentText.parseNameValueArguments()
             XCTAssertEqual(arguments.count, expectedArguments.count, file: file, line: line)
             for expectedArgument in expectedArguments {
@@ -1198,6 +1200,18 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
                 firstArgument:firstValue ,
               \tsecondArgument: \t secondValue
               )
+            """
+        )
+        
+        // Content and directives with emoji
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 3, name: "firstArgument", nameRange: 20 ..< 33, value: "first💻Value", valueRange: 35 ..< 49),
+            ExpectedArgumentInfo(line: 3, name: "secondArgument", nameRange: 51 ..< 65, value: "secondValue", valueRange: 67 ..< 78),
+            parsing: """
+            Paragraph before with emoji: 💻
+            
+            @Directive💻Name(firstArgument: first💻Value, secondArgument: secondValue)
             """
         )
     }
