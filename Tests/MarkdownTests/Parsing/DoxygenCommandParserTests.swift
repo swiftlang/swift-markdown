@@ -14,6 +14,42 @@ import XCTest
 class DoxygenCommandParserTests: XCTestCase {
     let parseOptions: ParseOptions = [.parseMinimalDoxygen, .parseBlockDirectives]
 
+    func testParseDiscussion() {
+        func assertValidParse(source: String) {
+            let document = Document(parsing: source, options: parseOptions)
+            XCTAssert(document.child(at: 0) is DoxygenDiscussion)
+
+            let expectedDump = """
+            Document
+            └─ DoxygenDiscussion
+               └─ Paragraph
+                  └─ Text "The thing."
+            """
+            XCTAssertEqual(document.debugDescription(), expectedDump)
+        }
+
+        assertValidParse(source: "@discussion The thing.")
+        assertValidParse(source: #"\discussion The thing."#)
+    }
+
+    func testParseNote() {
+        func assertValidParse(source: String) {
+            let document = Document(parsing: source, options: parseOptions)
+            XCTAssert(document.child(at: 0) is DoxygenNote)
+
+            let expectedDump = """
+            Document
+            └─ DoxygenNote
+               └─ Paragraph
+                  └─ Text "The thing."
+            """
+            XCTAssertEqual(document.debugDescription(), expectedDump)
+        }
+
+        assertValidParse(source: "@note The thing.")
+        assertValidParse(source: #"\note The thing."#)
+    }
+
     func testParseParam() throws {
         let source = """
         @param thing The thing.
