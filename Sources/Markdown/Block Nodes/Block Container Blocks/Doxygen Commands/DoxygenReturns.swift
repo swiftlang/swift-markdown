@@ -40,17 +40,15 @@ public struct DoxygenReturns: BlockContainer {
 }
 
 public extension DoxygenReturns {
-    /// Create a new Doxygen parameter definition.
+    /// Create a new Doxygen returns definition.
     ///
-    /// - Parameter name: The name of the parameter being described.
     /// - Parameter children: Block child elements.
     init<Children: Sequence>(children: Children) where Children.Element == BlockMarkup {
         try! self.init(.doxygenReturns(parsedRange: nil, children.map({ $0.raw.markup })))
     }
 
-    /// Create a new Doxygen parameter definition.
+    /// Create a new Doxygen returns definition.
     ///
-    /// - Parameter name: The name of the parameter being described.
     /// - Parameter children: Block child elements.
     init(children: BlockMarkup...) {
         self.init(children: children)
