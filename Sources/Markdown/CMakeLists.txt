@@ -17,6 +17,8 @@ add_library(Markdown
   Base/MarkupData.swift
   Base/PlainTextConvertibleMarkup.swift
   Base/RawMarkup.swift
+  "Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenDiscussion.swift"
+  "Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenNote.swift"
   "Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenParameter.swift"
   "Block Nodes/Block Container Blocks/Doxygen Commands/DoxygenReturns.swift"
   "Block Nodes/Block Container Blocks/BlockDirective.swift"
