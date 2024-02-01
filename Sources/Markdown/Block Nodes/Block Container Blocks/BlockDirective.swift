@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -95,7 +95,6 @@ public extension BlockDirective {
                                                    omittingEmptySubsequences: false).map { lineText -> DirectiveArgumentText.LineSegment in
                                                     let untrimmedText = String(lineText)
                                                     return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedText,
-                                                                                             lineStartIndex: untrimmedText.startIndex,
                                                                                              range: nil)
                                                    } ?? []
         try! self.init(.blockDirective(name: name,
