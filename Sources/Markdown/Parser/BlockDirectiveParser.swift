@@ -224,11 +224,17 @@ struct PendingBlockDirective {
 
 struct PendingDoxygenCommand {
     enum CommandKind {
+        case discussion
+        case note
         case param(name: Substring)
         case returns
 
         var debugDescription: String {
             switch self {
+            case .discussion:
+                return "'discussion'"
+            case .note:
+                return "'note'"
             case .param(name: let name):
                 return "'param' Argument: '\(name)'"
             case .returns:
@@ -745,6 +751,10 @@ private enum ParseContainer: CustomStringConvertible {
             let children = ParseContainer.lineRun(lines, isInCodeFence: false)
                 .convertToRawMarkup(ranges: &ranges, parent: self, options: options)
             switch pendingDoxygenCommand.kind {
+            case .discussion:
+                return [.doxygenDiscussion(parsedRange: range, children)]
+            case .note:
+                return [.doxygenNote(parsedRange: range, children)]
             case .param(let name):
                 return [.doxygenParam(name: String(name), parsedRange: range, children)]
             case .returns:
@@ -873,7 +883,12 @@ struct ParseContainerStack {
         }) else { return nil }
         remainder.lexWhitespace()
 
+        let kind: PendingDoxygenCommand.CommandKind
         switch name.text.lowercased() {
+        case "discussion":
+            kind = .discussion
+        case "note":
+            kind = .note
         case "param":
             guard let paramName = remainder.lex(until: { ch in
                 if ch.isWhitespace {
@@ -883,26 +898,21 @@ struct ParseContainerStack {
                 }
             }) else { return nil }
             remainder.lexWhitespace()
-            var pendingCommand = PendingDoxygenCommand(
-                atLocation: at.range!.lowerBound,
-                atSignIndentation: indent?.text.count ?? 0,
-                nameLocation: name.range!.lowerBound,
-                kind: .param(name: paramName.text),
-                endLocation: name.range!.upperBound)
-            pendingCommand.addLine(remainder)
-            return (pendingCommand, remainder)
+            kind = .param(name: paramName.text)
         case "return", "returns", "result":
-            var pendingCommand = PendingDoxygenCommand(
-                atLocation: at.range!.lowerBound,
-                atSignIndentation: indent?.text.count ?? 0,
-                nameLocation: name.range!.lowerBound,
-                kind: .returns,
-                endLocation: name.range!.upperBound)
-            pendingCommand.addLine(remainder)
-            return (pendingCommand, remainder)
+            kind = .returns
         default:
             return nil
         }
+
+        var pendingCommand = PendingDoxygenCommand(
+            atLocation: at.range!.lowerBound,
+            atSignIndentation: indent?.text.count ?? 0,
+            nameLocation: name.range!.lowerBound,
+            kind: kind,
+            endLocation: name.range!.upperBound)
+        pendingCommand.addLine(remainder)
+        return (pendingCommand, remainder)
     }
 
     /// Accept a trimmed line, opening new block directives as indicated by the source,
