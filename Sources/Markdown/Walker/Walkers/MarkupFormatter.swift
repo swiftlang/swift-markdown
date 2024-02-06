@@ -1169,6 +1169,16 @@ public struct MarkupFormatter: MarkupWalker {
         print(formattingOptions.doxygenCommandPrefix.rawValue + name + " ", for: element)
     }
 
+    public mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) {
+        printDoxygenStart("discussion", for: doxygenDiscussion)
+        descendInto(doxygenDiscussion)
+    }
+
+    public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) {
+        printDoxygenStart("note", for: doxygenNote)
+        descendInto(doxygenNote)
+    }
+
     public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) {
         printDoxygenStart("param", for: doxygenParam)
         print("\(doxygenParam.name) ", for: doxygenParam)
