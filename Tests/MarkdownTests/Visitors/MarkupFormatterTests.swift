@@ -289,6 +289,18 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         XCTAssertEqual(expected, printed)
     }
 
+    func testPrintDoxygenPrefix() {
+        let expectedSlash = #"\discussion Discussion"#
+        let printedSlash = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .backslash))
+        XCTAssertEqual(expectedSlash, printedSlash)
+
+        let expectedAt = "@discussion Discussion"
+        let printedAt = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .at))
+        XCTAssertEqual(expectedAt, printedAt)
+    }
+
     func testPrintDoxygenDiscussion() {
         let expected = #"\discussion Another thing."#
         let printed = DoxygenDiscussion(children: Paragraph(Text("Another thing."))).format()
