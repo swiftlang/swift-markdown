@@ -44,6 +44,8 @@ Doxygen commands are not parsed within code blocks or block directive content.
 
 ### Commands
 
+- ``DoxygenDiscussion``
+- ``DoxygenNote``
 - ``DoxygenParam``
 - ``DoxygenReturns``
 
