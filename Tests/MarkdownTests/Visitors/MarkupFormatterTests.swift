@@ -289,6 +289,44 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         XCTAssertEqual(expected, printed)
     }
 
+    func testPrintDoxygenDiscussion() {
+        let expected = #"\discussion Another thing."#
+        let printed = DoxygenDiscussion(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenDiscussionMultiline() {
+        let expected = #"""
+        \discussion Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenDiscussion(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNote() {
+        let expected = #"\note Another thing."#
+        let printed = DoxygenNote(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNoteMultiline() {
+        let expected = #"""
+        \note Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenNote(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
     func testPrintDoxygenParameter() {
         let expected = #"\param thing The thing."#
         let printed = DoxygenParameter(name: "thing", children: Paragraph(Text("The thing."))).format()
