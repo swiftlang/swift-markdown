@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -286,6 +286,56 @@ class MarkupFormatterSingleElementTests: XCTestCase {
     func testPrintSymbolLink() {
         let expected = "``foo()``"
         let printed = SymbolLink(destination: "foo()").format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenPrefix() {
+        let expectedSlash = #"\discussion Discussion"#
+        let printedSlash = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .backslash))
+        XCTAssertEqual(expectedSlash, printedSlash)
+
+        let expectedAt = "@discussion Discussion"
+        let printedAt = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .at))
+        XCTAssertEqual(expectedAt, printedAt)
+    }
+
+    func testPrintDoxygenDiscussion() {
+        let expected = #"\discussion Another thing."#
+        let printed = DoxygenDiscussion(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenDiscussionMultiline() {
+        let expected = #"""
+        \discussion Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenDiscussion(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNote() {
+        let expected = #"\note Another thing."#
+        let printed = DoxygenNote(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNoteMultiline() {
+        let expected = #"""
+        \note Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenNote(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
         XCTAssertEqual(expected, printed)
     }
 
