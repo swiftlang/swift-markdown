@@ -1165,15 +1165,19 @@ public struct MarkupFormatter: MarkupWalker {
         }
     }
 
-    public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> () {
-        print("\(formattingOptions.doxygenCommandPrefix.rawValue)param", for: doxygenParam)
-        print(" \(doxygenParam.name) ", for: doxygenParam)
+    private mutating func printDoxygenStart(_ name: String, for element: Markup) {
+        print(formattingOptions.doxygenCommandPrefix.rawValue + name + " ", for: element)
+    }
+
+    public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) {
+        printDoxygenStart("param", for: doxygenParam)
+        print("\(doxygenParam.name) ", for: doxygenParam)
         descendInto(doxygenParam)
     }
 
-    public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) -> () {
+    public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) {
         // FIXME: store the actual command name used in the original markup
-        print("\(formattingOptions.doxygenCommandPrefix.rawValue)returns ", for: doxygenReturns)
+        printDoxygenStart("returns", for: doxygenReturns)
         descendInto(doxygenReturns)
     }
 }
