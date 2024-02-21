@@ -28,7 +28,8 @@ let package = Package(
                 "CAtomic",
                 .product(name: "cmark-gfm", package: cmarkPackageName),
                 .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
-            ], exclude: [
+            ], 
+            exclude: [
                 "CMakeLists.txt"
             ]),
         .testTarget(
