@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -29,7 +29,7 @@ final class MarkupTreeDumperTests: XCTestCase {
         │  ├─ Link @3:39-3:50 #12 destination: "foo"
         │  │  └─ Text @3:40-3:44 #13 "link"
         │  ├─ Text @3:50-3:51 #14 " "
-        │  ├─ Image @3:51-3:64 #15 source: "foo" title: ""
+        │  ├─ Image @3:51-3:64 #15 source: "foo"
         │  │  └─ Text @3:53-3:58 #16 "image"
         │  └─ Text @3:64-3:65 #17 "."
         ├─ UnorderedList @5:1-9:1 #18

@@ -36,7 +36,7 @@ class BacktickTests: XCTestCase {
         XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
     }
 
-    func testOpenBackticks(){
+    func testOpenBackticks() {
         let double = "``"
         let document = Document(parsing: double)
         let expectedDump = """

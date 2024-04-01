@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -54,6 +54,7 @@ fileprivate enum CommonMarkNodeType: String {
     case strong
     case link
     case image
+    case inlineAttributes = "attribute"
     case none = "NONE"
     case unknown = "<unknown>"
 
@@ -229,6 +230,8 @@ struct MarkupParser {
             return convertTableRow(state)
         case .tableCell:
             return convertTableCell(state)
+        case .inlineAttributes:
+            return convertInlineAttributes(state)
         default:
             fatalError("Unknown cmark node type '\(state.nodeType.rawValue)' encountered during conversion")
         }
@@ -449,9 +452,18 @@ struct MarkupParser {
         let parsedRange = state.range(state.node)
         let childConversion = convertChildren(state)
         let destination = String(cString: cmark_node_get_url(state.node))
+        let title = String(cString: cmark_node_get_title(state.node))
         precondition(childConversion.state.node == state.node)
         precondition(childConversion.state.event == CMARK_EVENT_EXIT)
-        return MarkupConversion(state: childConversion.state.next(), result: .link(destination: destination, parsedRange: parsedRange, childConversion.result))
+        return MarkupConversion(
+            state: childConversion.state.next(),
+            result: .link(
+                destination: destination.isEmpty ? nil : destination,
+                title: title.isEmpty ? nil : title,
+                parsedRange: parsedRange,
+                childConversion.result
+            )
+        )
     }
 
     private static func convertImage(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
@@ -459,11 +471,18 @@ struct MarkupParser {
         precondition(state.nodeType == .image)
         let parsedRange = state.range(state.node)
         let childConversion = convertChildren(state)
-        let destination = String(cString: cmark_node_get_url(state.node))
+        let source = String(cString: cmark_node_get_url(state.node))
         let title = String(cString: cmark_node_get_title(state.node))
         precondition(childConversion.state.node == state.node)
         precondition(childConversion.state.event == CMARK_EVENT_EXIT)
-        return MarkupConversion(state: childConversion.state.next(), result: .image(source: destination, title: title, parsedRange: parsedRange, childConversion.result))
+        return MarkupConversion(
+            state: childConversion.state.next(),
+            result: .image(
+                source: source.isEmpty ? nil : source,
+                title: title.isEmpty ? nil : title,
+                parsedRange: parsedRange, childConversion.result
+            )
+        )
     }
 
     private static func convertStrikethrough(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
@@ -578,12 +597,26 @@ struct MarkupParser {
         return MarkupConversion(state: childConversion.state.next(), result: .tableCell(parsedRange: parsedRange, colspan: colspan, rowspan: rowspan, childConversion.result))
     }
 
+    private static func convertInlineAttributes(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .inlineAttributes)
+        let parsedRange = state.range(state.node)
+        let childConversion = convertChildren(state)
+        let attributes = String(cString: cmark_node_get_attributes(state.node))
+        precondition(childConversion.state.node == state.node)
+        precondition(childConversion.state.event == CMARK_EVENT_EXIT)
+        return MarkupConversion(state: childConversion.state.next(), result: .inlineAttributes(attributes: attributes, parsedRange: parsedRange, childConversion.result))
+     }
+
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
 
         var cmarkOptions = CMARK_OPT_TABLE_SPANS
         if !options.contains(.disableSmartOpts) {
             cmarkOptions |= CMARK_OPT_SMART
+        }
+        if !options.contains(.disableSourcePosOpts) {
+            cmarkOptions |= CMARK_OPT_SOURCEPOS
         }
         
         let parser = cmark_parser_new(cmarkOptions)

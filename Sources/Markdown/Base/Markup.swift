@@ -69,6 +69,16 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return Table.Cell(data)
     case .symbolLink:
         return SymbolLink(data)
+    case .inlineAttributes:
+        return InlineAttributes(data)
+    case .doxygenDiscussion:
+        return DoxygenDiscussion(data)
+    case .doxygenNote:
+        return DoxygenNote(data)
+    case .doxygenParam:
+        return DoxygenParameter(data)
+    case .doxygenReturns:
+        return DoxygenReturns(data)
     }
 }
 
@@ -259,7 +269,7 @@ extension Markup {
     public func child(through path: TypedChildIndexPath) -> Markup? {
         var element: Markup = self
         for pathElement in path {
-            guard pathElement.index <= raw.markup.childCount else {
+            guard pathElement.index <= element.childCount else {
                 return nil
             }
 

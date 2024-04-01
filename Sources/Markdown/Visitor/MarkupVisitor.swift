@@ -266,6 +266,46 @@ public protocol MarkupVisitor {
      - returns: The result of the visit.
      */
     mutating func visitSymbolLink(_ symbolLink: SymbolLink) -> Result
+
+    /**
+    Visit an `InlineAttributes` element and return the result.
+
+    - parameter attribute: An `InlineAttributes` element.
+    - returns: The result of the visit.
+     */
+     mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> Result
+
+    /**
+     Visit a `DoxygenDiscussion` element and return the result.
+
+     - parameter doxygenDiscussion: A `DoxygenDiscussion` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) -> Result
+
+    /**
+     Visit a `DoxygenNote` element and return the result.
+
+     - parameter doxygenNote: A `DoxygenNote` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) -> Result
+
+    /**
+     Visit a `DoxygenParam` element and return the result.
+
+     - parameter doxygenParam: A `DoxygenParam` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> Result
+
+    /**
+     Visit a `DoxygenReturns` element and return the result.
+
+     - parameter doxygenReturns: A `DoxygenReturns` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) -> Result
 }
 
 extension MarkupVisitor {
@@ -361,5 +401,20 @@ extension MarkupVisitor {
     }
     public mutating func visitSymbolLink(_ symbolLink: SymbolLink) -> Result {
         return defaultVisit(symbolLink)
+    }
+    public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> Result {
+        return defaultVisit(attributes)
+    }
+    public mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) -> Result {
+        return defaultVisit(doxygenDiscussion)
+    }
+    public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) -> Result {
+        return defaultVisit(doxygenNote)
+    }
+    public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> Result {
+        return defaultVisit(doxygenParam)
+    }
+    public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) -> Result {
+        return defaultVisit(doxygenReturns)
     }
 }

@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -288,6 +288,94 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         let printed = SymbolLink(destination: "foo()").format()
         XCTAssertEqual(expected, printed)
     }
+
+    func testPrintDoxygenPrefix() {
+        let expectedSlash = #"\discussion Discussion"#
+        let printedSlash = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .backslash))
+        XCTAssertEqual(expectedSlash, printedSlash)
+
+        let expectedAt = "@discussion Discussion"
+        let printedAt = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .at))
+        XCTAssertEqual(expectedAt, printedAt)
+    }
+
+    func testPrintDoxygenDiscussion() {
+        let expected = #"\discussion Another thing."#
+        let printed = DoxygenDiscussion(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenDiscussionMultiline() {
+        let expected = #"""
+        \discussion Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenDiscussion(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNote() {
+        let expected = #"\note Another thing."#
+        let printed = DoxygenNote(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNoteMultiline() {
+        let expected = #"""
+        \note Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenNote(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenParameter() {
+        let expected = #"\param thing The thing."#
+        let printed = DoxygenParameter(name: "thing", children: Paragraph(Text("The thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenParameterMultiline() {
+        let expected = #"""
+        \param thing The thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenParameter(name: "thing", children: Paragraph(
+            Text("The thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenReturns() {
+        let expected = #"\returns Another thing."#
+        let printed = DoxygenReturns(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenReturnsMultiline() {
+        let expected = #"""
+        \returns Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenReturns(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
 }
 
 /// Tests that formatting options work correctly.
@@ -469,6 +557,23 @@ class MarkupFormatterOptionsTests: XCTestCase {
             XCTAssertEqual(incrementing, printed)
         }
     }
+
+    func testDoxygenCommandPrefix() {
+        let backslash = #"\param thing The thing."#
+        let at = "@param thing The thing."
+
+        do {
+            let document = Document(parsing: backslash, options: [.parseMinimalDoxygen, .parseBlockDirectives])
+            let printed = document.format(options: .init(doxygenCommandPrefix: .at))
+            XCTAssertEqual(at, printed)
+        }
+
+        do {
+            let document = Document(parsing: at, options: [.parseMinimalDoxygen, .parseBlockDirectives])
+            let printed = document.format(options: .init(doxygenCommandPrefix: .backslash))
+            XCTAssertEqual(backslash, printed)
+        }
+    }
 }
 
 /// Tests that an printed and reparsed element has the same structure as
@@ -635,6 +740,78 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         checkCharacterEquivalence(for: source)
     }
 
+    func testRoundTripHardBreakWithInlineCode() {
+        let source = """
+        This is some text.\("  ")
+        `This is some code.`
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithInlineCode() {
+        let source = """
+        This is some text.
+        `This is some code.`
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithImage() {
+        let source = """
+        This is some text.\("  ")
+        ![This is an image.](image.png)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithImage() {
+        let source = """
+        This is some text.
+        ![This is an image.](image.png)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithLink() {
+        let source = """
+        This is some text.\("  ")
+        [This is a link.](https://swift.org)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithLink() {
+        let source = """
+        This is some text.
+        [This is a link.](https://swift.org)
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripHardBreakWithInlineAttribute() {
+        let source = """
+        This is some text.\("  ")
+        ^[This is some attributed text.](rainbow: 'extreme')
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
+    func testRoundTripSoftBreakWithInlineAttribute() {
+        let source = """
+        This is some text.
+        ^[This is some attributed text.](rainbow: 'extreme')
+        """
+        checkRoundTrip(for: source)
+        checkCharacterEquivalence(for: source)
+    }
+
     /// Why not?
     func testRoundTripReadMe() throws {
         let readMeURL = URL(fileURLWithPath: #file)
@@ -646,7 +823,8 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         let document = try Document(parsing: readMeURL)
 //        try document.format().write(toFile: "/tmp/test.md", atomically: true, encoding: .utf8)
         checkRoundTrip(for: document)
-    }}
+    }
+}
 
 /**
  Test enforcement of a preferred maximum line length.
@@ -1266,7 +1444,6 @@ class MarkupFormatterTableTests: XCTestCase {
         """
 
         let document = Document(parsing: source)
-
         let expectedDump = """
         Document
         └─ Table alignments: |l|c|r|
@@ -1286,7 +1463,7 @@ class MarkupFormatterTableTests: XCTestCase {
               │  │  └─ Link destination: "https://apple.com"
               │  │     └─ Text "Apple"
               │  ├─ Cell
-              │  │  └─ Image source: "image.png" title: ""
+              │  │  └─ Image source: "image.png"
               │  │     └─ Text "image"
               │  └─ Cell
               │     └─ Link destination: "https://swift.org"
@@ -1301,17 +1478,14 @@ class MarkupFormatterTableTests: XCTestCase {
 
         let formatted = document.format()
         let expected = """
-        |*A*                       |**B**                 |~C~                |
-        |:-------------------------|:--------------------:|------------------:|
-        |[Apple](https://apple.com)|![image](image.png "")|<https://swift.org>|
-        |<br/>                                           ||                   |
+        |*A*                       |**B**              |~C~                |
+        |:-------------------------|:-----------------:|------------------:|
+        |[Apple](https://apple.com)|![image](image.png)|<https://swift.org>|
+        |<br/>                                        ||                   |
         """
-
         XCTAssertEqual(expected, formatted)
-        print(formatted)
 
         let reparsed = Document(parsing: formatted)
-        print(reparsed.debugDescription())
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
     }
 

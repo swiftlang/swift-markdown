@@ -138,10 +138,8 @@ extension MarkdownCommand {
             }
             which.waitUntilExit()
 
-            guard which.terminationStatus == 0,
-                let output = String(data: standardOutput.fileHandleForReading.readDataToEndOfFile(), encoding: .utf8) else {
-                    return nil
-            }
+            guard which.terminationStatus == 0 else { return nil }
+            let output = String(decoding: standardOutput.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
 
             return output.trimmingCharacters(in: CharacterSet(charactersIn: "\n"))
         }
@@ -209,7 +207,7 @@ extension MarkdownCommand {
             }
 
             guard let unorderedListMarker = MarkupFormatter.Options.UnorderedListMarker(argument: unorderedListMarker) else {
-                throw ArgumentParser.ValidationError("The value '\(self.emphasisMarker)' is invalid for '--unordered-list-marker'")
+                throw ArgumentParser.ValidationError("The value '\(self.unorderedListMarker)' is invalid for '--unordered-list-marker'")
             }
 
             let orderedListNumerals: MarkupFormatter.Options.OrderedListNumerals

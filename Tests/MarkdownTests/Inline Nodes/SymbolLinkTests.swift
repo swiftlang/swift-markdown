@@ -46,4 +46,19 @@ class SymbolLinkTests: XCTestCase {
             XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
         }
     }
+
+    func testMultilineSymbolLink() {
+        let source = """
+        Test of a ``multi
+        line symbolink``
+        """
+        let document = Document(parsing: source, options: .parseSymbolLinks)
+        let expectedDump = """
+            Document @1:1-2:17
+            └─ Paragraph @1:1-2:17
+               ├─ Text @1:1-1:11 "Test of a "
+               └─ SymbolLink @1:11-2:17 destination: multi line symbolink
+            """
+        XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
+    }
 }

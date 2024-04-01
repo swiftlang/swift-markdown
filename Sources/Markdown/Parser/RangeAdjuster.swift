@@ -19,7 +19,7 @@ struct RangeAdjuster: MarkupWalker {
 
     /// An array of whitespace spans that were removed for each line, indexed
     /// by line number. `nil` means that no whitespace was removed on that line.
-    var trimmedIndentationPerLine: [TrimmedLine.Lex?]
+    var trimmedIndentationPerLine: [Int]
 
     mutating func defaultVisit(_ markup: Markup) {
         /// This should only be used in the parser where ranges are guaranteed
@@ -27,10 +27,10 @@ struct RangeAdjuster: MarkupWalker {
         let adjustedRange = markup.range.map { range -> SourceRange in
             // Add back the offset to the column as if the indentation weren't stripped.
             let start = SourceLocation(line: startLine + range.lowerBound.line - 1,
-                                       column: range.lowerBound.column + (trimmedIndentationPerLine[range.lowerBound.line - 1]?.text.count ?? 0),
+                                       column: range.lowerBound.column + (trimmedIndentationPerLine[range.lowerBound.line - 1] ),
                                        source: range.lowerBound.source)
             let end = SourceLocation(line: startLine + range.upperBound.line - 1,
-                                     column: range.upperBound.column + (trimmedIndentationPerLine[range.upperBound.line - 1]?.text.count ?? 0),
+                                     column: range.upperBound.column + (trimmedIndentationPerLine[range.upperBound.line - 1]),
                                      source: range.upperBound.source)
             return start..<end
         }

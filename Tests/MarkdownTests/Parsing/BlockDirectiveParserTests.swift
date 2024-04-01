@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -981,5 +981,261 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
            └─ Text @6:1-6:6 "Hello"
         """#
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSingleLineDirectiveWithTrailingWhitespace() {
+        let source = """
+        @blah { content }\(" ")
+        @blah {
+            content
+        }
+        """
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+        
+        let expectedDump = #"""
+        Document @1:1-4:2
+        ├─ BlockDirective @1:1-1:19 name: "blah"
+        │  └─ Paragraph @1:9-1:17
+        │     └─ Text @1:9-1:16 "content"
+        └─ BlockDirective @2:1-4:2 name: "blah"
+           └─ Paragraph @3:5-3:12
+              └─ Text @3:5-3:12 "content"
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSingleLineDirectiveWithTrailingContent() {
+        let source = """
+        @blah { content }
+        content
+        """
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+        let expectedDump = #"""
+        Document @1:1-2:8
+        ├─ BlockDirective @1:1-1:18 name: "blah"
+        │  └─ Paragraph @1:9-1:16
+        │     └─ Text @1:9-1:16 "content"
+        └─ Paragraph @2:1-2:8
+           └─ Text @2:1-2:8 "content"
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+    
+    func testParsingTreeDumpFollowedByDirective() {
+        let source = """
+        Document
+        ├─ Heading level: 1
+        │  └─ Text "Title"
+        @Comment { Line c This is a single-line comment }
+        """
+        let documentation = Document(parsing: source, options: .parseBlockDirectives)
+        let expected = """
+        Document
+        ├─ Paragraph
+        │  ├─ Text "Document"
+        │  ├─ SoftBreak
+        │  ├─ Text "├─ Heading level: 1"
+        │  ├─ SoftBreak
+        │  └─ Text "│  └─ Text “Title”"
+        └─ BlockDirective name: "Comment"
+           └─ Paragraph
+              └─ Text "Line c This is a single-line comment"
+        """
+        XCTAssertEqual(expected, documentation.debugDescription())
+    }
+    
+    func testParsingDirectiveArgumentsWithWhitespaceBeforeDirective() throws {
+        struct ExpectedArgumentInfo {
+            var line: Int
+            let name: String
+            var nameRange: Range<Int>
+            let value: String
+            var valueRange: Range<Int>
+        }
+        
+        func assertDirectiveArguments(
+            _ expectedArguments: ExpectedArgumentInfo...,
+            parsing content: String,
+            file: StaticString = #file,
+            line: UInt = #line
+        ) throws {
+            func substring(with range: SourceRange) -> String {
+                let line = content.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)[range.lowerBound.line - 1]
+                let startIndex = line.utf8.index(line.utf8.startIndex, offsetBy: range.lowerBound.column - 1)
+                let endIndex = line.utf8.index(line.utf8.startIndex, offsetBy: range.upperBound.column - 1)
+                return String(line[startIndex ..< endIndex])
+            }
+            
+            let source = URL(fileURLWithPath: "/test-file-location")
+            let document = Document(parsing: content, source: source, options: .parseBlockDirectives)
+            let directive = try XCTUnwrap(document.children.compactMap({ $0 as? BlockDirective }).first, file: file, line: line)
+            let arguments = directive.argumentText.parseNameValueArguments()
+            XCTAssertEqual(arguments.count, expectedArguments.count, file: file, line: line)
+            for expectedArgument in expectedArguments {
+                let argument = try XCTUnwrap(arguments[expectedArgument.name], file: file, line: line)
+                
+                XCTAssertEqual(expectedArgument.name, argument.name, file: file, line: line)
+                XCTAssertEqual(
+                    argument.nameRange,
+                    SourceLocation(line: expectedArgument.line, column: expectedArgument.nameRange.lowerBound, source: source) ..< SourceLocation(line: expectedArgument.line, column: expectedArgument.nameRange.upperBound, source: source),
+                    file: file, 
+                    line: line
+                )
+                XCTAssertEqual(expectedArgument.name, argument.nameRange.map(substring(with:)), file: file, line: line)
+                
+                XCTAssertEqual(expectedArgument.value, argument.value, file: file, line: line)
+                XCTAssertEqual(
+                    argument.valueRange,
+                    SourceLocation(line: expectedArgument.line, column: expectedArgument.valueRange.lowerBound, source: source) ..< SourceLocation(line: expectedArgument.line, column: expectedArgument.valueRange.upperBound, source: source),
+                    file: file, 
+                    line: line
+                )
+                XCTAssertEqual(expectedArgument.value, argument.valueRange.map(substring(with:)), file: file, line: line)
+            }
+        }
+        
+        // One argument
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 1, name: "firstArgument", nameRange: 16 ..< 29, value: "firstValue", valueRange: 31 ..< 41),
+            parsing: "@DirectiveName(firstArgument: firstValue)"
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 2, name: "firstArgument", nameRange: 16 ..< 29, value: "firstValue", valueRange: 31 ..< 41),
+            parsing: """
+            
+            @DirectiveName(firstArgument: firstValue)
+            """
+        )
+        
+        // Argument on single line
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 1, name: "firstArgument", nameRange: 17 ..< 30, value: "firstValue", valueRange: 31 ..< 41),
+            ExpectedArgumentInfo(line: 1, name: "secondArgument", nameRange: 44 ..< 58, value: "secondValue", valueRange: 62 ..< 73),
+            parsing: "@DirectiveName( firstArgument:firstValue ,\tsecondArgument: \t secondValue)"
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 2, name: "firstArgument", nameRange: 17 ..< 30, value: "firstValue", valueRange: 31 ..< 41),
+            ExpectedArgumentInfo(line: 2, name: "secondArgument", nameRange: 44 ..< 58, value: "secondValue", valueRange: 62 ..< 73),
+            parsing: """
+
+            @DirectiveName( firstArgument:firstValue ,\tsecondArgument: \t secondValue)
+            """
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 2, name: "firstArgument", nameRange: 19 ..< 32, value: "firstValue", valueRange: 33 ..< 43),
+            ExpectedArgumentInfo(line: 2, name: "secondArgument", nameRange: 46 ..< 60, value: "secondValue", valueRange: 64 ..< 75),
+            parsing: """
+
+              @DirectiveName( firstArgument:firstValue ,\tsecondArgument: \t secondValue)
+            """
+        )
+        
+        // Second argument on new line
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 1, name: "firstArgument", nameRange: 17 ..< 30, value: "firstValue", valueRange: 31 ..< 41),
+            ExpectedArgumentInfo(line: 2, name: "secondArgument", nameRange: 16 ..< 30, value: "secondValue", valueRange: 34 ..< 45),
+            parsing: """
+            @DirectiveName( firstArgument:firstValue ,
+                           secondArgument: \t secondValue)
+            """
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 2, name: "firstArgument", nameRange: 17 ..< 30, value: "firstValue", valueRange: 31 ..< 41),
+            ExpectedArgumentInfo(line: 3, name: "secondArgument", nameRange: 16 ..< 30, value: "secondValue", valueRange: 34 ..< 45),
+            parsing: """
+
+            @DirectiveName( firstArgument:firstValue ,
+                           secondArgument: \t secondValue)
+            """
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 2, name: "firstArgument", nameRange: 19 ..< 32, value: "firstValue", valueRange: 33 ..< 43),
+            ExpectedArgumentInfo(line: 3, name: "secondArgument", nameRange: 18 ..< 32, value: "secondValue", valueRange: 36 ..< 47),
+            parsing: """
+
+              @DirectiveName( firstArgument:firstValue ,
+                             secondArgument: \t secondValue)
+            """
+        )
+        
+        // Arguments on separate lines
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 2, name: "firstArgument", nameRange: 3 ..< 16, value: "firstValue", valueRange: 17 ..< 27),
+            ExpectedArgumentInfo(line: 3, name: "secondArgument", nameRange: 2 ..< 16, value: "secondValue", valueRange: 20 ..< 31),
+            parsing: """
+            @DirectiveName(
+              firstArgument:firstValue ,
+            \tsecondArgument: \t secondValue
+            )
+            """
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 3, name: "firstArgument", nameRange: 3 ..< 16, value: "firstValue", valueRange: 17 ..< 27),
+            ExpectedArgumentInfo(line: 4, name: "secondArgument", nameRange: 2 ..< 16, value: "secondValue", valueRange: 20 ..< 31),
+            parsing: """
+            
+            @DirectiveName(
+              firstArgument:firstValue ,
+            \tsecondArgument: \t secondValue
+            )
+            """
+        )
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 3, name: "firstArgument", nameRange: 5 ..< 18, value: "firstValue", valueRange: 19 ..< 29),
+            ExpectedArgumentInfo(line: 4, name: "secondArgument", nameRange: 4 ..< 18, value: "secondValue", valueRange: 22 ..< 33),
+            parsing: """
+            
+              @DirectiveName(
+                firstArgument:firstValue ,
+              \tsecondArgument: \t secondValue
+              )
+            """
+        )
+        
+        // Content and directives with emoji
+        
+        try assertDirectiveArguments(
+            ExpectedArgumentInfo(line: 3, name: "firstArgument", nameRange: 20 ..< 33, value: "first💻Value", valueRange: 35 ..< 49),
+            ExpectedArgumentInfo(line: 3, name: "secondArgument", nameRange: 51 ..< 65, value: "secondValue", valueRange: 67 ..< 78),
+            parsing: """
+            Paragraph before with emoji: 💻
+            
+            @Directive💻Name(firstArgument: first💻Value, secondArgument: secondValue)
+            """
+        )
+    }
+
+    // FIXME: swift-testing macro for specifying the relationship between a bug and a test
+    // Uncomment the following code when we integrate swift-testing
+    // @Test("Directive MultiLine WithoutContent Parsing", .bug("#152", relationship: .verifiesFix))
+    func testDirectiveMultiLineWithoutContentParsing() throws {
+        let source = """
+        @Image(
+          source: "example.png",
+          alt: "Example image"
+        )
+        """
+
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        _ = try XCTUnwrap(document.child(at: 0) as? BlockDirective)
+        let expected = #"""
+        Document @1:1-4:2
+        └─ BlockDirective @1:1-4:2 name: "Image"
+           ├─ Argument text segments:
+           |    @2:1-2:25: "  source: \"example.png\","
+           |    @3:1-3:23: "  alt: \"Example image\""
+        """#
+        XCTAssertEqual(expected, document.debugDescription(options: .printSourceLocations))
     }
 }
