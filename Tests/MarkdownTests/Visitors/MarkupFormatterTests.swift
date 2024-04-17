@@ -376,6 +376,18 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         )).format()
         XCTAssertEqual(expected, printed)
     }
+
+    func testPrintBlockDirective() {
+        let expected = #"""
+        @Metadata {
+            @TitleHeading(Example)
+        }
+        """#
+        let printed = BlockDirective(name: "Metadata", children: [
+            BlockDirective(name: "TitleHeading", argumentText: "Example"),
+        ]).format()
+        XCTAssertEqual(expected, printed)
+    }
 }
 
 /// Tests that formatting options work correctly.
