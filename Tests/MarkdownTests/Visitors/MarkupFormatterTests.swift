@@ -1545,10 +1545,8 @@ class MarkupFormatterTableTests: XCTestCase {
         """
 
         XCTAssertEqual(expected, formatted)
-        print(formatted)
 
         let reparsed = Document(parsing: formatted)
-        print(reparsed.debugDescription())
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
     }
 }
