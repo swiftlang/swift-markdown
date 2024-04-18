@@ -1570,6 +1570,14 @@ class MarkupFormatterMixedContentTests: XCTestCase {
                 }
             }
             """#,
+            #"""
+            # Example title
+
+            @Links(visualStyle: list) {
+                - ``Foo``
+                - ``Bar``
+            }
+            """#,
         ]
         let printed = [
             Document(
@@ -1583,6 +1591,15 @@ class MarkupFormatterMixedContentTests: XCTestCase {
                     BlockDirective(name: "Intro", argumentText: "title: Bar", children: [
                         Paragraph(Text("Foobar")) as BlockMarkup,
                         BlockDirective(name: "Image", argumentText: "source: foo, alt: bar") as BlockMarkup,
+                    ]),
+                ])
+            ).format(),
+            Document(
+                Heading(level: 1, Text("Example title")),
+                BlockDirective(name: "Links", argumentText: "visualStyle: list", children: [
+                    UnorderedList([
+                        ListItem(Paragraph(SymbolLink(destination: "Foo"))),
+                        ListItem(Paragraph(SymbolLink(destination: "Bar"))),
                     ]),
                 ])
             ).format(),

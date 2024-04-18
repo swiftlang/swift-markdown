@@ -463,7 +463,8 @@ public struct MarkupFormatter: MarkupWalker {
                 } else if let numeralPrefix = numeralPrefix(for: parentListItem) {
                     prefix += String(repeating: " ", count: numeralPrefix.count)
                 }
-            } else if element.parent is BlockDirective {
+            }
+            if element.parent is BlockDirective {
                 prefix += "    "
             }
         }
