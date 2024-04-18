@@ -1553,19 +1553,40 @@ class MarkupFormatterTableTests: XCTestCase {
 
 class MarkupFormatterMixedContentTests: XCTestCase {
     func testMixedContentWithBlockDirectives() {
-        let expected = #"""
-        # Example title
+        let expected = [
+            #"""
+            # Example title
 
-        @Metadata {
-            @TitleHeading(example)
-        }
-        """#
-        let printed = Document(
-            Heading(level: 1, Text("Example title")),
-            BlockDirective(name: "Metadata", children: [
-                BlockDirective(name: "TitleHeading", argumentText: "example"),
-            ])
-        ).format()
-        XCTAssertEqual(expected, printed)
+            @Metadata {
+                @TitleHeading(example)
+            }
+            """#,
+            #"""
+            @Tutorials(name: Foo) {
+                @Intro(title: Bar) {
+                    Foobar
+                    
+                    @Image(source: foo, alt: bar)
+                }
+            }
+            """#,
+        ]
+        let printed = [
+            Document(
+                Heading(level: 1, Text("Example title")),
+                BlockDirective(name: "Metadata", children: [
+                    BlockDirective(name: "TitleHeading", argumentText: "example"),
+                ])
+            ).format(),
+            Document(
+                BlockDirective(name: "Tutorials", argumentText: "name: Foo", children: [
+                    BlockDirective(name: "Intro", argumentText: "title: Bar", children: [
+                        Paragraph(Text("Foobar")) as BlockMarkup,
+                        BlockDirective(name: "Image", argumentText: "source: foo, alt: bar") as BlockMarkup,
+                    ]),
+                ])
+            ).format(),
+        ]
+        zip(expected, printed).forEach { XCTAssertEqual($0, $1) }
     }
 }

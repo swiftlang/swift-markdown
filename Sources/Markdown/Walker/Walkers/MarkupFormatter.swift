@@ -463,7 +463,7 @@ public struct MarkupFormatter: MarkupWalker {
                 } else if let numeralPrefix = numeralPrefix(for: parentListItem) {
                     prefix += String(repeating: " ", count: numeralPrefix.count)
                 }
-            } else if element is BlockDirective && element.parent is BlockDirective {
+            } else if element.parent is BlockDirective {
                 prefix += "    "
             }
         }
@@ -1105,9 +1105,6 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     public mutating func visitBlockDirective(_ blockDirective: BlockDirective) {
-        if blockDirective.parent is BlockDirective {
-            ensurePrecedingNewlineCount(atLeast: 1)
-        }
         if blockDirective.indexInParent > 0 {
             ensurePrecedingNewlineCount(atLeast: 2)
         }
@@ -1129,6 +1126,7 @@ public struct MarkupFormatter: MarkupWalker {
 
         if blockDirective.childCount > 0 {
             print(" {", for: blockDirective)
+            queueNewline()
         }
 
         descendInto(blockDirective)
