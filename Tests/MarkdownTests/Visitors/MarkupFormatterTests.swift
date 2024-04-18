@@ -1550,3 +1550,22 @@ class MarkupFormatterTableTests: XCTestCase {
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
     }
 }
+
+class MarkupFormatterMixedContentTests: XCTestCase {
+    func testMixedContentWithBlockDirectives() {
+        let expected = #"""
+        # Example title
+
+        @Metadata {
+            @TitleHeading(example)
+        }
+        """#
+        let printed = Document(
+            Heading(level: 1, Text("Example title")),
+            BlockDirective(name: "Metadata", children: [
+                BlockDirective(name: "TitleHeading", argumentText: "example"),
+            ])
+        ).format()
+        XCTAssertEqual(expected, printed)
+    }
+}
