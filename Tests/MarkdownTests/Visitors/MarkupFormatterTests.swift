@@ -376,6 +376,18 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         )).format()
         XCTAssertEqual(expected, printed)
     }
+
+    func testPrintBlockDirective() {
+        let expected = #"""
+        @Metadata {
+            @TitleHeading(Example)
+        }
+        """#
+        let printed = BlockDirective(name: "Metadata", children: [
+            BlockDirective(name: "TitleHeading", argumentText: "Example"),
+        ]).format()
+        XCTAssertEqual(expected, printed)
+    }
 }
 
 /// Tests that formatting options work correctly.
@@ -1533,10 +1545,65 @@ class MarkupFormatterTableTests: XCTestCase {
         """
 
         XCTAssertEqual(expected, formatted)
-        print(formatted)
 
         let reparsed = Document(parsing: formatted)
-        print(reparsed.debugDescription())
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
+    }
+}
+
+class MarkupFormatterMixedContentTests: XCTestCase {
+    func testMixedContentWithBlockDirectives() {
+        let expected = [
+            #"""
+            # Example title
+
+            @Metadata {
+                @TitleHeading(example)
+            }
+            """#,
+            #"""
+            @Tutorials(name: Foo) {
+                @Intro(title: Bar) {
+                    Foobar
+                    
+                    @Image(source: foo, alt: bar)
+                }
+            }
+            """#,
+            #"""
+            # Example title
+
+            @Links(visualStyle: list) {
+                - ``Foo``
+                - ``Bar``
+            }
+            """#,
+        ]
+        let printed = [
+            Document(
+                Heading(level: 1, Text("Example title")),
+                BlockDirective(name: "Metadata", children: [
+                    BlockDirective(name: "TitleHeading", argumentText: "example"),
+                ])
+            ).format(),
+            Document(
+                BlockDirective(name: "Tutorials", argumentText: "name: Foo", children: [
+                    BlockDirective(name: "Intro", argumentText: "title: Bar", children: [
+                        Paragraph(Text("Foobar")) as BlockMarkup,
+                        BlockDirective(name: "Image", argumentText: "source: foo, alt: bar") as BlockMarkup,
+                    ]),
+                ])
+            ).format(),
+            Document(
+                Heading(level: 1, Text("Example title")),
+                BlockDirective(name: "Links", argumentText: "visualStyle: list", children: [
+                    UnorderedList([
+                        ListItem(Paragraph(SymbolLink(destination: "Foo"))),
+                        ListItem(Paragraph(SymbolLink(destination: "Bar"))),
+                    ]),
+                ])
+            ).format(),
+        ]
+        zip(expected, printed).forEach { XCTAssertEqual($0, $1) }
     }
 }

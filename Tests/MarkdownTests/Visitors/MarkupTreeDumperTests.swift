@@ -95,7 +95,6 @@ final class MarkupTreeDumperTests: XCTestCase {
         └─ HTMLBlock @42:1-42:90 #71
            <!-- Copyright (c) 2021 Apple Inc and the Swift Project authors. All Rights Reserved. -->
         """
-        print(everythingDocument.debugDescription(options: [.printEverything]))
         XCTAssertEqual(expectedDump, everythingDocument.debugDescription(options: [.printEverything]))
     }
 }
