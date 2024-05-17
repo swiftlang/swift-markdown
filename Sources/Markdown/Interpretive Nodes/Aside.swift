@@ -22,7 +22,7 @@ import Foundation
 /// ```
 public struct Aside {
     /// Describes the different kinds of aside.
-    public struct Kind: RawRepresentable, CaseIterable, Equatable {
+    public struct Kind: RawRepresentable, CaseIterable, Hashable {
         /// A "note" aside.
         public static let note = Kind(rawValue: "Note")!
         
