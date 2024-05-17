@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -463,7 +463,8 @@ public struct MarkupFormatter: MarkupWalker {
                 } else if let numeralPrefix = numeralPrefix(for: parentListItem) {
                     prefix += String(repeating: " ", count: numeralPrefix.count)
                 }
-            } else if element is BlockDirective {
+            }
+            if element.parent is BlockDirective {
                 prefix += "    "
             }
         }
@@ -1105,7 +1106,9 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     public mutating func visitBlockDirective(_ blockDirective: BlockDirective) {
-        ensurePrecedingNewlineCount(atLeast: 1)
+        if blockDirective.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
         print("@", for: blockDirective)
         print(blockDirective.name, for: blockDirective)
 
@@ -1124,13 +1127,13 @@ public struct MarkupFormatter: MarkupWalker {
 
         if blockDirective.childCount > 0 {
             print(" {", for: blockDirective)
+            queueNewline()
         }
 
         descendInto(blockDirective)
 
-        queueNewline()
-
         if blockDirective.childCount > 0 {
+            queueNewline()
             print("}", for: blockDirective)
         }
     }
@@ -1165,15 +1168,29 @@ public struct MarkupFormatter: MarkupWalker {
         }
     }
 
-    public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> () {
-        print("\(formattingOptions.doxygenCommandPrefix.rawValue)param", for: doxygenParam)
-        print(" \(doxygenParam.name) ", for: doxygenParam)
+    private mutating func printDoxygenStart(_ name: String, for element: Markup) {
+        print(formattingOptions.doxygenCommandPrefix.rawValue + name + " ", for: element)
+    }
+
+    public mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) {
+        printDoxygenStart("discussion", for: doxygenDiscussion)
+        descendInto(doxygenDiscussion)
+    }
+
+    public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) {
+        printDoxygenStart("note", for: doxygenNote)
+        descendInto(doxygenNote)
+    }
+
+    public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) {
+        printDoxygenStart("param", for: doxygenParam)
+        print("\(doxygenParam.name) ", for: doxygenParam)
         descendInto(doxygenParam)
     }
 
-    public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) -> () {
+    public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) {
         // FIXME: store the actual command name used in the original markup
-        print("\(formattingOptions.doxygenCommandPrefix.rawValue)returns ", for: doxygenReturns)
+        printDoxygenStart("returns", for: doxygenReturns)
         descendInto(doxygenReturns)
     }
 }

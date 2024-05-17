@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2022 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -43,11 +43,14 @@ public struct DirectiveArgumentText: Equatable {
 
     /// A segment of a line of argument text.
     public struct LineSegment: Equatable {
-        /// The segment's untrimmed text from which arguments can be parsed.
+        /// The original untrimmed text of the line, from which arguments can be parsed.
         public var untrimmedText: String
 
-        /// The index in ``untrimmedText`` where the line started.
-        public var lineStartIndex: String.Index
+        @available(*, deprecated, renamed: "untrimmedText.startIndex")
+        public var lineStartIndex: String.Index {
+            get { untrimmedText.startIndex }
+            set { }
+        }
 
         /// The index from which parsing should start.
         public var parseIndex: String.Index
@@ -64,26 +67,13 @@ public struct DirectiveArgumentText: Equatable {
         /// Create an argument line segment.
         /// - Parameters:
         ///   - untrimmedText: the segment's untrimmed text from which arguments can be parsed.
-        ///   - lineStartIndex: the index in ``text`` where the line started.
-        ///   - parseIndex: index from which parsing should start.
+        ///   - parseIndex: The index from which parsing should start.
         ///   - range: The range from which a segment was extracted from a line
         ///     of source, or `nil` if the argument text was provided by other means.
-        init(untrimmedText: String, lineStartIndex: String.Index, parseIndex: String.Index? = nil, range: SourceRange? = nil) {
+        init(untrimmedText: String, parseIndex: String.Index? = nil, range: SourceRange? = nil) {
             self.untrimmedText = untrimmedText
-            self.lineStartIndex = lineStartIndex
             self.parseIndex = parseIndex ?? untrimmedText.startIndex
             self.range = range
-        }
-
-        /// Returns a Boolean value indicating whether two line segments are equal.
-        /// - Parameter lhs: a line segment to compare
-        /// - Parameter rhs: another line segment to compare
-        /// - Returns: `true` if the two segments are equal.
-        public static func ==(lhs: LineSegment, rhs: LineSegment) -> Bool {
-            return lhs.untrimmedText == rhs.untrimmedText &&
-                lhs.lineStartIndex == rhs.lineStartIndex &&
-                lhs.parseIndex == rhs.parseIndex &&
-                lhs.range == rhs.range
         }
 
         /// Parse a quoted literal.
@@ -201,7 +191,8 @@ public struct DirectiveArgumentText: Equatable {
             var line = TrimmedLine(untrimmedText[...],
                                    source: range?.lowerBound.source,
                                    lineNumber: range?.lowerBound.line,
-                                   parseIndex: parseIndex)
+                                   parseIndex: parseIndex
+            )
             line.lexWhitespace()
             while !line.isEmptyOrAllWhitespace {
                 let name: TrimmedLine.Lex?
@@ -283,7 +274,7 @@ public struct DirectiveArgumentText: Equatable {
     /// from a string.
     public init<S: StringProtocol>(_ string: S) {
         let text = String(string)
-        self.segments = [LineSegment(untrimmedText: text, lineStartIndex: text.startIndex, range: nil)]
+        self.segments = [LineSegment(untrimmedText: text, range: nil)]
     }
 
     /// Create a body of argument text from a sequence of ``LineSegment`` elements.

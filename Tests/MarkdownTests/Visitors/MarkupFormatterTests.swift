@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2023 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -289,6 +289,56 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         XCTAssertEqual(expected, printed)
     }
 
+    func testPrintDoxygenPrefix() {
+        let expectedSlash = #"\discussion Discussion"#
+        let printedSlash = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .backslash))
+        XCTAssertEqual(expectedSlash, printedSlash)
+
+        let expectedAt = "@discussion Discussion"
+        let printedAt = DoxygenDiscussion(children: Paragraph(Text("Discussion")))
+            .format(options: .init(doxygenCommandPrefix: .at))
+        XCTAssertEqual(expectedAt, printedAt)
+    }
+
+    func testPrintDoxygenDiscussion() {
+        let expected = #"\discussion Another thing."#
+        let printed = DoxygenDiscussion(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenDiscussionMultiline() {
+        let expected = #"""
+        \discussion Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenDiscussion(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNote() {
+        let expected = #"\note Another thing."#
+        let printed = DoxygenNote(children: Paragraph(Text("Another thing."))).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenNoteMultiline() {
+        let expected = #"""
+        \note Another thing.
+        This is an extended discussion.
+        """#
+        let printed = DoxygenNote(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended discussion.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
     func testPrintDoxygenParameter() {
         let expected = #"\param thing The thing."#
         let printed = DoxygenParameter(name: "thing", children: Paragraph(Text("The thing."))).format()
@@ -324,6 +374,18 @@ class MarkupFormatterSingleElementTests: XCTestCase {
             SoftBreak(),
             Text("This is an extended discussion.")
         )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintBlockDirective() {
+        let expected = #"""
+        @Metadata {
+            @TitleHeading(Example)
+        }
+        """#
+        let printed = BlockDirective(name: "Metadata", children: [
+            BlockDirective(name: "TitleHeading", argumentText: "Example"),
+        ]).format()
         XCTAssertEqual(expected, printed)
     }
 }
@@ -1483,10 +1545,65 @@ class MarkupFormatterTableTests: XCTestCase {
         """
 
         XCTAssertEqual(expected, formatted)
-        print(formatted)
 
         let reparsed = Document(parsing: formatted)
-        print(reparsed.debugDescription())
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
+    }
+}
+
+class MarkupFormatterMixedContentTests: XCTestCase {
+    func testMixedContentWithBlockDirectives() {
+        let expected = [
+            #"""
+            # Example title
+
+            @Metadata {
+                @TitleHeading(example)
+            }
+            """#,
+            #"""
+            @Tutorials(name: Foo) {
+                @Intro(title: Bar) {
+                    Foobar
+                    
+                    @Image(source: foo, alt: bar)
+                }
+            }
+            """#,
+            #"""
+            # Example title
+
+            @Links(visualStyle: list) {
+                - ``Foo``
+                - ``Bar``
+            }
+            """#,
+        ]
+        let printed = [
+            Document(
+                Heading(level: 1, Text("Example title")),
+                BlockDirective(name: "Metadata", children: [
+                    BlockDirective(name: "TitleHeading", argumentText: "example"),
+                ])
+            ).format(),
+            Document(
+                BlockDirective(name: "Tutorials", argumentText: "name: Foo", children: [
+                    BlockDirective(name: "Intro", argumentText: "title: Bar", children: [
+                        Paragraph(Text("Foobar")) as BlockMarkup,
+                        BlockDirective(name: "Image", argumentText: "source: foo, alt: bar") as BlockMarkup,
+                    ]),
+                ])
+            ).format(),
+            Document(
+                Heading(level: 1, Text("Example title")),
+                BlockDirective(name: "Links", argumentText: "visualStyle: list", children: [
+                    UnorderedList([
+                        ListItem(Paragraph(SymbolLink(destination: "Foo"))),
+                        ListItem(Paragraph(SymbolLink(destination: "Bar"))),
+                    ]),
+                ])
+            ).format(),
+        ]
+        zip(expected, printed).forEach { XCTAssertEqual($0, $1) }
     }
 }

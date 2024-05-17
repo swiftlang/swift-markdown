@@ -224,11 +224,17 @@ struct PendingBlockDirective {
 
 struct PendingDoxygenCommand {
     enum CommandKind {
+        case discussion
+        case note
         case param(name: Substring)
         case returns
 
         var debugDescription: String {
             switch self {
+            case .discussion:
+                return "'discussion'"
+            case .note:
+                return "'note'"
             case .param(name: let name):
                 return "'param' Argument: '\(name)'"
             case .returns:
@@ -282,9 +288,6 @@ struct TrimmedLine {
     /// The original untrimmed text of the line.
     let untrimmedText: Substring
 
-    /// The starting parse index.
-    let startParseIndex: Substring.Index
-
     /// The current index a parser is looking at on a line.
     var parseIndex: Substring.Index
 
@@ -303,13 +306,16 @@ struct TrimmedLine {
         }
     }
 
-    /// - parameter untrimmedText: ``untrimmedText``
+    /// - Parameters:
+    ///   - untrimmedText: The original untrimmed text of the line.
+    ///   - source: The source file or resource from which the line came, or `nil` if no such file or resource can be identified.
+    ///   - lineNumber: The line number of this line in the source if known, starting with `0`.
+    ///   - parseIndex: The current index a parser is looking at on a line, or `nil` if a parser is looking at the start of the untrimmed text.
     init(_ untrimmedText: Substring, source: URL?, lineNumber: Int?, parseIndex: Substring.Index? = nil) {
         self.untrimmedText = untrimmedText
         self.source = source
         self.parseIndex = parseIndex ?? untrimmedText.startIndex
         self.lineNumber = lineNumber
-        self.startParseIndex = self.parseIndex
     }
 
     /// Return the UTF-8 source location of the parse index if the line
@@ -318,10 +324,7 @@ struct TrimmedLine {
         guard let lineNumber = lineNumber else {
             return nil
         }
-        let startIndex = (self.lineNumber ?? 1) == 1
-            ? untrimmedText.startIndex
-            : startParseIndex
-        let alreadyParsedPrefix = untrimmedText[startIndex..<parseIndex]
+        let alreadyParsedPrefix = untrimmedText[..<parseIndex]
         return .init(line: lineNumber, column: alreadyParsedPrefix.utf8.count + 1, source: source)
     }
 
@@ -718,20 +721,40 @@ private enum ParseContainer: CustomStringConvertible {
             let children = children.flatMap {
                 $0.convertToRawMarkup(ranges: &ranges, parent: self, options: options)
             }
-            return [.blockDirective(name: String(pendingBlockDirective.name),
-                                    nameLocation: pendingBlockDirective.atLocation,
-                                    argumentText: DirectiveArgumentText(segments: pendingBlockDirective.argumentsText.map {
-                                        let untrimmedText = String($0.text.base[$0.text.base.startIndex..<$0.text.endIndex])
-                                        return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedText, lineStartIndex: untrimmedText.startIndex, parseIndex: $0.text.startIndex, range: $0.range)
-                                    }),
-                                    parsedRange: pendingBlockDirective.atLocation..<pendingBlockDirective.endLocation,
-                                    children)]
+            return [
+                .blockDirective(
+                    name: String(pendingBlockDirective.name),
+                    nameLocation: pendingBlockDirective.atLocation,
+                    argumentText: DirectiveArgumentText(segments: pendingBlockDirective.argumentsText.map {
+                        let base = $0.text.base
+                        let lineStartIndex: String.Index
+                        if let argumentRange = $0.range {
+                            // If the argument has a known source range, offset the column (number of UTF8 bytes) to find the start of the line.
+                            lineStartIndex = base.utf8.index($0.text.startIndex, offsetBy: 1 - argumentRange.lowerBound.column)
+                        } else if let newLineIndex = base[..<$0.text.startIndex].lastIndex(where: \.isNewline) {
+                            // Iterate backwards from the argument start index to find the the start of the line.
+                            lineStartIndex = base.utf8.index(after: newLineIndex)
+                        } else {
+                            lineStartIndex = base.startIndex
+                        }
+                        let parseIndex = base.utf8.index($0.text.startIndex, offsetBy: -base.utf8.distance(from: base.startIndex, to: lineStartIndex))
+                        let untrimmedLine = String(base[lineStartIndex ..< $0.text.endIndex])
+                        return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedLine, parseIndex: parseIndex, range: $0.range)
+                    }),
+                    parsedRange: pendingBlockDirective.atLocation ..< pendingBlockDirective.endLocation,
+                    children
+                ),
+            ]
         case let .doxygenCommand(pendingDoxygenCommand, lines):
             let range = pendingDoxygenCommand.atLocation..<pendingDoxygenCommand.endLocation
             ranges.add(range)
             let children = ParseContainer.lineRun(lines, isInCodeFence: false)
                 .convertToRawMarkup(ranges: &ranges, parent: self, options: options)
             switch pendingDoxygenCommand.kind {
+            case .discussion:
+                return [.doxygenDiscussion(parsedRange: range, children)]
+            case .note:
+                return [.doxygenNote(parsedRange: range, children)]
             case .param(let name):
                 return [.doxygenParam(name: String(name), parsedRange: range, children)]
             case .returns:
@@ -860,7 +883,12 @@ struct ParseContainerStack {
         }) else { return nil }
         remainder.lexWhitespace()
 
+        let kind: PendingDoxygenCommand.CommandKind
         switch name.text.lowercased() {
+        case "discussion":
+            kind = .discussion
+        case "note":
+            kind = .note
         case "param":
             guard let paramName = remainder.lex(until: { ch in
                 if ch.isWhitespace {
@@ -870,26 +898,21 @@ struct ParseContainerStack {
                 }
             }) else { return nil }
             remainder.lexWhitespace()
-            var pendingCommand = PendingDoxygenCommand(
-                atLocation: at.range!.lowerBound,
-                atSignIndentation: indent?.text.count ?? 0,
-                nameLocation: name.range!.lowerBound,
-                kind: .param(name: paramName.text),
-                endLocation: name.range!.upperBound)
-            pendingCommand.addLine(remainder)
-            return (pendingCommand, remainder)
+            kind = .param(name: paramName.text)
         case "return", "returns", "result":
-            var pendingCommand = PendingDoxygenCommand(
-                atLocation: at.range!.lowerBound,
-                atSignIndentation: indent?.text.count ?? 0,
-                nameLocation: name.range!.lowerBound,
-                kind: .returns,
-                endLocation: name.range!.upperBound)
-            pendingCommand.addLine(remainder)
-            return (pendingCommand, remainder)
+            kind = .returns
         default:
             return nil
         }
+
+        var pendingCommand = PendingDoxygenCommand(
+            atLocation: at.range!.lowerBound,
+            atSignIndentation: indent?.text.count ?? 0,
+            nameLocation: name.range!.lowerBound,
+            kind: kind,
+            endLocation: name.range!.upperBound)
+        pendingCommand.addLine(remainder)
+        return (pendingCommand, remainder)
     }
 
     /// Accept a trimmed line, opening new block directives as indicated by the source,
