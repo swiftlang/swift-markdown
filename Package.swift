@@ -49,7 +49,7 @@ let package = Package(
 if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building standalone, so fetch all dependencies remotely.
     package.dependencies += [
-        .package(url: "https://github.com/apple/swift-cmark.git", branch: "gfm"),
+        .package(url: "https://github.com/apple/swift-cmark.git", from: "0.4.0"),
         .package(url: "https://github.com/apple/swift-argument-parser", from: "1.2.2"),
     ]
     
