@@ -44,7 +44,7 @@ print(document.debugDescription())
 Please see Swift `Markdown`'s [documentation site](https://apple.github.io/swift-markdown/documentation/markdown/)
 for more detailed information about the library.
 
-## Contributing Swift Markdown
+## Contributing to Swift Markdown
 
 Please see the [contributing guide](https://swift.org/contributing/#contributing-code) for more information.
 
