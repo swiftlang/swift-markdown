@@ -41,7 +41,7 @@ print(document.debugDescription())
 //    └─ Text "."
 ```
 
-Please see Swift `Markdown`'s [documentation site](https://apple.github.io/swift-markdown/documentation/markdown/)
+Please see Swift `Markdown`'s [documentation site](https://swiftlang.github.io/swift-markdown/documentation/markdown/)
 for more detailed information about the library.
 
 ## Contributing to Swift Markdown
