@@ -15,7 +15,7 @@ final class HTMLFormatterTests: XCTestCase {
     func testFormatEverything() {
         let expectedDump = """
         <h1>Header</h1>
-        <p><em>Emphasized</em> <strong>strong</strong> <code>inline code</code> <a href="foo">link</a> <img src="foo" title="" />.</p>
+        <p><em>Emphasized</em> <strong>strong</strong> <code>inline code</code> <a href="foo">link</a> <img src="foo" />.</p>
         <ul>
         <li><p>this</p>
         </li>

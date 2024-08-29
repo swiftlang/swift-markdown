@@ -239,11 +239,11 @@ public struct HTMLFormatter: MarkupWalker {
     public mutating func visitImage(_ image: Image) -> () {
         result += "<img"
 
-        if let source = image.source {
+        if let source = image.source, !source.isEmpty {
             result += " src=\"\(source)\""
         }
 
-        if let title = image.title {
+        if let title = image.title, !title.isEmpty {
             result += " title=\"\(title)\""
         }
 
