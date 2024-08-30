@@ -15,6 +15,9 @@
 2. flour
 2. sugar
 
+- [x] Combine flour and baking soda.
+- [ ] Combine sugar and eggs.
+
 ```swift
 func foo() {
     let x = 1

@@ -7,7 +7,7 @@
 # See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 
 .DS_Store
-/.build
+.build
 /Packages
 /*.xcodeproj
 .swiftpm
