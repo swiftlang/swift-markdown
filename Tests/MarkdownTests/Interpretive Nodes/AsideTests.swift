@@ -73,4 +73,134 @@ class AsideTests: XCTestCase {
         XCTAssertTrue(aside.content[0].root.isIdentical(to: document))
     }
 
+    func testConversionStrategySingleWord() throws {
+        do {
+            let source = """
+            > This is a regular block quote.
+            """
+            let document = Document(parsing: source)
+            let blockQuote = document.child(at: 0) as! BlockQuote
+            XCTAssertNil(Aside(blockQuote, tagRequirement: .requireSingleWordTag))
+        }
+
+        do {
+            let source = "> See Also: A different topic."
+            let document = Document(parsing: source)
+            let blockQuote = document.child(at: 0) as! BlockQuote
+            XCTAssertNil(Aside(blockQuote, tagRequirement: .requireSingleWordTag))
+        }
+
+        do {
+            let source = "> Important: This is an aside."
+            let expectedRootDump = """
+            Document
+            └─ BlockQuote
+               └─ Paragraph
+                  └─ Text "This is an aside."
+            """
+            try assertAside(
+                source: source,
+                conversionStrategy: .requireSingleWordTag,
+                expectedKind: .init(rawValue: "Important")!,
+                expectedRootDump: expectedRootDump)
+        }
+    }
+
+    func testConversionStrategyMultipleWords() throws {
+        do {
+            let source = """
+            > This is a regular block quote.
+            """
+            let document = Document(parsing: source)
+            let blockQuote = document.child(at: 0) as! BlockQuote
+            XCTAssertNil(Aside(blockQuote, tagRequirement: .requireAnyLengthTag))
+        }
+
+        do {
+            let source = "> See Also: A different topic."
+            let expectedRootDump = """
+            Document
+            └─ BlockQuote
+               └─ Paragraph
+                  └─ Text "A different topic."
+            """
+            try assertAside(
+                source: source,
+                conversionStrategy: .requireAnyLengthTag,
+                expectedKind: .init(rawValue: "See Also")!,
+                expectedRootDump: expectedRootDump)
+        }
+
+        do {
+            let source = "> Important: This is an aside."
+            let expectedRootDump = """
+            Document
+            └─ BlockQuote
+               └─ Paragraph
+                  └─ Text "This is an aside."
+            """
+            try assertAside(
+                source: source,
+                conversionStrategy: .requireAnyLengthTag,
+                expectedKind: .init(rawValue: "Important")!,
+                expectedRootDump: expectedRootDump)
+        }
+    }
+
+    func testConversionStrategyAllowNoLabel() throws {
+        do {
+            let source = """
+            > This is a regular block quote.
+            """
+            let expectedRootDump = """
+            Document
+            └─ BlockQuote
+               └─ Paragraph
+                  └─ Text "This is a regular block quote."
+            """
+            try assertAside(
+                source: source,
+                conversionStrategy: .tagNotRequired,
+                expectedKind: .note,
+                expectedRootDump: expectedRootDump)
+        }
+
+        do {
+            let source = "> See Also: A different topic."
+            let expectedRootDump = """
+            Document
+            └─ BlockQuote
+               └─ Paragraph
+                  └─ Text "A different topic."
+            """
+            try assertAside(
+                source: source,
+                conversionStrategy: .tagNotRequired,
+                expectedKind: .init(rawValue: "See Also")!,
+                expectedRootDump: expectedRootDump)
+        }
+
+        do {
+            let source = "> Important: This is an aside."
+            let expectedRootDump = """
+            Document
+            └─ BlockQuote
+               └─ Paragraph
+                  └─ Text "This is an aside."
+            """
+            try assertAside(
+                source: source,
+                conversionStrategy: .tagNotRequired,
+                expectedKind: .init(rawValue: "Important")!,
+                expectedRootDump: expectedRootDump)
+        }
+    }
+
+    func assertAside(source: String, conversionStrategy: Aside.TagRequirement, expectedKind: Aside.Kind, expectedRootDump: String, file: StaticString = #file, line: UInt = #line) throws {
+        let document = Document(parsing: source)
+        let blockQuote = document.child(at: 0) as! BlockQuote
+        let aside = try XCTUnwrap(Aside(blockQuote, tagRequirement: conversionStrategy))
+        XCTAssertEqual(expectedKind, aside.kind, file: file, line: line)
+        XCTAssertEqual(expectedRootDump, aside.content[0].root.debugDescription(), file: file, line: line)
+    }
 }

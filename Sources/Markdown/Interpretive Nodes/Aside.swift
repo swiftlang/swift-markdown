@@ -159,7 +159,17 @@ public struct Aside {
             self.rawValue = rawValue
         }
     }
-    
+
+    /// Determines the permissiveness of aside-tag parsing when using ``init(_:tagRequirement:)``.
+    public enum TagRequirement: Equatable {
+        /// Only allow asides with a single-word aside tag, such as `Warning:` or `Important:`
+        case requireSingleWordTag
+        /// Require a aside tag, but allow it to be multiple words, such as `See Also:`
+        case requireAnyLengthTag
+        /// Convert all block-quotes into asides, treating asides with no kind tag as ``Aside/Kind/note`` asides.
+        case tagNotRequired
+    }
+
     /// The kind of aside interpreted from the initial text of the ``BlockQuote``.
     public var kind: Kind
 
@@ -170,51 +180,54 @@ public struct Aside {
     /// Create an aside from a block quote.
     public init(_ blockQuote: BlockQuote) {
         // Try to find an initial `tag:` text at the beginning.
-        guard var initialText = blockQuote.child(through: [
-            (0, Paragraph.self),
-            (0, Text.self),
-        ]) as? Text,
-        let firstColonIndex = initialText.string.firstIndex(where: { $0 == ":" }) else {
+        guard let kindTag = blockQuote.parseAsideTag(tagRequirement: .tagNotRequired) else {
             // Otherwise, default to a note aside.
             self.kind = .note
             self.content = Array(blockQuote.blockChildren)
             return
         }
-        self.kind = Kind(rawValue: String(initialText.string[..<firstColonIndex]))!
 
-        // Trim off the aside tag prefix.
-        let trimmedText = initialText.string[initialText.string.index(after: firstColonIndex)...].drop {
-            $0 == " " || $0 == "\t"
+        self.kind = Kind(rawValue: kindTag.tag)!
+        self.content = Array(kindTag.newBlockQuote.blockChildren)
+    }
+
+    /// Create an aside from a block quote if it contains a kind tag that matches the given requirement.
+    public init?(_ blockQuote: BlockQuote, tagRequirement: TagRequirement = .tagNotRequired) {
+        guard tagRequirement != .tagNotRequired else {
+            self = .init(blockQuote)
+            return
         }
-        initialText.string = String(trimmedText)
 
-        let newBlockQuote = initialText.parent!.parent! as! BlockQuote
-        self.content = Array(newBlockQuote.blockChildren)
+        guard let kindTag = blockQuote.parseAsideTag(tagRequirement: tagRequirement) else {
+            return nil
+        }
+
+        self.kind = Kind(rawValue: kindTag.tag)!
+        self.content = Array(kindTag.newBlockQuote.blockChildren)
     }
 }
 
 extension BlockQuote {
-    /// Conservatively checks the text of this block quote to see whether it can be parsed as an aside.
-    ///
-    /// Whereas ``Aside/init(_:)`` will use all the text before the first colon in the first line,
-    /// or else return an ``Aside`` with a ``Aside/Kind`` of ``Aside/Kind/note``,
-    /// this function will allow parsers to only parse an aside if there is a single-word aside
-    /// marker in the first line, and otherwise fall back to a plain ``BlockQuote``.
-    func isAside() -> Bool {
-        guard let initialText = self.child(through: [
+    func parseAsideTag(tagRequirement: Aside.TagRequirement) -> (tag: String, newBlockQuote: BlockQuote)? {
+        guard var initialText = self.child(through: [
             (0, Paragraph.self),
             (0, Text.self),
-        ]) as? Text else {
-            return false
+        ]) as? Text, initialText.string.contains(":") else {
+            return nil
         }
 
-        for character in initialText.string {
-            switch character {
-                case ":": return true  // encountered ":" before " "
-                case " ": return false // encountered " " before ":"
-                default:  continue
-            }
+        let firstColonIndex = initialText.string.firstIndex(of: ":")!
+        let kindTag = initialText.string[..<firstColonIndex]
+        let trimmedText = initialText.string[initialText.string.index(after: firstColonIndex)...].drop {
+            $0 == " " || $0 == "\t"
         }
-        return false // didn't encounter either " " or ":" in the string
+        initialText.string = String(trimmedText)
+        let newBlockQuote = initialText.parent!.parent! as! BlockQuote
+
+        if tagRequirement == .requireSingleWordTag, kindTag.contains(" ") {
+            return nil
+        } else {
+            return (String(kindTag), newBlockQuote)
+        }
     }
 }
