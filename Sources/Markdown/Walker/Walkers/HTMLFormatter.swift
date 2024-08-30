@@ -38,7 +38,7 @@ public struct HTMLFormatterOptions: OptionSet {
 /// A ``MarkupWalker`` that prints rendered HTML for a given ``Markup`` tree.
 public struct HTMLFormatter: MarkupWalker {
     /// The resulting HTML built up after printing.
-    public var result = ""
+    public private(set) var result = ""
 
     let options: HTMLFormatterOptions
 
