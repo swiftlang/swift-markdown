@@ -90,11 +90,20 @@ final class HTMLFormatterTests: XCTestCase {
         XCTAssertEqual(HTMLFormatter.format(inputText, options: [.parseAsides]), expectedOutput)
     }
 
-    // JSON5 parsing (which allows property names without quotes) is only available in Apple Foundation
-    #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
-    func testInlineAttributesJSON5() {
-        if #unavailable(macOS 12, iOS 15, tvOS 15, watchOS 8) {
-            return
+    // JSON5 parsing (which allows property names without quotes) is available in Apple Foundation,
+    // or in Swift Foundation starting in Swift 6.0
+    #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS) || os(visionOS) || compiler(>=6.0)
+    func testInlineAttributesJSON5() throws {
+        var json5Available = true
+        #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
+        if #unavailable(macOS 12, iOS 15, tvOS 15, watchOS 8, visionOS 1) {
+            json5Available = false
+        }
+        #elseif compiler(<6.0)
+        json5Available = false
+        #endif
+        if !json5Available {
+            throw XCTSkip("JSON5 parsing is only available on Apple Foundation or in Swift 6.")
         }
         let inputText = """
         ^[formatted text](class: "fancy")

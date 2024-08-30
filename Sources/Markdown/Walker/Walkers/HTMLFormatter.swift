@@ -300,10 +300,17 @@ public struct HTMLFormatter: MarkupWalker {
             }
 
             let decoder = JSONDecoder()
-            #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS)
+            // JSON5 parsing is available in Apple Foundation as of macOS 12 et al, or in Swift
+            // Foundation as of Swift 6.0
+            // Note: We don't turn on `.assumesTopLevelDictionary` to allow parsing to work on older
+            // compilers and OSs. If/when Swift-Markdown assumes a minimum Swift version of 6.0, we
+            // can clean this up to always use JSON5 and top-level dictionaries.
+            #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS) || os(visionOS)
             if #available(macOS 12, iOS 15, tvOS 15, watchOS 8, *) {
                 decoder.allowsJSON5 = true
             }
+            #elseif compiler(>=6.0)
+            decoder.allowsJSON5 = true
             #endif
 
             let parsedAttributes = try? decoder.decode(ParsedAttributes.self, from: attributesData)
