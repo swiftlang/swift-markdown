@@ -204,15 +204,17 @@ extension BlockQuote {
         guard let initialText = self.child(through: [
             (0, Paragraph.self),
             (0, Text.self),
-        ]) as? Text,
-              let firstColonIndex = initialText.string.firstIndex(where: { $0 == ":" }) else {
+        ]) as? Text else {
             return false
         }
 
-        if let firstSpaceIndex = initialText.string.firstIndex(where: { $0 == " " }) {
-            return firstSpaceIndex > firstColonIndex
-        } else {
-            return true
+        for character in initialText.string {
+            switch character {
+                case ":": return true  // encountered ":" before " "
+                case " ": return false // encountered " " before ":"
+                default:  continue
+            }
         }
+        return false // didn't encounter either " " or ":" in the string
     }
 }
