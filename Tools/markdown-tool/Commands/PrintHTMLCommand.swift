@@ -17,10 +17,10 @@ extension MarkdownCommand {
         static var configuration = CommandConfiguration(commandName: "print-html", abstract: "Convert Markdown content into HTML")
 
         @Argument(
-            help: "Input file to print (default: standard input)",
+            help: "Markdown file to print (default: standard input)",
             completion: .file()
         )
-        var inputFilePath: String?
+        var inputFile: String?
 
         @Flag(
             inversion: .prefixedNo,
@@ -38,7 +38,7 @@ extension MarkdownCommand {
 
         func run() throws {
             let document: Document
-            if let inputFilePath = inputFilePath {
+            if let inputFilePath = inputFile {
                 (_, document) = try MarkdownCommand.parseFile(at: inputFilePath, options: [])
             } else {
                 (_, document) = try MarkdownCommand.parseStandardInput(options: [])
