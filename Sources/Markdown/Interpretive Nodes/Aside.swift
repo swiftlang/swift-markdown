@@ -225,7 +225,7 @@ extension BlockQuote {
             return nil
         }
 
-        let shiftCount = kindTag.count + 1 + initialText.string[firstColonIndex...].dropFirst().prefix(while: {
+        let shiftCount = kindTag.utf8.count + 1 + initialText.string[firstColonIndex...].dropFirst().prefix(while: {
             $0 == " " || $0 == "\t"
         }).count
         let textRange: SourceRange? = initialText.range.map({ originalRange in
