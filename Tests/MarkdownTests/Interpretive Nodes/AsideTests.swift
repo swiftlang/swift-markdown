@@ -93,10 +93,10 @@ class AsideTests: XCTestCase {
         do {
             let source = "> Important: This is an aside."
             let expectedRootDump = """
-            Document
-            └─ BlockQuote
-               └─ Paragraph
-                  └─ Text "This is an aside."
+            Document @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+            └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+               └─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:31
+                  └─ Text @/path/to/some-file.md:1:14-/path/to/some-file.md:1:31 "This is an aside."
             """
             try assertAside(
                 source: source,
@@ -119,10 +119,10 @@ class AsideTests: XCTestCase {
         do {
             let source = "> See Also: A different topic."
             let expectedRootDump = """
-            Document
-            └─ BlockQuote
-               └─ Paragraph
-                  └─ Text "A different topic."
+            Document @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+            └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+               └─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:31
+                  └─ Text @/path/to/some-file.md:1:13-/path/to/some-file.md:1:31 "A different topic."
             """
             try assertAside(
                 source: source,
@@ -134,10 +134,10 @@ class AsideTests: XCTestCase {
         do {
             let source = "> Important: This is an aside."
             let expectedRootDump = """
-            Document
-            └─ BlockQuote
-               └─ Paragraph
-                  └─ Text "This is an aside."
+            Document @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+            └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+               └─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:31
+                  └─ Text @/path/to/some-file.md:1:14-/path/to/some-file.md:1:31 "This is an aside."
             """
             try assertAside(
                 source: source,
@@ -153,10 +153,10 @@ class AsideTests: XCTestCase {
             > This is a regular block quote.
             """
             let expectedRootDump = """
-            Document
-            └─ BlockQuote
-               └─ Paragraph
-                  └─ Text "This is a regular block quote."
+            Document @/path/to/some-file.md:1:1-/path/to/some-file.md:1:33
+            └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:33
+               └─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:33
+                  └─ Text @/path/to/some-file.md:1:3-/path/to/some-file.md:1:33 "This is a regular block quote."
             """
             try assertAside(
                 source: source,
@@ -168,10 +168,10 @@ class AsideTests: XCTestCase {
         do {
             let source = "> See Also: A different topic."
             let expectedRootDump = """
-            Document
-            └─ BlockQuote
-               └─ Paragraph
-                  └─ Text "A different topic."
+            Document @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+            └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+               └─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:31
+                  └─ Text @/path/to/some-file.md:1:13-/path/to/some-file.md:1:31 "A different topic."
             """
             try assertAside(
                 source: source,
@@ -183,10 +183,10 @@ class AsideTests: XCTestCase {
         do {
             let source = "> Important: This is an aside."
             let expectedRootDump = """
-            Document
-            └─ BlockQuote
-               └─ Paragraph
-                  └─ Text "This is an aside."
+            Document @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+            └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:31
+               └─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:31
+                  └─ Text @/path/to/some-file.md:1:14-/path/to/some-file.md:1:31 "This is an aside."
             """
             try assertAside(
                 source: source,
@@ -197,10 +197,23 @@ class AsideTests: XCTestCase {
     }
 
     func assertAside(source: String, conversionStrategy: Aside.TagRequirement, expectedKind: Aside.Kind, expectedRootDump: String, file: StaticString = #file, line: UInt = #line) throws {
-        let document = Document(parsing: source)
+        let fakeFileLocation = URL(fileURLWithPath: "/path/to/some-file.md")
+        let document = Document(parsing: source, source: fakeFileLocation)
         let blockQuote = document.child(at: 0) as! BlockQuote
         let aside = try XCTUnwrap(Aside(blockQuote, tagRequirement: conversionStrategy))
+
+        XCTAssertEqual(
+            blockQuote.range?.lowerBound.source,
+            aside.content.first?.range?.lowerBound.source,
+            "The parsed aside should not lose source file information",
+            file: file, line: line
+        )
+
         XCTAssertEqual(expectedKind, aside.kind, file: file, line: line)
-        XCTAssertEqual(expectedRootDump, aside.content[0].root.debugDescription(), file: file, line: line)
+        XCTAssertEqual(
+            expectedRootDump,
+            aside.content[0].root.debugDescription(options: .printSourceLocations),
+            file: file, line: line
+        )
     }
 }

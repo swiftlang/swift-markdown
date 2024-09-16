@@ -190,10 +190,18 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     /// Returns a new `RawMarkup` element replacing the slot at the given index with a new element.
     /// - note: The new element's `range` will be `nil`, as this API creates a new element outside of the parser.
     /// - precondition: The given index must be within the bounds of the children.
-    func substitutingChild(_ newChild: RawMarkup, at index: Int) -> RawMarkup {
+    func substitutingChild(_ newChild: RawMarkup, at index: Int, preserveRange: Bool = false) -> RawMarkup {
         var newChildren = copyChildren()
         newChildren[index] = newChild
-        return RawMarkup.create(data: header.data, parsedRange: newChild.header.parsedRange, children: newChildren)
+
+        let parsedRange: SourceRange?
+        if preserveRange {
+            parsedRange = header.parsedRange ?? newChild.header.parsedRange
+        } else {
+            parsedRange = newChild.header.parsedRange
+        }
+
+        return RawMarkup.create(data: header.data, parsedRange: parsedRange, children: newChildren)
     }
 
     func withChildren<Children: Collection>(_ newChildren: Children) -> RawMarkup where Children.Element == RawMarkup {

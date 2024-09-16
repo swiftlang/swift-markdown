@@ -209,20 +209,38 @@ public struct Aside {
 
 extension BlockQuote {
     func parseAsideTag(tagRequirement: Aside.TagRequirement) -> (tag: String, newBlockQuote: BlockQuote)? {
-        guard var initialText = self.child(through: [
+        guard let initialText = self.child(through: [
             (0, Paragraph.self),
             (0, Text.self),
-        ]) as? Text, initialText.string.contains(":") else {
+        ]) as? Text, let firstColonIndex = initialText.string.firstIndex(of: ":") else {
             return nil
         }
 
-        let firstColonIndex = initialText.string.firstIndex(of: ":")!
         let kindTag = initialText.string[..<firstColonIndex]
         let trimmedText = initialText.string[initialText.string.index(after: firstColonIndex)...].drop {
             $0 == " " || $0 == "\t"
         }
-        initialText.string = String(trimmedText)
-        let newBlockQuote = initialText.parent!.parent! as! BlockQuote
+
+        let shiftCount = kindTag.count + 1 + initialText.string[firstColonIndex...].dropFirst().prefix(while: {
+            $0 == " " || $0 == "\t"
+        }).count
+        let textRange: SourceRange? = initialText.range.map({ originalRange in
+            var newStart = originalRange.lowerBound
+            newStart.column += shiftCount
+            return newStart..<originalRange.upperBound
+        })
+
+        guard let newBlockQuote = self._data.substitutingChild(
+            .text(parsedRange: textRange, string: String(trimmedText)),
+            through: [0, 0],
+            preserveRange: true) as? BlockQuote
+        else {
+            return nil
+        }
+        assert(
+            newBlockQuote.range?.lowerBound.source == self.range?.lowerBound.source,
+            "Parsing didn't lose the original source information"
+        )
 
         if tagRequirement == .requireSingleWordTag, kindTag.contains(" ") {
             return nil

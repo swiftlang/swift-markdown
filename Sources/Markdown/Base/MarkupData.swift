@@ -153,9 +153,9 @@ public struct _MarkupData {
     }
 
     /// Returns the replaced element in a new tree.
-    func replacingSelf(_ newRaw: RawMarkup) -> _MarkupData {
+    func replacingSelf(_ newRaw: RawMarkup, preserveRange: Bool = false) -> _MarkupData {
         if let parent = parent {
-            let newParent = parent._data.substitutingChild(newRaw, at: indexInParent)
+            let newParent = parent._data.substitutingChild(newRaw, at: indexInParent, preserveRange: preserveRange)
             return newParent.child(at: indexInParent)!._data
         } else {
             return _MarkupData(AbsoluteRawMarkup(markup: newRaw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0)), parent: nil)
@@ -163,8 +163,31 @@ public struct _MarkupData {
     }
 
     /// Returns a new `MarkupData` with the given child now at the `index`.
-    func substitutingChild(_ rawChild: RawMarkup, at index: Int) -> Markup {
-        let newRaw = raw.markup.substitutingChild(rawChild, at: index)
+    func substitutingChild(_ rawChild: RawMarkup, at index: Int, preserveRange: Bool = false) -> Markup {
+        let newRaw = raw.markup.substitutingChild(rawChild, at: index, preserveRange: preserveRange)
         return makeMarkup(replacingSelf(newRaw))
+    }
+
+    func substitutingChild<S: Collection>(
+        _ rawChild: RawMarkup,
+        through path: S,
+        preserveRange: Bool = false
+    ) -> Markup? where S.Element == Int {
+        guard !path.isEmpty else { return nil }
+
+        var parents: [RawMarkup] = []
+        for childIndex in path.dropLast() {
+            let parent = parents.last ?? self.raw.markup
+            guard childIndex < parent.childCount else { return nil }
+            parents.append(parent.child(at: childIndex))
+        }
+
+        var newRaw = rawChild
+        for childIndex in path.reversed() {
+            let parent = parents.popLast() ?? self.raw.markup
+            newRaw = parent.substitutingChild(newRaw, at: childIndex, preserveRange: preserveRange)
+        }
+
+        return makeMarkup(replacingSelf(newRaw, preserveRange: preserveRange))
     }
 }
