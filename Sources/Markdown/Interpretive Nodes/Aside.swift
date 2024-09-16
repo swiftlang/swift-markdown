@@ -221,6 +221,10 @@ extension BlockQuote {
             $0 == " " || $0 == "\t"
         }
 
+        guard tagRequirement != .requireSingleWordTag || !kindTag.contains(" ") else {
+            return nil
+        }
+
         let shiftCount = kindTag.count + 1 + initialText.string[firstColonIndex...].dropFirst().prefix(while: {
             $0 == " " || $0 == "\t"
         }).count
@@ -242,10 +246,6 @@ extension BlockQuote {
             "Parsing didn't lose the original source information"
         )
 
-        if tagRequirement == .requireSingleWordTag, kindTag.contains(" ") {
-            return nil
-        } else {
-            return (String(kindTag), newBlockQuote)
-        }
+        return (String(kindTag), newBlockQuote)
     }
 }
