@@ -66,8 +66,7 @@ public struct HTMLFormatter: MarkupWalker {
     // MARK: Block elements
 
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> () {
-        if blockQuote.isAside() {
-            let aside = Aside(blockQuote)
+        if self.options.contains(.parseAsides), let aside = Aside(blockQuote, tagRequirement: .requireSingleWordTag) {
             result += "<aside data-kind=\"\(aside.kind.rawValue)\">\n"
             for child in aside.content {
                 visit(child)
