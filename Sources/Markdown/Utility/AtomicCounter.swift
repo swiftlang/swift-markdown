@@ -8,7 +8,7 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-#if compiler(>=5.10)
+#if compiler(>=6.0)
 internal import CAtomic
 #else
 @_implementationOnly import CAtomic
