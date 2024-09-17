@@ -1229,7 +1229,7 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         """
 
         let document = Document(parsing: source, options: .parseBlockDirectives)
-        _ = try XCTUnwrap(document.child(at: 0) as? BlockDirective)
+        XCTAssertTrue(document.child(at: 0) is BlockDirective)
         let expected = #"""
         Document @1:1-4:2
         └─ BlockDirective @1:1-4:2 name: "Image"
@@ -1248,7 +1248,7 @@ import Testing
 struct _BlockDirectiveArgumentParserTests {
     @Test(
         "Directive MultiLine WithoutContent Parsing",
-        .bug("https://github.com/swiftlang/swift-markdown/issues" ,id: "#152", "Verify fix of #152")
+        .bug("https://github.com/swiftlang/swift-markdown/issues/152" ,id: "#152", "Verify fix of #152")
     )
     func directiveMultiLineWithoutContentParsing() throws {
         let source = #"""
@@ -1258,7 +1258,7 @@ struct _BlockDirectiveArgumentParserTests {
         )
         """#
         let document = Document(parsing: source, options: .parseBlockDirectives)
-        _ = try #require(document.child(at: 0) as? BlockDirective)
+        #expect(document.child(at: 0) is BlockDirective)
         let expected = #"""
         Document @1:1-4:2
         └─ BlockDirective @1:1-4:2 name: "Image"
