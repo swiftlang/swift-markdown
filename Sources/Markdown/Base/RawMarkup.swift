@@ -366,3 +366,13 @@ fileprivate extension Sequence where Element == RawMarkup {
         return self.lazy.map { $0.subtreeCount }.reduce(0, +)
     }
 }
+
+extension BidirectionalCollection where Element == RawMarkup {
+    var parsedRange: SourceRange? {
+        if let lowerBound = first?.parsedRange?.lowerBound, let upperBound = last?.parsedRange?.upperBound {
+            return lowerBound..<upperBound
+        } else {
+            return nil
+        }
+    }
+}

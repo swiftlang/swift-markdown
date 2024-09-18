@@ -30,7 +30,13 @@ public extension BlockQuote {
     // MARK: BasicBlockContainer
 
     init<Children: Sequence>(_ children: Children) where Children.Element == BlockMarkup {
-        try! self.init(.blockQuote(parsedRange: nil, children.map { $0.raw.markup }))
+        self.init(children, inheritSourceRange: false)
+    }
+
+    init<Children: Sequence>(_ children: Children, inheritSourceRange: Bool) where Children.Element == BlockMarkup {
+        let rawChildren = children.map { $0.raw.markup }
+        let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
+        try! self.init(.blockQuote(parsedRange: parsedRange, rawChildren))
     }
 
     // MARK: Visitation

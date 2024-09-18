@@ -30,7 +30,13 @@ public struct CustomBlock: BlockMarkup, BasicBlockContainer {
 
 public extension CustomBlock {
     init<Children: Sequence>(_ children: Children) where Children.Element == BlockMarkup {
-        try! self.init(.customBlock(parsedRange: nil, children.map { $0.raw.markup }))
+        self.init(children, inheritSourceRange: false)
+    }
+
+    init<Children: Sequence>(_ children: Children, inheritSourceRange: Bool) where Children.Element == BlockMarkup {
+        let rawChildren = children.map { $0.raw.markup }
+        let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
+        try! self.init(.customBlock(parsedRange: parsedRange, rawChildren))
     }
 
     // MARK: Visitation
