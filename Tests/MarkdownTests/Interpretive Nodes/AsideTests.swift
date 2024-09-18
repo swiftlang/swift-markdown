@@ -196,6 +196,27 @@ class AsideTests: XCTestCase {
         }
     }
 
+    /// Ensure that creating block quotes by construction doesn't trip the "loss of source information" assertion
+    /// by mistakenly gaining source information.
+    func testConstructedBlockQuoteDoesntChangeRangeSource() throws {
+        let source = "Note: This is just a paragraph."
+        let fakeFileLocation = URL(fileURLWithPath: "/path/to/some-file.md")
+        let document = Document(parsing: source, source: fakeFileLocation)
+        let paragraph = try XCTUnwrap(document.child(at: 0) as? Paragraph)
+
+        // this block quote has no source information, but its children do
+        let blockQuote = BlockQuote(paragraph)
+        let aside = try XCTUnwrap(Aside(blockQuote))
+
+        let expectedRootDump = """
+        BlockQuote
+        └─ Paragraph @/path/to/some-file.md:1:1-/path/to/some-file.md:1:32
+           └─ Text @/path/to/some-file.md:1:7-/path/to/some-file.md:1:32 "This is just a paragraph."
+        """
+
+        XCTAssertEqual(expectedRootDump, aside.content[0].root.debugDescription(options: .printSourceLocations))
+    }
+
     func assertAside(source: String, conversionStrategy: Aside.TagRequirement, expectedKind: Aside.Kind, expectedRootDump: String, file: StaticString = #file, line: UInt = #line) throws {
         let fakeFileLocation = URL(fileURLWithPath: "/path/to/some-file.md")
         let document = Document(parsing: source, source: fakeFileLocation)
