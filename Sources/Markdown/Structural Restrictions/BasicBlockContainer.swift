@@ -11,10 +11,10 @@
 /// A block element that can contain only other block elements and doesn't require any other information.
 public protocol BasicBlockContainer: BlockContainer {
     /// Create this element from a sequence of block markup elements.
-    init<Children: Sequence>(_ children: Children) where Children.Element == BlockMarkup
+    init(_ children: some Sequence<BlockMarkup>)
 
     /// Create this element from a sequence of block markup elements, and optionally inherit the source range from those elements.
-    init<Children: Sequence>(_ children: Children, inheritSourceRange: Bool) where Children.Element == BlockMarkup
+    init(_ children: some Sequence<BlockMarkup>, inheritSourceRange: Bool)
 }
 
 // MARK: - Public API
@@ -31,7 +31,7 @@ extension BasicBlockContainer {
     }
 
     /// Default implementation of `init(_:inheritSourceRange:)` that discards the `inheritSourceRange` parameter.
-    public init<Children: Sequence>(_ children: Children, inheritSourceRange: Bool) where Children.Element == BlockMarkup {
+    public init(_ children: some Sequence<BlockMarkup>, inheritSourceRange: Bool) {
         self.init(children)
     }
 }
