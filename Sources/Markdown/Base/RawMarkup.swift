@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -196,7 +196,7 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
 
         let parsedRange: SourceRange?
         if preserveRange {
-            parsedRange = header.parsedRange ?? newChild.header.parsedRange
+            parsedRange = header.parsedRange
         } else {
             parsedRange = newChild.header.parsedRange
         }
@@ -364,5 +364,15 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
 fileprivate extension Sequence where Element == RawMarkup {
     var subtreeCount: Int {
         return self.lazy.map { $0.subtreeCount }.reduce(0, +)
+    }
+}
+
+extension BidirectionalCollection where Element == RawMarkup {
+    var parsedRange: SourceRange? {
+        if let lowerBound = first?.parsedRange?.lowerBound, let upperBound = last?.parsedRange?.upperBound {
+            return lowerBound..<upperBound
+        } else {
+            return nil
+        }
     }
 }

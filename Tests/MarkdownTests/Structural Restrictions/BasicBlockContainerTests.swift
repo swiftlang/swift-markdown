@@ -110,4 +110,22 @@ final class BasicBlockContainerTests: XCTestCase {
             """
         XCTAssertEqual(expectedDump, newDocument.debugDescription())
     }
+
+    func testInheritSourceRange() throws {
+        let source = "Note: This is just a paragraph."
+        let fakeFileLocation = URL(fileURLWithPath: "/path/to/some-file.md")
+        let document = Document(parsing: source, source: fakeFileLocation)
+        let paragraph = try XCTUnwrap(document.child(at: 0) as? Paragraph)
+
+        // this block quote has no source information, but its children do
+        let blockQuote = BlockQuote(paragraph, inheritSourceRange: true)
+
+        let expectedRootDump = """
+        BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:1:32
+        └─ Paragraph @/path/to/some-file.md:1:1-/path/to/some-file.md:1:32
+           └─ Text @/path/to/some-file.md:1:1-/path/to/some-file.md:1:32 "Note: This is just a paragraph."
+        """
+
+        XCTAssertEqual(expectedRootDump, blockQuote.debugDescription(options: .printSourceLocations))
+    }
 }
