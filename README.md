@@ -11,7 +11,7 @@ The markup tree provided by this package is comprised of immutable/persistent, t
 In your `Package.swift` Swift Package Manager manifest, add the following dependency to your `dependencies` argument:
 
 ```swift
-.package(url: "https://github.com/apple/swift-markdown.git", branch: "main"),
+.package(url: "https://github.com/swiftlang/swift-markdown.git", branch: "main"),
 ```
 
 Add the dependency to any targets you've declared in your manifest:
@@ -50,7 +50,7 @@ Please see the [contributing guide](https://swift.org/contributing/#contributing
 
 ### Submitting a Bug Report
 
-Swift Markdown tracks all bug reports with [GitHub Issues](https://github.com/apple/swift-markdown/issues).
+Swift Markdown tracks all bug reports with [GitHub Issues](https://github.com/swiftlang/swift-markdown/issues).
 You can use the "Swift-Markdown" component for issues and feature requests specific to Swift Markdown.
 When you submit a bug report we ask that you follow the
 Swift [Bug Reporting](https://swift.org/contributing/#reporting-bugs) guidelines
@@ -58,7 +58,7 @@ and provide as many details as possible.
 
 ### Submitting a Feature Request
 
-For feature requests, please feel free to file a [GitHub issue](https://github.com/apple/swift-markdown/issues/new)
+For feature requests, please feel free to file a [GitHub issue](https://github.com/swiftlang/swift-markdown/issues/new)
 or start a discussion on the [Swift Forums](https://forums.swift.org/c/development/swift-docc).
 
 Don't hesitate to submit a feature request if you see a way
