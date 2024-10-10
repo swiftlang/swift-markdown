@@ -209,8 +209,14 @@ extension MarkdownCommand {
                 throw ArgumentParser.ValidationError("The value '\(self.emphasisMarker)' is invalid for '--emphasis-marker'")
             }
 
-            guard let strongEmphasisMarker = MarkupFormatter.Options.EmphasisMarker(argument: strongEmphasisMarker ?? self.emphasisMarker) else {
-                throw ArgumentParser.ValidationError("The value '\(self.strongEmphasisMarker)' is invalid for '--strong-emphasis-marker'")
+            let strongEmphasisMarker: MarkupFormatter.Options.EmphasisMarker?
+            if let marker = self.strongEmphasisMarker {
+                guard let marker = MarkupFormatter.Options.EmphasisMarker(argument: marker) else {
+                    throw ArgumentParser.ValidationError("The value '\(marker)' is invalid for '--strong-emphasis-marker'")
+                }
+                strongEmphasisMarker = marker
+            } else {
+                strongEmphasisMarker = nil
             }
 
             guard let unorderedListMarker = MarkupFormatter.Options.UnorderedListMarker(argument: unorderedListMarker) else {
