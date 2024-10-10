@@ -238,6 +238,21 @@ public struct MarkupFormatter: MarkupWalker {
             /// Precede Doxygen commands with an at-sign (`@`).
             case at = "@"
         }
+        
+        public enum IndentationStyle {
+            case spaces // use spaces for indentation
+            case tabs   // Use tab characters for indentation
+            
+            /// Generates an indentation string based on the current indentation style.
+            func indentation() -> String {
+                switch self {
+                case .spaces:
+                    return String("  ")
+                case .tabs:
+                    return String("\t")
+                }
+            }
+        }
 
         // MARK: Option Properties
 
@@ -253,6 +268,7 @@ public struct MarkupFormatter: MarkupWalker {
         var preferredLineLimit: PreferredLineLimit?
         var customLinePrefix: String
         var doxygenCommandPrefix: DoxygenCommandPrefix
+        var indentationStyle: IndentationStyle
 
         /**
          Create a set of formatting options to use when printing an element.
@@ -269,6 +285,8 @@ public struct MarkupFormatter: MarkupWalker {
             - preferredHeadingStyle: The preferred heading style.
             - lineLimit: The preferred maximum line length and method for splitting ``Text`` elements in an attempt to maintain that line length.
             - customLinePrefix: An addition prefix to print at the start of each line, useful for adding documentation comment markers.
+            - indentationStyle: Whether to use spaces or tabs when indenting.
+
          */
         public init(unorderedListMarker: UnorderedListMarker = .dash,
                     orderedListNumerals: OrderedListNumerals = .allSame(1),
@@ -281,7 +299,8 @@ public struct MarkupFormatter: MarkupWalker {
                     preferredHeadingStyle: PreferredHeadingStyle = .atx,
                     preferredLineLimit: PreferredLineLimit? = nil,
                     customLinePrefix: String = "",
-                    doxygenCommandPrefix: DoxygenCommandPrefix = .backslash) {
+                    doxygenCommandPrefix: DoxygenCommandPrefix = .backslash,
+                    indentationStyle: IndentationStyle = .spaces) {
             self.unorderedListMarker = unorderedListMarker
             self.orderedListNumerals = orderedListNumerals
             self.useCodeFence = useCodeFence
@@ -296,6 +315,7 @@ public struct MarkupFormatter: MarkupWalker {
             self.thematicBreakLength = max(3, thematicBreakLength)
             self.customLinePrefix = customLinePrefix
             self.doxygenCommandPrefix = doxygenCommandPrefix
+            self.indentationStyle = indentationStyle
         }
 
         /// The default set of formatting options.
@@ -431,12 +451,12 @@ public struct MarkupFormatter: MarkupWalker {
                 prefix += "> "
             } else if element is UnorderedList {
                 if unorderedListCount > 0 {
-                    prefix += "  "
+                    prefix += formattingOptions.indentationStyle.indentation()
                 }
                 unorderedListCount += 1
             } else if element is OrderedList {
                 if orderedListCount > 0 {
-                    prefix += "   "
+                    prefix += formattingOptions.indentationStyle.indentation()
                 }
                 orderedListCount += 1
             } else if !(element is ListItem),
@@ -459,7 +479,7 @@ public struct MarkupFormatter: MarkupWalker {
 
                 if parentListItem.parent is UnorderedList {
                     // Unordered list markers are of fixed length.
-                    prefix += "  "
+                    prefix += formattingOptions.indentationStyle.indentation()
                 } else if let numeralPrefix = numeralPrefix(for: parentListItem) {
                     prefix += String(repeating: " ", count: numeralPrefix.count)
                 }
