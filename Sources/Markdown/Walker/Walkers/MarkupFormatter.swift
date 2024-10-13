@@ -239,9 +239,9 @@ public struct MarkupFormatter: MarkupWalker {
             case at = "@"
         }
         
-        public enum IndentationStyle {
-            case spaces // use spaces for indentation
-            case tabs   // Use tab characters for indentation
+        public enum IndentationStyle: String, CaseIterable {
+            case spaces = "spaces" // use spaces for indentation
+            case tabs = "tabs"   // Use tab characters for indentation
             
             /// Generates an indentation string based on the current indentation style.
             func indentation() -> String {
