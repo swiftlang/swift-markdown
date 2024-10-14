@@ -247,7 +247,7 @@ public struct MarkupFormatter: MarkupWalker {
             func indentation() -> String {
                 switch self {
                 case .spaces:
-                    return String("  ")
+                    return String("    ")
                 case .tabs:
                     return String("\t")
                 }
@@ -479,13 +479,14 @@ public struct MarkupFormatter: MarkupWalker {
 
                 if parentListItem.parent is UnorderedList {
                     // Unordered list markers are of fixed length.
-                    prefix += formattingOptions.indentationStyle.indentation()
+                    prefix += "  "
                 } else if let numeralPrefix = numeralPrefix(for: parentListItem) {
+                    // I don't know exactly what will happen when this produces an indent of 4 or more spaces.
                     prefix += String(repeating: " ", count: numeralPrefix.count)
                 }
             }
             if element.parent is BlockDirective {
-                prefix += "    "
+                prefix += formattingOptions.indentationStyle.indentation()
             }
         }
         return prefix
