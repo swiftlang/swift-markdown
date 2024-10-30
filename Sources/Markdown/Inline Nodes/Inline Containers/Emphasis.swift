@@ -29,8 +29,14 @@ public struct Emphasis: RecurringInlineMarkup, BasicInlineContainer {
 public extension Emphasis {
     // MARK: BasicInlineContainer
 
-    init<Children>(_ newChildren: Children) where Children : Sequence, Children.Element == InlineMarkup {
-        try! self.init(RawMarkup.emphasis(parsedRange: nil, newChildren.map { $0.raw.markup }))
+    init(_ newChildren: some Sequence<InlineMarkup>) {
+        self.init(newChildren, inheritSourceRange: false)
+    }
+
+    init(_ newChildren: some Sequence<InlineMarkup>, inheritSourceRange: Bool) {
+        let rawChildren = newChildren.map { $0.raw.markup }
+        let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
+        try! self.init(.emphasis(parsedRange: parsedRange, rawChildren))
     }
 
     // MARK: PlainTextConvertibleMarkup

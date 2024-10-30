@@ -11,12 +11,24 @@
 /// A block or inline markup element that can contain only `InlineMarkup` elements and doesn't require any other information.
 public protocol BasicInlineContainer: InlineContainer {
     /// Create this element with a sequence of inline markup elements.
-    init<Children: Sequence>(_ children: Children) where Children.Element == InlineMarkup 
+    init(_ children: some Sequence<InlineMarkup>)
+
+    /// Create this element with a sequence of inline markup elements, and optionally inherit the source range from those elements.
+    init(_ children: some Sequence<InlineMarkup>, inheritSourceRange: Bool)
 }
 
 extension BasicInlineContainer {
     /// Create this element with a sequence of inline markup elements.
     public init(_ children: InlineMarkup...) {
+        self.init(children)
+    }
+
+    public init(_ children: InlineMarkup..., inheritSourceRange: Bool) {
+        self.init(children, inheritSourceRange: inheritSourceRange)
+    }
+
+    /// Default implementation for `init(_:inheritSourceRange:)` that discards the `inheritSourceRange` parameter.
+    public init(_ children: some Sequence<InlineMarkup>, inheritSourceRange: Bool) {
         self.init(children)
     }
 }

@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -190,10 +190,18 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     /// Returns a new `RawMarkup` element replacing the slot at the given index with a new element.
     /// - note: The new element's `range` will be `nil`, as this API creates a new element outside of the parser.
     /// - precondition: The given index must be within the bounds of the children.
-    func substitutingChild(_ newChild: RawMarkup, at index: Int) -> RawMarkup {
+    func substitutingChild(_ newChild: RawMarkup, at index: Int, preserveRange: Bool = false) -> RawMarkup {
         var newChildren = copyChildren()
         newChildren[index] = newChild
-        return RawMarkup.create(data: header.data, parsedRange: newChild.header.parsedRange, children: newChildren)
+
+        let parsedRange: SourceRange?
+        if preserveRange {
+            parsedRange = header.parsedRange
+        } else {
+            parsedRange = newChild.header.parsedRange
+        }
+
+        return RawMarkup.create(data: header.data, parsedRange: parsedRange, children: newChildren)
     }
 
     func withChildren<Children: Collection>(_ newChildren: Children) -> RawMarkup where Children.Element == RawMarkup {
@@ -356,5 +364,15 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
 fileprivate extension Sequence where Element == RawMarkup {
     var subtreeCount: Int {
         return self.lazy.map { $0.subtreeCount }.reduce(0, +)
+    }
+}
+
+extension BidirectionalCollection where Element == RawMarkup {
+    var parsedRange: SourceRange? {
+        if let lowerBound = first?.parsedRange?.lowerBound, let upperBound = last?.parsedRange?.upperBound {
+            return lowerBound..<upperBound
+        } else {
+            return nil
+        }
     }
 }

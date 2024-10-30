@@ -159,7 +159,17 @@ public struct Aside {
             self.rawValue = rawValue
         }
     }
-    
+
+    /// Determines the permissiveness of aside-tag parsing when using ``init(_:tagRequirement:)``.
+    public enum TagRequirement: Equatable {
+        /// Only allow asides with a single-word aside tag, such as `Warning:` or `Important:`
+        case requireSingleWordTag
+        /// Require a aside tag, but allow it to be multiple words, such as `See Also:`
+        case requireAnyLengthTag
+        /// Convert all block-quotes into asides, treating asides with no kind tag as ``Aside/Kind/note`` asides.
+        case tagNotRequired
+    }
+
     /// The kind of aside interpreted from the initial text of the ``BlockQuote``.
     public var kind: Kind
 
@@ -170,25 +180,72 @@ public struct Aside {
     /// Create an aside from a block quote.
     public init(_ blockQuote: BlockQuote) {
         // Try to find an initial `tag:` text at the beginning.
-        guard var initialText = blockQuote.child(through: [
-            (0, Paragraph.self),
-            (0, Text.self),
-        ]) as? Text,
-        let firstColonIndex = initialText.string.firstIndex(where: { $0 == ":" }) else {
+        guard let kindTag = blockQuote.parseAsideTag(tagRequirement: .tagNotRequired) else {
             // Otherwise, default to a note aside.
             self.kind = .note
             self.content = Array(blockQuote.blockChildren)
             return
         }
-        self.kind = Kind(rawValue: String(initialText.string[..<firstColonIndex]))!
 
-        // Trim off the aside tag prefix.
+        self.kind = Kind(rawValue: kindTag.tag)!
+        self.content = Array(kindTag.newBlockQuote.blockChildren)
+    }
+
+    /// Create an aside from a block quote if it contains a kind tag that matches the given requirement.
+    public init?(_ blockQuote: BlockQuote, tagRequirement: TagRequirement = .tagNotRequired) {
+        guard tagRequirement != .tagNotRequired else {
+            self = .init(blockQuote)
+            return
+        }
+
+        guard let kindTag = blockQuote.parseAsideTag(tagRequirement: tagRequirement) else {
+            return nil
+        }
+
+        self.kind = Kind(rawValue: kindTag.tag)!
+        self.content = Array(kindTag.newBlockQuote.blockChildren)
+    }
+}
+
+extension BlockQuote {
+    func parseAsideTag(tagRequirement: Aside.TagRequirement) -> (tag: String, newBlockQuote: BlockQuote)? {
+        guard let initialText = self.child(through: [
+            (0, Paragraph.self),
+            (0, Text.self),
+        ]) as? Text, let firstColonIndex = initialText.string.firstIndex(of: ":") else {
+            return nil
+        }
+
+        let kindTag = initialText.string[..<firstColonIndex]
         let trimmedText = initialText.string[initialText.string.index(after: firstColonIndex)...].drop {
             $0 == " " || $0 == "\t"
         }
-        initialText.string = String(trimmedText)
 
-        let newBlockQuote = initialText.parent!.parent! as! BlockQuote
-        self.content = Array(newBlockQuote.blockChildren)
+        guard tagRequirement != .requireSingleWordTag || !kindTag.contains(" ") else {
+            return nil
+        }
+
+        let shiftCount = kindTag.utf8.count + 1 + initialText.string[firstColonIndex...].dropFirst().prefix(while: {
+            $0 == " " || $0 == "\t"
+        }).count
+        let textRange: SourceRange? = initialText.range.map({ originalRange in
+            var newStart = originalRange.lowerBound
+            newStart.column += shiftCount
+            return newStart..<originalRange.upperBound
+        })
+
+        guard let newBlockQuote = self._data.substitutingChild(
+            .text(parsedRange: textRange, string: String(trimmedText)),
+            through: [0, 0],
+            preserveRange: true) as? BlockQuote
+        else {
+            return nil
+        }
+        assert(
+            newBlockQuote.range?.lowerBound.source == self.range?.lowerBound.source,
+            "Parsing didn't lose the original source information"
+        )
+
+        return (String(kindTag), newBlockQuote)
     }
 }
