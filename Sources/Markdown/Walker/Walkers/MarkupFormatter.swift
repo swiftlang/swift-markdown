@@ -267,8 +267,9 @@ public struct MarkupFormatter: MarkupWalker {
             - emphasisMarker: The character to use for emphasis and strong emphasis markers.
             - condenseAutolinks: Print links whose link text and destination match as autolinks, e.g. `<https://swift.org>`.
             - preferredHeadingStyle: The preferred heading style.
-            - lineLimit: The preferred maximum line length and method for splitting ``Text`` elements in an attempt to maintain that line length.
+            - preferredLineLimit: The preferred maximum line length and method for splitting ``Text`` elements in an attempt to maintain that line length.
             - customLinePrefix: An addition prefix to print at the start of each line, useful for adding documentation comment markers.
+            - doxygenCommandPrefix: The command command prefix, which defaults to ``DoxygenCommandPrefix/backslash``.
          */
         public init(unorderedListMarker: UnorderedListMarker = .dash,
                     orderedListNumerals: OrderedListNumerals = .allSame(1),
@@ -345,7 +346,7 @@ public struct MarkupFormatter: MarkupWalker {
         /// The length of the last line.
         var lastLineLength = 0
 
-        /// The line number of the most recently printed content. 
+        /// The line number of the most recently printed content.
         ///
         /// This is updated in `addressPendingNewlines(for:)` when line breaks are printed.
         var lineNumber = 0
@@ -543,7 +544,7 @@ public struct MarkupFormatter: MarkupWalker {
             state.currentLength += prefix.count
             state.lastLineLength += prefix.count
         }
-        
+
         result += rawText
         state.currentLength += rawText.count
         state.lastLineLength += rawText.count
@@ -734,7 +735,7 @@ public struct MarkupFormatter: MarkupWalker {
         }
         descendInto(listItem)
     }
-    
+
     public mutating func visitHeading(_ heading: Heading) {
         if heading.indexInParent > 0 {
             ensurePrecedingNewlineCount(atLeast: 2)
@@ -1153,7 +1154,7 @@ public struct MarkupFormatter: MarkupWalker {
             print(attributes.attributes, for: attributes)
             print(")", for: attributes)
         }
-    
+
         printInlineAttributes()
 
         // Inline attributes *can* have their key-value pairs split across multiple
