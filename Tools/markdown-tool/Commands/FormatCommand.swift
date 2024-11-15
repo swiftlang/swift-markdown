@@ -52,6 +52,7 @@ extension MarkupFormatter.Options.ThematicBreakCharacter: ExpressibleByArgument 
 extension MarkupFormatter.Options.EmphasisMarker: ExpressibleByArgument {}
 extension MarkupFormatter.Options.PreferredHeadingStyle: ExpressibleByArgument {}
 extension MarkupFormatter.Options.PreferredLineLimit.SplittingElement:  ExpressibleByArgument {}
+extension MarkupFormatter.Options.IndentionStyle: ExpressibleByArgument {}
 
 extension MarkdownCommand {
     /**
@@ -108,6 +109,9 @@ extension MarkdownCommand {
         @Option(help: "The kind of element to use to split text elements while enforcing --preferred-maximum-line-length; choices: \(MarkupFormatter.Options.PreferredLineLimit.SplittingElement.allCases.map { $0.rawValue }.joined(separator: ", "))")
         var lineSplittingElement: MarkupFormatter.Options.PreferredLineLimit.SplittingElement = .softBreak
 
+        @Option(help: "The indentation style to use when emitting indented blocks; choices:\(MarkupFormatter.Options.IndentationStyle.allCases.map { $0.rawValue }.joined(separator: ", "))")
+        var indentationStyle: MarkupFormatter.Options.IndentationStyle = .spaces
+        
         @Option(help: "Prepend this prefix to every line")
         var customLinePrefix: String = ""
 
@@ -232,7 +236,8 @@ extension MarkdownCommand {
                                                   condenseAutolinks: condenseAutolinks,
                                                   preferredHeadingStyle: preferredHeadingStyle,
                                                   preferredLineLimit: preferredLineLimit,
-                                                  customLinePrefix: customLinePrefix)
+                                                  customLinePrefix: customLinePrefix,
+                                                  indentationStyle: indentationStyle)
             let formatted = document.format(options: formatOptions)
             print(formatted)
             if checkStructuralEquivalence {
