@@ -52,7 +52,7 @@ public extension Table {
     ///
     /// - parameter columnAlignments: An optional list of alignments for each column,
     ///   truncated or expanded with `nil` to fit the table's maximum column count.
-    /// - parameter head: A ``Table/Head-swift.struct`` element serving as the table's head.
+    /// - parameter header: A ``Table/Head-swift.struct`` element serving as the table's head.
     /// - parameter body: A ``Table/Body-swift.struct`` element serving as the table's body.
     init(columnAlignments: [ColumnAlignment?]? = nil,
          header: Head = Head(),

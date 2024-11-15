@@ -270,7 +270,7 @@ public protocol MarkupVisitor<Result> {
     /**
     Visit an `InlineAttributes` element and return the result.
 
-    - parameter attribute: An `InlineAttributes` element.
+    - parameter attributes: An `InlineAttributes` element.
     - returns: The result of the visit.
      */
      mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> Result
