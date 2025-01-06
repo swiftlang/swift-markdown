@@ -215,16 +215,14 @@ public struct HTMLFormatter: MarkupWalker {
 
     // MARK: Inline elements
 
-    mutating func printInline(tag: String, content: String) {
-        result += "<\(tag)>\(content)</\(tag)>"
-    }
-
-    mutating func printInline(tag: String, _ inline: InlineMarkup) {
-        printInline(tag: tag, content: inline.plainText)
+    mutating func printInline(tag: String, _ content: Markup) {
+        result += "<\(tag)>"
+        descendInto(content)
+        result += "</\(tag)>"
     }
 
     public mutating func visitInlineCode(_ inlineCode: InlineCode) -> () {
-        printInline(tag: "code", content: inlineCode.code)
+        result += "<code>\(inlineCode.code)</code>"
     }
 
     public mutating func visitEmphasis(_ emphasis: Emphasis) -> () {
@@ -283,7 +281,7 @@ public struct HTMLFormatter: MarkupWalker {
 
     public mutating func visitSymbolLink(_ symbolLink: SymbolLink) -> () {
         if let destination = symbolLink.destination {
-            printInline(tag: "code", content: destination)
+            result += "<code>\(destination)</code>"
         }
     }
 
