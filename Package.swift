@@ -28,9 +28,13 @@ let package = Package(
                 "CAtomic",
                 .product(name: "cmark-gfm", package: cmarkPackageName),
                 .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
-            ], 
+            ],
             exclude: [
                 "CMakeLists.txt"
+            ],
+            swiftSettings: [
+                .unsafeFlags(["-Xcc", "-DCMARK_GFM_STATIC_DEFINE"],
+                             .when(platforms: [.windows])),
             ]),
         .testTarget(
             name: "MarkdownTests",
