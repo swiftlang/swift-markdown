@@ -367,11 +367,11 @@ public struct MarkupFormatter: MarkupWalker {
     // MARK: Formatter Utilities
 
     /// True if the current line length is over the preferred line limit.
-    var isOverPreferredLineLimit: Bool {
+    func isOverPreferredLineLimit(with addition: String = "") -> Bool {
         guard let lineLimit = formattingOptions.preferredLineLimit else {
             return false
         }
-        return state.lastLineLength >= lineLimit.maxLength
+        return state.lastLineLength + addition.count >= lineLimit.maxLength
     }
 
     /**
@@ -590,8 +590,12 @@ public struct MarkupFormatter: MarkupWalker {
                 // However, there is one exception:
                 // we might already be right at the edge of a line when
                 // this method was called.
-                if state.lastLineLength + word.count >= lineLimit.maxLength {
-                    queueNewline()
+                if isOverPreferredLineLimit(with: word) && state.queuedNewlines == 0 {
+                    // An exception to the exception: don't push punctuation to the
+                    // next line, even if this line is at or longer than the limit.
+                    if !(word.allSatisfy(\.isPunctuation) && word.count <= 3) {
+                        queueNewline()
+                    }
                 }
                 print(word, for: element)
                 wordsThisLine += 1
@@ -776,13 +780,14 @@ public struct MarkupFormatter: MarkupWalker {
 
     public mutating func visitInlineCode(_ inlineCode: InlineCode) {
         let savedState = state
+        let atLineStart = state.lastLineLength == 0
         softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
 
         // Splitting inline code elements is allowed if it contains spaces.
         // If printing with automatic wrapping still put us over the line,
         // prefer to print it on the next line to give as much opportunity
         // to keep the contents on one line.
-        if inlineCode.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
+        if !atLineStart && inlineCode.indexInParent > 0 && (isOverPreferredLineLimit() || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
@@ -813,7 +818,7 @@ public struct MarkupFormatter: MarkupWalker {
         // Image elements' source URLs can't be split. If wrapping the alt text
         // of an image still put us over the line, prefer to print it on the
         // next line to give as much opportunity to keep the alt text contents on one line.
-        if image.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
+        if image.indexInParent > 0 && (isOverPreferredLineLimit() || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             printImage()
@@ -850,7 +855,7 @@ public struct MarkupFormatter: MarkupWalker {
             // Link elements' destination URLs can't be split. If wrapping the link text
             // of a link still put us over the line, prefer to print it on the
             // next line to give as much opportunity to keep the link text contents on one line.
-            if link.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
+            if link.indexInParent > 0 && (isOverPreferredLineLimit() || state.effectiveLineNumber > savedState.effectiveLineNumber) {
                 restoreState(to: savedState)
                 queueNewline()
                 printRegularLink()
@@ -1140,6 +1145,12 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     public mutating func visitSymbolLink(_ symbolLink: SymbolLink) {
+        let atLineStart = state.lastLineLength == 0
+        let composited = "``\(symbolLink.destination ?? "")``"
+
+        if !atLineStart && isOverPreferredLineLimit(with: composited) {
+            queueNewline()
+        }
         print("``", for: symbolLink)
         print(symbolLink.destination ?? "", for: symbolLink)
         print("``", for: symbolLink)
@@ -1162,7 +1173,7 @@ public struct MarkupFormatter: MarkupWalker {
         // gets into the realm of JSON formatting which might be out of scope of
         // this formatter. Therefore if exceeded, prefer to print it on the next
         // line to give as much opportunity to keep the attributes on one line.
-        if attributes.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
+        if attributes.indexInParent > 0 && (isOverPreferredLineLimit() || state.effectiveLineNumber > savedState.effectiveLineNumber) {
             restoreState(to: savedState)
             queueNewline()
             printInlineAttributes()

@@ -947,6 +947,57 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         }
     }
 
+    func testParagraphWithLongSymbolicLinks() {
+        let source = """
+        Because options are parsed before arguments, an option that consumes or
+        suppresses the `--` terminator can prevent a `postTerminator` argument
+        array from capturing any input. In particular, the
+        ``SingleValueParsingStrategy/unconditional``,
+        ``ArrayParsingStrategy/unconditionalSingleValue``, and
+        ``ArrayParsingStrategy/remaining`` parsing strategies can all consume
+        the terminator as part of their values.
+        """
+        let expected = """
+        Because options are parsed before arguments, an option that consumes or 
+        suppresses the `--` terminator can prevent a `postTerminator` argument 
+        array from capturing any input. In particular, the 
+        ``SingleValueParsingStrategy/unconditional``, 
+        ``ArrayParsingStrategy/unconditionalSingleValue``, and 
+        ``ArrayParsingStrategy/remaining`` parsing strategies can all consume the
+        terminator as part of their values.
+        """
+        let options = MarkupFormatter.Options(preferredLineLimit: PreferredLineLimit(maxLength: 74, breakWith: .softBreak))
+        let document = Document(parsing: source, options: [.parseSymbolLinks])
+        let printed = document.format(options: options)
+        XCTAssertEqual(expected, printed)
+
+        let expectedTreeDump = """
+        Document
+        └─ Paragraph
+           ├─ Text "Because options are parsed before arguments, an option that consumes or"
+           ├─ SoftBreak
+           ├─ Text "suppresses the "
+           ├─ InlineCode `--`
+           ├─ Text " terminator can prevent a "
+           ├─ InlineCode `postTerminator`
+           ├─ Text " argument"
+           ├─ SoftBreak
+           ├─ Text "array from capturing any input. In particular, the"
+           ├─ SoftBreak
+           ├─ InlineCode `SingleValueParsingStrategy/unconditional`
+           ├─ Text ","
+           ├─ SoftBreak
+           ├─ InlineCode `ArrayParsingStrategy/unconditionalSingleValue`
+           ├─ Text ", and"
+           ├─ SoftBreak
+           ├─ InlineCode `ArrayParsingStrategy/remaining`
+           ├─ Text " parsing strategies can all consume the"
+           ├─ SoftBreak
+           └─ Text "terminator as part of their values."
+        """
+        XCTAssertEqual(expectedTreeDump, Document(parsing: printed).debugDescription())
+    }
+
     /**
      Test that line breaks maintain block structure in a flat, unordered list.
      */
@@ -1197,7 +1248,6 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         let expected = """
         > Really really
         > really long line
-        > >\u{0020}
         > > Whoa, really
         > > really really
         > > really long
@@ -1349,6 +1399,44 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         `sdf sdf sdf sdf
         sdf sdf sdf sdf`
         """
+        XCTAssertEqual(expected, printed)
+        XCTAssertTrue(document.hasSameStructure(as: Document(parsing: printed)))
+    }
+
+    func testBreakAtLongInlineCode() {
+        let source = "This is a long line `that contains inline code`."
+        let document = Document(parsing: source)
+        let printed = document.format(options: .init(preferredLineLimit: .init(maxLength: 20, breakWith: .softBreak)))
+        let expected = """
+        This is a long line
+        `that contains
+        inline code`.
+        """
+        let expectedTreeDump = """
+        Document
+        └─ Paragraph
+           ├─ Text "This is a long line"
+           ├─ SoftBreak
+           ├─ InlineCode `that contains inline code`
+           └─ Text "."
+        """
+        XCTAssertEqual(expected, printed)
+        XCTAssertEqual(expectedTreeDump, Document(parsing: printed).debugDescription())
+    }
+
+    func testBreakAtShortInlineCode() {
+        let source = """
+        Perform an atomic logical AND operation on the value referenced by
+        `pointer` and return the original value, applying the specified memory
+        ordering.
+        """
+        let expected = """
+        Perform an atomic logical AND operation on the value referenced by 
+        `pointer` and return the original value, applying the specified memory 
+        ordering.
+        """
+        let document = Document(parsing: source)
+        let printed = document.format(options: .init(preferredLineLimit: .init(maxLength: 76, breakWith: .softBreak)))
         XCTAssertEqual(expected, printed)
         XCTAssertTrue(document.hasSameStructure(as: Document(parsing: printed)))
     }
