@@ -947,10 +947,14 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         }
     }
 
+    /**
+     Test that breaks are inserted before symbolic links when necessary to
+     honor the preferred line limit.
+     */
     func testParagraphWithLongSymbolicLinks() {
         let source = """
         Because options are parsed before arguments, an option that consumes or
-        suppresses the `--` terminator can prevent a `postTerminator` argument
+        suppresses the `--` terminator can prevent a ``postTerminator`` argument
         array from capturing any input. In particular, the
         ``SingleValueParsingStrategy/unconditional``,
         ``ArrayParsingStrategy/unconditionalSingleValue``, and
@@ -959,7 +963,7 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         """
         let expected = """
         Because options are parsed before arguments, an option that consumes or 
-        suppresses the `--` terminator can prevent a `postTerminator` argument 
+        suppresses the `--` terminator can prevent a ``postTerminator`` argument 
         array from capturing any input. In particular, the 
         ``SingleValueParsingStrategy/unconditional``, 
         ``ArrayParsingStrategy/unconditionalSingleValue``, and 
@@ -1403,6 +1407,10 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         XCTAssertTrue(document.hasSameStructure(as: Document(parsing: printed)))
     }
 
+    /**
+     Test that wrapping at the start of a long inline code run doesn't cause
+     an extra newline.
+     */
     func testBreakAtLongInlineCode() {
         let source = "This is a long line `that contains inline code`."
         let document = Document(parsing: source)
@@ -1424,6 +1432,10 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         XCTAssertEqual(expectedTreeDump, Document(parsing: printed).debugDescription())
     }
 
+    /**
+     Test that wrapping at the start of a short inline code run doesn't cause
+     an extra newline.
+     */
     func testBreakAtShortInlineCode() {
         let source = """
         Perform an atomic logical AND operation on the value referenced by

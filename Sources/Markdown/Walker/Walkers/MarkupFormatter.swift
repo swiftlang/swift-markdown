@@ -366,7 +366,8 @@ public struct MarkupFormatter: MarkupWalker {
 
     // MARK: Formatter Utilities
 
-    /// True if the current line length is over the preferred line limit.
+    /// Returns `true` if the current line length, plus an optional addition,
+    /// is over the preferred line limit.
     func isOverPreferredLineLimit(with addition: String = "") -> Bool {
         guard let lineLimit = formattingOptions.preferredLineLimit else {
             return false
