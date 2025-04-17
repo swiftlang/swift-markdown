@@ -9,7 +9,7 @@
 */
 
 /// Options for parsing Markdown.
-public struct ParseOptions: OptionSet {
+public struct ParseOptions: OptionSet, Sendable {
     public var rawValue: UInt
 
     public init(rawValue: UInt) {
