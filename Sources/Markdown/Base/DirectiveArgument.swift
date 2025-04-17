@@ -27,10 +27,10 @@
 /// ```
 /// y: 2
 /// ```
-public struct DirectiveArgumentText: Equatable {
+public struct DirectiveArgumentText: Equatable, Sendable {
 
     /// Errors parsing name-value arguments from argument text segments.
-    public enum ParseError: Equatable {
+    public enum ParseError: Equatable, Sendable {
         /// A duplicate argument was given.
         case duplicateArgument(name: String, firstLocation: SourceLocation, duplicateLocation: SourceLocation)
 
@@ -42,7 +42,7 @@ public struct DirectiveArgumentText: Equatable {
     }
 
     /// A segment of a line of argument text.
-    public struct LineSegment: Equatable {
+    public struct LineSegment: Equatable, Sendable {
         /// The original untrimmed text of the line, from which arguments can be parsed.
         public var untrimmedText: String
 
@@ -368,7 +368,7 @@ public struct DirectiveArgumentText: Equatable {
 }
 
 /// A directive argument, parsed from the form `name: value` or `name: "value"`.
-public struct DirectiveArgument: Equatable {
+public struct DirectiveArgument: Equatable, Sendable {
     /// The name of the argument.
     public var name: String
 
