@@ -22,7 +22,7 @@ import Foundation
 /// ```
 public struct Aside {
     /// Describes the different kinds of aside.
-    public struct Kind: RawRepresentable, CaseIterable, Equatable {
+    public struct Kind: RawRepresentable, CaseIterable, Equatable, Sendable {
         /// A "note" aside.
         public static let note = Kind(rawValue: "Note")!
         
@@ -161,7 +161,7 @@ public struct Aside {
     }
 
     /// Determines the permissiveness of aside-tag parsing when using ``init(_:tagRequirement:)``.
-    public enum TagRequirement: Equatable {
+    public enum TagRequirement: Equatable, Sendable {
         /// Only allow asides with a single-word aside tag, such as `Warning:` or `Important:`
         case requireSingleWordTag
         /// Require a aside tag, but allow it to be multiple words, such as `See Also:`
