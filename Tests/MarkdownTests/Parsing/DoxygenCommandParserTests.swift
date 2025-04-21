@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2023 Apple Inc. and the Swift project authors
+ Copyright (c) 2023-2025 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -433,6 +433,34 @@ class DoxygenCommandParserTests: XCTestCase {
         Document
         └─ Paragraph
            └─ Text "\unknown"
+        """#
+        XCTAssertEqual(document.debugDescription(), expectedDump)
+    }
+
+    func testRunOnDirectivesAllowDoxygenParsing() {
+        let source = #"""
+        @method doSomethingWithNumber:
+        @abstract Some brief description of this method
+        @param number Some description of the "number" parameter
+        @return Some description of the return value
+        @discussion Some longer discussion for this method
+        """#
+
+        let document = Document(parsing: source, options: parseOptions)
+
+        let expectedDump = #"""
+        Document
+        ├─ BlockDirective name: "method"
+        ├─ BlockDirective name: "abstract"
+        ├─ DoxygenParameter parameter: number
+        │  └─ Paragraph
+        │     └─ Text "Some description of the “number” parameter"
+        ├─ DoxygenReturns
+        │  └─ Paragraph
+        │     └─ Text "Some description of the return value"
+        └─ DoxygenDiscussion
+           └─ Paragraph
+              └─ Text "Some longer discussion for this method"
         """#
         XCTAssertEqual(document.debugDescription(), expectedDump)
     }
