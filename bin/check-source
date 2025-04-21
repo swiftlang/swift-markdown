@@ -2,7 +2,7 @@
 #
 # This source file is part of the Swift.org open source project
 #
-# Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
+# Copyright (c) 2021-2025 Apple Inc. and the Swift project authors
 # Licensed under Apache License v2.0 with Runtime Library Exception
 #
 # See https://swift.org/LICENSE.txt for license information
@@ -18,7 +18,7 @@ here="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 function replace_acceptable_years() {
     # this needs to replace all acceptable forms with 'YEARS'
-    sed -e 's/20[12][78901234]-20[12][8901234]/YEARS/' -e 's/20[12][8901234]/YEARS/'
+    sed -e 's/20[12][789012345]-20[12][89012345]/YEARS/' -e 's/20[12][89012345]/YEARS/'
 }
 
 printf "=> Checking for unacceptable language… "
@@ -151,6 +151,7 @@ EOF
     cd "$here/.."
     find . \
       \( \! -path './.build/*' -a \
+      \! -path './Tools/.build/*' -a \
       \! -name '.' -a \
       \( "${matching_files[@]}" \) -a \
       \( \! \( "${exceptions[@]}" \) \) \) | while read line; do
