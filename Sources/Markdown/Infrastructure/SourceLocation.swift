@@ -11,7 +11,7 @@
 import Foundation
 
 /// A location in a source file.
-public struct SourceLocation: Hashable, CustomStringConvertible, Comparable {
+public struct SourceLocation: Hashable, CustomStringConvertible, Comparable, Sendable {
     public static func < (lhs: SourceLocation, rhs: SourceLocation) -> Bool {
         if lhs.line < rhs.line {
             return true

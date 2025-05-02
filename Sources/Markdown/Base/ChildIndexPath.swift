@@ -12,14 +12,14 @@
 public typealias ChildIndexPath = [Int]
 
 /// A description of a traversal through a markup tree by index and optional expected type.
-public struct TypedChildIndexPath: RandomAccessCollection, ExpressibleByArrayLiteral {
+public struct TypedChildIndexPath: RandomAccessCollection, ExpressibleByArrayLiteral, Sendable {
     /// A pair consisting of an expected index and optional expected type for a child element.
     ///
     /// This type is a shorthand convenience when creating a ``TypedChildIndexPath`` from an array literal.
     public typealias ArrayLiteralElement = (Int, Markup.Type?)
 
     /// An element of a complex child index path.
-    public struct Element {
+    public struct Element: Sendable {
         /// The index to use when descending into the children.
         var index: Int
 
