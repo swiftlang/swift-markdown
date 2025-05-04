@@ -111,4 +111,19 @@ final class RawMarkupToMarkupTests: XCTestCase {
         XCTAssertNoThrow(try Link(.link(destination: "", parsedRange: nil, [])))
         XCTAssertThrowsError(try Link(.softBreak(parsedRange: nil)))
     }
+
+    func testInlineAttributes() {
+        XCTAssertNoThrow(try InlineAttributes(.inlineAttributes(attributes: "", parsedRange: nil, [])))
+        XCTAssertThrowsError(try InlineAttributes(.softBreak(parsedRange: nil)))
+    }
+
+    func testStrikethrough() {
+        XCTAssertNoThrow(try Strikethrough(.strikethrough(parsedRange: nil, [])))
+        XCTAssertThrowsError(try Strikethrough(.softBreak(parsedRange: nil)))
+    }
+
+    func testSymbolLink() {
+        XCTAssertNoThrow(try SymbolLink(.symbolLink(parsedRange: nil, destination: nil)))
+        XCTAssertThrowsError(try SymbolLink(.lineBreak(parsedRange: nil)))
+    }
 }
