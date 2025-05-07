@@ -68,6 +68,9 @@ fileprivate enum CommonMarkNodeType: String {
     case tableCell = "table_cell"
 
     case taskListItem = "tasklist"
+
+    case footnoteReference = "footnote_reference"
+    case footnoteDefinition = "footnote_definition"
 }
 
 /// Represents the result of a cmark conversion: the current `MarkupConverterState` and the resulting converted node.
@@ -138,6 +141,16 @@ fileprivate struct MarkupConverterState {
         let typeString = String(cString: cmark_node_get_type_string(node))
         guard let type = CommonMarkNodeType(rawValue: typeString) else {
             fatalError("Unknown cmark node type '\(typeString)' encountered during conversion")
+        }
+        if type == .unknown {
+            // NOTE: cmark does not expose strings for the footnote types, but
+            // does correctly identify their type.
+            switch cmark_node_get_type(node) {
+                case CMARK_NODE_FOOTNOTE_DEFINITION: return .footnoteDefinition
+                case CMARK_NODE_FOOTNOTE_REFERENCE: return .footnoteReference
+                default:
+                    fatalError("Unknown cmark node type '\(typeString)' encountered during conversion")
+            }
         }
         return type
     }
@@ -232,6 +245,10 @@ struct MarkupParser {
             return convertTableCell(state)
         case .inlineAttributes:
             return convertInlineAttributes(state)
+        case .footnoteReference:
+            return convertFootnoteReference(state)
+        case .footnoteDefinition:
+            return convertFootnoteDefinition(state)
         default:
             fatalError("Unknown cmark node type '\(state.nodeType.rawValue)' encountered during conversion")
         }
@@ -608,6 +625,28 @@ struct MarkupParser {
         return MarkupConversion(state: childConversion.state.next(), result: .inlineAttributes(attributes: attributes, parsedRange: parsedRange, childConversion.result))
      }
 
+    private static func convertFootnoteReference(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .footnoteReference)
+        let parsedRange = state.range(state.node)
+        let childConversion = convertChildren(state)
+        let footnoteID = String(cString: cmark_node_get_literal(state.node))
+        precondition(childConversion.state.node == state.node)
+        precondition(childConversion.state.event == CMARK_EVENT_EXIT)
+        return MarkupConversion(state: childConversion.state.next(), result: .footnoteReference(footnoteID: footnoteID, parsedRange: parsedRange, childConversion.result))
+     }
+
+    private static func convertFootnoteDefinition(_ state: MarkupConverterState) -> MarkupConversion<RawMarkup> {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .footnoteDefinition)
+        let parsedRange = state.range(state.node)
+        let childConversion = convertChildren(state)
+        let footnoteID = String(cString: cmark_node_get_literal(state.node))
+        precondition(childConversion.state.node == state.node)
+        precondition(childConversion.state.event == CMARK_EVENT_EXIT)
+        return MarkupConversion(state: childConversion.state.next(), result: .footnoteDefinition(footnoteID: footnoteID, parsedRange: parsedRange, childConversion.result))
+    }
+     
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
 
@@ -618,6 +657,7 @@ struct MarkupParser {
         if !options.contains(.disableSourcePosOpts) {
             cmarkOptions |= CMARK_OPT_SOURCEPOS
         }
+        cmarkOptions |= CMARK_OPT_FOOTNOTES
         
         let parser = cmark_parser_new(cmarkOptions)
         
