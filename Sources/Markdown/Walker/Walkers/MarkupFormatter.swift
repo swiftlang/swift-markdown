@@ -1199,4 +1199,5 @@ public struct MarkupFormatter: MarkupWalker {
         printDoxygenStart("returns", for: doxygenReturns)
         descendInto(doxygenReturns)
     }
+
 }
