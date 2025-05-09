@@ -469,7 +469,9 @@ class DoxygenCommandParserTests: XCTestCase {
         let expectedDump = #"""
         Document
         ├─ BlockDirective name: "method"
-        ├─ BlockDirective name: "abstract"
+        ├─ DoxygenAbstract
+        │  └─ Paragraph
+        │     └─ Text "Some brief description of this method"
         ├─ DoxygenParameter parameter: number
         │  └─ Paragraph
         │     └─ Text "Some description of the “number” parameter"
