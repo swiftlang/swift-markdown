@@ -90,13 +90,14 @@ public extension BlockDirective {
     init<Children: Sequence>(name: String,
                              argumentText: String? = nil,
                              children: Children) where Children.Element == BlockMarkup {
-        let argumentSegments = argumentText?.split(separator: "\n",
-                                                   maxSplits: .max,
-                                                   omittingEmptySubsequences: false).map { lineText -> DirectiveArgumentText.LineSegment in
-                                                    let untrimmedText = String(lineText)
-                                                    return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedText,
-                                                                                             range: nil)
-                                                   } ?? []
+        let argumentSegments = argumentText?.split(
+            omittingEmptySubsequences: false,
+            whereSeparator: \.isNewline
+        ).map { lineText -> DirectiveArgumentText.LineSegment in
+            let untrimmedText = String(lineText)
+            return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedText,
+                                                     range: nil)
+        } ?? []
         try! self.init(.blockDirective(name: name,
                                        nameLocation: nil,
                                        argumentText: DirectiveArgumentText(segments: argumentSegments),

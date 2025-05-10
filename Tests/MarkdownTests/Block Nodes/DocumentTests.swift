@@ -40,4 +40,23 @@ final class DocumentTests: XCTestCase {
         XCTAssertThrowsError(try Document(parsing: URL(fileURLWithPath: #file)
             .appendingPathComponent("doesntexist")))
     }
+ 
+    func testDocumentContainsCharactersRepresentatingNewLines() {
+        let inputParagraphString = """
+        # First\n
+        ## Second\r
+        ### Third\r\n
+        """
+        let document = Document(parsing: inputParagraphString, options: [.parseBlockDirectives, .parseSymbolLinks])
+        let expectedDump = """
+                Document
+                ├─ Heading level: 1
+                │  └─ Text "First"
+                ├─ Heading level: 2
+                │  └─ Text "Second"
+                └─ Heading level: 3
+                   └─ Text "Third"
+                """
+        XCTAssertEqual(expectedDump, document.debugDescription())
+    }
 }

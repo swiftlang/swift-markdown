@@ -28,7 +28,7 @@ struct LazySplitLines: Sequence {
         private var source: URL?
 
         init<S: StringProtocol>(_ input: S, source: URL?) where S.SubSequence == Substring {
-            self.rawLines = input.split(separator: "\n", maxSplits: Int.max, omittingEmptySubsequences: false)
+            self.rawLines = input.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
             self.index = rawLines.startIndex
             self.source = source
         }

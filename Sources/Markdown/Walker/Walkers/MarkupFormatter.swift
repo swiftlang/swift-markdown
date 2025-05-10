@@ -38,7 +38,7 @@ fileprivate extension Markup {
 fileprivate extension String {
     /// This string, split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
-        var splitLines = split(separator: "\n", omittingEmptySubsequences: false)[...].drop { $0.isEmpty }
+        var splitLines = split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)[...].drop { $0.isEmpty }
         while let lastLine = splitLines.last, lastLine.isEmpty {
             splitLines = splitLines.dropLast()
         }

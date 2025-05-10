@@ -537,7 +537,7 @@ private enum ParseContainer: CustomStringConvertible {
         }
 
         mutating private func print<S: StringProtocol>(_ text: S) {
-            let lines = text.split(separator: "\n", omittingEmptySubsequences: false)
+            let lines = text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
             for i in lines.indices {
                 if i != lines.startIndex {
                     queueNewline()
