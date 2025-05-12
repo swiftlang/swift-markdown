@@ -75,6 +75,8 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return DoxygenDiscussion(data)
     case .doxygenNote:
         return DoxygenNote(data)
+    case .doxygenAbstract:
+        return DoxygenAbstract(data)
     case .doxygenParam:
         return DoxygenParameter(data)
     case .doxygenReturns:

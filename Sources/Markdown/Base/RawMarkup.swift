@@ -54,6 +54,7 @@ enum RawMarkupData: Equatable {
 
     case doxygenDiscussion
     case doxygenNote
+    case doxygenAbstract
     case doxygenParam(name: String)
     case doxygenReturns
 }
@@ -350,6 +351,10 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
 
     static func doxygenNote(parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
         return .create(data: .doxygenNote, parsedRange: parsedRange, children: children)
+    }
+
+    static func doxygenAbstract(parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        return .create(data: .doxygenAbstract, parsedRange: parsedRange, children: children)
     }
 
     static func doxygenParam(name: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
