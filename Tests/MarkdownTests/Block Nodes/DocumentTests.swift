@@ -41,7 +41,7 @@ final class DocumentTests: XCTestCase {
             .appendingPathComponent("doesntexist")))
     }
  
-    func testDocumentContainsCharactersRepresentatingNewLines() {
+    func testParseNewlineCharacters() {
         let inputParagraphString = """
         # First\n
         ## Second\r
