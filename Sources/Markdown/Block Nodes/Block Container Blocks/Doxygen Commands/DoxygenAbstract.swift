@@ -17,7 +17,7 @@ import Foundation
 /// line or parsed command.
 ///
 /// ```markdown
-/// \discussion This object can give other objects in your program magical powers.
+/// \abstract This object can give other objects in your program magical powers.
 /// ```
 public struct DoxygenAbstract: BlockContainer {
     public var _data: _MarkupData
@@ -40,14 +40,14 @@ public struct DoxygenAbstract: BlockContainer {
 }
 
 public extension DoxygenAbstract {
-    /// Create a new Doxygen discussion definition.
+    /// Create a new Doxygen abstract definition.
     ///
     /// - Parameter children: Block child elements.
     init<Children: Sequence>(children: Children) where Children.Element == BlockMarkup {
         try! self.init(.doxygenAbstract(parsedRange: nil, children.map({ $0.raw.markup })))
     }
 
-    /// Create a new Doxygen discussion definition.
+    /// Create a new Doxygen abstract definition.
     ///
     /// - Parameter children: Block child elements.
     init(children: BlockMarkup...) {
