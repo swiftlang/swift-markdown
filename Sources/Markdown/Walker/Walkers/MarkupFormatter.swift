@@ -425,21 +425,20 @@ public struct MarkupFormatter: MarkupWalker {
      */
     func linePrefix(for element: Markup) -> String {
         var prefix = formattingOptions.customLinePrefix
-        var unorderedListCount = 0
-        var orderedListCount = 0
+        var listCount = 0
         for element in element.parentalChain {
             if element is BlockQuote {
                 prefix += "> "
             } else if element is UnorderedList {
-                if unorderedListCount > 0 {
+                if listCount > 0 {
                     prefix += "  "
                 }
-                unorderedListCount += 1
+                listCount += 1
             } else if element is OrderedList {
-                if orderedListCount > 0 {
+                if listCount > 0 {
                     prefix += "   "
                 }
-                orderedListCount += 1
+                listCount += 1
             } else if !(element is ListItem),
                 let parentListItem = element.parent as? ListItem {
                 /*
