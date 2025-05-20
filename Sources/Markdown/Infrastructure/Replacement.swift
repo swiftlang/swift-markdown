@@ -9,7 +9,7 @@
 */
 
 /// A textual replacement.
-public struct Replacement: CustomStringConvertible, CustomDebugStringConvertible {
+public struct Replacement: CustomStringConvertible, CustomDebugStringConvertible, Sendable {
     /// The range of source text to replace.
     public var range: SourceRange
 

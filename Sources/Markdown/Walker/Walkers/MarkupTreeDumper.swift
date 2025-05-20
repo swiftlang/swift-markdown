@@ -18,7 +18,7 @@ fileprivate extension String {
 }
 
 /// Options when printing a debug description of a markup tree.
-public struct MarkupDumpOptions: OptionSet {
+public struct MarkupDumpOptions: OptionSet, Sendable {
     public let rawValue: UInt
     public init(rawValue: UInt) {
         self.rawValue = rawValue

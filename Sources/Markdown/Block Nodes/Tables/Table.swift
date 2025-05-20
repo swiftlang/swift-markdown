@@ -19,7 +19,7 @@
 /// - Column alignment applies to all cells within in the same column. See ``columnAlignments``.
 public struct Table: BlockMarkup {
     /// The alignment of all cells under a table column.
-    public enum ColumnAlignment {
+    public enum ColumnAlignment: Sendable {
         /// Left alignment.
         case left
 
