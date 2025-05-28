@@ -32,6 +32,26 @@ class DoxygenCommandParserTests: XCTestCase {
         assertValidParse(source: #"\discussion The thing."#)
     }
 
+    func testParseAbstract() {
+        func assertValidParse(source: String) {
+            let document = Document(parsing: source, options: parseOptions)
+            XCTAssert(document.child(at: 0) is DoxygenAbstract)
+
+            let expectedDump = """
+            Document
+            └─ DoxygenAbstract
+               └─ Paragraph
+                  └─ Text "The thing."
+            """
+            XCTAssertEqual(document.debugDescription(), expectedDump)
+        }
+
+        assertValidParse(source: "@abstract The thing.")
+        assertValidParse(source: #"\abstract The thing."#)
+        assertValidParse(source: "@brief The thing.")
+        assertValidParse(source: #"\brief The thing."#)
+    }
+
     func testParseNote() {
         func assertValidParse(source: String) {
             let document = Document(parsing: source, options: parseOptions)
@@ -451,7 +471,9 @@ class DoxygenCommandParserTests: XCTestCase {
         let expectedDump = #"""
         Document
         ├─ BlockDirective name: "method"
-        ├─ BlockDirective name: "abstract"
+        ├─ DoxygenAbstract
+        │  └─ Paragraph
+        │     └─ Text "Some brief description of this method"
         ├─ DoxygenParameter parameter: number
         │  └─ Paragraph
         │     └─ Text "Some description of the “number” parameter"
