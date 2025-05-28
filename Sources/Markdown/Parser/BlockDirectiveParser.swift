@@ -892,7 +892,7 @@ struct ParseContainerStack {
             kind = .discussion
         case "note":
             kind = .note
-        case "abstract":
+        case "brief", "abstract":
             kind = .abstract
         case "param":
             guard let paramName = remainder.lex(until: { ch in

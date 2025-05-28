@@ -48,6 +48,8 @@ class DoxygenCommandParserTests: XCTestCase {
 
         assertValidParse(source: "@abstract The thing.")
         assertValidParse(source: #"\abstract The thing."#)
+        assertValidParse(source: "@brief The thing.")
+        assertValidParse(source: #"\brief The thing."#)
     }
 
     func testParseNote() {
