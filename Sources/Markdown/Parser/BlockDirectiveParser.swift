@@ -226,6 +226,7 @@ struct PendingDoxygenCommand {
     enum CommandKind {
         case discussion
         case note
+        case abstract
         case param(name: Substring)
         case returns
 
@@ -235,6 +236,8 @@ struct PendingDoxygenCommand {
                 return "'discussion'"
             case .note:
                 return "'note'"
+            case .abstract:
+                return "'abstract'"
             case .param(name: let name):
                 return "'param' Argument: '\(name)'"
             case .returns:
@@ -755,6 +758,8 @@ private enum ParseContainer: CustomStringConvertible {
                 return [.doxygenDiscussion(parsedRange: range, children)]
             case .note:
                 return [.doxygenNote(parsedRange: range, children)]
+            case .abstract:
+                return [.doxygenAbstract(parsedRange: range, children)]
             case .param(let name):
                 return [.doxygenParam(name: String(name), parsedRange: range, children)]
             case .returns:
@@ -887,6 +892,8 @@ struct ParseContainerStack {
             kind = .discussion
         case "note":
             kind = .note
+        case "brief", "abstract":
+            kind = .abstract
         case "param":
             guard let paramName = remainder.lex(until: { ch in
                 if ch.isWhitespace {
