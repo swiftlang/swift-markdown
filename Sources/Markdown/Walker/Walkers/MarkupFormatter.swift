@@ -47,14 +47,14 @@ fileprivate extension String {
 }
 
 fileprivate extension CodeBlock {
-    /// The code contents split by newline (`\n`), dropping leading and trailing lines that are empty.
+    /// The code contents split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
         return code.trimmedLineSegments
     }
 }
 
 fileprivate extension HTMLBlock {
-    /// The HTML contents split by newline (`\n`), dropping leading and trailing lines that are empty.
+    /// The HTML contents split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
         return rawHTML.trimmedLineSegments
     }
