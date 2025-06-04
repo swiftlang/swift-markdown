@@ -301,6 +301,26 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         XCTAssertEqual(expectedAt, printedAt)
     }
 
+    func testPrintDoxygenAbstract() {
+            let expected = #"\abstract Another thing."#
+            let printed = DoxygenAbstract(children: Paragraph(Text("Another thing."))).format()
+            print (printed)
+            XCTAssertEqual(expected, printed)
+    }
+
+    func testPrintDoxygenAbstractMultiline() {
+        let expected = #"""
+        \abstract Another thing.
+        This is an extended abstract.
+        """#
+        let printed = DoxygenAbstract(children: Paragraph(
+            Text("Another thing."),
+            SoftBreak(),
+            Text("This is an extended abstract.")
+        )).format()
+        XCTAssertEqual(expected, printed)
+    }
+
     func testPrintDoxygenDiscussion() {
         let expected = #"\discussion Another thing."#
         let printed = DoxygenDiscussion(children: Paragraph(Text("Another thing."))).format()

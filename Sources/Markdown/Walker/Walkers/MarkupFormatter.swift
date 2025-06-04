@@ -1,7 +1,7 @@
 /*
  This source file is part of the Swift.org open source project
 
- Copyright (c) 2021-2024 Apple Inc. and the Swift project authors
+ Copyright (c) 2021-2025 Apple Inc. and the Swift project authors
  Licensed under Apache License v2.0 with Runtime Library Exception
 
  See https://swift.org/LICENSE.txt for license information
@@ -38,7 +38,7 @@ fileprivate extension Markup {
 fileprivate extension String {
     /// This string, split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
-        var splitLines = split(separator: "\n", omittingEmptySubsequences: false)[...].drop { $0.isEmpty }
+        var splitLines = split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)[...].drop { $0.isEmpty }
         while let lastLine = splitLines.last, lastLine.isEmpty {
             splitLines = splitLines.dropLast()
         }
@@ -47,14 +47,14 @@ fileprivate extension String {
 }
 
 fileprivate extension CodeBlock {
-    /// The code contents split by newline (`\n`), dropping leading and trailing lines that are empty.
+    /// The code contents split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
         return code.trimmedLineSegments
     }
 }
 
 fileprivate extension HTMLBlock {
-    /// The HTML contents split by newline (`\n`), dropping leading and trailing lines that are empty.
+    /// The HTML contents split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
         return rawHTML.trimmedLineSegments
     }
@@ -1190,6 +1190,11 @@ public struct MarkupFormatter: MarkupWalker {
         descendInto(doxygenDiscussion)
     }
 
+    public mutating func visitDoxygenAbstract(_ doxygenAbstract: DoxygenAbstract) {
+        printDoxygenStart("abstract", for: doxygenAbstract)
+        descendInto(doxygenAbstract)
+    }
+
     public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) {
         printDoxygenStart("note", for: doxygenNote)
         descendInto(doxygenNote)
@@ -1206,4 +1211,5 @@ public struct MarkupFormatter: MarkupWalker {
         printDoxygenStart("returns", for: doxygenReturns)
         descendInto(doxygenReturns)
     }
+
 }
