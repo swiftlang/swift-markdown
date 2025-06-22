@@ -226,13 +226,25 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         XCTAssertEqual(expected, printed)
     }
 
-    func testPrintLink() {
-        let linkText = "Link text"
-        let destination = "https://swift.org"
-        let expected = "[\(linkText)](\(destination))"
-        let printed = Link(destination: destination, Text(linkText)).format()
-        XCTAssertEqual(expected, printed)
-    }
+  func testPrintLink() {
+      let linkText = "Link text"
+      let destination = "https://swift.org"
+      let expected = "[\(linkText)](\(destination))"
+      let printed = Link(destination: destination, Text(linkText)).format()
+      XCTAssertEqual(expected, printed)
+  }
+
+  func testPrintLinkReference() {
+    let source = """
+    [Link text][ref]
+    
+    [ref]: https://swift.org
+    """
+    let document = Document(parsing: source)
+    let printed = document.format()
+    print(printed)
+    print(1)
+  }
 
     func testPrintLinkCondenseAutolink() {
         let linkText = "https://swift.org"

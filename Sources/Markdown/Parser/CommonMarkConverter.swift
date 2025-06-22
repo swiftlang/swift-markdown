@@ -11,6 +11,7 @@
 import cmark_gfm
 import cmark_gfm_extensions
 import Foundation
+import Synchronization
 
 /// String-based CommonMark node type identifiers.
 ///
@@ -96,15 +97,19 @@ fileprivate struct MarkupConverterState {
     /// Options to consider when converting to `Markup` elements.
     let options: ParseOptions
 
+    /// Information about link references.
+    let linkReferences: [String: ConvertedLink]
+  
     private(set) var headerSeen: Bool
     private(set) var pendingTableBody: PendingTableBody?
 
-    init(source: URL?, iterator: UnsafeMutablePointer<cmark_iter>?, event: cmark_event_type, node: UnsafeMutablePointer<cmark_node>?, options: ParseOptions, headerSeen: Bool, pendingTableBody: PendingTableBody?) {
+    init(source: URL?, iterator: UnsafeMutablePointer<cmark_iter>?, event: cmark_event_type, node: UnsafeMutablePointer<cmark_node>?, options: ParseOptions, linkReferences: [String: ConvertedLink], headerSeen: Bool, pendingTableBody: PendingTableBody?) {
         self.source = source
         self.iterator = iterator
         self.event = event
         self.node = node
         self.options = options
+        self.linkReferences = linkReferences
         self.headerSeen = headerSeen
         self.pendingTableBody = pendingTableBody
 
@@ -130,7 +135,7 @@ fileprivate struct MarkupConverterState {
     func next(clearPendingTableBody: Bool = false) -> MarkupConverterState {
         let newEvent = cmark_iter_next(iterator)
         let newNode = cmark_iter_get_node(iterator)
-        return MarkupConverterState(source: source, iterator: iterator, event: newEvent, node: newNode, options: options, headerSeen: clearPendingTableBody ? false : headerSeen, pendingTableBody: clearPendingTableBody ? nil : pendingTableBody)
+        return MarkupConverterState(source: source, iterator: iterator, event: newEvent, node: newNode, options: options, linkReferences: linkReferences, headerSeen: clearPendingTableBody ? false : headerSeen, pendingTableBody: clearPendingTableBody ? nil : pendingTableBody)
     }
 
     /// The type of the last parsed cmark node.
@@ -608,9 +613,39 @@ struct MarkupParser {
         return MarkupConversion(state: childConversion.state.next(), result: .inlineAttributes(attributes: attributes, parsedRange: parsedRange, childConversion.result))
      }
 
+    @available(macOS 15.0, *)
+    static let refs: Mutex<[String: ConvertedLink]?> = .init(nil)
+
+  @available(macOS 15.0, *)
+  static let finish: Mutex<Void> = .init(())
+
+  static func check(line: UInt = #line) {
+    if #available(macOS 15.0, *) {
+      MarkupParser.refs.withLock { refs in
+        print(line, refs != nil)
+      }
+    }
+  }
+  
     static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
 
+        // Create extension to capture the parser's refmap. It isn't available before or
+        // after calling `cmark_parser_finish`, but within the inline parsing, the parser
+        // has a fully populated map of all the references within the markdown source.
+        if #available(macOS 15.0, *) {
+            let captureRefMap: cmark_match_inline_func = { _, parser, _, _, _ in
+                MarkupParser.refs.withLock { refs in
+                    refs = convertCMarkRefMap(parser?.pointee.refmap)
+                }
+                return nil
+            }
+            let plugin = cmark_plugin_new()
+            let ext = cmark_syntax_extension_new("refmap")
+            cmark_syntax_extension_set_match_inline_func(ext, captureRefMap)
+            cmark_plugin_register_syntax_extension(plugin, ext)
+        }
+      
         var cmarkOptions = CMARK_OPT_TABLE_SPANS
         if !options.contains(.disableSmartOpts) {
             cmarkOptions |= CMARK_OPT_SMART
@@ -625,8 +660,22 @@ struct MarkupParser {
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("strikethrough"))
         cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("tasklist"))
         cmark_parser_feed(parser, string, string.utf8.count)
-        let rawDocument = cmark_parser_finish(parser)
-        let initialState = MarkupConverterState(source: source, iterator: cmark_iter_new(rawDocument), event: CMARK_EVENT_NONE, node: nil, options: options, headerSeen: false, pendingTableBody: nil).next()
+      
+        var rawDocument: UnsafeMutablePointer<cmark_node>?
+        var linkReferences: [String: ConvertedLink] = [:]
+        if #available(macOS 15.0, *) {
+            finish.withLock { _ in
+                rawDocument = cmark_parser_finish(parser)
+                linkReferences = MarkupParser.refs.withLock { refs in
+                    defer { refs = nil }
+                    return refs ?? [:]
+                }
+            }
+        } else {
+            rawDocument = cmark_parser_finish(parser)
+        }
+
+        let initialState = MarkupConverterState(source: source, iterator: cmark_iter_new(rawDocument), event: CMARK_EVENT_NONE, node: nil, options: options, linkReferences: linkReferences, headerSeen: false, pendingTableBody: nil).next()
         precondition(initialState.event == CMARK_EVENT_ENTER)
         precondition(initialState.nodeType == .document)
         let conversion = convertAnyElement(initialState)
@@ -651,3 +700,47 @@ struct MarkupParser {
     }
 }
 
+struct ConvertedLink {
+  var url: String
+  var title: String
+}
+
+extension String {
+  init(_ chunk: cmark_chunk) {
+    // typedef struct cmark_chunk {
+    //   unsigned char *data;
+    //   bufsize_t len;
+    //   bufsize_t alloc; // also implies a NULL-terminated string
+    // } cmark_chunk;
+    guard let data = chunk.data else { self = ""; return }
+    let buffer = UnsafeRawBufferPointer(start: data, count: Int(chunk.len))
+    self = String(decoding: buffer, as: Unicode.UTF8.self)
+  }
+}
+
+func convertCMarkRefMap(_ map: UnsafeMutablePointer<cmark_map>?) -> [String: ConvertedLink] {
+  guard let map = map?.pointee,
+        map.size > 0
+  else { return [:] }
+  
+  var result: [String: ConvertedLink] = [:]
+  var ref = map.refs!
+  for _ in 0..<map.size {
+    let rawPtr = UnsafeRawPointer(ref)
+    let referencePtr = rawPtr.assumingMemoryBound(to: cmark_reference.self)
+    let url = String(referencePtr.pointee.url)
+    let title = String(referencePtr.pointee.title)
+    let label = String(cString: referencePtr.pointee.entry.label)
+    
+    result[label] = ConvertedLink(url: url, title: title)
+  }
+  
+  return result
+}
+
+struct CaptureRefMapPlugin {
+}
+
+let initPlugin: cmark_plugin_init_func = { ptr in
+  0
+}
