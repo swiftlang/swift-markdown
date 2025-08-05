@@ -292,6 +292,14 @@ public protocol MarkupVisitor<Result> {
     mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) -> Result
 
     /**
+     Visit a `DoxygenAbstract` element and return the result.
+
+     - parameter doxygenAbstract: A `DoxygenAbstract` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitDoxygenAbstract(_ doxygenAbstract: DoxygenAbstract) -> Result
+
+    /**
      Visit a `DoxygenParam` element and return the result.
 
      - parameter doxygenParam: A `DoxygenParam` element.
@@ -410,6 +418,9 @@ extension MarkupVisitor {
     }
     public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) -> Result {
         return defaultVisit(doxygenNote)
+    }
+    public mutating func visitDoxygenAbstract(_ doxygenAbstract: DoxygenAbstract) -> Result {
+            return defaultVisit(doxygenAbstract)
     }
     public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> Result {
         return defaultVisit(doxygenParam)
