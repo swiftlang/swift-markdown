@@ -1174,27 +1174,47 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     public mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) {
+        if doxygenDiscussion.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
+
         printDoxygenStart("discussion", for: doxygenDiscussion)
         descendInto(doxygenDiscussion)
     }
 
     public mutating func visitDoxygenAbstract(_ doxygenAbstract: DoxygenAbstract) {
+        if doxygenAbstract.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
+
         printDoxygenStart("abstract", for: doxygenAbstract)
         descendInto(doxygenAbstract)
     }
 
     public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) {
+        if doxygenNote.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
+
         printDoxygenStart("note", for: doxygenNote)
         descendInto(doxygenNote)
     }
 
     public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) {
+        if doxygenParam.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
+
         printDoxygenStart("param", for: doxygenParam)
         print("\(doxygenParam.name) ", for: doxygenParam)
         descendInto(doxygenParam)
     }
 
     public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) {
+        if doxygenReturns.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
+
         // FIXME: store the actual command name used in the original markup
         printDoxygenStart("returns", for: doxygenReturns)
         descendInto(doxygenReturns)
