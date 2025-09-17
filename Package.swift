@@ -14,14 +14,6 @@ import class Foundation.ProcessInfo
 
 let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil ? "swift-cmark" : "cmark"
 
-// On non-Windows, do not include unsafe flags so SwiftPM allows tagged dependency usage.
-var markdownSwiftSettings: [SwiftSetting] = []
-#if os(Windows)
-markdownSwiftSettings.append(
-    .unsafeFlags(["-Xcc", "-DCMARK_GFM_STATIC_DEFINE"], .when(platforms: [.windows]))
-)
-#endif
-
 let package = Package(
     name: "swift-markdown",
     products: [
@@ -40,8 +32,10 @@ let package = Package(
             exclude: [
                 "CMakeLists.txt"
             ],
-            swiftSettings: markdownSwiftSettings
-        ),
+            swiftSettings: [
+                .unsafeFlags(["-Xcc", "-DCMARK_GFM_STATIC_DEFINE"],
+                             .when(platforms: [.windows])),
+            ]),
         .testTarget(
             name: "MarkdownTests",
             dependencies: ["Markdown"],
