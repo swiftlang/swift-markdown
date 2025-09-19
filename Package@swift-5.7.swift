@@ -1,4 +1,4 @@
-// swift-tools-version:6.2
+// swift-tools-version:5.7
 /*
  This source file is part of the Swift.org open source project
 
@@ -31,16 +31,14 @@ let package = Package(
             ],
             exclude: [
                 "CMakeLists.txt"
-            ],
-            swiftSettings: [.unsafeFlags(["-Xcc", "-DCMARK_GFM_STATIC_DEFINE"], .when(platforms: [.windows]))]
+            ]
         ),
         .testTarget(
             name: "MarkdownTests",
             dependencies: ["Markdown"],
             resources: [.process("Visitors/Everything.md")]),
         .target(name: "CAtomic"),
-    ],
-    swiftLanguageModes: [.v5]
+    ]
 )
 
 // If the `SWIFTCI_USE_LOCAL_DEPS` environment variable is set,
