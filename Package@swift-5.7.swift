@@ -1,4 +1,4 @@
-// swift-tools-version:6.2
+// swift-tools-version:5.7
 /*
  This source file is part of the Swift.org open source project
 
@@ -31,16 +31,14 @@ let package = Package(
             ],
             exclude: [
                 "CMakeLists.txt"
-            ],
-            swiftSettings: [.unsafeFlags(["-Xcc", "-DCMARK_GFM_STATIC_DEFINE"], .when(platforms: [.windows]))]
+            ]
         ),
         .testTarget(
             name: "MarkdownTests",
             dependencies: ["Markdown"],
             resources: [.process("Visitors/Everything.md")]),
         .target(name: "CAtomic"),
-    ],
-    swiftLanguageModes: [.v5]
+    ]
 )
 
 // If the `SWIFTCI_USE_LOCAL_DEPS` environment variable is set,
@@ -49,7 +47,7 @@ let package = Package(
 if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building standalone, so fetch all dependencies remotely.
     package.dependencies += [
-        .package(url: "https://github.com/swiftlang/swift-cmark.git", from: "0.7.0"),
+        .package(url: "https://github.com/swiftlang/swift-cmark.git", branch: "gfm"),
     ]
     
     // SwiftPM command plugins are only supported by Swift version 5.6 and later.
