@@ -33,21 +33,6 @@ fileprivate extension Markup {
         }
         return nil
     }
-
-    /// Previous sibling of this element in its parent, or `nil` if it's the first child.
-    var previousSibling: Markup? {
-        guard let parent, indexInParent > 0 else {
-            return nil
-        }
-
-        return parent.child(at: indexInParent - 1)
-    }
-
-    /// Whether this element is a Doxygen command.
-    var isDoxygenCommand: Bool {
-        return self is DoxygenDiscussion || self is DoxygenNote || self is DoxygenAbstract
-            || self is DoxygenParameter || self is DoxygenReturns
-    }
 }
 
 fileprivate extension String {
@@ -254,15 +239,6 @@ public struct MarkupFormatter: MarkupWalker {
             case at = "@"
         }
 
-        /// The spacing to use when formatting adjacent Doxygen commands.
-        public enum AdjacentDoxygenCommandsSpacing: String, CaseIterable {
-            /// Separate adjacent Doxygen commands with a single newline.
-            case singleNewline = "single-newline"
-
-            /// Keep a blank line between adjacent Doxygen commands creating separate paragraphs.
-            case separateParagraphs = "separate-paragraphs"
-        }
-
         // MARK: Option Properties
 
         var orderedListNumerals: OrderedListNumerals
@@ -277,7 +253,6 @@ public struct MarkupFormatter: MarkupWalker {
         var preferredLineLimit: PreferredLineLimit?
         var customLinePrefix: String
         var doxygenCommandPrefix: DoxygenCommandPrefix
-        var adjacentDoxygenCommandsSpacing: AdjacentDoxygenCommandsSpacing
 
         /**
          Create a set of formatting options to use when printing an element.
@@ -295,7 +270,6 @@ public struct MarkupFormatter: MarkupWalker {
             - preferredLineLimit: The preferred maximum line length and method for splitting ``Text`` elements in an attempt to maintain that line length.
             - customLinePrefix: An addition prefix to print at the start of each line, useful for adding documentation comment markers.
             - doxygenCommandPrefix: The command command prefix, which defaults to ``DoxygenCommandPrefix/backslash``.
-            - adjacentDoxygenCommandsSpacing: The spacing to use when formatting adjacent Doxygen commands.
          */
         public init(unorderedListMarker: UnorderedListMarker = .dash,
                     orderedListNumerals: OrderedListNumerals = .allSame(1),
@@ -308,8 +282,7 @@ public struct MarkupFormatter: MarkupWalker {
                     preferredHeadingStyle: PreferredHeadingStyle = .atx,
                     preferredLineLimit: PreferredLineLimit? = nil,
                     customLinePrefix: String = "",
-                    doxygenCommandPrefix: DoxygenCommandPrefix = .backslash,
-                    adjacentDoxygenCommandsSpacing: AdjacentDoxygenCommandsSpacing = .singleNewline) {
+                    doxygenCommandPrefix: DoxygenCommandPrefix = .backslash) {
             self.unorderedListMarker = unorderedListMarker
             self.orderedListNumerals = orderedListNumerals
             self.useCodeFence = useCodeFence
@@ -324,7 +297,6 @@ public struct MarkupFormatter: MarkupWalker {
             self.thematicBreakLength = max(3, thematicBreakLength)
             self.customLinePrefix = customLinePrefix
             self.doxygenCommandPrefix = doxygenCommandPrefix
-            self.adjacentDoxygenCommandsSpacing = adjacentDoxygenCommandsSpacing
         }
 
         /// The default set of formatting options.
@@ -1201,47 +1173,28 @@ public struct MarkupFormatter: MarkupWalker {
         print(formattingOptions.doxygenCommandPrefix.rawValue + name + " ", for: element)
     }
 
-    private mutating func ensureDoxygenCommandPrecedingNewline(for element: Markup) {
-        guard let previousSibling = element.previousSibling else {
-            return
-        }
-
-        guard formattingOptions.adjacentDoxygenCommandsSpacing == .singleNewline else {
-            ensurePrecedingNewlineCount(atLeast: 2)
-            return
-        }
-
-        let newlineCount = previousSibling.isDoxygenCommand ? 1 : 2
-        ensurePrecedingNewlineCount(atLeast: newlineCount)
-    }
-
     public mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) {
-        ensureDoxygenCommandPrecedingNewline(for: doxygenDiscussion)
         printDoxygenStart("discussion", for: doxygenDiscussion)
         descendInto(doxygenDiscussion)
     }
 
     public mutating func visitDoxygenAbstract(_ doxygenAbstract: DoxygenAbstract) {
-        ensureDoxygenCommandPrecedingNewline(for: doxygenAbstract)
         printDoxygenStart("abstract", for: doxygenAbstract)
         descendInto(doxygenAbstract)
     }
 
     public mutating func visitDoxygenNote(_ doxygenNote: DoxygenNote) {
-        ensureDoxygenCommandPrecedingNewline(for: doxygenNote)
         printDoxygenStart("note", for: doxygenNote)
         descendInto(doxygenNote)
     }
 
     public mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) {
-        ensureDoxygenCommandPrecedingNewline(for: doxygenParam)
         printDoxygenStart("param", for: doxygenParam)
         print("\(doxygenParam.name) ", for: doxygenParam)
         descendInto(doxygenParam)
     }
 
     public mutating func visitDoxygenReturns(_ doxygenReturns: DoxygenReturns) {
-        ensureDoxygenCommandPrecedingNewline(for: doxygenReturns)
         // FIXME: store the actual command name used in the original markup
         printDoxygenStart("returns", for: doxygenReturns)
         descendInto(doxygenReturns)
