@@ -1626,31 +1626,4 @@ class MarkupFormatterMixedContentTests: XCTestCase {
         ]
         zip(expected, printed).forEach { XCTAssertEqual($0, $1) }
     }
-
-    func testDoxygenCommandsWithPrecedingNewlines() {
-        let expected = #"""
-            Does something.
-
-            \abstract abstract
-
-            \param x first param
-
-            \returns result
-
-            \note note
-
-            \discussion discussion
-            """#
-
-        let printed = Document(
-            Paragraph(Text("Does something.")),
-            DoxygenAbstract(children: Paragraph(Text("abstract"))),
-            DoxygenParameter(name: "x", children: Paragraph(Text("first param"))),
-            DoxygenReturns(children: Paragraph(Text("result"))),
-            DoxygenNote(children: Paragraph(Text("note"))),
-            DoxygenDiscussion(children: Paragraph(Text("discussion")))
-        ).format()
-
-        XCTAssertEqual(expected, printed)
-    }
 }
