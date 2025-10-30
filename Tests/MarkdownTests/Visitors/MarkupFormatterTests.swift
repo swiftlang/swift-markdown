@@ -1627,32 +1627,7 @@ class MarkupFormatterMixedContentTests: XCTestCase {
         zip(expected, printed).forEach { XCTAssertEqual($0, $1) }
     }
 
-    func testDoxygenCommandsPrecedingNewlinesWithSingleNewline() {
-        let expected = #"""
-            Does something.
-
-            \abstract abstract
-            \param x first param
-            \returns result
-            \note note
-            \discussion discussion
-            """#
-
-        let formattingOptions = MarkupFormatter.Options(
-            adjacentDoxygenCommandsSpacing: .singleNewline)
-        let printed = Document(
-            Paragraph(Text("Does something.")),
-            DoxygenAbstract(children: Paragraph(Text("abstract"))),
-            DoxygenParameter(name: "x", children: Paragraph(Text("first param"))),
-            DoxygenReturns(children: Paragraph(Text("result"))),
-            DoxygenNote(children: Paragraph(Text("note"))),
-            DoxygenDiscussion(children: Paragraph(Text("discussion")))
-        ).format(options: formattingOptions)
-
-        XCTAssertEqual(expected, printed)
-    }
-
-    func testDoxygenCommandsPrecedingNewlinesAsSeparateParagraphs() {
+    func testDoxygenCommandsWithPrecedingNewlines() {
         let expected = #"""
             Does something.
 
@@ -1667,8 +1642,6 @@ class MarkupFormatterMixedContentTests: XCTestCase {
             \discussion discussion
             """#
 
-        let formattingOptions = MarkupFormatter.Options(
-            adjacentDoxygenCommandsSpacing: .separateParagraphs)
         let printed = Document(
             Paragraph(Text("Does something.")),
             DoxygenAbstract(children: Paragraph(Text("abstract"))),
@@ -1676,7 +1649,7 @@ class MarkupFormatterMixedContentTests: XCTestCase {
             DoxygenReturns(children: Paragraph(Text("result"))),
             DoxygenNote(children: Paragraph(Text("note"))),
             DoxygenDiscussion(children: Paragraph(Text("discussion")))
-        ).format(options: formattingOptions)
+        ).format()
 
         XCTAssertEqual(expected, printed)
     }
