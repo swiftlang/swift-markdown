@@ -1031,7 +1031,7 @@ public struct MarkupFormatter: MarkupWalker {
         /// the default span of 1, where it will only return the `finalColumnWidths` value for the
         /// given `column`.
         func columnWidth(column: Int, colspan: Int) -> Int {
-            let lastColumn = column + colspan
+            let lastColumn = min(finalColumnWidths.count, column + colspan)
             return (column..<lastColumn).map({ finalColumnWidths[$0] }).reduce(0, { $0 + $1 })
         }
 

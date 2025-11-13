@@ -1569,6 +1569,38 @@ class MarkupFormatterTableTests: XCTestCase {
         let reparsed = Document(parsing: formatted)
         XCTAssertTrue(document.hasSameStructure(as: reparsed))
     }
+    
+    func testColSpanOverflowTooManyIndicators() {
+        let source = """
+        | Jenis Kelamin | Jenis Tas     | Tally       | Jumlah |
+        |---------------|---------------|-------------|--------|
+        | Perempuan     | Tas Ransel    | ||||
+        """
+        let document = Document(parsing: source)
+        let formatted = document.format()
+        let expected = """
+        |Jenis Kelamin|Jenis Tas |Tally|Jumlah|
+        |-------------|----------|-----|------|
+        |Perempuan    |Tas Ransel|           ||
+        """
+        XCTAssertEqual(expected, formatted)
+    }
+    
+    func testColSpanOverflowMisformatted() {
+        let source = """
+        |A|B|C|
+        |-|-|-|
+        |1|2|3||4|5|6|
+        """
+        let document = Document(parsing: source)
+        let formatted = document.format()
+        let expected = """
+        |A|B|C|
+        |-|-|-|
+        |1|2|3|
+        """
+        XCTAssertEqual(expected, formatted)
+    }
 }
 
 class MarkupFormatterMixedContentTests: XCTestCase {
