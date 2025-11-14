@@ -1601,6 +1601,29 @@ class MarkupFormatterTableTests: XCTestCase {
         """
         XCTAssertEqual(expected, formatted)
     }
+    
+    func testColSpanOverflowInHeader() {
+        // Doesn't get parsed as a table, so doesn't exhibit the crash
+        let source = """
+        |A|B|C||-|-|-|
+        |1|2|3|
+        """
+        let document = Document(parsing: source)
+        let formatted = document.format()
+        XCTAssertEqual(source, formatted)
+    }
+    
+    func testColSpanOverflowInSubHeader() {
+        // Doesn't get parsed as a table, so doesn't exhibit the crash
+        let source = """
+        |A|B|C|
+        |-|-|-||
+        |1|2|3|
+        """
+        let document = Document(parsing: source)
+        let formatted = document.format()
+        XCTAssertEqual(source, formatted)
+    }
 }
 
 class MarkupFormatterMixedContentTests: XCTestCase {
