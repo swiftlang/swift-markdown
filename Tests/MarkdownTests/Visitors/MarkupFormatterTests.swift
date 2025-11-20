@@ -562,7 +562,40 @@ class MarkupFormatterOptionsTests: XCTestCase {
                 let printed = document.format(options: .init(emphasisMarker: .underline))
                 XCTAssertEqual(underline, printed)
             }
+        }
 
+        do {
+            let underline = "__strong__"
+            let star = "**strong**"
+
+            do {
+                let document = Document(parsing: underline)
+                let printed = document.format(options: .init(strongEmphasisMarker: .star))
+                XCTAssertEqual(star, printed)
+            }
+
+            do {
+                let document = Document(parsing: star)
+                let printed = document.format(options: .init(strongEmphasisMarker: .underline))
+                XCTAssertEqual(underline, printed)
+            }
+        }
+
+        do {
+            let underline = "__strong__"
+            let star = "**strong**"
+
+            do {
+                let document = Document(parsing: underline)
+                let printed = document.format(options: .init(emphasisMarker: .underline, strongEmphasisMarker: .star))
+                XCTAssertEqual(star, printed)
+            }
+
+            do {
+                let document = Document(parsing: star)
+                let printed = document.format(options: .init(emphasisMarker: .star, strongEmphasisMarker: .underline))
+                XCTAssertEqual(underline, printed)
+            }
         }
     }
 
