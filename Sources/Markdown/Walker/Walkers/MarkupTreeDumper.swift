@@ -287,6 +287,14 @@ struct MarkupTreeDumper: MarkupWalker {
         dump(attributes, customDescription: "attributes: `\(attributes.attributes)`")
     }
 
+    mutating func visitFootnoteReference(_ footnoteReference: FootnoteReference) -> () {
+        dump(footnoteReference, customDescription: "footnoteID: `\(footnoteReference.footnoteID)`")
+    }
+
+    mutating func visitFootnoteDefinition(_ footnoteDefinition: FootnoteDefinition) -> () {
+        dump(footnoteDefinition, customDescription: "footnoteID: `\(footnoteDefinition.footnoteID)`")
+    }
+    
     mutating func visitDoxygenParameter(_ doxygenParam: DoxygenParameter) -> () {
         dump(doxygenParam, customDescription: "parameter: \(doxygenParam.name)")
     }

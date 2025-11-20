@@ -276,6 +276,22 @@ public protocol MarkupVisitor<Result> {
      mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> Result
 
     /**
+    Visit an `FootnoteReference` element and return the result.
+
+    - parameter attributes: An `FootnoteReference` element.
+    - returns: The result of the visit.
+     */
+    mutating func visitFootnoteReference(_ footnoteReference: FootnoteReference) -> Result
+
+    /**
+    Visit an `FootnoteDefinition` element and return the result.
+
+    - parameter attributes: An `FootnoteDefinition` element.
+    - returns: The result of the visit.
+     */
+    mutating func visitFootnoteDefinition(_ footnoteDefinition: FootnoteDefinition) -> Result
+
+    /**
      Visit a `DoxygenDiscussion` element and return the result.
 
      - parameter doxygenDiscussion: A `DoxygenDiscussion` element.
@@ -412,6 +428,12 @@ extension MarkupVisitor {
     }
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> Result {
         return defaultVisit(attributes)
+    }
+    public mutating func visitFootnoteReference(_ footnoteReference: FootnoteReference) -> Result {
+        return defaultVisit(footnoteReference)
+    }
+    public mutating func visitFootnoteDefinition(_ footnoteDefinition: FootnoteDefinition) -> Result {
+        return defaultVisit(footnoteDefinition)
     }
     public mutating func visitDoxygenDiscussion(_ doxygenDiscussion: DoxygenDiscussion) -> Result {
         return defaultVisit(doxygenDiscussion)

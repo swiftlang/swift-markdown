@@ -52,6 +52,9 @@ enum RawMarkupData: Equatable {
     case tableRow
     case tableCell(colspan: UInt, rowspan: UInt)
 
+    case footnoteReference(footnoteID: String)
+    case footnoteDefinition(footnoteID: String)
+    
     case doxygenDiscussion
     case doxygenNote
     case doxygenAbstract
@@ -345,6 +348,14 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
         return .create(data: .tableCell(colspan: colspan, rowspan: rowspan), parsedRange: parsedRange, children: children)
     }
 
+    static func footnoteDefinition(footnoteID: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        return .create(data: .footnoteDefinition(footnoteID: footnoteID), parsedRange: parsedRange, children: children)
+    }
+    
+    static func footnoteReference(footnoteID: String, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
+        return .create(data: .footnoteReference(footnoteID: footnoteID), parsedRange: parsedRange, children: children)
+    }
+    
     static func doxygenDiscussion(parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
         return .create(data: .doxygenDiscussion, parsedRange: parsedRange, children: children)
     }
