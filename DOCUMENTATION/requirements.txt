@@ -1,0 +1,10 @@
+# Swift-Markdown Documentation Scraper
+#
+# The scraper uses only Python standard library modules (urllib, json, pathlib)
+# and has no required external dependencies.
+#
+# Python 3.7+ is required.
+#
+# Optional dependencies for enhanced functionality:
+# requests>=2.28.0  # Alternative HTTP client (not currently used)
+# tqdm>=4.65.0      # Progress bars (not currently used)
