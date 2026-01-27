@@ -59,4 +59,41 @@ final class DocumentTests: XCTestCase {
                 """
         XCTAssertEqual(expectedDump, document.debugDescription())
     }
+    
+    func testParsingBlockDirectiveWithCRLFLineEndings() {
+        let input = "@Comment {\r\n    This is a comment\r}\n"
+        let options: ParseOptions = [.parseBlockDirectives, .parseSymbolLinks]
+        let document = Document(parsing: input, options: options)
+        XCTAssertNotNil(document)
+    }
+    
+    func testParsingNestedBlockDirectivesWithMixedCRLFLineEndings() {
+        let input = "@Outer {\n    @Inner {\r\n        content\n    }\r\n}\r\n"
+        let options: ParseOptions = [.parseBlockDirectives, .parseSymbolLinks]
+        let document = Document(parsing: input, options: options)
+        XCTAssertNotNil(document)
+    }
+    
+    func testParsingSimpleFileCRLFLineEndings() {
+        let input = "4bf5d-496d7\r\n04c8f-c1484\r\n622aa-0210e\r\n1bf50-1f7e2\r\nfdc17-d25e2\r\n4de63-510a3\r\n"
+        let options: ParseOptions = [.parseBlockDirectives, .parseSymbolLinks]
+        let document = Document(parsing: input, options: options)
+        XCTAssertNotNil(document)
+        let expectedDump = """
+                Document
+                └─ Paragraph
+                   ├─ Text "4bf5d-496d7"
+                   ├─ SoftBreak
+                   ├─ Text "04c8f-c1484"
+                   ├─ SoftBreak
+                   ├─ Text "622aa-0210e"
+                   ├─ SoftBreak
+                   ├─ Text "1bf50-1f7e2"
+                   ├─ SoftBreak
+                   ├─ Text "fdc17-d25e2"
+                   ├─ SoftBreak
+                   └─ Text "4de63-510a3"
+                """
+        XCTAssertEqual(expectedDump, document.debugDescription())
+    }
 }
