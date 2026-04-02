@@ -122,7 +122,7 @@ extension Markup {
     ///
     /// - Complexity: `O(1)`
     var subtreeCount: Int {
-        return raw.markup.header.subtreeCount
+        return raw.markup.subtreeCount
     }
 
     /// Return this element without ``SoftBreak`` elements, or `nil` if this
@@ -178,7 +178,7 @@ extension Markup {
     ///
     /// - Complexity: `O(1)`
     public var childCount: Int {
-        return raw.markup.header.childCount
+        return raw.markup.childCount
     }
 
     /// `true` if this element has no children.

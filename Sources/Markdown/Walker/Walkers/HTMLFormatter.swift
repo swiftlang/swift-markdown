@@ -8,7 +8,23 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
+
+fileprivate extension String {
+    func _replacingOccurrences(of target: Character, with replacement: String) -> String {
+        var result = ""
+        for char in self {
+            if char == target {
+                result += replacement
+            } else {
+                result.append(char)
+            }
+        }
+        return result
+    }
+}
 
 /// Options given to the ``HTMLFormatter``.
 public struct HTMLFormatterOptions: OptionSet {
@@ -286,8 +302,9 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> () {
-        result += "<span data-attributes=\"\(attributes.attributes.replacingOccurrences(of: "\"", with: "\\\""))\""
+        result += "<span data-attributes=\"\(attributes.attributes._replacingOccurrences(of: "\"" as Character, with: "\\\""))\""
 
+        #if canImport(Foundation)
         let wrappedAttributes = "{\(attributes.attributes)}"
         if options.contains(.parseInlineAttributeClass),
            let attributesData = wrappedAttributes.data(using: .utf8)
@@ -315,6 +332,7 @@ public struct HTMLFormatter: MarkupWalker {
                 result += " class=\"\(parsedAttributes.class)\""
             }
         }
+        #endif
 
         result += ">"
         descendInto(attributes)

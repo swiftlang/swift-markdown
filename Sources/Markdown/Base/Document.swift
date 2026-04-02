@@ -8,7 +8,9 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 /// A markup element representing the top level of a whole document.
 ///
@@ -41,7 +43,7 @@ public extension Document {
     /// - parameter options: options for parsing Markdown text.
     /// - parameter source: an explicit source URL from which the input `string` came for marking source locations.
     ///   This need not be a file URL.
-    init(parsing string: String, source: URL? = nil, options: ParseOptions = []) {
+    init(parsing string: String, source: SourceIdentifier? = nil, options: ParseOptions = []) {
         if options.contains(.parseBlockDirectives) {
             self = BlockDirectiveParser.parse(string, source: source,
                                               options: options)
@@ -50,6 +52,7 @@ public extension Document {
         }
     }
 
+    #if canImport(Foundation)
     /// Parse a file's contents into a `Document`.
     ///
     /// - parameter file: a file URL from which to load Markdown text to parse.
@@ -63,6 +66,7 @@ public extension Document {
             self = MarkupParser.parseString(string, source: file, options: options)
         }
     }
+    #endif
 
     /// Create a document from a sequence of block markup elements.
     init(_ children: some Sequence<BlockMarkup>) {

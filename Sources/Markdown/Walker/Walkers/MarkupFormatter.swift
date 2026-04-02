@@ -8,7 +8,9 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 fileprivate extension Markup {
     /// The parental chain of elements from a root to this element.
@@ -596,7 +598,7 @@ public struct MarkupFormatter: MarkupWalker {
             return
         }
 
-        let words = string.components(separatedBy: CharacterSet(charactersIn: " \t"))[...]
+        let words = string.split(omittingEmptySubsequences: false, whereSeparator: { $0 == " " || $0 == "\t" }).map(String.init)[...]
 
         /// Hard line breaks in Markdown require two spaces before the newline; soft breaks require none.
         let breakSuffix: String

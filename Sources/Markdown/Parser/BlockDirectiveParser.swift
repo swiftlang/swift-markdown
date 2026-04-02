@@ -8,7 +8,9 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 struct PendingBlockDirective {
     enum ParseState {
@@ -299,7 +301,7 @@ struct TrimmedLine {
 
     /// The source file or resource from which the line came,
     /// or `nil` if no such file or resource can be identified.
-    let source: URL?
+    let source: SourceIdentifier?
 
     /// `true` if this line is empty or consists of all space `" "` or tab
     /// `"\t"` characters.
@@ -314,7 +316,7 @@ struct TrimmedLine {
     ///   - source: The source file or resource from which the line came, or `nil` if no such file or resource can be identified.
     ///   - lineNumber: The line number of this line in the source if known, starting with `0`.
     ///   - parseIndex: The current index a parser is looking at on a line, or `nil` if a parser is looking at the start of the untrimmed text.
-    init(_ untrimmedText: Substring, source: URL?, lineNumber: Int?, parseIndex: Substring.Index? = nil) {
+    init(_ untrimmedText: Substring, source: SourceIdentifier?, lineNumber: Int?, parseIndex: Substring.Index? = nil) {
         self.untrimmedText = untrimmedText
         self.source = source
         self.parseIndex = parseIndex ?? untrimmedText.startIndex
@@ -1132,7 +1134,7 @@ extension Document {
     /// Convert a ``ParseContainer` to a ``Document``.
     ///
     /// - Precondition: The `rootContainer` must be the `.root` case.
-    fileprivate init(converting rootContainer: ParseContainer, from source: URL?,
+    fileprivate init(converting rootContainer: ParseContainer, from source: SourceIdentifier?,
                      options: ParseOptions) {
         guard case .root = rootContainer else {
             fatalError("Tried to convert a non-root container to a `Document`")
@@ -1156,13 +1158,15 @@ extension Document {
 }
 
 struct BlockDirectiveParser {
+    #if canImport(Foundation)
     static func parse(_ input: URL, options: ParseOptions = []) throws -> Document {
         let string = try String(contentsOf: input, encoding: .utf8)
         return parse(string, source: input, options: options)
     }
+    #endif
 
     /// Parse the input.
-    static func parse(_ input: String, source: URL?,
+    static func parse(_ input: String, source: SourceIdentifier?,
                       options: ParseOptions = []) -> Document {
         // Phase 0: Split the input into lines lazily, keeping track of
         // line numbers, consecutive blank lines, and start positions on each line where indentation ends.

@@ -8,8 +8,6 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import Foundation
-
 /// A parsed Doxygen `\param` command.
 ///
 /// The Doxygen support in Swift-Markdown parses `\param` commands of the form

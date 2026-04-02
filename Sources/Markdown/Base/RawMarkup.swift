@@ -8,7 +8,9 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 /// The data specific to a kind of markup element.
 ///
@@ -93,6 +95,54 @@ public struct RawMarkupHeader {
     var parsedRange: SourceRange?
 }
 
+#if hasFeature(Embedded)
+/// Embedded Swift variant: uses a plain array for children storage instead of
+/// tail-allocated ManagedBuffer elements, avoiding the self-referential generic
+/// `ManagedBuffer<RawMarkupHeader, RawMarkup>` that causes the compiler's
+/// generic specializer to hang (https://github.com/swiftlang/swift/pull/88296).
+final class RawMarkup {
+    var header: RawMarkupHeader
+    private let _children: [RawMarkup]
+
+    fileprivate static func create(data: RawMarkupData, parsedRange: SourceRange?, children: [RawMarkup]) -> RawMarkup {
+        return RawMarkup(
+            header: RawMarkupHeader(data: data,
+                                    childCount: children.count,
+                                    subtreeCount: 1 + children.subtreeCount,
+                                    parsedRange: parsedRange),
+            children: children)
+    }
+
+    private init(header: RawMarkupHeader, children: [RawMarkup]) {
+        self.header = header
+        self._children = children
+    }
+
+    var data: RawMarkupData { header.data }
+    var childCount: Int { header.childCount }
+    var subtreeCount: Int { header.subtreeCount }
+    var parsedRange: SourceRange? { header.parsedRange }
+
+    func child(at index: Int) -> RawMarkup {
+        precondition(index < header.childCount)
+        return _children[index]
+    }
+
+    func copyChildren() -> [RawMarkup] { _children }
+
+    var children: some Sequence<RawMarkup> { _children }
+
+    enum Error: Swift.Error, CustomStringConvertible {
+        case concreteConversionError(from: RawMarkup, to: Markup.Type)
+        var description: String {
+            switch self {
+            case let .concreteConversionError(raw, to: type):
+                return "Can't wrap a \(raw.data) in a \(type)"
+            }
+        }
+    }
+}
+#else
 final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     enum Error: LocalizedError {
         case concreteConversionError(from: RawMarkup, to: Markup.Type)
@@ -103,7 +153,8 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
             }
         }
     }
-    private static func create(data: RawMarkupData, parsedRange: SourceRange?, children: [RawMarkup]) -> RawMarkup {
+
+    fileprivate static func create(data: RawMarkupData, parsedRange: SourceRange?, children: [RawMarkup]) -> RawMarkup {
         let buffer = self.create(minimumCapacity: children.count) { _ in
             RawMarkupHeader(data: data,
                             childCount: children.count,
@@ -155,10 +206,8 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     }
 
     /// The children of this element.
-    var children: AnySequence<RawMarkup> {
-        return AnySequence((0..<childCount).lazy.map { Int -> RawMarkup in
-            self.child(at: 0)
-        })
+    var children: some Sequence<RawMarkup> {
+        return (0..<childCount).lazy.map { _ in self.child(at: 0) }
     }
 
     deinit {
@@ -166,6 +215,12 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
             $0.deinitialize(count: header.childCount)
         }
     }
+}
+#endif
+
+// MARK: - Shared API
+
+extension RawMarkup {
 
     // MARK: Aspects
 
@@ -174,11 +229,11 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
         if self === other {
             return true
         }
-        guard self.header.childCount == other.header.childCount,
-            self.header.data == other.header.data else {
+        guard self.childCount == other.childCount,
+            self.data == other.data else {
                 return false
         }
-        for i in 0..<header.childCount {
+        for i in 0..<childCount {
             guard self.child(at: i).hasSameStructure(as: other.child(at: i)) else {
                 return false
             }
@@ -197,16 +252,16 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
 
         let parsedRange: SourceRange?
         if preserveRange {
-            parsedRange = header.parsedRange
+            parsedRange = self.parsedRange
         } else {
-            parsedRange = newChild.header.parsedRange
+            parsedRange = newChild.parsedRange
         }
 
-        return RawMarkup.create(data: header.data, parsedRange: parsedRange, children: newChildren)
+        return RawMarkup.create(data: data, parsedRange: parsedRange, children: newChildren)
     }
 
     func withChildren<Children: Collection>(_ newChildren: Children) -> RawMarkup where Children.Element == RawMarkup {
-        return .create(data: header.data, parsedRange: header.parsedRange, children: Array(newChildren))
+        return .create(data: data, parsedRange: parsedRange, children: Array(newChildren))
     }
 
     // MARK: Block Creation

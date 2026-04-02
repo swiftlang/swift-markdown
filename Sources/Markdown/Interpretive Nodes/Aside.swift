@@ -8,8 +8,6 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import Foundation
-
 /// An auxiliary aside element interpreted from a block quote.
 ///
 /// Asides are written as a block quote starting with a special plain-text tag,

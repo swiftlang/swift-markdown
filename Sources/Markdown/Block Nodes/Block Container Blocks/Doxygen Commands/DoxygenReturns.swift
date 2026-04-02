@@ -8,8 +8,6 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import Foundation
-
 /// A parsed Doxygen `\returns`, `\return`, or `\result` command.
 ///
 /// The Doxygen support in Swift-Markdown parses `\returns` commands of the form

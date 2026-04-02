@@ -8,7 +8,9 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 /// A lazy sequence of split lines that keeps track of initial indentation and
 /// consecutive runs of empty lines.
@@ -25,9 +27,9 @@ struct LazySplitLines: Sequence {
 
         /// The source file or resource from which the line came,
         /// or `nil` if no such file or resource can be identified.
-        private var source: URL?
+        private var source: SourceIdentifier?
 
-        init<S: StringProtocol>(_ input: S, source: URL?) where S.SubSequence == Substring {
+        init<S: StringProtocol>(_ input: S, source: SourceIdentifier?) where S.SubSequence == Substring {
             self.rawLines = input.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
             self.index = rawLines.startIndex
             self.source = source
@@ -57,9 +59,9 @@ struct LazySplitLines: Sequence {
 
     /// The source file or resource from which the line came,
     /// or `nil` if no such file or resource can be identified.
-    private let source: URL?
+    private let source: SourceIdentifier?
 
-    init(_ input: Substring, source: URL?) {
+    init(_ input: Substring, source: SourceIdentifier?) {
         self.input = input
         self.source = source
     }

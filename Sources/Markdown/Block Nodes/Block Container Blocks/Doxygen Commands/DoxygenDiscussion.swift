@@ -8,8 +8,6 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import Foundation
-
 /// A parsed Doxygen `\discussion` command.
 ///
 /// The Doxygen support in Swift-Markdown parses `\discussion` commands of the form
