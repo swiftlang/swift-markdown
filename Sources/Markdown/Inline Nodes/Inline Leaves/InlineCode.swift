@@ -54,7 +54,9 @@ public extension InlineCode {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitInlineCode(self)
     }
+    #endif
 }

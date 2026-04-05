@@ -35,9 +35,11 @@ public struct DoxygenParameter: BlockContainer {
         self._data = data
     }
 
+    #if !hasFeature(Embedded)
     public func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitDoxygenParameter(self)
     }
+    #endif
 }
 
 public extension DoxygenParameter {

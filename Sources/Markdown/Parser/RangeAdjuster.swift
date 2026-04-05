@@ -43,7 +43,11 @@ struct RangeAdjuster: MarkupWalker {
         markup.raw.markup.header.parsedRange = adjustedRange
 
         for child in markup.children {
+            #if hasFeature(Embedded)
+            visit(child)
+            #else
             child.accept(&self)
+            #endif
         }
 
         // End unsafe stuff.

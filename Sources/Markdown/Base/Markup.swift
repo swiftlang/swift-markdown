@@ -89,11 +89,13 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
 /// > Note: All supported markup elements are already implemented in the framework.
 /// Use this protocol only as a generic constraint.
 public protocol Markup {
+    #if !hasFeature(Embedded)
     /// Accept a `MarkupVisitor` and call the specific visitation method for this element.
     ///
     /// - parameter visitor: The `MarkupVisitor` visiting the element.
     /// - returns: The result of the visit.
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result
+    #endif
 
     /// The data backing the markup element.
     /// > Note: This property is an implementation detail; do not use it directly.

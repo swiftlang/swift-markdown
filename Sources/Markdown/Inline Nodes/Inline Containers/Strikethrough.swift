@@ -49,7 +49,9 @@ public extension Strikethrough {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitStrikethrough(self)
     }
+    #endif
 }

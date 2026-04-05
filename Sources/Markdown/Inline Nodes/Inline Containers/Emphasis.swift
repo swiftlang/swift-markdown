@@ -50,7 +50,9 @@ public extension Emphasis {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitEmphasis(self)
     }
+    #endif
 }

@@ -60,7 +60,9 @@ public extension CodeBlock {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitCodeBlock(self)
     }
+    #endif
 }

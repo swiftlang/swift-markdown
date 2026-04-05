@@ -32,9 +32,11 @@ public struct DoxygenReturns: BlockContainer {
         self._data = data
     }
 
+    #if !hasFeature(Embedded)
     public func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitDoxygenReturns(self)
     }
+    #endif
 }
 
 public extension DoxygenReturns {

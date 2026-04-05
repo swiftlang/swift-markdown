@@ -41,7 +41,9 @@ public extension SoftBreak {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitSoftBreak(self)
     }
+    #endif
 }
