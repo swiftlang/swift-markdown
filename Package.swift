@@ -16,6 +16,7 @@ let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DE
 
 let package = Package(
     name: "swift-markdown",
+    platforms: [.macOS(.v10_15)],
     products: [
         .library(
             name: "Markdown",
