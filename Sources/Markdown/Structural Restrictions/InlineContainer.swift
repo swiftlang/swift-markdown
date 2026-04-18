@@ -14,6 +14,7 @@ public protocol InlineContainer: PlainTextConvertibleMarkup {}
 // MARK: - Public API
 
 public extension InlineContainer {
+    #if !hasFeature(Embedded)
     /// The inline child elements of this element.
     ///
     /// - Precondition: All children of an `InlineContainer`
@@ -21,6 +22,7 @@ public extension InlineContainer {
     var inlineChildren: LazyMapSequence<MarkupChildren, InlineMarkup> {
         return children.lazy.map { $0 as! InlineMarkup }
     }
+    #endif
 
     /// Replace all inline child elements with a new sequence of inline elements.
     mutating func setInlineChildren<Items: Sequence>(_ newChildren: Items) where Items.Element == InlineMarkup {
@@ -30,7 +32,7 @@ public extension InlineContainer {
     /// Replace child inline elements in a range with a new sequence of elements.
     mutating func replaceChildrenInRange<Items: Sequence>(_ range: Range<Int>, with incomingItems: Items) where Items.Element == InlineMarkup {
         var rawChildren = raw.markup.copyChildren()
-        rawChildren.replaceSubrange(range, with: incomingItems.map { $0.raw.markup })
+        rawChildren.replaceSubrange(range, with: incomingItems.map { $0._data.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
         _data = _data.replacingSelf(newRaw)
     }
@@ -39,7 +41,7 @@ public extension InlineContainer {
 
     var plainText: String {
         return children.compactMap {
-            return ($0 as? InlineMarkup)?.plainText
+            return inlinePlainText(of: $0)
         }.joined()
     }
 }

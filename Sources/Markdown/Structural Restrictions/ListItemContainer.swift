@@ -26,6 +26,23 @@ public extension ListItemContainer {
         self.init(items)
     }
 
+    #if hasFeature(Embedded)
+    /// The items of the list.
+    ///
+    /// - Precondition: All children of a `ListItemContainer`
+    ///   must be a `ListItem`.
+    ///
+    /// Embedded variant returns an eagerly-constructed `[ListItem]`.
+    var listItems: [ListItem] {
+        var result: [ListItem] = []
+        for child in children {
+            if case .listItem = child._data.raw.markup.data {
+                result.append(ListItem(child._data))
+            }
+        }
+        return result
+    }
+    #else
     /// The items of the list.
     ///
     /// - Precondition: All children of a `ListItemContainer`
@@ -33,6 +50,7 @@ public extension ListItemContainer {
     var listItems: LazyMapSequence<MarkupChildren, ListItem> {
         return children.lazy.map { $0 as! ListItem }
     }
+    #endif
 
     /// Replace all list items with a sequence of items.
     mutating func setListItems<Items: Sequence>(_ newItems: Items) where Items.Element == ListItem {
@@ -42,7 +60,7 @@ public extension ListItemContainer {
     /// Replace list items in a range with a sequence of items.
     mutating func replaceItemsInRange<Items: Sequence>(_ range: Range<Int>, with incomingItems: Items) where Items.Element == ListItem {
         var rawChildren = raw.markup.copyChildren()
-        rawChildren.replaceSubrange(range, with: incomingItems.map { $0.raw.markup })
+        rawChildren.replaceSubrange(range, with: incomingItems.map { $0._data.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
         _data = _data.replacingSelf(newRaw)
     }

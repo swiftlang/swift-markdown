@@ -67,7 +67,7 @@ public struct BlockDirective: BlockContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .blockDirective = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: BlockDirective.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "BlockDirective")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -92,7 +92,7 @@ public extension BlockDirective {
                              children: Children) where Children.Element == BlockMarkup {
         let argumentSegments = argumentText?.split(
             omittingEmptySubsequences: false,
-            whereSeparator: \.isNewline
+            whereSeparator: { $0.isNewline }
         ).map { lineText -> DirectiveArgumentText.LineSegment in
             let untrimmedText = String(lineText)
             return DirectiveArgumentText.LineSegment(untrimmedText: untrimmedText,
@@ -102,7 +102,7 @@ public extension BlockDirective {
                                        nameLocation: nil,
                                        argumentText: DirectiveArgumentText(segments: argumentSegments),
                                        parsedRange: nil,
-                                       children.map { $0.raw.markup }))
+                                       children.map { $0._data.raw.markup }))
     }
 
     /// Create a block directive.

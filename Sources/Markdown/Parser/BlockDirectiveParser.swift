@@ -542,7 +542,7 @@ private enum ParseContainer: CustomStringConvertible {
         }
 
         mutating private func print<S: StringProtocol>(_ text: S) {
-            let lines = text.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
+            let lines = text.split(omittingEmptySubsequences: false, whereSeparator: { $0.isNewline })
             for i in lines.indices {
                 if i != lines.startIndex {
                     queueNewline()
@@ -719,7 +719,7 @@ private enum ParseContainer: CustomStringConvertible {
             // Write back the adjusted ranges.
             ranges = columnAdjuster.ranges
 
-            return parsedSubdocument.children.map { $0.raw.markup }
+            return parsedSubdocument.children.map { $0._data.raw.markup }
         case let .blockDirective(pendingBlockDirective, children):
             let range = pendingBlockDirective.atLocation..<pendingBlockDirective.endLocation
             ranges.add(range)
@@ -736,7 +736,7 @@ private enum ParseContainer: CustomStringConvertible {
                         if let argumentRange = $0.range {
                             // If the argument has a known source range, offset the column (number of UTF8 bytes) to find the start of the line.
                             lineStartIndex = base.utf8.index($0.text.startIndex, offsetBy: 1 - argumentRange.lowerBound.column)
-                        } else if let newLineIndex = base[..<$0.text.startIndex].lastIndex(where: \.isNewline) {
+                        } else if let newLineIndex = base[..<$0.text.startIndex].lastIndex(where: { $0.isNewline }) {
                             // Iterate backwards from the argument start index to find the the start of the line.
                             lineStartIndex = base.utf8.index(after: newLineIndex)
                         } else {

@@ -18,6 +18,7 @@
 /// > It may have a presentation similar to a block quote, but with a
 /// > different meaning, as it doesn't quote speech.
 /// ```
+#if !hasFeature(Embedded)
 public struct Aside {
     /// Describes the different kinds of aside.
     public struct Kind: RawRepresentable, CaseIterable, Equatable, Sendable {
@@ -204,7 +205,9 @@ public struct Aside {
         self.content = Array(kindTag.newBlockQuote.blockChildren)
     }
 }
+#endif
 
+#if !hasFeature(Embedded)
 extension BlockQuote {
     func parseAsideTag(tagRequirement: Aside.TagRequirement) -> (tag: String, newBlockQuote: BlockQuote)? {
         guard let initialText = self.child(through: [
@@ -247,3 +250,4 @@ extension BlockQuote {
         return (String(kindTag), newBlockQuote)
     }
 }
+#endif

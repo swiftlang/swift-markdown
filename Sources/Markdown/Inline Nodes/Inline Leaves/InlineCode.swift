@@ -14,7 +14,7 @@ public struct InlineCode: RecurringInlineMarkup {
 
     init(_ raw: RawMarkup) throws {
         guard case .inlineCode = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: InlineCode.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "InlineCode")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))

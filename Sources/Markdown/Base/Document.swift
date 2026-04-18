@@ -20,7 +20,7 @@ public struct Document: Markup, BasicBlockContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .document = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Document.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Document")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -74,7 +74,7 @@ public extension Document {
     }
 
     init(_ children: some Sequence<BlockMarkup>, inheritSourceRange: Bool) {
-        let rawChildren = children.map { $0.raw.markup }
+        let rawChildren = children.map { $0._data.raw.markup }
         let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
         try! self.init(.document(parsedRange: parsedRange, rawChildren))
     }

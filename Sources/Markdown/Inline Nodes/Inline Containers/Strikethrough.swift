@@ -13,7 +13,7 @@ public struct Strikethrough: RecurringInlineMarkup, BasicInlineContainer {
     public var _data: _MarkupData
     init(_ raw: RawMarkup) throws {
         guard case .strikethrough = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Strikethrough.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Strikethrough")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -33,7 +33,7 @@ public extension Strikethrough {
     }
 
     init(_ newChildren: some Sequence<InlineMarkup>, inheritSourceRange: Bool) {
-        let rawChildren = newChildren.map { $0.raw.markup }
+        let rawChildren = newChildren.map { $0._data.raw.markup }
         let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
         try! self.init(.strikethrough(parsedRange: parsedRange, rawChildren))
     }
@@ -42,7 +42,7 @@ public extension Strikethrough {
 
     var plainText: String {
         let childrenPlainText = children.compactMap {
-            return ($0 as? InlineMarkup)?.plainText
+            return inlinePlainText(of: $0)
         }.joined()
         return "~\(childrenPlainText)~"
     }

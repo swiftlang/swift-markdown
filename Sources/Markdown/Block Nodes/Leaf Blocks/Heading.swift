@@ -14,7 +14,7 @@ public struct Heading: BlockMarkup, InlineContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .heading = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Heading.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Heading")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -32,7 +32,7 @@ public extension Heading {
 
     /// Create a heading with a level and a sequence of children.
     init<Children: Sequence>(level: Int, _ children: Children) where Children.Element == InlineMarkup {
-        try! self.init(.heading(level: level, parsedRange: nil, children.map { $0.raw.markup }))
+        try! self.init(.heading(level: level, parsedRange: nil, children.map { $0._data.raw.markup }))
     }
 
     /// The level of the heading, starting at `1`.

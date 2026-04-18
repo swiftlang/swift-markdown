@@ -13,7 +13,7 @@ public struct UnorderedList: ListItemContainer {
     public var _data: _MarkupData
     init(_ raw: RawMarkup) throws {
         guard case .unorderedList = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: UnorderedList.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "UnorderedList")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -30,7 +30,7 @@ public extension UnorderedList {
     // MARK: ListItemContainer
 
     init<Items: Sequence>(_ items: Items) where Items.Element == ListItem {
-        try! self.init(.unorderedList(parsedRange: nil, items.map { $0.raw.markup }))
+        try! self.init(.unorderedList(parsedRange: nil, items.map { $0._data.raw.markup }))
     }
 
     // MARK: Visitation

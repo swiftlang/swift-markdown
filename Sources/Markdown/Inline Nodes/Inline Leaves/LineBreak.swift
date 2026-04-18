@@ -18,7 +18,7 @@ public struct LineBreak: RecurringInlineMarkup {
 
     init(_ raw: RawMarkup) throws {
         guard case .lineBreak = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: LineBreak.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "LineBreak")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))

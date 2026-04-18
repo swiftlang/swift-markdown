@@ -21,7 +21,7 @@ extension Table {
 
         init(_ raw: RawMarkup) throws {
             guard case .tableRow = raw.data else {
-                throw RawMarkup.Error.concreteConversionError(from: raw, to: Table.Row.self)
+                throw RawMarkup.Error.concreteConversionError(from: raw, to: "Table.Row")
             }
             let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
             self.init(_MarkupData(absoluteRaw))
@@ -36,7 +36,7 @@ public extension Table.Row {
     // MARK: TableCellContainer
 
     init<Cells>(_ cells: Cells) where Cells : Sequence, Cells.Element == Table.Cell {
-        try! self.init(.tableRow(parsedRange: nil, cells.map { $0.raw.markup }))
+        try! self.init(.tableRow(parsedRange: nil, cells.map { $0._data.raw.markup }))
     }
 
     // MARK: Visitation

@@ -14,6 +14,7 @@ public protocol BlockContainer: BlockMarkup {}
 // MARK: - Public API
 
 public extension BlockContainer {
+    #if !hasFeature(Embedded)
     /// The inline child elements of this element.
     ///
     /// - Precondition: All children of an `InlineContainer`
@@ -21,6 +22,7 @@ public extension BlockContainer {
     var blockChildren: LazyMapSequence<MarkupChildren, BlockMarkup> {
         return children.lazy.map { $0 as! BlockMarkup }
     }
+    #endif
 
     /// Replace all inline child elements with a new sequence of inline elements.
     mutating func setBlockChildren<Items: Sequence>(_ newChildren: Items) where Items.Element == BlockMarkup {
@@ -30,7 +32,7 @@ public extension BlockContainer {
     /// Replace child inline elements in a range with a new sequence of elements.
     mutating func replaceChildrenInRange<Items: Sequence>(_ range: Range<Int>, with incomingItems: Items) where Items.Element == BlockMarkup {
         var rawChildren = raw.markup.copyChildren()
-        rawChildren.replaceSubrange(range, with: incomingItems.map { $0.raw.markup })
+        rawChildren.replaceSubrange(range, with: incomingItems.map { $0._data.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
         _data = _data.replacingSelf(newRaw)
     }

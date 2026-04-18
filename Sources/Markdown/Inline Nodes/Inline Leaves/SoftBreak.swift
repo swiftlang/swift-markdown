@@ -14,7 +14,7 @@ public struct SoftBreak: RecurringInlineMarkup {
 
     init(_ raw: RawMarkup) throws {
         guard case .softBreak = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: SoftBreak.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "SoftBreak")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))

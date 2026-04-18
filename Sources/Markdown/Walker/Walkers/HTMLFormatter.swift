@@ -82,6 +82,7 @@ public struct HTMLFormatter: MarkupWalker {
     // MARK: Block elements
 
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> () {
+        #if !hasFeature(Embedded)
         if self.options.contains(.parseAsides), let aside = Aside(blockQuote, tagRequirement: .requireSingleWordTag) {
             result += "<aside data-kind=\"\(aside.kind.rawValue)\">\n"
             for child in aside.content {
@@ -93,6 +94,11 @@ public struct HTMLFormatter: MarkupWalker {
             descendInto(blockQuote)
             result += "</blockquote>\n"
         }
+        #else
+        result += "<blockquote>\n"
+        descendInto(blockQuote)
+        result += "</blockquote>\n"
+        #endif
     }
 
     public mutating func visitCodeBlock(_ codeBlock: CodeBlock) -> () {

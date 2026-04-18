@@ -13,7 +13,7 @@ public struct InlineHTML: RecurringInlineMarkup, LiteralMarkup {
     public var _data: _MarkupData
     init(_ raw: RawMarkup) throws {
         guard case .inlineHTML = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: InlineHTML.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "InlineHTML")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))

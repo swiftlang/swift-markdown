@@ -13,7 +13,7 @@ public protocol MarkupRewriter: MarkupVisitor where Result == Markup? {}
 
 extension MarkupRewriter {
     public mutating func defaultVisit(_ markup: Markup) -> Markup? {
-        let newChildren = markup.children.compactMap {
+        let newChildren: [Markup] = markup.children.compactMap {
             return self.visit($0)
         }
         return markup.withUncheckedChildren(newChildren)

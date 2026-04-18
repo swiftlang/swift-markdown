@@ -133,7 +133,7 @@ final class RawMarkup {
     var children: some Sequence<RawMarkup> { _children }
 
     enum Error: Swift.Error, CustomStringConvertible {
-        case concreteConversionError(from: RawMarkup, to: Markup.Type)
+        case concreteConversionError(from: RawMarkup, to: String)
         var description: String {
             switch self {
             case let .concreteConversionError(raw, to: type):
@@ -145,7 +145,7 @@ final class RawMarkup {
 #else
 final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     enum Error: LocalizedError {
-        case concreteConversionError(from: RawMarkup, to: Markup.Type)
+        case concreteConversionError(from: RawMarkup, to: String)
         var errorDescription: String? {
             switch self {
             case let .concreteConversionError(raw, to: type):

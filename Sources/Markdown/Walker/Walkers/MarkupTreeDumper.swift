@@ -101,7 +101,11 @@ struct MarkupTreeDumper: MarkupWalker {
 
     private mutating func dump(_ markup: Markup, customDescription: String? = nil) {
         indent(markup)
+        #if hasFeature(Embedded)
+        result += "\(markup._data.raw.markup.data)"
+        #else
         result += "\(type(of: markup))"
+        #endif
         if options.contains(.printSourceLocations),
             let range = markup.range {
             result += " @\(range.diagnosticDescription(includePath: false))"

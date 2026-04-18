@@ -12,50 +12,98 @@
 import Foundation
 #endif
 
-fileprivate extension Markup {
-    /// The parental chain of elements from a root to this element.
-    var parentalChain: [Markup] {
-        var stack: [Markup] = [self]
-        var current: Markup = self
-        while let parent = current.parent {
-            stack.append(parent)
-            current = parent
-        }
-        return stack.reversed()
+/// The parental chain of elements from a root to the given element.
+fileprivate func parentalChain(of markup: Markup) -> [Markup] {
+    var stack: [Markup] = [markup]
+    var current: Markup = markup
+    while let parent = current.parent {
+        stack.append(parent)
+        current = parent
     }
+    return stack.reversed()
+}
 
-    /// Return the first ancestor that matches a condition, or `nil` if there is no such ancestor.
-    func firstAncestor(where ancestorMatches: (Markup) -> Bool) -> Markup? {
-        var currentParent = parent
-        while let current = currentParent {
-            if ancestorMatches(current) {
-                return current
-            }
-            currentParent = current.parent
+/// Return the first ancestor of `markup` that matches a condition,
+/// or `nil` if there is no such ancestor.
+fileprivate func firstAncestor(of markup: Markup, where ancestorMatches: (Markup) -> Bool) -> Markup? {
+    var currentParent = markup.parent
+    while let current = currentParent {
+        if ancestorMatches(current) {
+            return current
         }
+        currentParent = current.parent
+    }
+    return nil
+}
+
+/// Previous sibling of `markup` in its parent, or `nil` if it's the first child.
+fileprivate func previousSibling(of markup: Markup) -> Markup? {
+    guard let parent = markup.parent, markup.indexInParent > 0 else {
         return nil
     }
+    return parent.child(at: markup.indexInParent - 1)
+}
 
-    /// Previous sibling of this element in its parent, or `nil` if it's the first child.
-    var previousSibling: Markup? {
-        guard let parent, indexInParent > 0 else {
-            return nil
-        }
-
-        return parent.child(at: indexInParent - 1)
+/// Whether `markup` is a Doxygen command.
+fileprivate func isDoxygenCommand(_ markup: Markup) -> Bool {
+    switch markup._data.raw.markup.data {
+    case .doxygenDiscussion, .doxygenNote, .doxygenAbstract,
+         .doxygenParam, .doxygenReturns:
+        return true
+    default:
+        return false
     }
+}
 
-    /// Whether this element is a Doxygen command.
-    var isDoxygenCommand: Bool {
-        return self is DoxygenDiscussion || self is DoxygenNote || self is DoxygenAbstract
-            || self is DoxygenParameter || self is DoxygenReturns
+/// Whether `markup` is a `ListItemContainer` (`UnorderedList` or `OrderedList`).
+fileprivate func isListItemContainer(_ markup: Markup) -> Bool {
+    switch markup._data.raw.markup.data {
+    case .unorderedList, .orderedList:
+        return true
+    default:
+        return false
     }
+}
+
+fileprivate func isHeading(_ markup: Markup) -> Bool {
+    if case .heading = markup._data.raw.markup.data { return true }
+    return false
+}
+
+fileprivate func isBlockQuote(_ markup: Markup) -> Bool {
+    if case .blockQuote = markup._data.raw.markup.data { return true }
+    return false
+}
+
+fileprivate func isUnorderedList(_ markup: Markup) -> Bool {
+    if case .unorderedList = markup._data.raw.markup.data { return true }
+    return false
+}
+
+fileprivate func isOrderedList(_ markup: Markup) -> Bool {
+    if case .orderedList = markup._data.raw.markup.data { return true }
+    return false
+}
+
+fileprivate func isListItem(_ markup: Markup) -> Bool {
+    if case .listItem = markup._data.raw.markup.data { return true }
+    return false
+}
+
+fileprivate func isBlockDirective(_ markup: Markup) -> Bool {
+    if case .blockDirective = markup._data.raw.markup.data { return true }
+    return false
+}
+
+fileprivate func asListItem(_ markup: Markup?) -> ListItem? {
+    guard let markup, case .listItem = markup._data.raw.markup.data else { return nil }
+    return ListItem(markup._data)
 }
 
 fileprivate extension String {
     /// This string, split by newline characters, dropping leading and trailing lines that are empty.
     var trimmedLineSegments: ArraySlice<Substring> {
-        var splitLines = split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)[...].drop { $0.isEmpty }
+        var splitLines = split(omittingEmptySubsequences: false, whereSeparator: { $0.isNewline })[...].drop { $0.isEmpty }
         while let lastLine = splitLines.last, lastLine.isEmpty {
             splitLines = splitLines.dropLast()
         }
@@ -457,21 +505,21 @@ public struct MarkupFormatter: MarkupWalker {
         var prefix = formattingOptions.customLinePrefix
         var unorderedListCount = 0
         var orderedListCount = 0
-        for element in element.parentalChain {
-            if element is BlockQuote {
+        for element in parentalChain(of: element) {
+            if isBlockQuote(element) {
                 prefix += "> "
-            } else if element is UnorderedList {
+            } else if isUnorderedList(element) {
                 if unorderedListCount > 0 {
                     prefix += "  "
                 }
                 unorderedListCount += 1
-            } else if element is OrderedList {
+            } else if isOrderedList(element) {
                 if orderedListCount > 0 {
                     prefix += "   "
                 }
                 orderedListCount += 1
-            } else if !(element is ListItem),
-                let parentListItem = element.parent as? ListItem {
+            } else if !isListItem(element),
+                let parentListItem = asListItem(element.parent) {
                 /*
                  Align contents with list item markers.
 
@@ -488,14 +536,14 @@ public struct MarkupFormatter: MarkupWalker {
                        Second line, aligned.
                  */
 
-                if parentListItem.parent is UnorderedList {
+                if let p = parentListItem.parent, isUnorderedList(p) {
                     // Unordered list markers are of fixed length.
                     prefix += "  "
                 } else if let numeralPrefix = numeralPrefix(for: parentListItem) {
                     prefix += String(repeating: " ", count: numeralPrefix.count)
                 }
             }
-            if element.parent is BlockDirective {
+            if let p = element.parent, isBlockDirective(p) {
                 prefix += "    "
             }
         }
@@ -547,7 +595,7 @@ public struct MarkupFormatter: MarkupWalker {
 
     /// Get the numeral prefix for a list item if its parent is an ordered list.
     func numeralPrefix(for listItem: ListItem) -> String? {
-        guard listItem.parent is OrderedList else {
+        guard let p = listItem.parent, isOrderedList(p) else {
             return nil
         }
         let numeral: UInt
@@ -593,7 +641,7 @@ public struct MarkupFormatter: MarkupWalker {
         }
 
         // Headings may not have soft breaks.
-        guard element.firstAncestor(where: { $0 is Heading }) == nil else {
+        guard firstAncestor(of: element, where: { isHeading($0) }) == nil else {
             print(string, for: element)
             return
         }
@@ -654,7 +702,7 @@ public struct MarkupFormatter: MarkupWalker {
     // MARK: Formatter Walker Methods
 
     public func defaultVisit(_ markup: Markup) {
-        fatalError("Formatter not implemented for \(type(of: markup))")
+        fatalError("Formatter not implemented for \(markup._data.raw.markup.data)")
     }
 
     public mutating func visitDocument(_ document: Document) {
@@ -711,7 +759,7 @@ public struct MarkupFormatter: MarkupWalker {
 
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) {
         if let parent = blockQuote.parent {
-            if parent is BlockQuote {
+            if isBlockQuote(parent) {
                 queueNewline()
             } else if blockQuote.indexInParent > 0 {
                 queueNewline()
@@ -723,14 +771,14 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     mutating public func visitUnorderedList(_ unorderedList: UnorderedList) {
-        if unorderedList.indexInParent > 0 && !(unorderedList.parent?.parent is ListItemContainer) {
+        if unorderedList.indexInParent > 0 && !(unorderedList.parent?.parent.map(isListItemContainer) ?? false) {
             ensurePrecedingNewlineCount(atLeast: 2)
         }
         descendInto(unorderedList)
     }
 
     mutating public func visitOrderedList(_ orderedList: OrderedList) {
-        if orderedList.indexInParent > 0 && !(orderedList.parent?.parent is ListItemContainer) {
+        if orderedList.indexInParent > 0 && !(orderedList.parent?.parent.map(isListItemContainer) ?? false) {
             ensurePrecedingNewlineCount(atLeast: 2)
         }
         descendInto(orderedList)
@@ -758,7 +806,7 @@ public struct MarkupFormatter: MarkupWalker {
             }
         } ?? ""
 
-        if listItem.parent is UnorderedList {
+        if let p = listItem.parent, isUnorderedList(p) {
             print("\(formattingOptions.unorderedListMarker.rawValue) \(checkbox)", for: listItem)
         } else if let numeralPrefix = numeralPrefix(for: listItem) {
             print("\(numeralPrefix)\(checkbox)", for: listItem)
@@ -924,6 +972,12 @@ public struct MarkupFormatter: MarkupWalker {
         if table.indexInParent > 0 {
             ensurePrecedingNewlineCount(atLeast: 2)
         }
+        #if hasFeature(Embedded)
+        // Table rendering relies on `LazyMapSequence<MarkupChildren, Table.Cell>`
+        // and `Table.Row` accessors that perform protocol-typed dynamic casts,
+        // which Embedded Swift forbids. Skip table rendering on Embedded targets.
+        return
+        #else
         // The general strategy is to print each table cell completely
         // independently, measuring each of their dimensions, and then expanding
         // them so that all cells in the same column have the same width
@@ -1113,6 +1167,7 @@ public struct MarkupFormatter: MarkupWalker {
             print("|", for: table.body.child(at: row)!)
             queueNewline()
         }
+        #endif
     }
 
     /// See ``MarkupFormatter/visitTable(_:)-61rlp`` for more information.
@@ -1203,7 +1258,7 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     private mutating func ensureDoxygenCommandPrecedingNewline(for element: Markup) {
-        guard let previousSibling = element.previousSibling else {
+        guard let previousSibling = previousSibling(of: element) else {
             return
         }
 
@@ -1212,7 +1267,7 @@ public struct MarkupFormatter: MarkupWalker {
             return
         }
 
-        let newlineCount = previousSibling.isDoxygenCommand ? 1 : 2
+        let newlineCount = isDoxygenCommand(previousSibling) ? 1 : 2
         ensurePrecedingNewlineCount(atLeast: newlineCount)
     }
 

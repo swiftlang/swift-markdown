@@ -30,7 +30,7 @@ struct LazySplitLines: Sequence {
         private var source: SourceIdentifier?
 
         init<S: StringProtocol>(_ input: S, source: SourceIdentifier?) where S.SubSequence == Substring {
-            self.rawLines = input.split(omittingEmptySubsequences: false, whereSeparator: \.isNewline)
+            self.rawLines = input.split(omittingEmptySubsequences: false, whereSeparator: { $0.isNewline })
             self.index = rawLines.startIndex
             self.source = source
         }
