@@ -23,12 +23,14 @@ enum RawMarkupData: Equatable {
     case heading(level: Int)
     case thematicBreak
     case htmlBlock(String)
+    case blockMath(String)
     case listItem(checkbox: Checkbox?)
     case orderedList(startIndex: UInt = 1)
     case unorderedList
     case paragraph
     case blockDirective(name: String, nameLocation: SourceLocation?, arguments: DirectiveArgumentText)
 
+    case inlineMath(String)
     case inlineCode(String)
     case customInline(String)
     case emphasis
@@ -239,6 +241,10 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
         return .create(data: .htmlBlock(html), parsedRange: parsedRange, children: [])
     }
 
+    static func blockMath(parsedRange: SourceRange?, code: String) -> RawMarkup {
+        return .create(data: .blockMath(code), parsedRange: parsedRange, children: [])
+    }
+
     static func listItem(checkbox: Checkbox?, parsedRange: SourceRange?, _ children: [RawMarkup]) -> RawMarkup {
         return .create(data: .listItem(checkbox: checkbox), parsedRange: parsedRange, children: children)
     }
@@ -260,6 +266,10 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     }
 
     // MARK: Inline Creation
+
+    static func inlineMath(parsedRange: SourceRange?, code: String) -> RawMarkup {
+        return .create(data: .inlineMath(code), parsedRange: parsedRange, children: [])
+    }
 
     static func inlineCode(parsedRange: SourceRange?, code: String) -> RawMarkup {
         return .create(data: .inlineCode(code), parsedRange: parsedRange, children: [])
