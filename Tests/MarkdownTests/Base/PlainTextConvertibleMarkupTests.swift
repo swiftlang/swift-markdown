@@ -72,4 +72,14 @@ final class PlainTextConvertibleMarkupTests: XCTestCase {
         let text = Text("OK")
         XCTAssertEqual("OK", text.plainText)
     }
+
+    func testStrikethrough() {
+        let strikethrough = Strikethrough(Text("Strikethrough"))
+        XCTAssertEqual("~Strikethrough~", strikethrough.plainText)
+    }
+
+    func testSymbolLink() {
+        let symbolLink = SymbolLink(destination: "SymbolLink")
+        XCTAssertEqual("``SymbolLink``", symbolLink.plainText)
+    }
 }
