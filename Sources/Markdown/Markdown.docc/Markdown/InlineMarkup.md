@@ -1,4 +1,4 @@
-# Markup Inline Nodes
+# ``InlineMarkup``
 
 ## Topics
 
