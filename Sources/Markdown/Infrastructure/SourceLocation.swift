@@ -8,7 +8,9 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 /// A location in a source file.
 public struct SourceLocation: Hashable, CustomStringConvertible, Comparable, Sendable {
@@ -29,7 +31,7 @@ public struct SourceLocation: Hashable, CustomStringConvertible, Comparable, Sen
     public var column: Int
 
     /// The source file for which this location applies, if it came from an accessible location.
-    public var source: URL?
+    public var source: SourceIdentifier?
 
     /// Create a source location with line, column, and optional source to which the location applies.
     ///
@@ -37,7 +39,7 @@ public struct SourceLocation: Hashable, CustomStringConvertible, Comparable, Sen
     /// - parameter column: The column of the location, starting with 1.
     /// - parameter source: The URL in which the location resides, or `nil` if there is not a specific
     ///   file or resource that needs to be identified.
-    public init(line: Int, column: Int, source: URL?) {
+    public init(line: Int, column: Int, source: SourceIdentifier?) {
         self.line = line
         self.column = column
         self.source = source

@@ -317,12 +317,56 @@ public protocol MarkupVisitor<Result> {
 }
 
 extension MarkupVisitor {
+    #if hasFeature(Embedded)
+    // Embedded Swift cannot call generic methods on existentials, so we use
+    // enum-based dispatch instead of the accept<V> virtual dispatch pattern.
+    public mutating func visit(_ markup: Markup) -> Result {
+        switch markup._data.raw.markup.data {
+        case .blockQuote: return visitBlockQuote(BlockQuote(markup._data))
+        case .codeBlock: return visitCodeBlock(CodeBlock(markup._data))
+        case .customBlock: return visitCustomBlock(CustomBlock(markup._data))
+        case .document: return visitDocument(Document(markup._data))
+        case .heading: return visitHeading(Heading(markup._data))
+        case .thematicBreak: return visitThematicBreak(ThematicBreak(markup._data))
+        case .htmlBlock: return visitHTMLBlock(HTMLBlock(markup._data))
+        case .listItem: return visitListItem(ListItem(markup._data))
+        case .orderedList: return visitOrderedList(OrderedList(markup._data))
+        case .unorderedList: return visitUnorderedList(UnorderedList(markup._data))
+        case .paragraph: return visitParagraph(Paragraph(markup._data))
+        case .blockDirective: return visitBlockDirective(BlockDirective(markup._data))
+        case .inlineCode: return visitInlineCode(InlineCode(markup._data))
+        case .customInline: return visitCustomInline(CustomInline(markup._data))
+        case .emphasis: return visitEmphasis(Emphasis(markup._data))
+        case .image: return visitImage(Image(markup._data))
+        case .inlineHTML: return visitInlineHTML(InlineHTML(markup._data))
+        case .lineBreak: return visitLineBreak(LineBreak(markup._data))
+        case .link: return visitLink(Link(markup._data))
+        case .softBreak: return visitSoftBreak(SoftBreak(markup._data))
+        case .strong: return visitStrong(Strong(markup._data))
+        case .text: return visitText(Text(markup._data))
+        case .symbolLink: return visitSymbolLink(SymbolLink(markup._data))
+        case .inlineAttributes: return visitInlineAttributes(InlineAttributes(markup._data))
+        case .strikethrough: return visitStrikethrough(Strikethrough(markup._data))
+        case .table: return visitTable(Table(markup._data))
+        case .tableHead: return visitTableHead(Table.Head(markup._data))
+        case .tableBody: return visitTableBody(Table.Body(markup._data))
+        case .tableRow: return visitTableRow(Table.Row(markup._data))
+        case .tableCell: return visitTableCell(Table.Cell(markup._data))
+        case .doxygenDiscussion: return visitDoxygenDiscussion(DoxygenDiscussion(markup._data))
+        case .doxygenNote: return visitDoxygenNote(DoxygenNote(markup._data))
+        case .doxygenAbstract: return visitDoxygenAbstract(DoxygenAbstract(markup._data))
+        case .doxygenParam: return visitDoxygenParameter(DoxygenParameter(markup._data))
+        case .doxygenReturns: return visitDoxygenReturns(DoxygenReturns(markup._data))
+        }
+    }
+    #else
     // Default implementation: call `accept` on the markup element,
     // dispatching into each leaf element's implementation, which then
     // dispatches to the correct visit___ method.
     public mutating func visit(_ markup: Markup) -> Result {
         return markup.accept(&self)
     }
+    #endif
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> Result {
         return defaultVisit(blockQuote)
     }

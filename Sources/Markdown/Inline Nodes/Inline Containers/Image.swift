@@ -18,7 +18,7 @@ public struct Image: InlineMarkup, InlineContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .image = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Image.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Image")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -44,7 +44,7 @@ public extension Image {
             sourceToUse = source
         }
 
-        try! self.init(.image(source: sourceToUse, title: titleToUse, parsedRange: nil, children.map { $0.raw.markup }))
+        try! self.init(.image(source: sourceToUse, title: titleToUse, parsedRange: nil, children.map { $0._data.raw.markup }))
     }
 
     /// Create an image from a source and zero or more child inline elements.
@@ -95,7 +95,9 @@ public extension Image {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitImage(self)
     }
+    #endif
 }

@@ -14,7 +14,7 @@ public struct InlineAttributes: InlineMarkup, InlineContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .inlineAttributes = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: InlineAttributes.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "InlineAttributes")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -30,7 +30,7 @@ public struct InlineAttributes: InlineMarkup, InlineContainer {
 public extension InlineAttributes {
     /// Create a set of custom inline attributes applied to zero or more child inline elements.
     init<Children: Sequence>(attributes: String, _ children: Children) where Children.Element == RecurringInlineMarkup {
-        try! self.init(.inlineAttributes(attributes: attributes, parsedRange: nil, children.map { $0.raw.markup }))
+        try! self.init(.inlineAttributes(attributes: attributes, parsedRange: nil, children.map { $0._data.raw.markup }))
     }
 
     /// Create a set of custom attributes applied to zero or more child inline elements.
@@ -53,7 +53,9 @@ public extension InlineAttributes {
     
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitInlineAttributes(self)
     }
+    #endif
 }

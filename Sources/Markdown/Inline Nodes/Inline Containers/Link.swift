@@ -14,7 +14,7 @@ public struct Link: InlineMarkup, InlineContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .link = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Link.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Link")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -44,7 +44,7 @@ public extension Link {
             titleToUse = title
         }
 
-        try! self.init(.link(destination: destinationToUse, title: titleToUse, parsedRange: nil, children.map { $0.raw.markup }))
+        try! self.init(.link(destination: destinationToUse, title: titleToUse, parsedRange: nil, children.map { $0._data.raw.markup }))
     }
 
     /// Create a link with a destination and zero or more child inline elements.
@@ -98,7 +98,9 @@ public extension Link {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitLink(self)
     }
+    #endif
 }

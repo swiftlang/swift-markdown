@@ -13,7 +13,7 @@ public struct CodeBlock: BlockMarkup {
     public var _data: _MarkupData
     init(_ raw: RawMarkup) throws {
         guard case .codeBlock = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: CodeBlock.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "CodeBlock")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -60,7 +60,9 @@ public extension CodeBlock {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitCodeBlock(self)
     }
+    #endif
 }

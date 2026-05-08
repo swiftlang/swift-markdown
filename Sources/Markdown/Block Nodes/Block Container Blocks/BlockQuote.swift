@@ -13,7 +13,7 @@ public struct BlockQuote: BlockMarkup, BasicBlockContainer {
     public var _data: _MarkupData
     init(_ raw: RawMarkup) throws {
         guard case .blockQuote = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: BlockQuote.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "BlockQuote")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -34,14 +34,16 @@ public extension BlockQuote {
     }
 
     init(_ children: some Sequence<BlockMarkup>, inheritSourceRange: Bool) {
-        let rawChildren = children.map { $0.raw.markup }
+        let rawChildren = children.map { $0._data.raw.markup }
         let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
         try! self.init(.blockQuote(parsedRange: parsedRange, rawChildren))
     }
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitBlockQuote(self)
     }
+    #endif
 }

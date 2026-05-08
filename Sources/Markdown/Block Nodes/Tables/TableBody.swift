@@ -19,7 +19,7 @@ extension Table {
 
         init(_ raw: RawMarkup) throws {
             guard case .tableBody = raw.data else {
-                throw RawMarkup.Error.concreteConversionError(from: raw, to: Table.Body.self)
+                throw RawMarkup.Error.concreteConversionError(from: raw, to: "Table.Body")
             }
             let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
             self.init(_MarkupData(absoluteRaw))
@@ -39,7 +39,7 @@ extension Table {
 public extension Table.Body {
     /// Create a table body from a sequence of ``Table/Row`` elements.
     init<Rows: Sequence>(_ rows: Rows) where Rows.Element == Table.Row {
-        try! self.init(RawMarkup.tableBody(parsedRange: nil, rows: rows.map { $0.raw.markup }))
+        try! self.init(RawMarkup.tableBody(parsedRange: nil, rows: rows.map { $0._data.raw.markup }))
     }
 
     /// Create a table body from a sequence of ``Table/Row`` elements.
@@ -47,6 +47,22 @@ public extension Table.Body {
         self.init(rows)
     }
 
+    #if hasFeature(Embedded)
+    /// The rows of the body.
+    ///
+    /// - Precondition: All children of a `Table.Body` must be a `Table.Row`.
+    ///
+    /// Embedded variant returns an eagerly-constructed `[Table.Row]`.
+    var rows: [Table.Row] {
+        var result: [Table.Row] = []
+        for child in children {
+            if case .tableRow = child._data.raw.markup.data {
+                result.append(Table.Row(child._data))
+            }
+        }
+        return result
+    }
+    #else
     /// The rows of the body.
     ///
     /// - Precondition: All children of a `ListItemContainer`
@@ -54,6 +70,7 @@ public extension Table.Body {
     var rows: LazyMapSequence<MarkupChildren, Table.Row> {
         return children.lazy.map { $0 as! Table.Row }
     }
+    #endif
 
     /// Replace all list items with a sequence of items.
     mutating func setRows<Rows: Sequence>(_ newRows: Rows) where Rows.Element == Table.Row {
@@ -63,7 +80,7 @@ public extension Table.Body {
     /// Replace list items in a range with a sequence of items.
     mutating func replaceRowsInRange<Rows: Sequence>(_ range: Range<Int>, with incomingRows: Rows) where Rows.Element == Table.Row {
         var rawChildren = raw.markup.copyChildren()
-        rawChildren.replaceSubrange(range, with: incomingRows.map { $0.raw.markup })
+        rawChildren.replaceSubrange(range, with: incomingRows.map { $0._data.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
         _data = _data.replacingSelf(newRaw)
     }

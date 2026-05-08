@@ -19,7 +19,7 @@ extension Table {
 
         init(_ raw: RawMarkup) throws {
             guard case .tableHead = raw.data else {
-                throw RawMarkup.Error.concreteConversionError(from: raw, to: Table.Head.self)
+                throw RawMarkup.Error.concreteConversionError(from: raw, to: "Table.Head")
             }
             let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
             self.init(_MarkupData(absoluteRaw))
@@ -33,7 +33,7 @@ public extension Table.Head {
     // MARK: TableCellContainer
 
     init<Cells>(_ cells: Cells) where Cells : Sequence, Cells.Element == Table.Cell {
-        try! self.init(.tableHead(parsedRange: nil, columns: cells.map { $0.raw.markup }))
+        try! self.init(.tableHead(parsedRange: nil, columns: cells.map { $0._data.raw.markup }))
     }
 
     // MARK: Visitation

@@ -17,7 +17,7 @@ public struct Paragraph: BlockMarkup, BasicInlineContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .paragraph = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Paragraph.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Paragraph")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -34,14 +34,16 @@ public extension Paragraph {
     }
 
     init(_ newChildren: some Sequence<InlineMarkup>, inheritSourceRange: Bool) {
-        let rawChildren = newChildren.map { $0.raw.markup }
+        let rawChildren = newChildren.map { $0._data.raw.markup }
         let parsedRange = inheritSourceRange ? rawChildren.parsedRange : nil
         try! self.init(.paragraph(parsedRange: parsedRange, rawChildren))
     }
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitParagraph(self)
     }
+    #endif
 }

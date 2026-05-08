@@ -37,12 +37,31 @@ public extension TableCellContainer {
         self.init(elements)
     }
 
+    #if hasFeature(Embedded)
+    /// The cells of the row.
+    ///
+    /// - Precondition: All children of a ``TableCellContainer`` must be a `Table.Cell`.
+    ///
+    /// Embedded variant returns an eagerly-constructed `[Table.Cell]` (the
+    /// macOS variant returns a `LazyMapSequence` whose force-cast is
+    /// unavailable in Embedded Swift).
+    var cells: [Table.Cell] {
+        var result: [Table.Cell] = []
+        for child in children {
+            if case .tableCell = child._data.raw.markup.data {
+                result.append(Table.Cell(child._data))
+            }
+        }
+        return result
+    }
+    #else
     /// The cells of the row.
     ///
     /// - Precondition: All children of a ``TableCellContainer`` must be a `Table.Cell`.
     var cells: LazyMapSequence<MarkupChildren, Table.Cell> {
         return children.lazy.map { $0 as! Table.Cell }
     }
+    #endif
 
     /// Replace all cells with a sequence of cells.
     ///
@@ -54,7 +73,7 @@ public extension TableCellContainer {
     /// Replace cells in a range with a sequence of cells.
     mutating func replaceCellsInRange<Cells: Sequence>(_ range: Range<Int>, with incomingCells: Cells) where Cells.Element == Table.Cell {
         var rawChildren = raw.markup.copyChildren()
-        rawChildren.replaceSubrange(range, with: incomingCells.map { $0.raw.markup })
+        rawChildren.replaceSubrange(range, with: incomingCells.map { $0._data.raw.markup })
         let newRaw = raw.markup.withChildren(rawChildren)
         _data = _data.replacingSelf(newRaw)
     }
