@@ -403,7 +403,8 @@ struct MarkupParser {
         let parsedRange = state.range(state.node)
         let literalContent = getLiteralContent(node: state.node)
         if state.options.contains(.parseSymbolLinks),
-           cmark_node_get_backtick_count(state.node) > 1 {
+           cmark_node_get_backtick_count(state.node) > 1,
+           !literalContent.contains("`") {
             return MarkupConversion(state: state.next(), result: .symbolLink(parsedRange: parsedRange, destination: literalContent))
         } else {
             return MarkupConversion(state: state.next(), result: .inlineCode(parsedRange: parsedRange, code: literalContent))
