@@ -1215,7 +1215,8 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
             """
         )
     }
-
+    
+    #if !(compiler(>=6.0) && canImport(Testing))
     // FIXME: swift-testing macro for specifying the relationship between a bug and a test
     // Uncomment the following code when we integrate swift-testing
     // @Test("Directive MultiLine WithoutContent Parsing", .bug("#152", relationship: .verifiesFix))
@@ -1228,7 +1229,7 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         """
 
         let document = Document(parsing: source, options: .parseBlockDirectives)
-        _ = try XCTUnwrap(document.child(at: 0) as? BlockDirective)
+        XCTAssertTrue(document.child(at: 0) is BlockDirective)
         let expected = #"""
         Document @1:1-4:2
         └─ BlockDirective @1:1-4:2 name: "Image"
@@ -1238,4 +1239,34 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         """#
         XCTAssertEqual(expected, document.debugDescription(options: .printSourceLocations))
     }
+    #endif
 }
+
+#if compiler(>=6.0) && canImport(Testing)
+import Testing
+
+struct _BlockDirectiveArgumentParserTests {
+    @Test(
+        "Directive MultiLine WithoutContent Parsing",
+        .bug("https://github.com/swiftlang/swift-markdown/issues/152" ,id: "#152", "Verify fix of #152")
+    )
+    func directiveMultiLineWithoutContentParsing() throws {
+        let source = #"""
+        @Image(
+          source: "example.png",
+          alt: "Example image"
+        )
+        """#
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        #expect(document.child(at: 0) is BlockDirective)
+        let expected = #"""
+        Document @1:1-4:2
+        └─ BlockDirective @1:1-4:2 name: "Image"
+           ├─ Argument text segments:
+           |    @2:1-2:25: "  source: \"example.png\","
+           |    @3:1-3:23: "  alt: \"Example image\""
+        """#
+        #expect(document.debugDescription(options: .printSourceLocations) == expected)
+    }
+}
+#endif
