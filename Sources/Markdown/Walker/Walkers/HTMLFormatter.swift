@@ -10,6 +10,49 @@
 
 import Foundation
 
+private extension String {
+    var escapingHTML: String {
+        var escaped = ""
+        escaped.reserveCapacity(count)
+
+        for character in self {
+            switch character {
+            case "&": escaped += "&amp;"
+            case "<": escaped += "&lt;"
+            case ">": escaped += "&gt;"
+            case "\"": escaped += "&quot;"
+            case "'": escaped += "&#39;"
+            default: escaped.append(character)
+            }
+        }
+
+        return escaped
+    }
+
+    var safeHTMLURL: String? {
+        let leadingControlsAndWhitespace = CharacterSet.controlCharacters.union(.whitespacesAndNewlines)
+        let normalized = trimmingCharacters(in: leadingControlsAndWhitespace).lowercased()
+
+        if normalized.hasPrefix("data:image/png")
+            || normalized.hasPrefix("data:image/gif")
+            || normalized.hasPrefix("data:image/jpeg")
+            || normalized.hasPrefix("data:image/webp")
+        {
+            return escapingHTML
+        }
+
+        if normalized.hasPrefix("javascript:")
+            || normalized.hasPrefix("vbscript:")
+            || normalized.hasPrefix("file:")
+            || normalized.hasPrefix("data:")
+        {
+            return nil
+        }
+
+        return escapingHTML
+    }
+}
+
 /// Options given to the ``HTMLFormatter``.
 public struct HTMLFormatterOptions: OptionSet {
     public var rawValue: UInt
@@ -82,15 +125,15 @@ public struct HTMLFormatter: MarkupWalker {
     public mutating func visitCodeBlock(_ codeBlock: CodeBlock) -> () {
         let languageAttr: String
         if let language = codeBlock.language {
-            languageAttr = " class=\"language-\(language)\""
+            languageAttr = " class=\"language-\(language.escapingHTML)\""
         } else {
             languageAttr = ""
         }
-        result += "<pre><code\(languageAttr)>\(codeBlock.code)</code></pre>\n"
+        result += "<pre><code\(languageAttr)>\(codeBlock.code.escapingHTML)</code></pre>\n"
     }
 
     public mutating func visitHeading(_ heading: Heading) -> () {
-        result += "<h\(heading.level)>\(heading.plainText)</h\(heading.level)>\n"
+        result += "<h\(heading.level)>\(heading.plainText.escapingHTML)</h\(heading.level)>\n"
     }
 
     public mutating func visitThematicBreak(_ thematicBreak: ThematicBreak) -> () {
@@ -222,7 +265,7 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitInlineCode(_ inlineCode: InlineCode) -> () {
-        result += "<code>\(inlineCode.code)</code>"
+        result += "<code>\(inlineCode.code.escapingHTML)</code>"
     }
 
     public mutating func visitEmphasis(_ emphasis: Emphasis) -> () {
@@ -236,12 +279,12 @@ public struct HTMLFormatter: MarkupWalker {
     public mutating func visitImage(_ image: Image) -> () {
         result += "<img"
 
-        if let source = image.source, !source.isEmpty {
-            result += " src=\"\(source)\""
+        if let source = image.source, !source.isEmpty, let safeSource = source.safeHTMLURL {
+            result += " src=\"\(safeSource)\""
         }
 
         if let title = image.title, !title.isEmpty {
-            result += " title=\"\(title)\""
+            result += " title=\"\(title.escapingHTML)\""
         }
 
         result += " />"
@@ -261,8 +304,8 @@ public struct HTMLFormatter: MarkupWalker {
 
     public mutating func visitLink(_ link: Link) -> () {
         result += "<a"
-        if let destination = link.destination {
-            result += " href=\"\(destination)\""
+        if let destination = link.destination, let safeDestination = destination.safeHTMLURL {
+            result += " href=\"\(safeDestination)\""
         }
         result += ">"
 
@@ -272,7 +315,7 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitText(_ text: Text) -> () {
-        result += text.string
+        result += text.string.escapingHTML
     }
 
     public mutating func visitStrikethrough(_ strikethrough: Strikethrough) -> () {
@@ -281,12 +324,12 @@ public struct HTMLFormatter: MarkupWalker {
 
     public mutating func visitSymbolLink(_ symbolLink: SymbolLink) -> () {
         if let destination = symbolLink.destination {
-            result += "<code>\(destination)</code>"
+            result += "<code>\(destination.escapingHTML)</code>"
         }
     }
 
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> () {
-        result += "<span data-attributes=\"\(attributes.attributes.replacingOccurrences(of: "\"", with: "\\\""))\""
+        result += "<span data-attributes=\"\(attributes.attributes.escapingHTML)\""
 
         let wrappedAttributes = "{\(attributes.attributes)}"
         if options.contains(.parseInlineAttributeClass),
@@ -312,7 +355,7 @@ public struct HTMLFormatter: MarkupWalker {
 
             let parsedAttributes = try? decoder.decode(ParsedAttributes.self, from: attributesData)
             if let parsedAttributes = parsedAttributes {
-                result += " class=\"\(parsedAttributes.class)\""
+                result += " class=\"\(parsedAttributes.class.escapingHTML)\""
             }
         }
 
