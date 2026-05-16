@@ -90,6 +90,31 @@ final class HTMLFormatterTests: XCTestCase {
         XCTAssertEqual(HTMLFormatter.format(inputText, options: [.parseAsides]), expectedOutput)
     }
 
+    func testEscapesGeneratedHTML() {
+        let inputText = #"""
+        # A < B & C
+
+        Here is `x < y` and [link](javascript:alert(1)) and [ok](https://example.com?a="b"&c=<d>).
+
+        ![img](javascript:alert(1) "bad <title>")
+
+        ```swift
+        if x < y { print("&") }
+        ```
+        """#
+
+        let expectedOutput = """
+        <h1>A &lt; B &amp; C</h1>
+        <p>Here is <code>x &lt; y</code> and <a>link</a> and <a href=\"https://example.com?a=&quot;b&quot;&amp;c=&lt;d&gt;\">ok</a>.</p>
+        <p><img title=\"bad &lt;title&gt;\" /></p>
+        <pre><code class=\"language-swift\">if x &lt; y { print(&quot;&amp;&quot;) }
+        </code></pre>
+
+        """
+
+        XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+    }
+
     // JSON5 parsing (which allows property names without quotes) is available in Apple Foundation,
     // or in Swift Foundation starting in Swift 6.0
     #if os(macOS) || os(iOS) || os(tvOS) || os(watchOS) || os(visionOS) || compiler(>=6.0)
@@ -112,7 +137,7 @@ final class HTMLFormatterTests: XCTestCase {
 
         do {
             let expectedOutput = """
-            <p><span data-attributes="class: \\"fancy\\"">formatted text</span></p>
+            <p><span data-attributes="class: &quot;fancy&quot;">formatted text</span></p>
 
             """
 
@@ -124,7 +149,7 @@ final class HTMLFormatterTests: XCTestCase {
 
         do {
             let expectedOutput = """
-            <p><span data-attributes="class: \\"fancy\\"" class="fancy">formatted text</span></p>
+            <p><span data-attributes="class: &quot;fancy&quot;" class="fancy">formatted text</span></p>
 
             """
 
@@ -144,7 +169,7 @@ final class HTMLFormatterTests: XCTestCase {
 
         do {
             let expectedOutput = """
-            <p><span data-attributes="\\"class\\": \\"fancy\\"">formatted text</span></p>
+            <p><span data-attributes="&quot;class&quot;: &quot;fancy&quot;">formatted text</span></p>
 
             """
 
@@ -156,7 +181,7 @@ final class HTMLFormatterTests: XCTestCase {
 
         do {
             let expectedOutput = """
-            <p><span data-attributes="\\"class\\": \\"fancy\\"" class="fancy">formatted text</span></p>
+            <p><span data-attributes="&quot;class&quot;: &quot;fancy&quot;" class="fancy">formatted text</span></p>
 
             """
 
