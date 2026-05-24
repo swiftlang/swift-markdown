@@ -70,6 +70,24 @@ final class HTMLFormatterTests: XCTestCase {
         XCTAssertEqual(HTMLFormatter.format(everythingDocument), expectedDump)
     }
 
+    func testFormatHeadingWithInlineChildren() {
+        let inputText = """
+        # A *heading* with `code` and [a link](https://example.com)
+
+        ## [0.0.1] - 2014-05-31
+
+        [0.0.1]: https://github.com/olivierlacan/keep-a-changelog/
+        """
+
+        let expectedOutput = """
+        <h1>A <em>heading</em> with <code>code</code> and <a href="https://example.com">a link</a></h1>
+        <h2><a href="https://github.com/olivierlacan/keep-a-changelog/">0.0.1</a> - 2014-05-31</h2>
+
+        """
+
+        XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+    }
+
     func testFormatAsides() {
         let inputText = """
         > This is a regular block quote.

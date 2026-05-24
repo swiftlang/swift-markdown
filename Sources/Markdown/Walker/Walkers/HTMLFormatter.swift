@@ -90,7 +90,9 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitHeading(_ heading: Heading) -> () {
-        result += "<h\(heading.level)>\(heading.plainText)</h\(heading.level)>\n"
+        result += "<h\(heading.level)>"
+        descendInto(heading)
+        result += "</h\(heading.level)>\n"
     }
 
     public mutating func visitThematicBreak(_ thematicBreak: ThematicBreak) -> () {
