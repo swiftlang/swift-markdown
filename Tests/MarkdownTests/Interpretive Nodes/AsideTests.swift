@@ -218,8 +218,8 @@ class AsideTests: XCTestCase {
     }
     
     func testDoesNotCrashParsingTagWithEnDashAndListItemContent() throws {
-        let enDash = "–"
-        let emDash = "—"
+        let enDash = "\u{2013}"
+        let emDash = "\u{2014}"
         
         for (dashMarkup, expectedColumn, formattedDash) in [
             ("-",   18, "-"),
