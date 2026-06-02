@@ -230,7 +230,7 @@ extension BlockQuote {
         }).count
         let textRange: SourceRange? = initialText.range.map({ originalRange in
             var newStart = originalRange.lowerBound
-            newStart.column += shiftCount
+            newStart.column = min(newStart.column + shiftCount, originalRange.upperBound.column)
             return newStart..<originalRange.upperBound
         })
 
