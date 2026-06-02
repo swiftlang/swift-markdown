@@ -216,6 +216,38 @@ class AsideTests: XCTestCase {
 
         XCTAssertEqual(expectedRootDump, aside.content[0].root.debugDescription(options: .printSourceLocations))
     }
+    
+    func testDoesNotCrashParsingTagWithEnDashAndListItemContent() throws {
+        let enDash = "\u{2013}"
+        let emDash = "\u{2014}"
+        
+        for (dashMarkup, expectedColumn, formattedDash) in [
+            ("-",   18, "-"),
+            ("--",  19, enDash),
+            ("---", 20, emDash),
+            
+            (enDash, 20, enDash), // The unicode en-dash character is 3 UTF-8 bytes
+            (emDash, 20, emDash), // The unicode em-dash character is 3 UTF-8 bytes
+        ]{
+            try assertAside(
+                source: """
+                > Before \(dashMarkup) after:
+                > - All other content is inside unordered list
+                """,
+                conversionStrategy: .tagNotRequired,
+                expectedKind: try XCTUnwrap(.init(rawValue: "Before \(formattedDash) after")),
+                expectedRootDump: """
+                Document @/path/to/some-file.md:1:1-/path/to/some-file.md:2:47
+                └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:2:47
+                   ├─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:\(expectedColumn)
+                   │  └─ Text @/path/to/some-file.md:1:\(expectedColumn) ""
+                   └─ UnorderedList @/path/to/some-file.md:2:3-/path/to/some-file.md:2:47
+                      └─ ListItem @/path/to/some-file.md:2:3-/path/to/some-file.md:2:47
+                         └─ Paragraph @/path/to/some-file.md:2:5-/path/to/some-file.md:2:47
+                            └─ Text @/path/to/some-file.md:2:5-/path/to/some-file.md:2:47 "All other content is inside unordered list"
+                """)
+        }
+    }
 
     func assertAside(source: String, conversionStrategy: Aside.TagRequirement, expectedKind: Aside.Kind, expectedRootDump: String, file: StaticString = #file, line: UInt = #line) throws {
         let fakeFileLocation = URL(fileURLWithPath: "/path/to/some-file.md")
