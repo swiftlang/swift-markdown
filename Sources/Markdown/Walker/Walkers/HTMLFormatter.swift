@@ -264,9 +264,6 @@ public struct HTMLFormatter: MarkupWalker {
         if let destination = link.destination {
             result += " href=\"\(destination)\""
         }
-        if let title = link.title, !title.isEmpty {
-            result += " title=\"\(title)\""
-        }
         result += ">"
 
         descendInto(link)
@@ -331,7 +328,5 @@ private extension String {
             .replacingOccurrences(of: "&", with: "&amp;")
             .replacingOccurrences(of: "<", with: "&lt;")
             .replacingOccurrences(of: ">", with: "&gt;")
-            .replacingOccurrences(of: "\"", with: "&quot;")
-            .replacingOccurrences(of: "'", with: "&#39;")
     }
 }
