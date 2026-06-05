@@ -316,4 +316,44 @@ final class HTMLFormatterTests: XCTestCase {
             XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
     }
+    
+    func testHtmlEscaping() {
+      do {
+        let inputText = "&lt;key&gt;"
+
+        let expectedOutput = """
+          <p>&lt;key&gt;</p>
+
+          """
+
+        XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+      }
+
+      do {
+        let inputText = "`<key>`"
+
+        let expectedOutput = """
+          <p><code>&lt;key&gt;</code></p>
+
+          """
+
+        XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+      }
+
+      do {
+        let inputText = """
+          ```
+          <key>
+          ```
+          """
+
+        let expectedOutput = """
+          <pre><code>&lt;key&gt;
+          </code></pre>
+
+          """
+
+        XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+      }
+    }
 }
