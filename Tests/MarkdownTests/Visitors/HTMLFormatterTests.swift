@@ -319,6 +319,9 @@ final class HTMLFormatterTests: XCTestCase {
     
     func testHtmlEscaping() {
       do {
+        // The parser decodes `&lt;key&gt;` into `<key>` in the AST.
+        // The formatter re-escapes it when generating HTML, so the output is
+        // `&lt;key&gt;` rather than `&amp;lt;key&amp;gt;`.
         let inputText = "&lt;key&gt;"
 
         let expectedOutput = """
