@@ -86,7 +86,7 @@ public struct HTMLFormatter: MarkupWalker {
         } else {
             languageAttr = ""
         }
-        result += "<pre><code\(languageAttr)>\(codeBlock.code)</code></pre>\n"
+        result += "<pre><code\(languageAttr)>\(codeBlock.code.htmlEscaped())</code></pre>\n"
     }
 
     public mutating func visitHeading(_ heading: Heading) -> () {
@@ -222,7 +222,7 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitInlineCode(_ inlineCode: InlineCode) -> () {
-        result += "<code>\(inlineCode.code)</code>"
+        result += "<code>\(inlineCode.code.htmlEscaped())</code>"
     }
 
     public mutating func visitEmphasis(_ emphasis: Emphasis) -> () {
@@ -272,7 +272,7 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitText(_ text: Text) -> () {
-        result += text.string
+        result += text.string.htmlEscaped()
     }
 
     public mutating func visitStrikethrough(_ strikethrough: Strikethrough) -> () {
@@ -319,5 +319,14 @@ public struct HTMLFormatter: MarkupWalker {
         result += ">"
         descendInto(attributes)
         result += "</span>"
+    }
+}
+
+private extension String {
+    func htmlEscaped() -> String {
+        return self
+            .replacingOccurrences(of: "&", with: "&amp;")
+            .replacingOccurrences(of: "<", with: "&lt;")
+            .replacingOccurrences(of: ">", with: "&gt;")
     }
 }
