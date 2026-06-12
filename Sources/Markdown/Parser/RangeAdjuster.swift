@@ -40,10 +40,14 @@ struct RangeAdjuster: MarkupWalker {
         // Unsafe mutation of shared reference types.
         // This should only ever be called during parsing.
 
-        markup.raw.markup.header.parsedRange = adjustedRange
+        markup._data.raw.markup.header.parsedRange = adjustedRange
 
         for child in markup.children {
+            #if hasFeature(Embedded)
+            visit(child)
+            #else
             child.accept(&self)
+            #endif
         }
 
         // End unsafe stuff.

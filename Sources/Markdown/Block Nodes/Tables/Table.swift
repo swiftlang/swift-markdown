@@ -38,7 +38,7 @@ public struct Table: BlockMarkup {
 
     init(_ raw: RawMarkup) throws {
         guard case .table = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Table.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Table")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))

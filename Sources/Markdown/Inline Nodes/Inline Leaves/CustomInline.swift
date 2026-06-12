@@ -15,7 +15,7 @@ public struct CustomInline: RecurringInlineMarkup {
     public var _data: _MarkupData
     init(_ raw: RawMarkup) throws {
         guard case .customInline = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: CustomInline.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "CustomInline")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -48,7 +48,9 @@ public extension CustomInline {
         return text
     }
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitCustomInline(self)
     }
+    #endif
 }

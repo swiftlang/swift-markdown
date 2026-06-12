@@ -8,8 +8,6 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import Foundation
-
 /// A parsed Doxygen `\param` command.
 ///
 /// The Doxygen support in Swift-Markdown parses `\param` commands of the form
@@ -27,7 +25,7 @@ public struct DoxygenParameter: BlockContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .doxygenParam = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: DoxygenParameter.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "DoxygenParameter")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -37,9 +35,11 @@ public struct DoxygenParameter: BlockContainer {
         self._data = data
     }
 
+    #if !hasFeature(Embedded)
     public func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitDoxygenParameter(self)
     }
+    #endif
 }
 
 public extension DoxygenParameter {
@@ -48,7 +48,7 @@ public extension DoxygenParameter {
     /// - Parameter name: The name of the parameter being described.
     /// - Parameter children: Block child elements.
     init<Children: Sequence>(name: String, children: Children) where Children.Element == BlockMarkup {
-        try! self.init(.doxygenParam(name: name, parsedRange: nil, children.map({ $0.raw.markup })))
+        try! self.init(.doxygenParam(name: name, parsedRange: nil, children.map({ $0._data.raw.markup })))
     }
 
     /// Create a new Doxygen parameter definition.

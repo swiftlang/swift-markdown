@@ -8,12 +8,27 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
 
 fileprivate extension String {
-    /// A version of `self` with newline "\n" characters escaped as "\\n".
     var newlineEscaped: String {
-        return replacingOccurrences(of: "\n", with: "\\n")
+        var result = ""
+        for char in self {
+            if char == "\n" {
+                result += "\\n"
+            } else {
+                result.append(char)
+            }
+        }
+        return result
+    }
+
+    func _trimmingWhitespace() -> String {
+        guard let start = firstIndex(where: { $0 != " " && $0 != "\t" }),
+              let end = lastIndex(where: { $0 != " " && $0 != "\t" }) else { return "" }
+        return String(self[start...end])
     }
 }
 
@@ -86,7 +101,11 @@ struct MarkupTreeDumper: MarkupWalker {
 
     private mutating func dump(_ markup: Markup, customDescription: String? = nil) {
         indent(markup)
+        #if hasFeature(Embedded)
+        result += "\(markup._data.raw.markup.data)"
+        #else
         result += "\(type(of: markup))"
+        #endif
         if options.contains(.printSourceLocations),
             let range = markup.range {
             result += " @\(range.diagnosticDescription(includePath: false))"
@@ -275,7 +294,7 @@ struct MarkupTreeDumper: MarkupWalker {
         if tableCell.rowspan != 1 {
             desc += " rowspan: \(tableCell.rowspan)"
         }
-        desc = desc.trimmingCharacters(in: .whitespaces)
+        desc = desc._trimmingWhitespace()
         if !desc.isEmpty {
             dump(tableCell, customDescription: desc)
         } else {

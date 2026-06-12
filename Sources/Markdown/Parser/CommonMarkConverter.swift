@@ -10,7 +10,9 @@
 
 import cmark_gfm
 import cmark_gfm_extensions
+#if canImport(Foundation)
 import Foundation
+#endif
 
 /// String-based CommonMark node type identifiers.
 ///
@@ -82,7 +84,7 @@ fileprivate struct MarkupConverterState {
         var range: SourceRange?
     }
     /// The original source whose conversion created this state.
-    let source: URL?
+    let source: SourceIdentifier?
 
     /// An opaque pointer to a `cmark_iter` used during parsing.
     let iterator: UnsafeMutablePointer<cmark_iter>?
@@ -99,7 +101,7 @@ fileprivate struct MarkupConverterState {
     private(set) var headerSeen: Bool
     private(set) var pendingTableBody: PendingTableBody?
 
-    init(source: URL?, iterator: UnsafeMutablePointer<cmark_iter>?, event: cmark_event_type, node: UnsafeMutablePointer<cmark_node>?, options: ParseOptions, headerSeen: Bool, pendingTableBody: PendingTableBody?) {
+    init(source: SourceIdentifier?, iterator: UnsafeMutablePointer<cmark_iter>?, event: cmark_event_type, node: UnsafeMutablePointer<cmark_node>?, options: ParseOptions, headerSeen: Bool, pendingTableBody: PendingTableBody?) {
         self.source = source
         self.iterator = iterator
         self.event = event
@@ -608,7 +610,7 @@ struct MarkupParser {
         return MarkupConversion(state: childConversion.state.next(), result: .inlineAttributes(attributes: attributes, parsedRange: parsedRange, childConversion.result))
      }
 
-    static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
+    static func parseString(_ string: String, source: SourceIdentifier?, options: ParseOptions) -> Document {
         cmark_gfm_core_extensions_ensure_registered()
 
         var cmarkOptions = CMARK_OPT_TABLE_SPANS

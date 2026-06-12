@@ -15,46 +15,47 @@
 /// cached and calculated on demand.
 public struct MarkupChildren: Sequence {
     public struct Iterator: IteratorProtocol {
-        let parent: Markup
+        let parentData: _MarkupData
         var childMetadata: MarkupMetadata
 
-        init(_ parent: Markup) {
-            self.parent = parent
-            self.childMetadata = parent.raw.metadata.firstChild()
+        init(_ parentData: _MarkupData) {
+            self.parentData = parentData
+            self.childMetadata = parentData.raw.metadata.firstChild()
         }
 
         public mutating func next() -> Markup? {
             let index = childMetadata.indexInParent
-            guard index < parent.childCount else {
+            guard index < parentData.raw.markup.childCount else {
                 return nil
             }
-            let rawChild = parent.raw.markup.child(at: index)
+            let rawChild = parentData.raw.markup.child(at: index)
             let absoluteRawChild = AbsoluteRawMarkup(markup: rawChild, metadata: childMetadata)
+            let parent = makeMarkup(parentData)
             let data = _MarkupData(absoluteRawChild, parent: parent)
             childMetadata = childMetadata.nextSibling(from: rawChild)
             return makeMarkup(data)
         }
     }
 
-    /// The parent whose children this sequence represents.
-    let parent: Markup
+    /// The data of the parent whose children this sequence represents.
+    let parentData: _MarkupData
 
     /// Create a lazy sequence of an element's children.
     ///
     /// - parameter parent: the parent whose children this sequence represents.
     init(_ parent: Markup) {
-        self.parent = parent
+        self.parentData = parent._data
     }
 
     // MARK: Sequence
 
     public func makeIterator() -> Iterator {
-        return Iterator(parent)
+        return Iterator(parentData)
     }
 
     /// A reversed view of the element's children.
     public func reversed() -> ReversedMarkupChildren {
-        return ReversedMarkupChildren(parent)
+        return ReversedMarkupChildren(parentData)
     }
 }
 
@@ -65,18 +66,15 @@ public struct MarkupChildren: Sequence {
 /// cached and calculated on demand.
 public struct ReversedMarkupChildren: Sequence {
     public struct Iterator: IteratorProtocol {
-        /// The parent whose children this sequence represents.
-        ///
-        /// This is also necessary for creating an "absolute" child from
-        /// parentless ``RawMarkup``.
-        let parent: Markup
+        /// The data of the parent whose children this sequence represents.
+        let parentData: _MarkupData
 
         /// The metadata to use when creating an absolute child element.
         var childMetadata: MarkupMetadata
 
-        init(_ parent: Markup) {
-            self.parent = parent
-            self.childMetadata = parent.raw.metadata.lastChildMetadata(of: parent.raw.markup)
+        init(_ parentData: _MarkupData) {
+            self.parentData = parentData
+            self.childMetadata = parentData.raw.metadata.lastChildMetadata(of: parentData.raw.markup)
         }
 
         public mutating func next() -> Markup? {
@@ -84,26 +82,31 @@ public struct ReversedMarkupChildren: Sequence {
             guard index >= 0 else {
                 return nil
             }
-            let rawChild = parent.raw.markup.child(at: index)
+            let rawChild = parentData.raw.markup.child(at: index)
             let absoluteRawChild = AbsoluteRawMarkup(markup: rawChild, metadata: childMetadata)
+            let parent = makeMarkup(parentData)
             let data = _MarkupData(absoluteRawChild, parent: parent)
             childMetadata = childMetadata.previousSibling(from: rawChild)
             return makeMarkup(data)
         }
     }
 
-    /// The parent whose children this sequence represents.
-    let parent: Markup
+    /// The data of the parent whose children this sequence represents.
+    let parentData: _MarkupData
 
     /// Create a reversed view of an element's children.
     ///
     /// - parameter parent: The parent whose children this sequence will represent.
     init(_ parent: Markup) {
-        self.parent = parent
+        self.parentData = parent._data
+    }
+
+    init(_ parentData: _MarkupData) {
+        self.parentData = parentData
     }
 
     // MARK: Sequence
     public func makeIterator() -> Iterator {
-        return Iterator(parent)
+        return Iterator(parentData)
     }
 }

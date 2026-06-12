@@ -89,15 +89,41 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
 /// > Note: All supported markup elements are already implemented in the framework.
 /// Use this protocol only as a generic constraint.
 public protocol Markup {
+    #if !hasFeature(Embedded)
     /// Accept a `MarkupVisitor` and call the specific visitation method for this element.
     ///
     /// - parameter visitor: The `MarkupVisitor` visiting the element.
     /// - returns: The result of the visit.
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result
+    #endif
 
     /// The data backing the markup element.
     /// > Note: This property is an implementation detail; do not use it directly.
     var _data: _MarkupData { get set }
+
+    /// The parent of this element, or `nil` if this is a root.
+    var parent: Markup? { get }
+
+    /// The number of this element's children.
+    var childCount: Int { get }
+
+    /// `true` if this element has no children.
+    var isEmpty: Bool { get }
+
+    /// The children of the element.
+    var children: MarkupChildren { get }
+
+    /// The index in the parent's children.
+    var indexInParent: Int { get }
+
+    /// The text range where this element was parsed, or `nil` if it was constructed outside of parsing.
+    var range: SourceRange? { get }
+
+    /// The child at the given position if it is within the bounds of `children.indices`.
+    func child(at position: Int) -> Markup?
+
+    /// Returns a copy of this element with the given children instead.
+    func withUncheckedChildren(_ newChildren: [Markup]) -> Markup
 }
 
 // MARK: - Private API
@@ -122,7 +148,7 @@ extension Markup {
     ///
     /// - Complexity: `O(1)`
     var subtreeCount: Int {
-        return raw.markup.header.subtreeCount
+        return raw.markup.subtreeCount
     }
 
     /// Return this element without ``SoftBreak`` elements, or `nil` if this
@@ -137,7 +163,14 @@ extension Markup {
     /// - parameter newChildren: A sequence of children to use instead of the current children.
     /// - warning: This does not check for compatibility. This API should only be used when the type of the children are already known to be the right kind.
     public func withUncheckedChildren<Children: Sequence>(_ newChildren: Children) -> Markup where Children.Element == Markup {
-        let newRaw = raw.markup.withChildren(newChildren.map { $0.raw.markup })
+        let newRaw = raw.markup.withChildren(newChildren.map { $0._data.raw.markup })
+        return makeMarkup(_data.replacingSelf(newRaw))
+    }
+
+    /// Default implementation of the `Markup` protocol requirement —
+    /// non-generic overload that delegates to the generic version.
+    public func withUncheckedChildren(_ newChildren: [Markup]) -> Markup {
+        let newRaw = raw.markup.withChildren(newChildren.map { $0._data.raw.markup })
         return makeMarkup(_data.replacingSelf(newRaw))
     }
 }
@@ -178,7 +211,7 @@ extension Markup {
     ///
     /// - Complexity: `O(1)`
     public var childCount: Int {
-        return raw.markup.header.childCount
+        return raw.markup.childCount
     }
 
     /// `true` if this element has no children.

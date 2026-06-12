@@ -8,7 +8,23 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
+#if canImport(Foundation)
 import Foundation
+#endif
+
+fileprivate extension String {
+    func _replacingOccurrences(of target: Character, with replacement: String) -> String {
+        var result = ""
+        for char in self {
+            if char == target {
+                result += replacement
+            } else {
+                result.append(char)
+            }
+        }
+        return result
+    }
+}
 
 /// Options given to the ``HTMLFormatter``.
 public struct HTMLFormatterOptions: OptionSet {
@@ -66,6 +82,7 @@ public struct HTMLFormatter: MarkupWalker {
     // MARK: Block elements
 
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) -> () {
+        #if !hasFeature(Embedded)
         if self.options.contains(.parseAsides), let aside = Aside(blockQuote, tagRequirement: .requireSingleWordTag) {
             result += "<aside data-kind=\"\(aside.kind.rawValue)\">\n"
             for child in aside.content {
@@ -77,6 +94,11 @@ public struct HTMLFormatter: MarkupWalker {
             descendInto(blockQuote)
             result += "</blockquote>\n"
         }
+        #else
+        result += "<blockquote>\n"
+        descendInto(blockQuote)
+        result += "</blockquote>\n"
+        #endif
     }
 
     public mutating func visitCodeBlock(_ codeBlock: CodeBlock) -> () {
@@ -286,8 +308,9 @@ public struct HTMLFormatter: MarkupWalker {
     }
 
     public mutating func visitInlineAttributes(_ attributes: InlineAttributes) -> () {
-        result += "<span data-attributes=\"\(attributes.attributes.replacingOccurrences(of: "\"", with: "\\\""))\""
+        result += "<span data-attributes=\"\(attributes.attributes._replacingOccurrences(of: "\"" as Character, with: "\\\""))\""
 
+        #if canImport(Foundation)
         let wrappedAttributes = "{\(attributes.attributes)}"
         if options.contains(.parseInlineAttributeClass),
            let attributesData = wrappedAttributes.data(using: .utf8)
@@ -315,6 +338,7 @@ public struct HTMLFormatter: MarkupWalker {
                 result += " class=\"\(parsedAttributes.class)\""
             }
         }
+        #endif
 
         result += ">"
         descendInto(attributes)

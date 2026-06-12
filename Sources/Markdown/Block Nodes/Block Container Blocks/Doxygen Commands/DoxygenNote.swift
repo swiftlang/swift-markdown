@@ -8,8 +8,6 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import Foundation
-
 /// A parsed Doxygen `\note` command.
 ///
 /// The Doxygen support in Swift-Markdown parses `\note` commands of the form
@@ -24,7 +22,7 @@ public struct DoxygenNote: BlockContainer {
 
     init(_ raw: RawMarkup) throws {
         guard case .doxygenNote = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: DoxygenNote.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "DoxygenNote")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -34,9 +32,11 @@ public struct DoxygenNote: BlockContainer {
         self._data = data
     }
 
+    #if !hasFeature(Embedded)
     public func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitDoxygenNote(self)
     }
+    #endif
 }
 
 public extension DoxygenNote {
@@ -44,7 +44,7 @@ public extension DoxygenNote {
     ///
     /// - Parameter children: Block child elements.
     init<Children: Sequence>(children: Children) where Children.Element == BlockMarkup {
-        try! self.init(.doxygenNote(parsedRange: nil, children.map({ $0.raw.markup })))
+        try! self.init(.doxygenNote(parsedRange: nil, children.map({ $0._data.raw.markup })))
     }
 
     /// Create a new Doxygen note definition.

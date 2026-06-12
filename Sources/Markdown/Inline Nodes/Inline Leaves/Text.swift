@@ -14,7 +14,7 @@ public struct Text: RecurringInlineMarkup, LiteralMarkup {
 
     init(_ raw: RawMarkup) throws {
         guard case .text = raw.data else {
-            throw RawMarkup.Error.concreteConversionError(from: raw, to: Text.self)
+            throw RawMarkup.Error.concreteConversionError(from: raw, to: "Text")
         }
         let absoluteRaw = AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0))
         self.init(_MarkupData(absoluteRaw))
@@ -53,7 +53,9 @@ public extension Text {
 
     // MARK: Visitation
 
+    #if !hasFeature(Embedded)
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {
         return visitor.visitText(self)
     }
+    #endif
 }
