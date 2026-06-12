@@ -56,6 +56,33 @@ final class RawMarkupTests: XCTestCase {
             XCTAssertFalse(document1.hasSameStructure(as: document2))
         }
     }
+    
+    /// Verify that tables with different column alignments do not have the same structure.
+    func testTableStructure() {
+        let table1 = RawMarkup.table(
+            columnAlignments: [.left, .right],
+            parsedRange: nil,
+            header: .tableHead(parsedRange: nil, columns: []),
+            body: .tableBody(parsedRange: nil, rows: [])
+        )
+            
+        let table2 = RawMarkup.table(
+            columnAlignments: [.left, .right],
+            parsedRange: nil,
+            header: .tableHead(parsedRange: nil, columns: []),
+            body: .tableBody(parsedRange: nil, rows: [])
+        )
+            
+        let table3 = RawMarkup.table(
+            columnAlignments: [.center, .right],
+            parsedRange: nil,
+            header: .tableHead(parsedRange: nil, columns: []),
+            body: .tableBody(parsedRange: nil, rows: [])
+        )
+
+        XCTAssertTrue(table1.hasSameStructure(as: table2))
+        XCTAssertFalse(table1.hasSameStructure(as: table3))
+    }
 
     /// When an element changes a child, unchanged children should use the same `RawMarkup` as before.
     func testSharing() {

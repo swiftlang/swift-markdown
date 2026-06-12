@@ -162,8 +162,35 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
     }
 
     deinit {
-        return self.withUnsafeMutablePointerToElements {
-            $0.deinitialize(count: header.childCount)
+        var workStack = [RawMarkup]()
+        
+        self.withUnsafeMutablePointerToElements { elements in
+            for i in 0..<header.childCount {
+                workStack.append(elements[i])
+            }
+            elements.deinitialize(count: header.childCount)
+        }
+        
+        while var node = workStack.popLast() {
+            guard isKnownUniquelyReferenced(&node) else {
+                continue
+            }
+            
+            node.withUnsafeMutablePointerToElements { elements in
+                for i in 0..<node.header.childCount {
+                    workStack.append(elements[i])
+                }
+                elements.deinitialize(count: node.header.childCount)
+            }
+            
+            node.withUnsafeMutablePointerToHeader { headerPtr in
+                headerPtr.pointee = RawMarkupHeader(
+                    data: node.header.data,
+                    childCount: 0,
+                    subtreeCount: node.header.subtreeCount,
+                    parsedRange: node.header.parsedRange
+                )
+            }
         }
     }
 
