@@ -70,6 +70,21 @@ fileprivate enum CommonMarkNodeType: String {
     case taskListItem = "tasklist"
 }
 
+fileprivate extension CommonMarkNodeType {
+    /// Returns true when a node kind cannot have structural children.
+    ///
+    /// Leaf nodes are converted immediately when their ENTER event is
+    /// encountered and therefore never need a `ParsingFrame`.
+    var isLeaf: Bool {
+        switch self {
+        case .codeBlock, .htmlBlock, .thematicBreak, .text, .softBreak, .lineBreak, .code, .html, .customInline:
+            return true
+        default:
+            return false
+        }
+    }
+}
+
 /// Represents the current state of cmark -> `Markup` conversion.
 fileprivate struct MarkupConverterState {
     fileprivate struct PendingTableBody {
@@ -194,22 +209,27 @@ struct MarkupParser {
         }
         return String(cString: rawText)
     }
+    
+    private static func convertThematicBreak(parsedRange: SourceRange?) -> RawMarkup {
+        return .thematicBreak(parsedRange: parsedRange)
+    }
 
-    /// Returns true when a node kind cannot have structural children.
-    ///
-    /// Leaf nodes are converted immediately when their ENTER event is
-    /// encountered and therefore never need a `ParsingFrame`.
-    private static func isLeaf(_ type: CommonMarkNodeType) -> Bool {
-        switch type {
-        case .codeBlock, .htmlBlock, .thematicBreak, .text, .softBreak, .lineBreak, .code, .html, .customInline:
-            return true
-        default:
-            return false
-        }
+    private static func convertText(node: UnsafeMutablePointer<cmark_node>!, parsedRange: SourceRange?) -> RawMarkup {
+        return .text(parsedRange: parsedRange, string: getLiteralContent(node: node))
+    }
+
+    private static func convertSoftBreak(parsedRange: SourceRange?) -> RawMarkup {
+        return .softBreak(parsedRange: parsedRange)
+    }
+
+    private static func convertLineBreak(parsedRange: SourceRange?) -> RawMarkup {
+        return .lineBreak(parsedRange: parsedRange)
     }
     
     /// Converts a leaf cmark node directly into its corresponding `RawMarkup` representation.
     private static func createLeaf(nodeType: CommonMarkNodeType, node: UnsafeMutablePointer<cmark_node>, parsedRange: SourceRange?, state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER, "Expected ENTER event when creating a leaf node.")
+        precondition(state.nodeType == nodeType, "MarkupConverterState nodeType does not match the leaf being created.")
         switch nodeType {
         case .codeBlock:
             let language = String(cString: cmark_node_get_fence_info(node))
@@ -218,13 +238,13 @@ struct MarkupParser {
         case .htmlBlock:
             return .htmlBlock(parsedRange: parsedRange, html: getLiteralContent(node: node))
         case .thematicBreak:
-            return .thematicBreak(parsedRange: parsedRange)
+            return convertThematicBreak(parsedRange: parsedRange)
         case .text:
-            return .text(parsedRange: parsedRange, string: getLiteralContent(node: node))
+            return convertText(node: node, parsedRange: parsedRange)
         case .softBreak:
-            return .softBreak(parsedRange: parsedRange)
+            return convertSoftBreak(parsedRange: parsedRange)
         case .lineBreak:
-            return .lineBreak(parsedRange: parsedRange)
+            return convertLineBreak(parsedRange: parsedRange)
         case .code:
             let literalContent = getLiteralContent(node: node)
             if state.options.contains(.parseSymbolLinks), cmark_node_get_backtick_count(node) > 1 {
@@ -247,6 +267,8 @@ struct MarkupParser {
     /// At that point all descendant nodes have already been converted and
     /// accumulated in `frame.children`.
     private static func createContainer(frame: ParsingFrame, state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_EXIT, "Expected EXIT event when closing a container node.")
+        precondition(state.nodeType == frame.nodeType, "MarkupConverterState nodeType does not match the frame being closed.")
         let node = frame.node
         let children = frame.children
         let parsedRange = frame.parsedRange
@@ -299,7 +321,7 @@ struct MarkupParser {
             let columnCount = Int(cmark_gfm_extensions_get_table_columns(node))
             let columnAlignments = (0..<columnCount).map { column -> Table.ColumnAlignment? in
                 let ascii = cmark_gfm_extensions_get_table_alignments(node)[column]
-                switch Character(UnicodeScalar(ascii)) {
+                switch UnicodeScalar(ascii) {
                 case "l": return .left
                 case "r": return .right
                 case "c": return .center
@@ -318,13 +340,10 @@ struct MarkupParser {
                 header = .tableHead(parsedRange: nil, columns: [])
             }
 
-            let body: RawMarkup
-            if !mutableChildren.isEmpty {
-                let pendingBodyRange = state.pendingTableBody?.range
-                body = .tableBody(parsedRange: pendingBodyRange, rows: mutableChildren)
-            } else {
-                body = .tableBody(parsedRange: nil, rows: [])
+            if mutableChildren.isEmpty {
+                precondition(state.pendingTableBody == nil)
             }
+            let body = RawMarkup.tableBody(parsedRange: state.pendingTableBody?.range, rows: mutableChildren)
             return .table(columnAlignments: columnAlignments, parsedRange: parsedRange, header: header, body: body)
         case .tableHead:
             return .tableHead(parsedRange: parsedRange, columns: children)
@@ -377,7 +396,7 @@ struct MarkupParser {
             let parsedRange = state.range(node)
 
             if state.event == CMARK_EVENT_ENTER {
-                if isLeaf(nodeType) {
+                if nodeType.isLeaf {
                     let leaf = createLeaf(nodeType: nodeType, node: node, parsedRange: parsedRange, state: state)
                     precondition(!stack.isEmpty, "Leaf node encountered without a parent document on the stack.")
                     stack[stack.count - 1].children.append(leaf)
@@ -387,7 +406,7 @@ struct MarkupParser {
                 state = state.next()
                 
             } else if state.event == CMARK_EVENT_EXIT {
-                if isLeaf(nodeType) {
+                if nodeType.isLeaf {
                     state = state.next()
                 } else {
                     let frame = stack.removeLast()

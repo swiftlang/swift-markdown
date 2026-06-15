@@ -102,4 +102,18 @@ final class RawMarkupTests: XCTestCase {
         XCTAssertFalse(originalRoot.child(at: 0)!.raw.markup === newRoot.child(at: 0)!.raw.markup)
         XCTAssertTrue(originalRoot.child(at: 1)!.raw.markup === newRoot.child(at: 1)!.raw.markup)
     }
+    
+    func testTrulyDeepNestingDeallocation() {
+        let depth = 15000
+
+        do {
+            var current = RawMarkup.text(parsedRange: nil, string: "Deep Leaf")
+
+            for _ in 0..<depth {
+                current = RawMarkup.blockQuote(parsedRange: nil, [current])
+            }
+        }
+
+        XCTAssertTrue(true)
+    }
 }

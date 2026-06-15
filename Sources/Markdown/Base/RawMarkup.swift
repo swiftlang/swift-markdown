@@ -165,6 +165,12 @@ final class RawMarkup: ManagedBuffer<RawMarkupHeader, RawMarkup> {
         var workStack = [RawMarkup]()
         
         self.withUnsafeMutablePointerToElements { elements in
+            
+            // Retain children on a heap-allocated work stack before
+            // deinitializing the tail allocation. Without this, releasing a
+            // uniquely referenced child would immediately enter its deinit,
+            // recursively cascading through the tree and potentially
+            // overflowing the call stack for deeply nested markup.
             for i in 0..<header.childCount {
                 workStack.append(elements[i])
             }
