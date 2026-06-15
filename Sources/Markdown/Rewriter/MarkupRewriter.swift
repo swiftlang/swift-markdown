@@ -87,4 +87,11 @@ extension MarkupRewriter {
     public mutating func visitText(_ text: Text) -> Result {
         return defaultVisit(text)
     }
+    public mutating func visitFootnoteReference(_ footnoteReference: FootnoteReference) -> Result {
+        return defaultVisit(footnoteReference)
+    }
+
+    public mutating func visitFootnoteDefinition(_ footnoteDefinition: FootnoteDefinition) -> Result {
+        return defaultVisit(footnoteDefinition)
+    }
 }

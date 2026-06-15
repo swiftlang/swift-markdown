@@ -71,6 +71,10 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return SymbolLink(data)
     case .inlineAttributes:
         return InlineAttributes(data)
+    case .footnoteReference:
+        return FootnoteReference(data)
+    case .footnoteDefinition:
+        return FootnoteDefinition(data)
     case .doxygenDiscussion:
         return DoxygenDiscussion(data)
     case .doxygenNote:
