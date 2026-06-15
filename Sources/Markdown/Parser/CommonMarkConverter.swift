@@ -202,7 +202,9 @@ struct MarkupParser {
         var children: [RawMarkup] = []
     }
 
-    /// Extracts the literal text payload from a cmark node.
+    /// Returns the raw literal text for a cmark node.
+    ///
+    /// - parameter node: An opaque pointer to a `cmark_node`.
     private static func getLiteralContent(node: UnsafeMutablePointer<cmark_node>!) -> String {
         guard let rawText = cmark_node_get_literal(node) else {
             fatalError("Expected literal content for cmark node but got null pointer")
