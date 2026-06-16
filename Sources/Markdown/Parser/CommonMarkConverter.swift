@@ -211,39 +211,105 @@ struct MarkupParser {
         }
         return String(cString: rawText)
     }
-    
+
+    private static func convertCodeBlock(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .codeBlock)
+        let parsedRange = state.range(state.node)
+        let language = String(cString: cmark_node_get_fence_info(state.node))
+        let code = getLiteralContent(node: state.node)
+        return .codeBlock(parsedRange: parsedRange, code: code, language: language.isEmpty ? nil : language)
+    }
+
+    private static func convertHTMLBlock(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .htmlBlock)
+        let parsedRange = state.range(state.node)
+        let html = getLiteralContent(node: state.node)
+        return .htmlBlock(parsedRange: parsedRange, html: html)
+    }
+
+    private static func convertThematicBreak(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .thematicBreak)
+        let parsedRange = state.range(state.node)
+        return .thematicBreak(parsedRange: parsedRange)
+    }
+
+    private static func convertText(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .text)
+        let parsedRange = state.range(state.node)
+        let string = getLiteralContent(node: state.node)
+        return .text(parsedRange: parsedRange, string: string)
+    }
+
+    private static func convertSoftBreak(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .softBreak)
+        let parsedRange = state.range(state.node)
+        return .softBreak(parsedRange: parsedRange)
+    }
+
+    private static func convertLineBreak(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .lineBreak)
+        let parsedRange = state.range(state.node)
+        return .lineBreak(parsedRange: parsedRange)
+    }
+
+    private static func convertInlineCode(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .code)
+        let parsedRange = state.range(state.node)
+        let literalContent = getLiteralContent(node: state.node)
+        if state.options.contains(.parseSymbolLinks),
+           cmark_node_get_backtick_count(state.node) > 1 {
+            return .symbolLink(parsedRange: parsedRange, destination: literalContent)
+        } else {
+            return .inlineCode(parsedRange: parsedRange, code: literalContent)
+        }
+    }
+
+    private static func convertInlineHTML(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .html)
+        let parsedRange = state.range(state.node)
+        let html = getLiteralContent(node: state.node)
+        return .inlineHTML(parsedRange: parsedRange, html: html)
+    }
+
+    private static func convertCustomInline(_ state: MarkupConverterState) -> RawMarkup {
+        precondition(state.event == CMARK_EVENT_ENTER)
+        precondition(state.nodeType == .customInline)
+        let parsedRange = state.range(state.node)
+        let text = getLiteralContent(node: state.node)
+        return .customInline(parsedRange: parsedRange, text: text)
+    }
+
     /// Converts a leaf cmark node directly into its corresponding `RawMarkup` representation.
-    private static func createLeaf(nodeType: CommonMarkNodeType, node: UnsafeMutablePointer<cmark_node>, parsedRange: SourceRange?, state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER, "Expected ENTER event when creating a leaf node.")
-        precondition(state.nodeType == nodeType, "MarkupConverterState nodeType does not match the leaf being created.")
-        switch nodeType {
+    private static func createLeaf(state: MarkupConverterState) -> RawMarkup {
+        switch state.nodeType {
         case .codeBlock:
-            let language = String(cString: cmark_node_get_fence_info(node))
-            let code = getLiteralContent(node: node)
-            return .codeBlock(parsedRange: parsedRange, code: code, language: language.isEmpty ? nil : language)
+            return convertCodeBlock(state)
         case .htmlBlock:
-            return .htmlBlock(parsedRange: parsedRange, html: getLiteralContent(node: node))
+            return convertHTMLBlock(state)
         case .thematicBreak:
-            return .thematicBreak(parsedRange: parsedRange)
+            return convertThematicBreak(state)
         case .text:
-            return .text(parsedRange: parsedRange, string: getLiteralContent(node: node))
+            return convertText(state)
         case .softBreak:
-            return .softBreak(parsedRange: parsedRange)
+            return convertSoftBreak(state)
         case .lineBreak:
-            return .lineBreak(parsedRange: parsedRange)
+            return convertLineBreak(state)
         case .code:
-            let literalContent = getLiteralContent(node: node)
-            if state.options.contains(.parseSymbolLinks), cmark_node_get_backtick_count(node) > 1 {
-                return .symbolLink(parsedRange: parsedRange, destination: literalContent)
-            } else {
-                return .inlineCode(parsedRange: parsedRange, code: literalContent)
-            }
+            return convertInlineCode(state)
         case .html:
-            return .inlineHTML(parsedRange: parsedRange, html: getLiteralContent(node: node))
+            return convertInlineHTML(state)
         case .customInline:
-            return .customInline(parsedRange: parsedRange, text: getLiteralContent(node: node))
+            return convertCustomInline(state)
         default:
-            fatalError("Unhandled leaf node type: \(nodeType)")
+            fatalError("Unhandled leaf node type: \(state.nodeType)")
         }
     }
 
@@ -383,7 +449,7 @@ struct MarkupParser {
 
             if state.event == CMARK_EVENT_ENTER {
                 if nodeType.isLeaf {
-                    let leaf = createLeaf(nodeType: nodeType, node: node, parsedRange: parsedRange, state: state)
+                    let leaf = createLeaf(state: state)
                     precondition(!stack.isEmpty, "Leaf node encountered without a parent document on the stack.")
                     stack[stack.count - 1].children.append(leaf)
                 } else {

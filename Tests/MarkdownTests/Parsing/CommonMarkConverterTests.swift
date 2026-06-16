@@ -93,7 +93,7 @@ class CommonMarkConverterTests: XCTestCase {
         var currentNode: Markup = document
         var actualDepth = 0
         
-        while let child = currentNode.child(at: 0) {
+        while let child = currentNode.child(at: 0)  {
             currentNode = child
             actualDepth += 1
         }
