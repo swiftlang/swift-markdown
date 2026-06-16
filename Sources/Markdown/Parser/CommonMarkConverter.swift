@@ -212,22 +212,6 @@ struct MarkupParser {
         return String(cString: rawText)
     }
     
-    private static func convertThematicBreak(parsedRange: SourceRange?) -> RawMarkup {
-        return .thematicBreak(parsedRange: parsedRange)
-    }
-
-    private static func convertText(node: UnsafeMutablePointer<cmark_node>!, parsedRange: SourceRange?) -> RawMarkup {
-        return .text(parsedRange: parsedRange, string: getLiteralContent(node: node))
-    }
-
-    private static func convertSoftBreak(parsedRange: SourceRange?) -> RawMarkup {
-        return .softBreak(parsedRange: parsedRange)
-    }
-
-    private static func convertLineBreak(parsedRange: SourceRange?) -> RawMarkup {
-        return .lineBreak(parsedRange: parsedRange)
-    }
-    
     /// Converts a leaf cmark node directly into its corresponding `RawMarkup` representation.
     private static func createLeaf(nodeType: CommonMarkNodeType, node: UnsafeMutablePointer<cmark_node>, parsedRange: SourceRange?, state: MarkupConverterState) -> RawMarkup {
         precondition(state.event == CMARK_EVENT_ENTER, "Expected ENTER event when creating a leaf node.")
@@ -240,13 +224,13 @@ struct MarkupParser {
         case .htmlBlock:
             return .htmlBlock(parsedRange: parsedRange, html: getLiteralContent(node: node))
         case .thematicBreak:
-            return convertThematicBreak(parsedRange: parsedRange)
+            return .thematicBreak(parsedRange: parsedRange)
         case .text:
-            return convertText(node: node, parsedRange: parsedRange)
+            return .text(parsedRange: parsedRange, string: getLiteralContent(node: node))
         case .softBreak:
-            return convertSoftBreak(parsedRange: parsedRange)
+            return .softBreak(parsedRange: parsedRange)
         case .lineBreak:
-            return convertLineBreak(parsedRange: parsedRange)
+            return .lineBreak(parsedRange: parsedRange)
         case .code:
             let literalContent = getLiteralContent(node: node)
             if state.options.contains(.parseSymbolLinks), cmark_node_get_backtick_count(node) > 1 {
