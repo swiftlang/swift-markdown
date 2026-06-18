@@ -438,7 +438,7 @@ struct MarkupParser {
 
         var stack = [ParsingFrame]()
 
-        while state.event != CMARK_EVENT_DONE && state.event != CMARK_EVENT_NONE {
+        while state.event != CMARK_EVENT_DONE {
             guard let node = state.node else {
                 state = state.next()
                 continue
@@ -458,36 +458,28 @@ struct MarkupParser {
                 state = state.next()
                 
             } else if state.event == CMARK_EVENT_EXIT {
-                if nodeType.isLeaf {
-                    state = state.next()
+                precondition(!nodeType.isLeaf, "cmark iterators should never return EXIT events for leaf nodes.")
+                
+                let frame = stack.removeLast()
+                precondition(frame.node == node)
+                
+                let container = createContainer(frame: frame, state: state)
+                
+                if stack.isEmpty {
+                    precondition(frame.nodeType == .document)
+                    let iterator = state.iterator
+                    
+                    cmark_iter_free(iterator)
+                    cmark_node_free(rawDocument)
+                    cmark_parser_free(parser)
+                    
+                    let data = _MarkupData(AbsoluteRawMarkup(markup: container, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0)))
+                    return makeMarkup(data) as! Document
+                    
                 } else {
-                    let frame = stack.removeLast()
-                    precondition(frame.node == node)
-                    
-                    let container = createContainer(frame: frame, state: state)
-                    
-                    if stack.isEmpty {
-                        precondition(frame.nodeType == .document)
-                        let iterator = state.iterator
-                        
-                        cmark_iter_free(iterator)
-                        cmark_node_free(rawDocument)
-                        cmark_parser_free(parser)
-                        
-                        let data = _MarkupData(AbsoluteRawMarkup(markup: container, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0)))
-                        return makeMarkup(data) as! Document
-                        
-                    } else {
-                        stack[stack.count - 1].children.append(container)
-                        if nodeType == .table {
-                            state = state.next(clearPendingTableBody: true)
-                        } else {
-                            state = state.next()
-                        }
-                    }
+                    stack[stack.count - 1].children.append(container)
+                    state = state.next(clearPendingTableBody: nodeType == .table)
                 }
-            } else {
-                state = state.next()
             }
         }
 
