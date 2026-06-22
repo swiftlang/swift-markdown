@@ -56,6 +56,33 @@ final class RawMarkupTests: XCTestCase {
             XCTAssertFalse(document1.hasSameStructure(as: document2))
         }
     }
+    
+    /// Verify that tables with different column alignments do not have the same structure.
+    func testTableStructure() {
+        let table1 = RawMarkup.table(
+            columnAlignments: [.left, .right],
+            parsedRange: nil,
+            header: .tableHead(parsedRange: nil, columns: []),
+            body: .tableBody(parsedRange: nil, rows: [])
+        )
+            
+        let table2 = RawMarkup.table(
+            columnAlignments: [.left, .right],
+            parsedRange: nil,
+            header: .tableHead(parsedRange: nil, columns: []),
+            body: .tableBody(parsedRange: nil, rows: [])
+        )
+            
+        let table3 = RawMarkup.table(
+            columnAlignments: [.center, .right],
+            parsedRange: nil,
+            header: .tableHead(parsedRange: nil, columns: []),
+            body: .tableBody(parsedRange: nil, rows: [])
+        )
+
+        XCTAssertTrue(table1.hasSameStructure(as: table2))
+        XCTAssertFalse(table1.hasSameStructure(as: table3))
+    }
 
     /// When an element changes a child, unchanged children should use the same `RawMarkup` as before.
     func testSharing() {
@@ -74,5 +101,19 @@ final class RawMarkupTests: XCTestCase {
 
         XCTAssertFalse(originalRoot.child(at: 0)!.raw.markup === newRoot.child(at: 0)!.raw.markup)
         XCTAssertTrue(originalRoot.child(at: 1)!.raw.markup === newRoot.child(at: 1)!.raw.markup)
+    }
+    
+    func testTrulyDeepNestingDeallocation() {
+        let depth = 15000
+
+        do {
+            var current = RawMarkup.text(parsedRange: nil, string: "Deep Leaf")
+
+            for _ in 0..<depth {
+                current = RawMarkup.blockQuote(parsedRange: nil, [current])
+            }
+        }
+
+        XCTAssertTrue(true)
     }
 }
