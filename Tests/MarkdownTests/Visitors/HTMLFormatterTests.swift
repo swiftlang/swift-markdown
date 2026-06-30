@@ -365,11 +365,11 @@ final class HTMLFormatterTests: XCTestCase {
             let inputText = """
             ## [0.0.1] - 2014-05-31
 
-            [0.0.1]: https://github.com/olivierlacan/keep-a-changelog/
+            [0.0.1]: https://example.com/project/keep-a-changelog/
             """
             
             let expectedOutput = """
-            <h2><a href="https://github.com/olivierlacan/keep-a-changelog/">0.0.1</a> - 2014-05-31</h2>
+            <h2><a href="https://example.com/project/keep-a-changelog/">0.0.1</a> - 2014-05-31</h2>
             
             """
             
