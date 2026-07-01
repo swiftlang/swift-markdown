@@ -202,6 +202,15 @@ struct MarkupTreeDumper: MarkupWalker {
         dump(codeBlock, customDescription: "language: \(codeBlock.language ?? "none")\n\(lines)")
     }
 
+    mutating func visitBlockMath(_ blockMath: BlockMath) {
+        if blockMath.code.isEmpty {
+            dump(blockMath)
+            return
+        }
+        let lines = indentLiteralBlock(blockMath.code, from: blockMath, countLines: false)
+        dump(blockMath, customDescription: "\n\(lines)")
+    }
+
     mutating func visitBlockDirective(_ blockDirective: BlockDirective) {
         var argumentsDescription: String
         if !blockDirective.argumentText.segments.isEmpty {
@@ -227,6 +236,10 @@ struct MarkupTreeDumper: MarkupWalker {
 
     mutating func visitInlineCode(_ inlineCode: InlineCode) {
         dump(inlineCode, customDescription: "`\(inlineCode.code)`")
+    }
+
+    mutating func visitInlineMath(_ inlineMath: InlineMath) {
+        dump(inlineMath, customDescription: "$\(inlineMath.code)$")
     }
 
     mutating func visitInlineHTML(_ inlineHTML: InlineHTML) {

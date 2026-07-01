@@ -25,6 +25,8 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return ThematicBreak(data)
     case .htmlBlock:
         return HTMLBlock(data)
+    case .blockMath:
+        return BlockMath(data)
     case .listItem:
         return ListItem(data)
     case .orderedList:
@@ -35,6 +37,8 @@ func makeMarkup(_ data: _MarkupData) -> Markup {
         return Paragraph(data)
     case .blockDirective:
         return BlockDirective(data)
+    case .inlineMath:
+        return InlineMath(data)
     case .inlineCode:
         return InlineCode(data)
     case .customInline:
@@ -408,4 +412,3 @@ fileprivate struct SoftBreakDeleter: MarkupRewriter {
         return Text(" ")
     }
 }
-

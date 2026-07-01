@@ -92,6 +92,14 @@ public protocol MarkupVisitor<Result> {
     mutating func visitHTMLBlock(_ html: HTMLBlock) -> Result
 
     /**
+     Visit a `BlockMath` element and return the result.
+
+     - parameter blockMath: A `BlockMath` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitBlockMath(_ blockMath: BlockMath) -> Result
+
+    /**
      Visit a `ListItem` element and return the result.
 
      - parameter listItem: An `ListItem` element.
@@ -130,6 +138,14 @@ public protocol MarkupVisitor<Result> {
      - returns: The result of the visit.
      */
     mutating func visitBlockDirective(_ blockDirective: BlockDirective) -> Result
+
+    /**
+     Visit a `InlineMath` element and return the result.
+
+     - parameter inlineMath: An `InlineMath` element.
+     - returns: The result of the visit.
+     */
+    mutating func visitInlineMath(_ inlineMath: InlineMath) -> Result
 
     /**
      Visit a `InlineCode` element and return the result.
@@ -344,6 +360,9 @@ extension MarkupVisitor {
     public mutating func visitHTMLBlock(_ html: HTMLBlock) -> Result {
         return defaultVisit(html)
     }
+    public mutating func visitBlockMath(_ blockMath: BlockMath) -> Result {
+        return defaultVisit(blockMath)
+    }
     public mutating func visitListItem(_ listItem: ListItem) -> Result {
         return defaultVisit(listItem)
     }
@@ -358,6 +377,9 @@ extension MarkupVisitor {
     }
     public mutating func visitBlockDirective(_ blockDirective: BlockDirective) -> Result {
         return defaultVisit(blockDirective)
+    }
+    public mutating func visitInlineMath(_ inlineMath: InlineMath) -> Result {
+        return defaultVisit(inlineMath)
     }
     public mutating func visitInlineCode(_ inlineCode: InlineCode) -> Result {
         return defaultVisit(inlineCode)
