@@ -359,4 +359,47 @@ final class HTMLFormatterTests: XCTestCase {
         XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
       }
     }
+    
+    func testFormatHeadingWithNestedMarkup() {
+        do {
+            let inputText = """
+            ## [0.0.1] - 2014-05-31
+
+            [0.0.1]: https://example.com/project/keep-a-changelog/
+            """
+            
+            let expectedOutput = """
+            <h2><a href="https://example.com/project/keep-a-changelog/">0.0.1</a> - 2014-05-31</h2>
+            
+            """
+            
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+        }
+        
+        do {
+            let inputText = """
+            # Heading with a [link](https://example.com) and `code`
+            """
+            
+            let expectedOutput = """
+            <h1>Heading with a <a href="https://example.com">link</a> and <code>code</code></h1>
+            
+            """
+            
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+        }
+        
+        do {
+            let inputText = """
+            ### **Strong** and *Emphasized* text
+            """
+            
+            let expectedOutput = """
+            <h3><strong>Strong</strong> and <em>Emphasized</em> text</h3>
+            
+            """
+            
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+        }
+    }
 }
