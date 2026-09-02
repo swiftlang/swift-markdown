@@ -995,13 +995,39 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         let expectedDump = #"""
         Document @1:1-4:2
         ├─ BlockDirective @1:1-1:19 name: "blah"
-        │  └─ Paragraph @1:9-1:17
+        │  └─ Paragraph @1:9-1:16
         │     └─ Text @1:9-1:16 "content"
         └─ BlockDirective @2:1-4:2 name: "blah"
            └─ Paragraph @3:5-3:12
               └─ Text @3:5-3:12 "content"
         """#
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSingleLineDirectiveWithMoreTrailingWhitespaceThanBeforeClosingBrace() {
+        let source = "@blah { content }   "
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+
+        let expectedDump = #"""
+        Document @1:1-1:21
+        └─ BlockDirective @1:1-1:21 name: "blah"
+           └─ Paragraph @1:9-1:16
+              └─ Text @1:9-1:16 "content"
+        """#
+        XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSingleLineDirectiveWithNoWhitespaceBeforeClosingBrace() {
+        let source = "@blah { content}   "
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+
+        let expectedDump = #"""
+        Document @1:1-1:20
+        └─ BlockDirective @1:1-1:20 name: "blah"
+           └─ Paragraph @1:9-1:16
+              └─ Text @1:9-1:16 "content"
+        """#
+        XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
     }
 
     func testSingleLineDirectiveWithTrailingContent() {

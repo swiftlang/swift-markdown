@@ -181,16 +181,28 @@ struct PendingBlockDirective {
             // "@xx { yy }": "yy" will be parsed
             // "@xx { yy } zz }" "yy } zz" will be parsed
 
-            var reversedRemainingContent = TrimmedLine(Substring(line.text.reversed()), source: line.source, lineNumber: line.lineNumber)
-            reversedRemainingContent.lexWhitespace()
-            if !line.text.isEmpty,
-               reversedRemainingContent.lex("}") != nil {
-                let trailingWhiteSpaceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
+            if !line.text.isEmpty {
+                let trailingWhiteSpaceCount = line.text.reversed().prefix {
+                    $0 == " " || $0 == "\t"
+                }.count
+                guard trailingWhiteSpaceCount < line.text.count else {
+                    return false
+                }
+                let closingBraceIndex = line.text.index(line.text.endIndex, offsetBy: -(trailingWhiteSpaceCount + 1))
+                guard line.text[closingBraceIndex] == "}" else {
+                    return false
+                }
+                let whitespaceBeforeClosingBraceCount = line.text[..<closingBraceIndex].reversed().prefix {
+                    $0 == " " || $0 == "\t"
+                }.count
                 let textCount = line.text.count - trailingWhiteSpaceCount - 1
                 let leadingSpacingCount = line.untrimmedText.count - textCount - trailingWhiteSpaceCount - 1
                 innerIndentationColumnCount = leadingSpacingCount // Should we add a new property for this kind of usage?
                 
-                let newLine = String(repeating: " ", count: leadingSpacingCount) + line.untrimmedText.dropFirst(leadingSpacingCount).dropLast(trailingWhiteSpaceCount + 1)
+                // Remove the closing brace along with any surrounding whitespace
+                // to correctly extract the block directive content.
+                let removedSuffixCount = trailingWhiteSpaceCount + 1 + whitespaceBeforeClosingBraceCount
+                let newLine = String(repeating: " ", count: leadingSpacingCount) + line.untrimmedText.dropFirst(leadingSpacingCount).dropLast(removedSuffixCount)
                 pendingLine = TrimmedLine(newLine.dropFirst(0), source: line.source, lineNumber: line.lineNumber)
                 parseState = .done
                 endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
