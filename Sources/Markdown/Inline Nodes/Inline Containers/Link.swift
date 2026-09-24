@@ -96,6 +96,49 @@ public extension Link {
         return true
     }
 
+    /// Whether this link can be written as `<destination>` without changing meaning.
+    ///
+    /// Narrower than ``isAutolink``, which asks only whether the link text and the
+    /// destination match. CommonMark reads `<...>` as an autolink only when it holds
+    /// an absolute URI, so `[LICENSE.txt](LICENSE.txt)` fails here: written as
+    /// `<LICENSE.txt>` it would parse back as literal text, and the link would be gone.
+    internal var canBeWrittenAsAutolink: Bool {
+        guard isAutolink, let destination = destination else {
+            return false
+        }
+        return Link.isAbsoluteURI(destination)
+    }
+
+    /// Whether a destination is an absolute URI, and so may be written as an autolink.
+    ///
+    /// CommonMark asks for a scheme of 2 to 32 characters, beginning with an ASCII
+    /// letter and continuing with ASCII letters, digits, `+`, `.` or `-`, followed by
+    /// a colon and then anything but spaces, control characters, or angle brackets.
+    private static func isAbsoluteURI(_ destination: String) -> Bool {
+        guard let colon = destination.firstIndex(of: ":") else {
+            return false
+        }
+        let scheme = destination[destination.startIndex..<colon]
+        guard (2...32).contains(scheme.count),
+              let first = scheme.first,
+              first.isASCII,
+              first.isLetter else {
+            return false
+        }
+        let schemeIsValid = scheme.dropFirst().allSatisfy { character in
+            guard character.isASCII else { return false }
+            return character.isLetter || character.isNumber
+                || character == "+" || character == "." || character == "-"
+        }
+        guard schemeIsValid else {
+            return false
+        }
+        return destination[destination.index(after: colon)...].allSatisfy { character in
+            !character.isWhitespace && character != "<" && character != ">"
+                && !(character.asciiValue.map { $0 < 0x20 } ?? false)
+        }
+    }
+
     // MARK: Visitation
 
     func accept<V: MarkupVisitor>(_ visitor: inout V) -> V.Result {

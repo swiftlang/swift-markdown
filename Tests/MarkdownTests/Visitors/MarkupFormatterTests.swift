@@ -1736,3 +1736,37 @@ class MarkupFormatterMixedContentTests: XCTestCase {
         XCTAssertEqual(expected, printed)
     }
 }
+
+/// Autolink condensing must not turn a link into text.
+class MarkupFormatterAutolinkCondensingTests: XCTestCase {
+    /// `<destination>` only reads back as a link when the destination is an absolute
+    /// URI, so a relative one has to keep its brackets.
+    func testRelativeLinkIsNotCondensed() {
+        let source = "See [LICENSE.txt](LICENSE.txt)."
+        let document = Document(parsing: source)
+        XCTAssertEqual(source, document.format())
+        XCTAssertEqual(document.debugDescription(),
+                       Document(parsing: document.format()).debugDescription())
+    }
+
+    func testAbsoluteURLIsStillCondensed() {
+        let document = Document(parsing: "See [https://example.com](https://example.com).")
+        XCTAssertEqual("See <https://example.com>.", document.format())
+    }
+
+    func testSchemelessDestinationsAreNotCondensed() {
+        for destination in ["example.com", "docs/guide.md", "#anchor", "a:b"] {
+            let document = Document(parsing: "[\(destination)](\(destination))")
+            XCTAssertEqual("[\(destination)](\(destination))", document.format(),
+                           "\(destination) must not be condensed")
+        }
+    }
+
+    func testSchemesThatAreValid() {
+        for destination in ["mailto:a@example.com", "ftp://example.com", "x-custom.scheme+v2:payload"] {
+            let document = Document(parsing: "[\(destination)](\(destination))")
+            XCTAssertEqual("<\(destination)>", document.format(),
+                           "\(destination) should be condensed")
+        }
+    }
+}
