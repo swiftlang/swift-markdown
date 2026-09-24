@@ -27,6 +27,11 @@ final class RawMarkupToMarkupTests: XCTestCase {
         XCTAssertThrowsError(try HTMLBlock(.softBreak(parsedRange: nil)))
     }
 
+    func testBlockMath() {
+        XCTAssertNoThrow(try BlockMath(.blockMath(parsedRange: nil, code: "")))
+        XCTAssertThrowsError(try BlockMath(.softBreak(parsedRange: nil)))
+    }
+
     func testHeading() {
         XCTAssertNoThrow(try Heading(.heading(level: 1, parsedRange: nil, [])))
         XCTAssertThrowsError(try Heading(.softBreak(parsedRange: nil)))
@@ -70,6 +75,11 @@ final class RawMarkupToMarkupTests: XCTestCase {
     func testInlineCode() {
         XCTAssertNoThrow(try InlineCode(.inlineCode(parsedRange: nil, code: "")))
         XCTAssertThrowsError(try InlineCode(.softBreak(parsedRange: nil)))
+    }
+
+    func testInlineMath() {
+        XCTAssertNoThrow(try InlineMath(.inlineMath(parsedRange: nil, code: "")))
+        XCTAssertThrowsError(try InlineMath(.softBreak(parsedRange: nil)))
     }
     
     func testInlineHTML() {

@@ -30,5 +30,7 @@ public struct ParseOptions: OptionSet, Sendable {
 
     /// Disable including a `data-sourcepos` attribute on all block elements during parsing.
     public static let disableSourcePosOpts = ParseOptions(rawValue: 1 << 4)
-}
 
+    /// Enable parsing of inline and block math equations surrounded by `$` and `$$` delimiters.
+    public static let parseMath = ParseOptions(rawValue: 1 << 5)
+}

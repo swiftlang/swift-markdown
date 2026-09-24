@@ -89,6 +89,10 @@ public struct HTMLFormatter: MarkupWalker {
         result += "<pre><code\(languageAttr)>\(codeBlock.code.htmlEscaped())</code></pre>\n"
     }
 
+    public mutating func visitBlockMath(_ blockMath: BlockMath) -> () {
+        result += "<pre><code class=\"language-math\">\(blockMath.code)</code></pre>\n"
+    }
+
     public mutating func visitHeading(_ heading: Heading) -> () {
         result += "<h\(heading.level)>"
         descendInto(heading)
@@ -225,6 +229,10 @@ public struct HTMLFormatter: MarkupWalker {
 
     public mutating func visitInlineCode(_ inlineCode: InlineCode) -> () {
         result += "<code>\(inlineCode.code.htmlEscaped())</code>"
+    }
+
+    public mutating func visitInlineMath(_ inlineMath: InlineMath) -> () {
+        result += "<code class=\"language-math\">\(inlineMath.code)</code>"
     }
 
     public mutating func visitEmphasis(_ emphasis: Emphasis) -> () {

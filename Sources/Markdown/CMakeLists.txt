@@ -29,6 +29,7 @@ add_library(Markdown
   "Block Nodes/Block Container Blocks/OrderedList.swift"
   "Block Nodes/Block Container Blocks/UnorderedList.swift"
   "Block Nodes/Inline Container Blocks/Paragraph.swift"
+  "Block Nodes/Leaf Blocks/BlockMath.swift"
   "Block Nodes/Leaf Blocks/CodeBlock.swift"
   "Block Nodes/Leaf Blocks/Heading.swift"
   "Block Nodes/Leaf Blocks/HTMLBlock.swift"
@@ -48,6 +49,7 @@ add_library(Markdown
   "Inline Nodes/Inline Containers/Strikethrough.swift"
   "Inline Nodes/Inline Containers/Strong.swift"
   "Inline Nodes/Inline Leaves/CustomInline.swift"
+  "Inline Nodes/Inline Leaves/InlineMath.swift"
   "Inline Nodes/Inline Leaves/InlineCode.swift"
   "Inline Nodes/Inline Leaves/InlineHTML.swift"
   "Inline Nodes/Inline Leaves/LineBreak.swift"
@@ -58,6 +60,7 @@ add_library(Markdown
   Parser/BlockDirectiveParser.swift
   Parser/CommonMarkConverter.swift
   Parser/LazySplitLines.swift
+  Parser/MathParser.swift
   Parser/ParseOptions.swift
   Parser/RangeAdjuster.swift
   Parser/RangerTracker.swift
