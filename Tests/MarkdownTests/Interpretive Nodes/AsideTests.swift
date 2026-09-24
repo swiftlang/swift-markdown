@@ -249,6 +249,43 @@ class AsideTests: XCTestCase {
         }
     }
 
+    func testDoesNotCrashParsingTagWithSmartQuotesAndListItemContent() throws {
+        let leftDoubleQuote  = "\u{201C}"
+        let rightDoubleQuote = "\u{201D}"
+        let leftSingleQuote  = "\u{2018}"
+        let rightSingleQuote = "\u{2019}"
+        let enDash           = "\u{2013}"
+
+        // Smart punctuation makes the parsed tag longer than the source it was parsed from. Each
+        // quotation mark is one UTF-8 byte in the source but three bytes once it's turned into a
+        // curly quote, so the tag's parsed length overshoots its length in the source. When the
+        // aside has no text after the tag separator, that overshoot used to move the start of the
+        // remaining text's range past its end and trap.
+        for (tagMarkup, formattedTag, expectedColumn) in [
+            ("\"Note\"",      "\(leftDoubleQuote)Note\(rightDoubleQuote)", 10),
+            ("'Note'",        "\(leftSingleQuote)Note\(rightSingleQuote)", 10),
+            ("\"Note\" -- x", "\(leftDoubleQuote)Note\(rightDoubleQuote) \(enDash) x", 15),
+        ] {
+            try assertAside(
+                source: """
+                > \(tagMarkup):
+                > - All other content is inside unordered list
+                """,
+                conversionStrategy: .tagNotRequired,
+                expectedKind: try XCTUnwrap(.init(rawValue: formattedTag)),
+                expectedRootDump: """
+                Document @/path/to/some-file.md:1:1-/path/to/some-file.md:2:47
+                └─ BlockQuote @/path/to/some-file.md:1:1-/path/to/some-file.md:2:47
+                   ├─ Paragraph @/path/to/some-file.md:1:3-/path/to/some-file.md:1:\(expectedColumn)
+                   │  └─ Text @/path/to/some-file.md:1:\(expectedColumn) ""
+                   └─ UnorderedList @/path/to/some-file.md:2:3-/path/to/some-file.md:2:47
+                      └─ ListItem @/path/to/some-file.md:2:3-/path/to/some-file.md:2:47
+                         └─ Paragraph @/path/to/some-file.md:2:5-/path/to/some-file.md:2:47
+                            └─ Text @/path/to/some-file.md:2:5-/path/to/some-file.md:2:47 "All other content is inside unordered list"
+                """)
+        }
+    }
+
     func assertAside(source: String, conversionStrategy: Aside.TagRequirement, expectedKind: Aside.Kind, expectedRootDump: String, file: StaticString = #file, line: UInt = #line) throws {
         let fakeFileLocation = URL(fileURLWithPath: "/path/to/some-file.md")
         let document = Document(parsing: source, source: fakeFileLocation)
