@@ -649,6 +649,68 @@ public struct MarkupFormatter: MarkupWalker {
         state = previousState
     }
 
+    /// Returns the destination in a form that parses back to the same string.
+    ///
+    /// Destinations with spaces, control characters, unbalanced parentheses, or a leading `<` are wrapped in angle brackets.
+    private static func formattedDestination(_ destination: String) -> String {
+        let destination = escapingBackslashes(in: destination)
+        var depth = 0
+        var needsAngleBrackets = destination.hasPrefix("<")
+        for scalar in destination.unicodeScalars {
+            switch scalar {
+            case "(": depth += 1
+            case ")": depth -= 1
+            case " ", "\u{7F}", "\u{0}"..."\u{1F}": needsAngleBrackets = true
+            default: break
+            }
+            if depth < 0 {
+                needsAngleBrackets = true
+            }
+        }
+        guard needsAngleBrackets || depth != 0 else {
+            return destination
+        }
+        let escaped = destination
+            .replacingOccurrences(of: "<", with: "\\<")
+            .replacingOccurrences(of: ">", with: "\\>")
+        return "<\(escaped)>"
+    }
+
+    /// Returns the title in double quotes, with inner double quotes escaped.
+    private static func formattedTitle(_ title: String) -> String {
+        let escaped = escapingBackslashes(in: title).replacingOccurrences(of: "\"", with: "\\\"")
+        return "\"\(escaped)\""
+    }
+
+    /// Escapes backslashes that the parser would read as escape characters: those before ASCII punctuation or at the end.
+    private static func escapingBackslashes(in string: String) -> String {
+        let scalars = Array(string.unicodeScalars)
+        var result = String.UnicodeScalarView()
+        for (i, scalar) in scalars.enumerated() {
+            result.append(scalar)
+            if scalar == "\\", i == scalars.count - 1 || isASCIIPunctuation(scalars[i + 1]) {
+                result.append("\\")
+            }
+        }
+        return String(result)
+    }
+
+    private static func isASCIIPunctuation(_ scalar: Unicode.Scalar) -> Bool {
+        ("!"..."/").contains(scalar) || (":"..."@").contains(scalar) || ("["..."`").contains(scalar) || ("{"..."~").contains(scalar)
+    }
+
+    /// Returns `true` if the destination can be printed as an autolink, like `<https://swift.org>`.
+    ///
+    /// The destination needs a scheme and can't contain spaces, control characters, `<`, or `>`.
+    private static func canPrintAsAutolink(_ destination: String) -> Bool {
+        guard let colon = destination.firstIndex(of: ":"), colon > destination.startIndex,
+              destination[..<colon].unicodeScalars.allSatisfy({ ("a"..."z").contains($0) || ("A"..."Z").contains($0) || ("0"..."9").contains($0) || "+.-".unicodeScalars.contains($0) })
+        else {
+            return false
+        }
+        return destination.unicodeScalars.allSatisfy { $0.value > 0x20 && $0.value != 0x7F && $0 != "<" && $0 != ">" }
+    }
+
     // MARK: Formatter Walker Methods
 
     public func defaultVisit(_ markup: Markup) {
@@ -829,9 +891,9 @@ public struct MarkupFormatter: MarkupWalker {
             print("![", for: image)
             descendInto(image)
             print("](", for: image)
-            print(image.source ?? "", for: image)
+            print(Self.formattedDestination(image.source ?? ""), for: image)
             if let title = image.title {
-                print(" \"\(title)\"", for: image)
+                print(" \(Self.formattedTitle(title))", for: image)
             }
             print(")", for: image)
         }
@@ -861,7 +923,8 @@ public struct MarkupFormatter: MarkupWalker {
         let savedState = state
         if formattingOptions.condenseAutolinks,
            link.isAutolink,
-           let destination = link.destination {
+           let destination = link.destination,
+           Self.canPrintAsAutolink(destination) {
             print("<\(destination)>", for: link)
         } else {
             func printRegularLink() {
@@ -869,7 +932,7 @@ public struct MarkupFormatter: MarkupWalker {
                 print("[", for: link)
                 descendInto(link)
                 print("](", for: link)
-                print(link.destination ?? "", for: link)
+                print(Self.formattedDestination(link.destination ?? ""), for: link)
                 print(")", for: link)
             }
 

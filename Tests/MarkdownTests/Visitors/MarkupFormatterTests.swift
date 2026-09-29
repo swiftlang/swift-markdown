@@ -234,6 +234,45 @@ class MarkupFormatterSingleElementTests: XCTestCase {
         XCTAssertEqual(expected, printed)
     }
 
+    func testPrintLinkDestinations() {
+        let destinations: [(destination: String, expected: String)] = [
+            // Destinations that can be printed as-is
+            ("https://swift.org", "https://swift.org"),
+            ("/path/to/method(with:and:)", "/path/to/method(with:and:)"),
+            ("a<b>c", "a<b>c"),
+            (#"C:\Users\x"#, #"C:\Users\x"#),
+            // Unbalanced parentheses
+            ("/path/to/method(with:and:", "</path/to/method(with:and:>"),
+            ("/path/to/)", "</path/to/)>"),
+            // Spaces and control characters
+            ("path with spaces.md", "<path with spaces.md>"),
+            ("path\twith\ttabs.md", "<path\twith\ttabs.md>"),
+            // A leading angle bracket
+            ("<something>", #"<\<something\>>"#),
+            // Backslashes before punctuation or at the end
+            (#"a\(b)"#, #"a\\(b)"#),
+            (#"a\)b"#, #"<a\\)b>"#),
+            (#"a\"#, #"a\\"#),
+        ]
+        for (destination, expected) in destinations {
+            let printed = Link(destination: destination, Text("Link text")).format()
+            XCTAssertEqual("[Link text](\(expected))", printed)
+        }
+    }
+
+    func testPrintAutolinkWithBackslash() {
+        // Backslashes aren't escape characters in autolinks
+        let destination = #"https://swift.org/a\b"#
+        let printed = Link(destination: destination, Text(destination)).format()
+        XCTAssertEqual("<\(destination)>", printed)
+    }
+
+    func testPrintLinkWithoutCondensingAutolinks() {
+        let destination = "https://swift.org/path with spaces"
+        let printed = Link(destination: destination, Text(destination)).format(options: .init(condenseAutolinks: false))
+        XCTAssertEqual("[\(destination)](<\(destination)>)", printed)
+    }
+
     func testPrintLinkCondenseAutolink() {
         let linkText = "https://swift.org"
         let destination = linkText
@@ -652,6 +691,64 @@ class MarkupFormatterSimpleRoundTripTests: XCTestCase {
         checkRoundTrip(for: Document(Paragraph(Emphasis(Strong(Text("emphasized and strong"))))))
         checkRoundTrip(for: Document(Paragraph(InlineCode("foo"))))
         // According to cmark, ***...*** is always Emphasis(Strong(...)).
+    }
+
+    func testRoundTripLinkAndImageDestinations() throws {
+        let destinations = [
+            "https://swift.org",
+            "/path/to/method(with:and:)",
+            "/path/to/method(with:and:",
+            "/path/to/)(",
+            "path with spaces.md",
+            "<something>",
+            #"path\(with)\backslashes"#,
+            #"C:\Users\x"#,
+            #"ends with a backslash\"#,
+            "a<b>c",
+            "path\twith\ttabs.md",
+        ]
+        for destination in destinations {
+            let linkDocument = Document(parsing: Paragraph(Link(destination: destination, Text("Link text"))).format())
+            let link = try XCTUnwrap(linkDocument.child(through: 0, 0) as? Link, "Printed link didn't parse as a link: \(linkDocument.format())")
+            XCTAssertEqual(destination, link.destination)
+
+            let imageDocument = Document(parsing: Paragraph(Image(source: destination, [Text("Alt text")])).format())
+            let image = try XCTUnwrap(imageDocument.child(through: 0, 0) as? Image, "Printed image didn't parse as an image: \(imageDocument.format())")
+            XCTAssertEqual(destination, image.source)
+        }
+    }
+
+    func testRoundTripAutolinks() throws {
+        let destinations = [
+            "https://swift.org",
+            "mailto:someone@example.com",
+            // Not valid autolinks, so these need to be printed as regular links
+            "not-a-url",
+            "some@example.com",
+            "https://swift.org/path with spaces",
+            "https://swift.org/<something>",
+            #"https://swift.org/a\b"#,
+        ]
+        for destination in destinations {
+            let document = Document(parsing: Paragraph(Link(destination: destination, Text(destination))).format())
+            let link = try XCTUnwrap(document.child(through: 0, 0) as? Link, "Printed link didn't parse as a link: \(document.format())")
+            XCTAssertEqual(destination, link.destination)
+            XCTAssertEqual(destination, link.plainText)
+        }
+    }
+
+    func testRoundTripImageTitles() throws {
+        let titles = [
+            "A title",
+            #"A "quoted" title"#,
+            #"A title with a \ backslash"#,
+            #"A title ending with a backslash \"#,
+        ]
+        for title in titles {
+            let document = Document(parsing: Paragraph(Image(source: "image.png", title: title, [Text("Alt text")])).format())
+            let image = try XCTUnwrap(document.child(through: 0, 0) as? Image, "Printed image didn't parse as an image: \(document.format())")
+            XCTAssertEqual(title, image.title)
+        }
     }
 
     func testRoundTripBlockQuote() {
