@@ -75,12 +75,11 @@ add_library(Markdown
   Utility/StringExtensions.swift
   Visitor/MarkupVisitor.swift
   Walker/MarkupWalker.swift
+  Walker/Walkers/HTMLFormatter.swift
   Walker/Walkers/MarkupFormatter.swift
   Walker/Walkers/MarkupTreeDumper.swift)
 target_link_libraries(Markdown PRIVATE
-  ArgumentParser
-  libcmark-gfm
-  libcmark-gfm-extensions)
+  CommonMark)
 target_link_libraries(Markdown PUBLIC
   CAtomic)
 set_target_properties(Markdown PROPERTIES

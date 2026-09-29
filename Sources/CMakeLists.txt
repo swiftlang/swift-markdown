@@ -8,4 +8,5 @@ See https://swift.org/LICENSE.txt for license information
 #]]
 
 add_subdirectory(CAtomic)
+add_subdirectory(CommonMark)
 add_subdirectory(Markdown)

@@ -18,6 +18,7 @@ struct MarkdownCommand: ParsableCommand {
         DumpTree.self,
         Format.self,
         PrintHTML.self,
+        Stats.self,
     ])
 
     static func parseFile(at path: String, options: ParseOptions) throws -> (source: String, parsed: Document) {

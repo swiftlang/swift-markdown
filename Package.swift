@@ -12,7 +12,13 @@
 import PackageDescription
 import class Foundation.ProcessInfo
 
-let cmarkPackageName = ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil ? "swift-cmark" : "cmark"
+// The CommonMark parser uses `~Copyable`/`~Escapable`, lifetime-dependent API requires these experimental features. Consuming it (the `Markdown` target) does not.
+let commonMarkSwiftSettings: [SwiftSetting] = [
+    .enableUpcomingFeature("ApproachableConcurrency"),
+    .enableExperimentalFeature("LifetimeDependence"),
+    .enableExperimentalFeature("Lifetimes"),
+    .swiftLanguageMode(.v6),
+]
 
 let package = Package(
     name: "swift-markdown",
@@ -20,24 +26,46 @@ let package = Package(
         .library(
             name: "Markdown",
             targets: ["Markdown"]),
+        .library(
+            name: "CommonMark",
+            targets: ["CommonMark"]),
     ],
     targets: [
         .target(
             name: "Markdown",
             dependencies: [
                 "CAtomic",
-                .product(name: "cmark-gfm", package: cmarkPackageName),
-                .product(name: "cmark-gfm-extensions", package: cmarkPackageName),
+                "CommonMark",
+            ],
+            exclude: [
+                "CMakeLists.txt"
+            ]
+        ),
+        .target(
+            name: "CommonMark",
+            dependencies: [
+                .product(name: "BasicContainers", package: "swift-collections"),
             ],
             exclude: [
                 "CMakeLists.txt"
             ],
-            swiftSettings: [.unsafeFlags(["-Xcc", "-DCMARK_GFM_STATIC_DEFINE"], .when(platforms: [.windows]))]
+            swiftSettings: commonMarkSwiftSettings + [
+                // Built with library evolution so a separate package does not see the BasicContainers dependency.
+                .unsafeFlags(["-enable-library-evolution"]),
+            ]
         ),
         .testTarget(
             name: "MarkdownTests",
             dependencies: ["Markdown"],
             resources: [.process("Visitors/Everything.md")]),
+        .testTarget(
+            name: "CommonMarkTests",
+            dependencies: ["CommonMark"],
+            resources: [
+                .copy("spec.txt"),
+            ],
+            swiftSettings: commonMarkSwiftSettings
+        ),
         .target(name: "CAtomic"),
     ],
     swiftLanguageModes: [.v5]
@@ -49,9 +77,9 @@ let package = Package(
 if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     // Building standalone, so fetch all dependencies remotely.
     package.dependencies += [
-        .package(url: "https://github.com/swiftlang/swift-cmark.git", branch: "gfm"),
+        .package(url: "https://github.com/apple/swift-collections", from: "1.6.0"),
     ]
-    
+
     // SwiftPM command plugins are only supported by Swift version 5.6 and later.
     #if swift(>=5.6)
     package.dependencies += [
@@ -59,8 +87,8 @@ if ProcessInfo.processInfo.environment["SWIFTCI_USE_LOCAL_DEPS"] == nil {
     ]
     #endif
 } else {
-    // Building in the Swift.org CI system, so rely on local versions of dependencies.
+    // Building in the Swift.org CI system, so rely on local checkouts of our dependencies as siblings.
     package.dependencies += [
-        .package(path: "../cmark"),
+        .package(path: "../swift-collections"),
     ]
 }

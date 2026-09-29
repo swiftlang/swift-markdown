@@ -37,24 +37,29 @@ set(_SM_VENDOR_DEPENDENCIES)
 set(BUILD_EXAMPLES NO)
 set(BUILD_TESTING NO)
 
-find_package(ArgumentParser CONFIG)
-if(NOT ArgumentParser_FOUND)
-  FetchContent_Declare(ArgumentParser
-    GIT_REPOSITORY https://github.com/apple/swift-argument-parser
-    GIT_TAG 1.2.3)
-  list(APPEND _SM_VENDOR_DEPENDENCIES ArgumentParser)
-endif()
-
-find_package(cmark-gfm CONFIG)
-if(NOT cmark-gfm_FOUND)
-  FetchContent_Declare(cmark-gfm
-    GIT_REPOSITORY https://github.com/apple/swift-cmark
-    GIT_TAG gfm)
-  list(APPEND _SM_VENDOR_DEPENDENCIES cmark-gfm)
+# swift-collections provides the BasicContainers module that the CommonMark parser links against.
+# Prefer a pre-built package (e.g. one supplied by the Swift toolchain) and only fetch + build from
+# source as a fallback, matching this project's dependency-acquisition idiom. Build it multi-module
+# (do NOT set COLLECTIONS_SINGLE_MODULE — that folds BasicContainers into a single `Collections`
+# module and breaks `import BasicContainers`).
+find_package(SwiftCollections CONFIG)
+if(NOT SwiftCollections_FOUND)
+  FetchContent_Declare(SwiftCollections
+    GIT_REPOSITORY https://github.com/apple/swift-collections.git
+    GIT_TAG 1.6.0)
+  list(APPEND _SM_VENDOR_DEPENDENCIES SwiftCollections)
 endif()
 
 if(_SM_VENDOR_DEPENDENCIES)
   FetchContent_MakeAvailable(${_SM_VENDOR_DEPENDENCIES})
+endif()
+
+# `find_package` exports the target namespaced (SwiftCollections::BasicContainers); building from
+# source (FetchContent) defines the plain `BasicContainers`. Expose one name for downstream targets.
+if(TARGET SwiftCollections::BasicContainers)
+  set(_SM_BASIC_CONTAINERS SwiftCollections::BasicContainers)
+else()
+  set(_SM_BASIC_CONTAINERS BasicContainers)
 endif()
 
 add_subdirectory(Sources)
