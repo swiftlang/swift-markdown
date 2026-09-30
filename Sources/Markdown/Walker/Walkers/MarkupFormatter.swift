@@ -579,6 +579,19 @@ public struct MarkupFormatter: MarkupWalker {
         state.newlineStreak = 0
     }
 
+    /// Remove trailing spaces that have already been printed on the current line.
+    private static func trimTrailingSpaces(
+        from currentResult: inout String,
+        state currentState: inout State,
+        preserving minimumLineLength: Int = 0
+    ) {
+        while currentResult.last == " " && currentState.lastLineLength > minimumLineLength {
+            currentResult.removeLast()
+            currentState.currentLength -= 1
+            currentState.lastLineLength -= 1
+        }
+    }
+
     /// Print raw text while visiting an element, wrapping automatically with
     /// soft or hard line breaks.
     ///
@@ -619,6 +632,7 @@ public struct MarkupFormatter: MarkupWalker {
                 // we might already be right at the edge of a line when
                 // this method was called.
                 if state.lastLineLength + word.count >= lineLimit.maxLength {
+                    Self.trimTrailingSpaces(from: &result, state: &state, preserving: linePrefix(for: element).count)
                     queueNewline()
                 }
                 print(word, for: element)
@@ -803,16 +817,29 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     public mutating func visitInlineCode(_ inlineCode: InlineCode) {
+        if state.queuedNewlines > 0 {
+            print("", for: inlineCode)
+        }
+
         let savedState = state
+        var trimmedResult = result
+        var trimmedState = state
+        let prefixLength = linePrefix(for: inlineCode).count
+        Self.trimTrailingSpaces(from: &trimmedResult, state: &trimmedState, preserving: prefixLength)
+
         softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
 
+        let isAtStartOfLine = trimmedState.lastLineLength <= prefixLength
         // Splitting inline code elements is allowed if it contains spaces.
         // If printing with automatic wrapping still put us over the line,
         // prefer to print it on the next line to give as much opportunity
         // to keep the contents on one line.
-        if inlineCode.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
-            restoreState(to: savedState)
+        if inlineCode.indexInParent > 0 && !isAtStartOfLine &&
+            (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
+            result = trimmedResult
+            state = trimmedState
             queueNewline()
+            print("", for: inlineCode)
             softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
         }
     }
