@@ -1,4 +1,4 @@
-# Markup Block Nodes
+# ``BlockMarkup``
 
 ## Topics
 
