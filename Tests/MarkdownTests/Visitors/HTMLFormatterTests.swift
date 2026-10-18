@@ -315,6 +315,40 @@ final class HTMLFormatterTests: XCTestCase {
 
             XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
         }
+
+        do {
+            // Cells after a spanning cell use the alignment of their own column.
+            let inputText = """
+            | one | two | three |
+            | :-- | :-: | ----: |
+            | big      || small |
+            | ^        || small |
+            """
+
+            let expectedOutput = """
+            <table>
+            <thead>
+            <tr>
+            <th align="left">one</th>
+            <th align="center">two</th>
+            <th align="right">three</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td align="left" rowspan="2" colspan="2">big</td>
+            <td align="right">small</td>
+            </tr>
+            <tr>
+            <td align="right">small</td>
+            </tr>
+            </tbody>
+            </table>
+
+            """
+
+            XCTAssertEqual(HTMLFormatter.format(inputText), expectedOutput)
+        }
     }
     
     func testHtmlEscaping() {

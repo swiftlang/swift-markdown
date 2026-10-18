@@ -181,6 +181,11 @@ public struct HTMLFormatter: MarkupWalker {
     public mutating func visitTableCell(_ tableCell: Table.Cell) -> () {
         guard let alignments = tableColumnAlignments, currentTableColumn < alignments.count else { return }
 
+        // Every cell occupies one column, including the placeholder cells covered by a
+        // column or row span, so advance the column before skipping those placeholders.
+        let column = currentTableColumn
+        currentTableColumn += 1
+
         guard tableCell.colspan > 0 && tableCell.rowspan > 0 else { return }
 
         let element: String
@@ -196,10 +201,9 @@ public struct HTMLFormatter: MarkupWalker {
             result += "<\(element)"
         }
 
-        if let alignment = alignments[currentTableColumn] {
+        if let alignment = alignments[column] {
             result += " align=\"\(alignment)\""
         }
-        currentTableColumn += 1
 
         if tableCell.rowspan > 1 {
             result += " rowspan=\"\(tableCell.rowspan)\""
