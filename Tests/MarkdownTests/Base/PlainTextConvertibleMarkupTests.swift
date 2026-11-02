@@ -72,4 +72,24 @@ final class PlainTextConvertibleMarkupTests: XCTestCase {
         let text = Text("OK")
         XCTAssertEqual("OK", text.plainText)
     }
+
+    func testStrikethroughSingleTilde() {
+        let document = Document(parsing: "~struck~")
+        let strikethrough = document.child(at: 0)?.child(at: 0) as! Strikethrough
+        XCTAssertEqual(1, strikethrough.tildeCount)
+        XCTAssertEqual("~struck~", strikethrough.plainText)
+    }
+
+    func testStrikethroughDoubleTilde() {
+        let document = Document(parsing: "~~struck~~")
+        let strikethrough = document.child(at: 0)?.child(at: 0) as! Strikethrough
+        XCTAssertEqual(2, strikethrough.tildeCount)
+        XCTAssertEqual("~~struck~~", strikethrough.plainText)
+    }
+
+    func testStrikethroughProgrammatic() {
+        let strikethrough = Strikethrough(Text("struck"))
+        XCTAssertEqual(1, strikethrough.tildeCount)
+        XCTAssertEqual("~struck~", strikethrough.plainText)
+    }
 }

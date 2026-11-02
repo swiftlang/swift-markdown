@@ -44,7 +44,24 @@ public extension Strikethrough {
         let childrenPlainText = children.compactMap {
             return ($0 as? InlineMarkup)?.plainText
         }.joined()
-        return "~\(childrenPlainText)~"
+        let tilde = String(repeating: "~", count: tildeCount)
+        return "\(tilde)\(childrenPlainText)\(tilde)"
+    }
+
+    /// The number of tilde characters (`~`) used as delimiters for this strikethrough.
+    ///
+    /// When parsed from source, this reflects whether the original markup used
+    /// single (`~`) or double (`~~`) tildes. For programmatically constructed
+    /// instances, this defaults to 1.
+    var tildeCount: Int {
+        guard let strikethroughStart = range?.lowerBound,
+              childCount > 0,
+              let childStart = child(at: 0)?.range?.lowerBound,
+              strikethroughStart.line == childStart.line else {
+            return 1
+        }
+        let count = childStart.column - strikethroughStart.column
+        return count > 0 ? count : 1
     }
 
     // MARK: Visitation
