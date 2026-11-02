@@ -42,12 +42,14 @@ public extension Document {
     /// - parameter source: an explicit source URL from which the input `string` came for marking source locations.
     ///   This need not be a file URL.
     init(parsing string: String, source: URL? = nil, options: ParseOptions = []) {
+        let document: Document
         if options.contains(.parseBlockDirectives) {
-            self = BlockDirectiveParser.parse(string, source: source,
-                                              options: options)
+            document = BlockDirectiveParser.parse(string, source: source,
+                                                  options: options)
         } else {
-            self = MarkupParser.parseString(string, source: source, options: options)
+            document = MarkupParser.parseString(string, source: source, options: options)
         }
+        self = MathParser.parse(document, options: options)
     }
 
     /// Parse a file's contents into a `Document`.
@@ -56,12 +58,14 @@ public extension Document {
     /// - parameter options: options for parsing Markdown text.
     init(parsing file: URL, options: ParseOptions = []) throws {
         let string = try String(contentsOf: file)
+        let document: Document
         if options.contains(.parseBlockDirectives) {
-            self = BlockDirectiveParser.parse(string, source: file,
-                                              options: options)
+            document = BlockDirectiveParser.parse(string, source: file,
+                                                  options: options)
         } else {
-            self = MarkupParser.parseString(string, source: file, options: options)
+            document = MarkupParser.parseString(string, source: file, options: options)
         }
+        self = MathParser.parse(document, options: options)
     }
 
     /// Create a document from a sequence of block markup elements.

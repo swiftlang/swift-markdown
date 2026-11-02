@@ -707,6 +707,28 @@ public struct MarkupFormatter: MarkupWalker {
         }
     }
 
+    public mutating func visitBlockMath(_ blockMath: BlockMath) {
+        if blockMath.indexInParent > 0 {
+            ensurePrecedingNewlineCount(atLeast: 2)
+        }
+
+        print("$$", for: blockMath)
+        queueNewline()
+
+        let lines = blockMath.code.trimmedLineSegments
+        for index in lines.indices {
+            if index != lines.startIndex {
+                queueNewline()
+            }
+            print(lines[index], for: blockMath)
+        }
+
+        if !lines.isEmpty {
+            queueNewline()
+        }
+        print("$$", for: blockMath)
+    }
+
     public mutating func visitBlockQuote(_ blockQuote: BlockQuote) {
         if let parent = blockQuote.parent {
             if parent is BlockQuote {
@@ -814,6 +836,17 @@ public struct MarkupFormatter: MarkupWalker {
             restoreState(to: savedState)
             queueNewline()
             softWrapPrint("`\(inlineCode.code)`", for: inlineCode)
+        }
+    }
+
+    public mutating func visitInlineMath(_ inlineMath: InlineMath) {
+        let savedState = state
+        softWrapPrint("$\(inlineMath.code)$", for: inlineMath)
+
+        if inlineMath.indexInParent > 0 && (isOverPreferredLineLimit || state.effectiveLineNumber > savedState.effectiveLineNumber) {
+            restoreState(to: savedState)
+            queueNewline()
+            softWrapPrint("$\(inlineMath.code)$", for: inlineMath)
         }
     }
 
