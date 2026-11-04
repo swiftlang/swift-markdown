@@ -860,7 +860,7 @@ public struct MarkupFormatter: MarkupWalker {
     public mutating func visitLink(_ link: Link) {
         let savedState = state
         if formattingOptions.condenseAutolinks,
-           link.isAutolink,
+           link.canBeWrittenAsAutolink,
            let destination = link.destination {
             print("<\(destination)>", for: link)
         } else {
