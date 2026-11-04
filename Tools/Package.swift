@@ -25,6 +25,7 @@ let package = Package(
             name: "markdown-tool",
             dependencies: [
                 .product(name: "Markdown", package: "swift-markdown"),
+                .product(name: "CommonMark", package: "swift-markdown"),
                 .product(name: "ArgumentParser", package: "swift-argument-parser")
             ],
             path: "markdown-tool"

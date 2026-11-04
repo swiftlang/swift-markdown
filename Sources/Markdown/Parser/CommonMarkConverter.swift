@@ -8,482 +8,302 @@
  See https://swift.org/CONTRIBUTORS.txt for Swift project authors
 */
 
-import cmark_gfm
-import cmark_gfm_extensions
+import CommonMark
 import Foundation
 
-/// String-based CommonMark node type identifiers.
+/// Parses markup source and returns a `Markdown.Document` representing the parsed source.
 ///
-/// CommonMark node types do have a raw-value enum `cmark_node_type`.
-/// However, in light of extensions, these enum values are not public and
-/// must use strings instead to identify types.
-///
-/// For example, consider the task list item:
-///
-/// ```markdown
-/// - [x] Completed
-/// ```
-///
-/// This internally reuses the regular `CMARK_NODE_ITEM` enum type but will
-/// return the type name string "tasklist" or "item" depending on whether
-/// there was a `[ ]` or `[x]` after the list marker.
-/// So, the raw `cmark_node_type` is no longer reliable on its own, unfortunately.
-///
-/// These values are taken from the `cmark_node_get_type_string` implementation
-/// in the underlying cmark dependency.
-///
-/// > Warning: **Do not make these public.**.
-fileprivate enum CommonMarkNodeType: String {
-    case document
-    case blockQuote = "block_quote"
-    case list
-    case item
-    case codeBlock = "code_block"
-    case htmlBlock = "html_block"
-    case customBlock = "custom_block"
-    case paragraph
-    case heading
-    case thematicBreak = "thematic_break"
-    case text
-    case softBreak = "softbreak"
-    case lineBreak = "linebreak"
-    case code
-    case html = "html_inline"
-    case customInline = "custom_inline"
-    case emphasis = "emph"
-    case strong
-    case link
-    case image
-    case inlineAttributes = "attribute"
-    case none = "NONE"
-    case unknown = "<unknown>"
+/// This drives the pure-Swift cmark port (`CommonMark`): it parses with the same option set the C
+/// path used, then recursively converts the borrowed, non-copyable `MarkdownNode` tree into an owned
+/// `RawMarkup` tree. All traversal happens inside the parsed document's source-borrow scope; only
+/// fully-owned `RawMarkup` (with `String`s copied out) escapes.
+struct MarkupParser {
 
-    // Extensions
+    static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
+        // Mirror the option set the old C path always used: tables + strikethrough + tasklist
+        // extensions and table spans, smart punctuation unless disabled, source positions unless
+        // disabled. (Footnotes and GFM autolinks were never enabled here.)
+        var cmOptions: MarkdownDocument.ParseOptions = [.tables, .strikethrough, .tasklist, .tableSpans]
+        if !options.contains(.disableSmartOpts) {
+            cmOptions.insert(.smart)
+        }
+        if !options.contains(.disableSourcePosOpts) {
+            cmOptions.insert(.sourcePosition)
+        }
 
-    case strikethrough
+        let raw: RawMarkup
+        do {
+            // cmark-swift borrows the source for the document's lifetime, so conversion happens inside
+            // the nonescaping `withParsedDocument` closure; only the fully-owned `RawMarkup` tree escapes.
+            raw = try MarkdownDocument.withParsedDocument(string, options: cmOptions) { document in
+                convert(document.root, source: source, options: options)
+            }
+        } catch {
+            // The only error is an internal parsing/recursion limit; produce an empty document.
+            raw = .document(parsedRange: nil, [])
+        }
 
-    case table
-    case tableHead = "table_header"
-    case tableRow = "table_row"
-    case tableCell = "table_cell"
+        let data = _MarkupData(AbsoluteRawMarkup(markup: raw, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0)))
+        return makeMarkup(data) as! Document
+    }
 
-    case taskListItem = "tasklist"
-}
+    // MARK: - Range mapping
 
-fileprivate extension CommonMarkNodeType {
-    /// Returns true when a node kind cannot have structural children.
+    /// Map a `MarkdownNode`'s source range to swift-markdown's `SourceRange`.
     ///
-    /// Leaf nodes are converted immediately when their ENTER event is
-    /// encountered and therefore never need a `ParsingFrame`.
-    var isLeaf: Bool {
-        switch self {
-        case .codeBlock, .htmlBlock, .thematicBreak, .text, .softBreak, .lineBreak, .code, .html, .customInline:
-            return true
-        default:
-            return false
-        }
-    }
-}
-
-/// Represents the current state of cmark -> `Markup` conversion.
-fileprivate struct MarkupConverterState {
-    fileprivate struct PendingTableBody {
-        var range: SourceRange?
-    }
-    /// The original source whose conversion created this state.
-    let source: URL?
-
-    /// An opaque pointer to a `cmark_iter` used during parsing.
-    let iterator: UnsafeMutablePointer<cmark_iter>?
-
-    /// The last `cmark_event_type` during parsing.
-    let event: cmark_event_type
-
-    /// An opaque pointer to the last parsed `cmark_node`.
-    let node: UnsafeMutablePointer<cmark_node>?
-
-    /// Options to consider when converting to `Markup` elements.
-    let options: ParseOptions
-
-    private(set) var headerSeen: Bool
-    private(set) var pendingTableBody: PendingTableBody?
-
-    init(source: URL?, iterator: UnsafeMutablePointer<cmark_iter>?, event: cmark_event_type, node: UnsafeMutablePointer<cmark_node>?, options: ParseOptions, headerSeen: Bool, pendingTableBody: PendingTableBody?) {
-        self.source = source
-        self.iterator = iterator
-        self.event = event
-        self.node = node
-        self.options = options
-        self.headerSeen = headerSeen
-        self.pendingTableBody = pendingTableBody
-
-        switch (event, nodeType) {
-        case (CMARK_EVENT_EXIT, .tableHead):
-            self.headerSeen = true
-        case (CMARK_EVENT_ENTER, .tableRow) where headerSeen:
-            if self.pendingTableBody == nil {
-                self.pendingTableBody = PendingTableBody(range: self.range(self.node))
-                precondition(self.pendingTableBody != nil)
-            }
-        case (CMARK_EVENT_EXIT, .table):
-            if let endOfTable = self.range(self.node)?.upperBound,
-               let pendingTableRange = self.pendingTableBody?.range {
-                self.pendingTableBody?.range = pendingTableRange.lowerBound..<endOfTable
-            }
-        default:
-            break
-        }
-    }
-
-    /// Get the next cmark iterator and node, returning a new state.
-    func next(clearPendingTableBody: Bool = false) -> MarkupConverterState {
-        let newEvent = cmark_iter_next(iterator)
-        let newNode = cmark_iter_get_node(iterator)
-        return MarkupConverterState(source: source, iterator: iterator, event: newEvent, node: newNode, options: options, headerSeen: clearPendingTableBody ? false : headerSeen, pendingTableBody: clearPendingTableBody ? nil : pendingTableBody)
-    }
-
-    /// The type of the last parsed cmark node.
-    var nodeType: CommonMarkNodeType {
-        guard let node = node else { return .none }
-        let typeString = String(cString: cmark_node_get_type_string(node))
-        guard let type = CommonMarkNodeType(rawValue: typeString) else {
-            fatalError("Unknown cmark node type '\(typeString)' encountered during conversion")
-        }
-        return type
-    }
-
-    /// The source range where a node occurred, according to cmark.
-    func range(_ node: UnsafeMutablePointer<cmark_node>?) -> SourceRange? {
-        let startLine = Int(cmark_node_get_start_line(node))
-        let startColumn = Int(cmark_node_get_start_column(node))
-        guard startLine > 0 && startColumn > 0 else {
-            // cmark doesn't track the positions for this node.
-            return nil
-        }
-
-        let endLine = Int(cmark_node_get_end_line(node))
-        let endColumn = Int(cmark_node_get_end_column(node)) + 1
-
-        guard endLine > 0 && endColumn > 0 else {
-            // cmark doesn't track the positions for this node.
-            return nil
-        }
-
-        // If this is a symbol link / code span, set the locations to include the ticks.
-        let backtickCount = Int(cmark_node_get_backtick_count(node))
-
-        let start = SourceLocation(line: startLine, column: startColumn - backtickCount, source: source)
-        let end = SourceLocation(line: endLine, column: endColumn + backtickCount, source: source)
-
-        // Sometimes the cmark range is invalid (rdar://73376719)
-        guard start <= end else { return nil }
+    /// cmark-swift already reports 1-based lines, 1-based UTF-8 **byte** columns, and an `upperBound`
+    /// positioned just past the node's last byte — i.e. exactly the adjusted end the old converter
+    /// produced via `endColumn + 1`. Inline code-span ranges likewise already span their backticks. So
+    /// this is a straight pass-through; the only thing added is the source `URL`.
+    private static func range(_ node: borrowing MarkdownNode, source: URL?) -> SourceRange? {
+        guard let r = node.sourceRange else { return nil }
+        let start = SourceLocation(line: r.lowerBound.line, column: r.lowerBound.column, source: source)
+        let end = SourceLocation(line: r.upperBound.line, column: r.upperBound.column, source: source)
         return start..<end
     }
-}
 
-/// Parses markup source and returns a `Markup` node representing the parsed source.
-struct MarkupParser {
-    
-    /// Represents an active container node while iteratively converting the
-    /// cmark AST into `RawMarkup`.
-    private struct ParsingFrame {
-        
-        /// The underlying cmark node associated with this frame.
-        let node: UnsafeMutablePointer<cmark_node>
-        
-        /// Cached node type to avoid repeated string conversions while the
-        /// frame remains on the work stack.
-        let nodeType: CommonMarkNodeType
-        
-        /// Source range reported by cmark for this node.
-        let parsedRange: SourceRange?
-        
-        /// Converted child nodes accumulated between ENTER and EXIT events.
-        var children: [RawMarkup] = []
+    // MARK: - Content readers
+
+    /// The node's literal text (for `.text` / `.codeInline` / `.htmlInline` / code & HTML block bodies).
+    private static func literal(_ node: borrowing MarkdownNode) -> String {
+        switch node.stringContent {
+        case .text(let s): return s
+        case .codeBlock(_, let body): return body
+        case .htmlBlock(let body): return body
+        default: return ""
+        }
     }
 
-    /// Returns the raw literal text for a cmark node.
+    /// A code block's info string (language tag), or `nil` if empty.
+    private static func codeBlockLanguage(_ node: borrowing MarkdownNode) -> String? {
+        if case .codeBlock(let info, _) = node.stringContent {
+            return info.isEmpty ? nil : info
+        }
+        return nil
+    }
+
+    /// A link/image destination and title (each `nil` when empty).
+    private static func linkDestinationAndTitle(_ node: borrowing MarkdownNode) -> (destination: String?, title: String?) {
+        if case .link(let url, let title) = node.stringContent {
+            return (url.isEmpty ? nil : url, title.isEmpty ? nil : title)
+        }
+        return (nil, nil)
+    }
+
+    /// An `^[…]` extended-attribute node's raw attribute string.
+    private static func attributeString(_ node: borrowing MarkdownNode) -> String {
+        if case .attribute(let attributes) = node.stringContent {
+            return attributes
+        }
+        return ""
+    }
+
+    // MARK: - Tree conversion
+
+    /// Convert the subtree rooted at `root` into `RawMarkup`.
     ///
-    /// - parameter node: An opaque pointer to a `cmark_node`.
-    private static func getLiteralContent(node: UnsafeMutablePointer<cmark_node>!) -> String {
-        guard let rawText = cmark_node_get_literal(node) else {
-            fatalError("Expected literal content for cmark node but got null pointer")
-        }
-        return String(cString: rawText)
-    }
+    /// Iterative (explicit heap stack) rather than recursive: documents can nest thousands of levels
+    /// deep (e.g. 15k nested block quotes), which would overflow the call stack. `accStack[d]` holds
+    /// the converted children accumulated for the open ancestor at depth `d`; a node is built once all
+    /// its children are collected (post-order). Tables are built atomically by `convertTable` and not
+    /// descended into, since their head/body regrouping needs the original node structure.
+    private static func convert(_ root: borrowing MarkdownNode, source: URL?, options: ParseOptions) -> RawMarkup {
+        var accStack: [[RawMarkup]] = [[]]
+        var node = copy root
 
-    private static func convertCodeBlock(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .codeBlock)
-        let parsedRange = state.range(state.node)
-        let language = String(cString: cmark_node_get_fence_info(state.node))
-        let code = getLiteralContent(node: state.node)
-        return .codeBlock(parsedRange: parsedRange, code: code, language: language.isEmpty ? nil : language)
-    }
+        while true {
+            // Descend into the first child (but never into a table — it's built atomically below).
+            if !isTable(node.kind), let firstChild = node.firstChild {
+                accStack.append([])
+                node = firstChild
+                continue
+            }
 
-    private static func convertHTMLBlock(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .htmlBlock)
-        let parsedRange = state.range(state.node)
-        let html = getLiteralContent(node: state.node)
-        return .htmlBlock(parsedRange: parsedRange, html: html)
-    }
+            // No more descent: build this node, then advance to a sibling or close ancestors.
+            while true {
+                let children = accStack.removeLast()
+                let raw = isTable(node.kind)
+                    ? convertTable(node, parsedRange: range(node, source: source), source: source, options: options)
+                    : build(node, children: children, source: source, options: options)
 
-    private static func convertThematicBreak(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .thematicBreak)
-        let parsedRange = state.range(state.node)
-        return .thematicBreak(parsedRange: parsedRange)
-    }
+                if accStack.isEmpty {
+                    return raw   // closed the root
+                }
+                accStack[accStack.count - 1].append(raw)
 
-    private static func convertText(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .text)
-        let parsedRange = state.range(state.node)
-        let string = getLiteralContent(node: state.node)
-        return .text(parsedRange: parsedRange, string: string)
-    }
-
-    private static func convertSoftBreak(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .softBreak)
-        let parsedRange = state.range(state.node)
-        return .softBreak(parsedRange: parsedRange)
-    }
-
-    private static func convertLineBreak(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .lineBreak)
-        let parsedRange = state.range(state.node)
-        return .lineBreak(parsedRange: parsedRange)
-    }
-
-    private static func convertInlineCode(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .code)
-        let parsedRange = state.range(state.node)
-        let literalContent = getLiteralContent(node: state.node)
-        if state.options.contains(.parseSymbolLinks),
-           cmark_node_get_backtick_count(state.node) > 1,
-           !literalContent.contains("`") {
-            return .symbolLink(parsedRange: parsedRange, destination: literalContent)
-        } else {
-            return .inlineCode(parsedRange: parsedRange, code: literalContent)
+                if let sibling = node.next {
+                    node = sibling
+                    accStack.append([])
+                    break   // descend into the sibling's subtree
+                }
+                guard let parent = node.parent else {
+                    return raw
+                }
+                node = parent   // close the parent on the next iteration
+            }
         }
     }
 
-    private static func convertInlineHTML(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .html)
-        let parsedRange = state.range(state.node)
-        let html = getLiteralContent(node: state.node)
-        return .inlineHTML(parsedRange: parsedRange, html: html)
+    private static func isTable(_ kind: MarkdownNode.Kind) -> Bool {
+        if case .table = kind { return true }
+        return false
     }
 
-    private static func convertCustomInline(_ state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .customInline)
-        let parsedRange = state.range(state.node)
-        let text = getLiteralContent(node: state.node)
-        return .customInline(parsedRange: parsedRange, text: text)
-    }
+    /// Build one node's `RawMarkup` from its already-converted `children`. Leaf kinds ignore
+    /// `children` and read their literal content directly.
+    private static func build(_ node: borrowing MarkdownNode, children: [RawMarkup], source: URL?, options: ParseOptions) -> RawMarkup {
+        let parsedRange = range(node, source: source)
 
-    /// Converts a leaf cmark node directly into its corresponding `RawMarkup` representation.
-    private static func createLeaf(state: MarkupConverterState) -> RawMarkup {
-        switch state.nodeType {
-        case .codeBlock:
-            return convertCodeBlock(state)
-        case .htmlBlock:
-            return convertHTMLBlock(state)
-        case .thematicBreak:
-            return convertThematicBreak(state)
-        case .text:
-            return convertText(state)
-        case .softBreak:
-            return convertSoftBreak(state)
-        case .lineBreak:
-            return convertLineBreak(state)
-        case .code:
-            return convertInlineCode(state)
-        case .html:
-            return convertInlineHTML(state)
-        case .customInline:
-            return convertCustomInline(state)
-        default:
-            fatalError("Unhandled leaf node type: \(state.nodeType)")
-        }
-    }
-
-    /// Converts a completed parsing frame into its corresponding `RawMarkup` node.
-    ///
-    /// This is called when the matching `CMARK_EVENT_EXIT` is encountered.
-    /// At that point all descendant nodes have already been converted and
-    /// accumulated in `frame.children`.
-    private static func createContainer(frame: ParsingFrame, state: MarkupConverterState) -> RawMarkup {
-        precondition(state.event == CMARK_EVENT_EXIT, "Expected EXIT event when closing a container node.")
-        precondition(state.nodeType == frame.nodeType, "MarkupConverterState nodeType does not match the frame being closed.")
-        let node = frame.node
-        let children = frame.children
-        let parsedRange = frame.parsedRange
-
-        switch frame.nodeType {
+        switch node.kind {
+        // Blocks
         case .document:
             return .document(parsedRange: parsedRange, children)
         case .blockQuote:
             return .blockQuote(parsedRange: parsedRange, children)
-        case .list:
-            for child in children {
-                guard case .listItem = child.data else { fatalError("Converted cmark list had a non-listItem node") }
-            }
-            switch cmark_node_get_list_type(node) {
-            case CMARK_BULLET_LIST:
+        case .list(let info):
+            switch info.kind {
+            case .bullet:
                 return .unorderedList(parsedRange: parsedRange, children)
-            case CMARK_ORDERED_LIST:
-                let cmarkStart = UInt(cmark_node_get_list_start(node))
-                return .orderedList(parsedRange: parsedRange, children, startIndex: cmarkStart)
-            default:
-                fatalError("cmark reported a list node but said its list type is CMARK_NO_LIST?")
+            case .ordered:
+                return .orderedList(parsedRange: parsedRange, children, startIndex: UInt(info.start))
+            @unknown default:
+                return .unorderedList(parsedRange: parsedRange, children)
             }
-        case .item:
-            return .listItem(checkbox: .none, parsedRange: parsedRange, children)
+        case .item(let checked):
+            let checkbox: Checkbox?
+            switch checked {
+            case .none: checkbox = nil
+            case .some(true): checkbox = .checked
+            case .some(false): checkbox = .unchecked
+            }
+            return .listItem(checkbox: checkbox, parsedRange: parsedRange, children)
+        case .codeBlock:
+            return .codeBlock(parsedRange: parsedRange, code: literal(node), language: codeBlockLanguage(node))
+        case .htmlBlock:
+            return .htmlBlock(parsedRange: parsedRange, html: literal(node))
         case .customBlock:
             return .customBlock(parsedRange: parsedRange, children)
         case .paragraph:
             return .paragraph(parsedRange: parsedRange, children)
-        case .heading:
-            let headingLevel = Int(cmark_node_get_heading_level(node))
-            return .heading(level: headingLevel, parsedRange: parsedRange, children)
+        case .heading(let level):
+            return .heading(level: level, parsedRange: parsedRange, children)
+        case .thematicBreak:
+            return .thematicBreak(parsedRange: parsedRange)
+        case .table:
+            return convertTable(node, parsedRange: parsedRange, source: source, options: options)
+        case .tableRow, .tableCell:
+            // Rows/cells are only reached through `convertTable`, which handles them directly.
+            fatalError("table row/cell encountered outside of a table")
+
+        // Inlines
+        case .text:
+            return .text(parsedRange: parsedRange, string: literal(node))
+        case .softBreak:
+            return .softBreak(parsedRange: parsedRange)
+        case .lineBreak:
+            return .lineBreak(parsedRange: parsedRange)
+        case .codeInline(let backtickCount):
+            let code = literal(node)
+            // A double-backtick code span denotes a DocC symbol link — unless its content contains a
+            // backtick, in which case the multi-backtick delimiters exist to escape backtick content
+            // (code voice), not to name a symbol. See https://github.com/swiftlang/swift-markdown/issues/93.
+            if options.contains(.parseSymbolLinks) && backtickCount > 1 && !code.contains("`") {
+                return .symbolLink(parsedRange: parsedRange, destination: code)
+            }
+            return .inlineCode(parsedRange: parsedRange, code: code)
+        case .htmlInline:
+            return .inlineHTML(parsedRange: parsedRange, html: literal(node))
+        case .customInline:
+            return .customInline(parsedRange: parsedRange, text: literal(node))
         case .emphasis:
             return .emphasis(parsedRange: parsedRange, children)
         case .strong:
             return .strong(parsedRange: parsedRange, children)
         case .link:
-            let destination = String(cString: cmark_node_get_url(node))
-            let title = String(cString: cmark_node_get_title(node))
-            return .link(destination: destination.isEmpty ? nil : destination, title: title.isEmpty ? nil : title, parsedRange: parsedRange, children)
+            let (destination, title) = linkDestinationAndTitle(node)
+            return .link(destination: destination, title: title, parsedRange: parsedRange, children)
         case .image:
-            let source = String(cString: cmark_node_get_url(node))
-            let title = String(cString: cmark_node_get_title(node))
-            return .image(source: source.isEmpty ? nil : source, title: title.isEmpty ? nil : title, parsedRange: parsedRange, children)
+            let (destination, title) = linkDestinationAndTitle(node)
+            return .image(source: destination, title: title, parsedRange: parsedRange, children)
         case .strikethrough:
             return .strikethrough(parsedRange: parsedRange, children)
-        case .taskListItem:
-            let checkbox: Checkbox = cmark_gfm_extensions_get_tasklist_item_checked(node) ? .checked : .unchecked
-            return .listItem(checkbox: checkbox, parsedRange: parsedRange, children)
-        case .table:
-            let columnCount = Int(cmark_gfm_extensions_get_table_columns(node))
-            let columnAlignments = (0..<columnCount).map { column -> Table.ColumnAlignment? in
-                let ascii = cmark_gfm_extensions_get_table_alignments(node)[column]
-                switch UnicodeScalar(ascii) {
-                case "l": return .left
-                case "r": return .right
-                case "c": return .center
-                case "\0": return nil
-                default: fatalError("Unexpected table column character")
-                }
-            }
+        case .attribute:
+            return .inlineAttributes(attributes: attributeString(node), parsedRange: parsedRange, children)
 
-            var mutableChildren = children
-            let header: RawMarkup
-            // GFM tables are represented as a header followed by body rows.
-            if let firstChild = mutableChildren.first, case .tableHead = firstChild.data {
-                header = firstChild
-                mutableChildren.removeFirst()
-            } else {
-                header = .tableHead(parsedRange: nil, columns: [])
-            }
-
-            if mutableChildren.isEmpty {
-                precondition(state.pendingTableBody == nil)
-            }
-            let body = RawMarkup.tableBody(parsedRange: state.pendingTableBody?.range, rows: mutableChildren)
-            return .table(columnAlignments: columnAlignments, parsedRange: parsedRange, header: header, body: body)
-        case .tableHead:
-            return .tableHead(parsedRange: parsedRange, columns: children)
-        case .tableRow:
-            return .tableRow(parsedRange: parsedRange, children)
-        case .tableCell:
-            let colspan = UInt(cmark_gfm_extensions_get_table_cell_colspan(node))
-            let rowspan = UInt(cmark_gfm_extensions_get_table_cell_rowspan(node))
-            return .tableCell(parsedRange: parsedRange, colspan: colspan, rowspan: rowspan, children)
-        case .inlineAttributes:
-            let attributes = String(cString: cmark_node_get_attributes(node))
-            return .inlineAttributes(attributes: attributes, parsedRange: parsedRange, children)
-        default:
-            fatalError("Unknown container node type '\(frame.nodeType.rawValue)'")
+        // Not produced by the option set used here (footnotes are never enabled).
+        case .footnoteReference, .footnoteDefinition:
+            fatalError("footnote nodes are not expected without footnote parsing enabled")
+        @unknown default:
+            fatalError("unhandled CommonMark node kind")
         }
     }
 
-    static func parseString(_ string: String, source: URL?, options: ParseOptions) -> Document {
-        cmark_gfm_core_extensions_ensure_registered()
+    /// Convert a `.table` node, regrouping cmark-swift's flat header/body rows into swift-markdown's
+    /// `tableHead` + `tableBody` shape and deriving per-column alignments from the header cells.
+    /// Tables are shallow, so cell contents are converted via the (iterative) `convert` driver.
+    private static func convertTable(_ node: borrowing MarkdownNode, parsedRange: SourceRange?, source: URL?, options: ParseOptions) -> RawMarkup {
+        var header: RawMarkup?
+        var bodyRows: [RawMarkup] = []
+        var columnAlignments: [Table.ColumnAlignment?] = []
+        // The body has no cmark node of its own, so its range is synthesized: from the first body row's
+        // start to the table's end (matching cmark/swift-markdown), or nil when there are no body rows.
+        var firstBodyRowStart: SourceLocation?
 
-        var cmarkOptions = CMARK_OPT_TABLE_SPANS
-        if !options.contains(.disableSmartOpts) {
-            cmarkOptions |= CMARK_OPT_SMART
-        }
-        if !options.contains(.disableSourcePosOpts) {
-            cmarkOptions |= CMARK_OPT_SOURCEPOS
-        }
-        
-        let parser = cmark_parser_new(cmarkOptions)
-        
-        cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("table"))
-        cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("strikethrough"))
-        cmark_parser_attach_syntax_extension(parser, cmark_find_syntax_extension("tasklist"))
-        cmark_parser_feed(parser, string, string.utf8.count)
-        let rawDocument = cmark_parser_finish(parser)
-        var state = MarkupConverterState(source: source, iterator: cmark_iter_new(rawDocument), event: CMARK_EVENT_NONE, node: nil, options: options, headerSeen: false, pendingTableBody: nil).next()
-        
-        precondition(state.event == CMARK_EVENT_ENTER)
-        precondition(state.nodeType == .document)
+        node.children.forEach { row in
+            let isHeaderRow: Bool
+            if case .tableRow(let isHeader) = row.kind { isHeaderRow = isHeader } else { isHeaderRow = false }
 
-        var stack = [ParsingFrame]()
-
-        while state.event != CMARK_EVENT_DONE {
-            guard let node = state.node else {
-                state = state.next()
-                continue
+            var cells: [RawMarkup] = []
+            row.children.forEach { cell in
+                if isHeaderRow {
+                    columnAlignments.append(columnAlignment(cell.kind))
+                }
+                var cellChildren: [RawMarkup] = []
+                cell.children.forEach { inline in
+                    cellChildren.append(convert(inline, source: source, options: options))
+                }
+                let (columns, rows): (Int, Int)
+                if case .tableCell(_, let c, let r) = cell.kind { (columns, rows) = (c, r) } else { (columns, rows) = (1, 1) }
+                cells.append(.tableCell(
+                    parsedRange: range(cell, source: source),
+                    colspan: UInt(columns),
+                    rowspan: UInt(rows),
+                    cellChildren
+                ))
             }
-            
-            let nodeType = state.nodeType
-            let parsedRange = state.range(node)
 
-            if state.event == CMARK_EVENT_ENTER {
-                if nodeType.isLeaf {
-                    let leaf = createLeaf(state: state)
-                    precondition(!stack.isEmpty, "Leaf node encountered without a parent document on the stack.")
-                    stack[stack.count - 1].children.append(leaf)
-                } else {
-                    stack.append(ParsingFrame(node: node, nodeType: nodeType, parsedRange: parsedRange))
+            let rowRange = range(row, source: source)
+            if isHeaderRow {
+                header = .tableHead(parsedRange: rowRange, columns: cells)
+            } else {
+                if firstBodyRowStart == nil {
+                    firstBodyRowStart = rowRange?.lowerBound
                 }
-                state = state.next()
-                
-            } else if state.event == CMARK_EVENT_EXIT {
-                precondition(!nodeType.isLeaf, "cmark iterators should never return EXIT events for leaf nodes.")
-                
-                let frame = stack.removeLast()
-                precondition(frame.node == node)
-                
-                let container = createContainer(frame: frame, state: state)
-                
-                if stack.isEmpty {
-                    precondition(frame.nodeType == .document)
-                    let iterator = state.iterator
-                    
-                    cmark_iter_free(iterator)
-                    cmark_node_free(rawDocument)
-                    cmark_parser_free(parser)
-                    
-                    let data = _MarkupData(AbsoluteRawMarkup(markup: container, metadata: MarkupMetadata(id: .newRoot(), indexInParent: 0)))
-                    return makeMarkup(data) as! Document
-                    
-                } else {
-                    stack[stack.count - 1].children.append(container)
-                    state = state.next(clearPendingTableBody: nodeType == .table)
-                }
+                bodyRows.append(.tableRow(parsedRange: rowRange, cells))
             }
         }
 
-        fatalError("cmark iteration terminated prematurely without cleanly exiting the document root.")
+        let head = header ?? .tableHead(parsedRange: nil, columns: [])
+        // Body spans the first body row's start through the table's end.
+        let bodyRange: SourceRange?
+        if let start = firstBodyRowStart, let tableEnd = parsedRange?.upperBound {
+            bodyRange = start..<tableEnd
+        } else {
+            bodyRange = nil
+        }
+        let body = RawMarkup.tableBody(parsedRange: bodyRange, rows: bodyRows)
+        return .table(columnAlignments: columnAlignments, parsedRange: parsedRange, header: head, body: body)
+    }
+
+    /// Map a cell kind's alignment to swift-markdown's optional `ColumnAlignment`.
+    private static func columnAlignment(_ kind: MarkdownNode.Kind) -> Table.ColumnAlignment? {
+        guard case .tableCell(let alignment, _, _) = kind else { return nil }
+        switch alignment {
+        case .none: return nil
+        case .left: return .left
+        case .center: return .center
+        case .right: return .right
+        @unknown default: return nil
+        }
     }
 }
