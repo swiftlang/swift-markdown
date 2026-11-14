@@ -182,15 +182,17 @@ struct PendingBlockDirective {
             // "@xx { yy } zz }" "yy } zz" will be parsed
 
             var reversedRemainingContent = TrimmedLine(Substring(line.text.reversed()), source: line.source, lineNumber: line.lineNumber)
-            reversedRemainingContent.lexWhitespace()
+            // Whitespace after `}` in the original line, measured before lexing the brace.
+            let trailingWhiteSpaceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
             if !line.text.isEmpty,
                reversedRemainingContent.lex("}") != nil {
-                let trailingWhiteSpaceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
-                let textCount = line.text.count - trailingWhiteSpaceCount - 1
-                let leadingSpacingCount = line.untrimmedText.count - textCount - trailingWhiteSpaceCount - 1
+                // Whitespace before `}` in the original line.
+                let whitespaceBeforeBraceCount = reversedRemainingContent.lexWhitespace()?.text.count ?? 0
+                let textCount = line.text.count - trailingWhiteSpaceCount - whitespaceBeforeBraceCount - 1
+                let leadingSpacingCount = line.untrimmedText.count - textCount - trailingWhiteSpaceCount - whitespaceBeforeBraceCount - 1
                 innerIndentationColumnCount = leadingSpacingCount // Should we add a new property for this kind of usage?
                 
-                let newLine = String(repeating: " ", count: leadingSpacingCount) + line.untrimmedText.dropFirst(leadingSpacingCount).dropLast(trailingWhiteSpaceCount + 1)
+                let newLine = String(repeating: " ", count: leadingSpacingCount) + line.untrimmedText.dropFirst(leadingSpacingCount).dropLast(trailingWhiteSpaceCount + whitespaceBeforeBraceCount + 1)
                 pendingLine = TrimmedLine(newLine.dropFirst(0), source: line.source, lineNumber: line.lineNumber)
                 parseState = .done
                 endLocation = SourceLocation(line: line.lineNumber ?? 0, column: line.untrimmedText.count + 1, source: line.source)
