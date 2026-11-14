@@ -995,13 +995,28 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         let expectedDump = #"""
         Document @1:1-4:2
         ├─ BlockDirective @1:1-1:19 name: "blah"
-        │  └─ Paragraph @1:9-1:17
+        │  └─ Paragraph @1:9-1:16
         │     └─ Text @1:9-1:16 "content"
         └─ BlockDirective @2:1-4:2 name: "blah"
            └─ Paragraph @3:5-3:12
               └─ Text @3:5-3:12 "content"
         """#
         XCTAssertEqual(document.debugDescription(options: .printSourceLocations), expectedDump)
+    }
+
+    func testSingleLineDirectiveWithMultipleTrailingSpaces() {
+        // Issue 287: when a closing brace is followed by more trailing
+        // whitespace than precedes it, the `}` leaked into the content.
+        let source = "@xx { yy }\("   ")\n@xx { yy}\("   ")"
+        let document = Document(parsing: source, options: [.parseBlockDirectives])
+
+        let first = document.child(at: 0) as! BlockDirective
+        let firstParagraph = first.child(at: 0) as! Paragraph
+        XCTAssertEqual("yy", (firstParagraph.child(at: 0) as! Text).string)
+
+        let second = document.child(at: 1) as! BlockDirective
+        let secondParagraph = second.child(at: 0) as! Paragraph
+        XCTAssertEqual("yy", (secondParagraph.child(at: 0) as! Text).string)
     }
 
     func testSingleLineDirectiveWithTrailingContent() {
