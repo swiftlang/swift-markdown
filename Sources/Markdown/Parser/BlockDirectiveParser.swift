@@ -779,6 +779,9 @@ struct ParseContainerStack {
 
     private let options: ParseOptions
 
+    /// Whether the current line run contains an unclosed HTML comment block.
+    private var isInHTMLComment = false
+
     init<TrimmedLines: Sequence>(parsingHierarchyFrom trimmedLines: TrimmedLines, options: ParseOptions) where TrimmedLines.Element == TrimmedLine {
         self.stack = [.root([])]
         self.options = options
@@ -821,7 +824,7 @@ struct ParseContainerStack {
             return true
         }
 
-        return line.isProbablyCodeFence || top.isInCodeFence
+        return isInHTMLComment || line.isProbablyCodeFence || top.isInCodeFence
     }
 
     /// Try to parse a block directive opening from a ``LineSegment``, returning `nil` if
@@ -959,6 +962,19 @@ struct ParseContainerStack {
         // indentation calculation to account for its content.
         updateIndentation(for: line)
 
+        if !isInHTMLComment, !isCodeFenceOrIndentedCodeBlock(on: line) {
+            var remainder = line
+            remainder.lexWhitespace()
+            isInHTMLComment = remainder.text.starts(with: "<!--")
+        }
+        defer {
+            if isInHTMLComment, line.text.contains("-->") {
+                isInHTMLComment = false
+            }
+        }
+        // Fence-like text inside an HTML comment is literal comment content.
+        let isCodeFence = !isInHTMLComment && line.isProbablyCodeFence
+
         // Check to see if this line closes a block directive with a right
         // curly brace. This may implicitly close several directives, such as in
         // the following scenario:
@@ -1026,11 +1042,11 @@ struct ParseContainerStack {
         } else {
             switch top {
             case .root:
-                push(.lineRun([line], isInCodeFence: line.isProbablyCodeFence))
+                push(.lineRun([line], isInCodeFence: isCodeFence))
             case .lineRun(var lines, let isInCodeFence):
                 pop()
                 lines.append(line)
-                push(.lineRun(lines, isInCodeFence: isInCodeFence != line.isProbablyCodeFence))
+                push(.lineRun(lines, isInCodeFence: isInCodeFence != isCodeFence))
             case .doxygenCommand(var pendingDoxygenCommand, var lines):
                 pop()
                 lines.append(line)
@@ -1054,7 +1070,7 @@ struct ParseContainerStack {
                     if !pendingBlockDirective.isAwaitingChildContent {
                         closeTop()
                     }
-                    push(.lineRun([line], isInCodeFence: line.isProbablyCodeFence))
+                    push(.lineRun([line], isInCodeFence: isCodeFence))
                 }
             }
         }

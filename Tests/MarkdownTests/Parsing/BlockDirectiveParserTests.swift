@@ -524,6 +524,56 @@ class BlockDirectiveArgumentParserTests: XCTestCase {
         XCTAssertEqual(expectedDump, document.debugDescription(options: .printSourceLocations))
     }
 
+    func testCodeFencesInHTMLCommentsDoNotAffectFollowingCodeBlocks() throws {
+        for fence in ["~~~", "```"] {
+            let source = """
+            <!--
+            Heading
+            \(fence)
+            -->
+
+            ```swift
+            @available(*, unavailable)
+            extension Example: Sendable {}
+            ```
+
+            @After
+            """
+            let document = Document(parsing: source, options: .parseBlockDirectives)
+            XCTAssertEqual(document.childCount, 3)
+            XCTAssertNotNil(document.child(at: 0) as? HTMLBlock)
+            let code = try XCTUnwrap(document.child(at: 1) as? CodeBlock)
+            XCTAssertEqual(code.code, "@available(*, unavailable)\nextension Example: Sendable {}\n")
+            XCTAssertEqual((document.child(at: 2) as? BlockDirective)?.name, "After")
+        }
+    }
+
+    func testHTMLCommentsInsideDirectivesRemainLiteral() throws {
+        let source = """
+        @Outer {
+            <!--
+            @Ignored
+            }
+            ~~~
+            -->
+            @Inner
+        }
+        """
+        let document = Document(parsing: source, options: .parseBlockDirectives)
+        let outer = try XCTUnwrap(document.child(at: 0) as? BlockDirective)
+        XCTAssertEqual(document.childCount, 1)
+        XCTAssertEqual(outer.childCount, 2)
+        XCTAssertNotNil(outer.child(at: 0) as? HTMLBlock)
+        XCTAssertEqual((outer.child(at: 1) as? BlockDirective)?.name, "Inner")
+    }
+
+    func testHTMLCommentMarkersInCodeDoNotHideFollowingDirectives() {
+        for code in ["    <!--", "```\n<!--\n```", "<!-- closed -->"] {
+            let document = Document(parsing: "\(code)\n\n@After", options: .parseBlockDirectives)
+            XCTAssertEqual((document.child(at: document.childCount - 1) as? BlockDirective)?.name, "After")
+        }
+    }
+
     func testDontOpenBlockDirectivesInCodeBlocks() {
         let source = """
         @Outer {
