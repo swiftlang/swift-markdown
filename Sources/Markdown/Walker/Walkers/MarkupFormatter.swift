@@ -272,6 +272,7 @@ public struct MarkupFormatter: MarkupWalker {
         var thematicBreakCharacter: ThematicBreakCharacter
         var thematicBreakLength: UInt
         var emphasisMarker: EmphasisMarker
+        var strongEmphasisMarker: EmphasisMarker
         var condenseAutolinks: Bool
         var preferredHeadingStyle: PreferredHeadingStyle
         var preferredLineLimit: PreferredLineLimit?
@@ -289,7 +290,8 @@ public struct MarkupFormatter: MarkupWalker {
             - defaultCodeBlockLanguage: The default language string to use when code blocks don't have a language and will be printed as fenced code blocks.
             - thematicBreakCharacter: The character to use for thematic breaks.
             - thematicBreakLength: The length of printed thematic breaks.
-            - emphasisMarker: The character to use for emphasis and strong emphasis markers.
+            - emphasisMarker: The character to use for emphasis markers.
+            - strongEmphasisMarker: The character to use for strong emphasis markers. If no value is provided, uses `emphasisMarker`.
             - condenseAutolinks: Print links whose link text and destination match as autolinks, e.g. `<https://swift.org>`.
             - preferredHeadingStyle: The preferred heading style.
             - preferredLineLimit: The preferred maximum line length and method for splitting ``Text`` elements in an attempt to maintain that line length.
@@ -304,6 +306,7 @@ public struct MarkupFormatter: MarkupWalker {
                     thematicBreakCharacter: ThematicBreakCharacter = .dash,
                     thematicBreakLength: UInt = 5,
                     emphasisMarker: EmphasisMarker = .star,
+                    strongEmphasisMarker: EmphasisMarker? = nil,
                     condenseAutolinks: Bool = true,
                     preferredHeadingStyle: PreferredHeadingStyle = .atx,
                     preferredLineLimit: PreferredLineLimit? = nil,
@@ -316,6 +319,7 @@ public struct MarkupFormatter: MarkupWalker {
             self.defaultCodeBlockLanguage = defaultCodeBlockLanguage
             self.thematicBreakCharacter = thematicBreakCharacter
             self.emphasisMarker = emphasisMarker
+            self.strongEmphasisMarker = strongEmphasisMarker ?? emphasisMarker
             self.condenseAutolinks = condenseAutolinks
             self.preferredHeadingStyle = preferredHeadingStyle
             self.preferredLineLimit = preferredLineLimit
@@ -891,9 +895,9 @@ public struct MarkupFormatter: MarkupWalker {
     }
 
     public mutating func visitStrong(_ strong: Strong) {
-        print(String(repeating: formattingOptions.emphasisMarker.rawValue, count: 2), for: strong)
+        print(String(repeating: formattingOptions.strongEmphasisMarker.rawValue, count: 2), for: strong)
         descendInto(strong)
-        print(String(repeating: formattingOptions.emphasisMarker.rawValue, count: 2), for: strong)
+        print(String(repeating: formattingOptions.strongEmphasisMarker.rawValue, count: 2), for: strong)
     }
 
     public mutating func visitText(_ text: Text) {

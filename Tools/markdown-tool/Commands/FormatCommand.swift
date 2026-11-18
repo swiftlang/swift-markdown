@@ -96,6 +96,9 @@ extension MarkdownCommand {
         @Option(help: "Emphasis marker; choices: \(MarkupFormatter.Options.EmphasisMarker.allCases.map { $0.rawValue }.joined(separator: ", "))")
         var emphasisMarker: String = "*"
 
+        @Option(help: "Strong emphasis marker; choices: \(MarkupFormatter.Options.EmphasisMarker.allCases.map { $0.rawValue }.joined(separator: ", "))")
+        var strongEmphasisMarker: String?
+
         @Flag(inversion: .prefixedNo, exclusivity: .chooseLast, help: "Condense links whose text matches their destination to 'autolinks' e.g. <https://swift.org>")
         var condenseAutolinks: Bool = true
 
@@ -206,6 +209,16 @@ extension MarkdownCommand {
                 throw ArgumentParser.ValidationError("The value '\(self.emphasisMarker)' is invalid for '--emphasis-marker'")
             }
 
+            let strongEmphasisMarker: MarkupFormatter.Options.EmphasisMarker?
+            if let marker = self.strongEmphasisMarker {
+                guard let marker = MarkupFormatter.Options.EmphasisMarker(argument: marker) else {
+                    throw ArgumentParser.ValidationError("The value '\(marker)' is invalid for '--strong-emphasis-marker'")
+                }
+                strongEmphasisMarker = marker
+            } else {
+                strongEmphasisMarker = nil
+            }
+
             guard let unorderedListMarker = MarkupFormatter.Options.UnorderedListMarker(argument: unorderedListMarker) else {
                 throw ArgumentParser.ValidationError("The value '\(self.unorderedListMarker)' is invalid for '--unordered-list-marker'")
             }
@@ -229,6 +242,7 @@ extension MarkdownCommand {
                                                   thematicBreakCharacter: thematicBreakCharacter,
                                                   thematicBreakLength: thematicBreakLength,
                                                   emphasisMarker: emphasisMarker,
+                                                  strongEmphasisMarker: strongEmphasisMarker,
                                                   condenseAutolinks: condenseAutolinks,
                                                   preferredHeadingStyle: preferredHeadingStyle,
                                                   preferredLineLimit: preferredLineLimit,
