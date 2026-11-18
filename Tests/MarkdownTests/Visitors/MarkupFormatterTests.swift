@@ -1467,6 +1467,21 @@ class MarkupFormatterTableTests: XCTestCase {
         XCTAssertEqual(expected, formatted)
     }
 
+    func testEmptyUnalignedColumnPrintsValidDelimiter() {
+        let head = Table.Head(Table.Cell(Text("A")), Table.Cell())
+        let body = Table.Body(Table.Row(Table.Cell(Text("1")), Table.Cell()))
+        let document = Document(Table(header: head, body: body))
+
+        let expected = """
+        |A| |
+        |-|-|
+        |1| |
+        """
+        let formatted = document.format()
+        XCTAssertEqual(expected, formatted)
+        XCTAssertTrue(document.hasSameStructure(as: Document(parsing: formatted)))
+    }
+
     func testRoundTripStructure() {
         let source = """
         |*A*|**B**|~C~|

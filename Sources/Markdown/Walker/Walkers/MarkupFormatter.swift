@@ -998,7 +998,7 @@ public struct MarkupFormatter: MarkupWalker {
         /// The final widths of each column in characters.
         var finalColumnWidths = columnAlignments.map { alignment -> Int in
             guard let alignment = alignment else {
-                return 0
+                return 1
             }
             switch alignment {
             case .left,
