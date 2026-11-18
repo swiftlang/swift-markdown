@@ -1372,6 +1372,132 @@ class MarkupFormatterLineSplittingTests: XCTestCase {
         XCTAssertEqual(expected, printed)
         XCTAssertTrue(document.hasSameStructure(as: Document(parsing: printed)))
     }
+
+    /**
+     Test that line wrapping near an inline code block does not emit extra newlines,
+     and that formatting the same document multiple times is idempotent.
+     */
+    func testInlineCodeWrappingIdempotence() {
+        let source = "This indent is applied independently of `contributesBlockIndent`, which means a given break may apply both a continuation indent and a block indent, either indent, or neither indent."
+        
+        let expected = """
+        This indent is applied independently of
+        `contributesBlockIndent`, which means a given break
+        may apply both a continuation indent and a block
+        indent, either indent, or neither indent.
+        """
+        
+        let options = MarkupFormatter.Options(
+            preferredLineLimit: .init(maxLength: 55, breakWith: .softBreak)
+        )
+        
+        let document1 = Document(parsing: source)
+        let trip1 = document1.format(options: options)
+        
+        XCTAssertEqual(expected, trip1, "First formatting pass failed to wrap correctly without extra newlines.")
+        
+        let document2 = Document(parsing: trip1)
+        let trip2 = document2.format(options: options)
+        
+        XCTAssertEqual(trip1, trip2, "Formatter is not idempotent; second pass changed the output.")
+    }
+    
+    /**
+     Test that wrapping inline code inside a list item correctly preserves
+     the list item's indentation prefix without duplicating or dropping it.
+     */
+    func testInlineCodeInListWrappingIdempotence() {
+        let source = "- This indent is applied independently of `contributesBlockIndent`, which means a given break may apply."
+        
+        let expected = """
+        - This indent is applied independently of
+          `contributesBlockIndent`, which means a
+          given break may apply.
+        """
+        
+        let options = MarkupFormatter.Options(
+            preferredLineLimit: .init(maxLength: 45, breakWith: .softBreak)
+        )
+        
+        let trip1 = Document(parsing: source).format(options: options)
+        XCTAssertEqual(expected, trip1, "List prefix was not preserved correctly during wrap.")
+        
+        let trip2 = Document(parsing: trip1).format(options: options)
+        XCTAssertEqual(trip1, trip2, "List formatting is not idempotent.")
+    }
+    
+    /**
+     Test that inline code safely handles pre-existing soft breaks in the AST
+     without triggering double-newlines or ghost spaces.
+     */
+    func testInlineCodeWithExistingSoftBreaksIdempotence() {
+        let source = """
+        Some text before
+        `inlineCode`
+        Some text after
+        """
+        
+        let expected = "Some text before `inlineCode` Some text after"
+        
+        let options = MarkupFormatter.Options(
+            preferredLineLimit: .init(maxLength: 55, breakWith: .softBreak)
+        )
+        
+        let trip1 = Document(parsing: source).format(options: options)
+        XCTAssertEqual(expected, trip1, "Formatter mishandled existing soft breaks near inline code.")
+        
+        let trip2 = Document(parsing: trip1).format(options: options)
+        XCTAssertEqual(trip1, trip2, "Soft break formatting is not idempotent.")
+    }
+    
+    /**
+     Test that wrapping inline code inside a blockquote correctly preserves
+     the blockquote prefix (`> `).
+     */
+    func testInlineCodeInBlockquoteWrappingIdempotence() {
+        let source = "> This is `inlineCode` that wraps because it is very very very long."
+        
+        let expected = """
+        > This is `inlineCode` that
+        > wraps because it is very
+        > very very long.
+        """
+        
+        let options = MarkupFormatter.Options(
+            preferredLineLimit: .init(maxLength: 30, breakWith: .softBreak)
+        )
+        
+        let trip1 = Document(parsing: source).format(options: options)
+        XCTAssertEqual(expected, trip1, "Blockquote prefix was not preserved correctly.")
+        
+        let trip2 = Document(parsing: trip1).format(options: options)
+        XCTAssertEqual(trip1, trip2, "Blockquote formatting is not idempotent.")
+    }
+    
+    /**
+     Test that wrapping inline code inside an ordered list correctly calculates
+     and preserves the dynamic numeral prefix length.
+     */
+    func testInlineCodeInOrderedListWrappingIdempotence() {
+        let source = "1. This is `inlineCode` that wraps because it is very very very long."
+        
+        let expected = """
+        1. This is `inlineCode`
+           that wraps because it
+           is very very very
+           long.
+        """
+        
+        let options = MarkupFormatter.Options(
+            preferredLineLimit: .init(maxLength: 25, breakWith: .softBreak)
+        )
+        
+        let trip1 = Document(parsing: source).format(options: options)
+        XCTAssertEqual(expected, trip1, "Ordered list prefix was not preserved correctly.")
+        
+        let trip2 = Document(parsing: trip1).format(options: options)
+        XCTAssertEqual(trip1, trip2, "Ordered list formatting is not idempotent.")
+    }
 }
 
 class MarkupFormatterTableTests: XCTestCase {
