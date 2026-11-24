@@ -41,6 +41,17 @@ print(document.debugDescription())
 //    └─ Text "."
 ```
 
+This library can also handle some HTML rendering.
+
+```swift
+import Markdown
+
+let source = "This is a markup *document*."
+let document = Document(parsing: source)
+print(HTMLFormatter.format(document, options: []))
+// <p>This is a markup <em>document</em>.</p>
+```
+
 Please see Swift `Markdown`'s [documentation site](https://swiftlang.github.io/swift-markdown/documentation/markdown/)
 for more detailed information about the library.
 
